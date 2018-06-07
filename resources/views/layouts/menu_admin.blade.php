@@ -28,6 +28,9 @@
 			                                <li><a href="{{ route('sectors.index') }}">Sectores</a></li>
 				                            <li><a href="{{ route('sipocs.index') }}">Sipoc</a></li>
 				                            <li><a href="{{ route('vsectors.index') }}">Variable Sectorial</a></li>
+                                                            <li><a href="{{ route('instituciones.index') }}">Instituci&oacut&oacute;n</a></li>
+                                                            <li><a href="{{ route('consejoSectorial.index') }}">Consejo Sectorial</a></li>
+                                                            <li><a href="{{ route('consejoInstitucions.index') }}">Consejo Sectorial - Instituci&oacute;n</a></li>
 				                        </ul>
 			                        </li>
 			                        <li class="down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Propuestas <span class="caret"></span></a>
