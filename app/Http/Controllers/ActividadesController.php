@@ -308,6 +308,23 @@ class ActividadesController extends Controller
         return view('institucion.actividades.createDesp')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
     }
 
+    public function createDespliegueAdmin($idSolucion)
+    {
+        $solucion = Solucion::find($idSolucion);
+
+        $tipo_fuente = Auth::user()->tipo_fuente;
+
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                ->where('tipo_fuente','=', 1)
+                                ->orderBy('created_at','ASC')->get();
+
+        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+                                            ->where('tipo_fuente','=',1)
+                                            ->orderBy('tipo_actor','ASC')->get();
+
+        return view('admin.actores.actividades.createDesp')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -459,6 +476,119 @@ class ActividadesController extends Controller
             return redirect()->route('verSolucion.consejo',[$tipo_actor, $idSolucion]);
         }
 
+    }
+     public function saveActividadAdmin(Request $request, $tipo_actor, $idSolucion) 
+    {
+        $tipo_fuente = Auth::user()->tipo_fuente;
+        $actividad = new Actividad;
+        $actividad-> comentario = $request-> comentario;
+        $actividad-> solucion_id = $idSolucion;
+        $actividad-> ejecutor_id = $request-> institucion_id;
+        $actividad-> tipo_fuente = $tipo_actor; 
+        
+
+        //dd($request->tipo_fuente_id);
+        if( isset($request-> fecha) ){
+            $actividad-> fecha_inicio = $request-> fecha. " 00:00:00";
+            if($request->tipo_fuente_id ==1){
+                    $solucion = Solucion::find($idSolucion);
+                    $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
+                    $solucion->save();
+                }
+            if($request->tipo_fuente_id ==2){
+                dd($tipo_fuente_id);
+                
+                $solucion = Solucion::find($idSolucion);
+                $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
+                $solucion->save();
+            }
+        }
+
+        $actividad-> save();
+
+         $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
+            $solucionAsignada = Solucion::find($idSolucion);
+            
+            //dd($actividadcreada->fecha_inicio,$solucionAsignada->pajustada_id,$SolucionesUnificadas);
+            
+            if($solucionAsignada->pajustada_id>0){
+
+            $SolucionesUnificadas = DB::table('solucions')->where('pajustada_id', $solucionAsignada->pajustada_id)->get();
+            //dd($SolucionesUnificadas);
+            foreach($SolucionesUnificadas as $SolucionesUnificadas){
+                //var_dump($SolucionesUnificadas->id);
+                    if($SolucionesUnificadas->id!=$idSolucion){
+                        //dd('entre al if');
+                        $actividadUnificada=new Actividad;
+                        $actividadUnificada-> fecha_inicio = $actividadcreada->fecha_inicio;
+                        $actividadUnificada-> comentario   = $actividadcreada->comentario;
+                        $actividadUnificada-> solucion_id = $SolucionesUnificadas->id;
+                        $actividadUnificada-> tipo_fuente = $actividadcreada->tipo_fuente;
+                        $actividadUnificada-> ejecutor_id = $actividadcreada->ejecutor_id;
+                        $actividadUnificada-> save();
+
+                        $solucionU = Solucion::find($SolucionesUnificadas->id);
+                        $solucionU-> estado_id = 3; // 3 = Propuesta en desarrollo
+                        $solucionU->save();
+                    }
+                    //dd("no entre en el if");
+            }
+            }
+        
+        $nombreArchivos="";
+        $files = $request->file('files');
+
+        if($request->hasFile('files'))
+        {
+            foreach ($files as $file) {
+
+                $nombreArchivo = $file->getClientOriginalName();
+                $nombreArchivo = strtotime("now")."_despliegue_".$idSolucion."_-_".$nombreArchivo;     // agregamos la fecha
+
+                $archivo = new Archivo;
+                $archivo-> nombre_archivo= $nombreArchivo;
+                $archivo-> actividad_id= $actividad->id;
+                $archivo->save();
+                $nombreArchivos.=$nombreArchivo.",";
+
+                /*$file = $request->file('imagen');*/
+                \Storage::disk('local3')->put($nombreArchivo,  \File::get($file) );
+            }
+        }
+        //dd($nombreArchivos);
+        $nombreArchivos=substr($nombreArchivos,0,-1);
+        //dd($nombreArchivos);
+        
+
+                $actividadesUnificadas = DB::table('actividades')->where('comentario', $request-> comentario)->get();
+                //dd($actividadesUnificadas,$nombreArchivos,$actividad->id);
+
+            foreach($actividadesUnificadas as $actividadesUnificadas){
+                $array = explode(",", $nombreArchivos);
+                        
+                    if($actividadesUnificadas->id!=$actividad->id){
+                        
+                        
+                        foreach ($array as $array) {
+                           //dd('entre al 2 '); 
+                            $archivoUnificado = new Archivo;
+                            //dd('estoy 1');
+                            $archivoUnificado-> nombre_archivo= $array;
+                            //dd('estoy 2', $array);
+                            $archivoUnificado-> actividad_id= $actividadesUnificadas->id;
+                            //dd('estoy 3', $actividadesUnificadas->id);
+                            $archivoUnificado->save();
+                            //dd('Guardado 2');
+                        }
+
+                    }
+                    //dd("no entre en el if");
+            }
+
+
+        Flash::success("Se ha creado la actividad exitosamente");
+
+            return redirect('/admin/actores/asignados');
     }
 
     /**

@@ -33,6 +33,7 @@
                                                             <li><a href="{{ route('consejoInstitucions.index') }}">Consejo Sectorial - Instituci&oacute;n</a></li>
 				                        </ul>
 			                        </li>
+			                        <li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a></li>
 			                        <li class="down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Propuestas <span class="caret"></span></a>
 			                            <ul class="dropdown-menu">
 			                        		<li><a href="{{ route('ccpt.index') }}">Consejo</a></li>
