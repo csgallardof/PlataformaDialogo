@@ -220,6 +220,19 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
      ]);
 
 
+      Route::get('/mesadialogo/matrizCarga',[
+          'uses'    =>   'MesaDialogoController@matrizCarga',
+          'as'      =>   'mesadialogo.matrizCarga'
+     ]);
+
+     Route::post('/mesadialogo/vistaPreviaMesas',[
+          'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
+          'as'      =>   'mesadialogo.vistaPreviaMesas'
+     ]);
+     
+     Route::resource('mesadialogo','MesaDialogoController');
+
+
 
 
 });
