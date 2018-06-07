@@ -176,6 +176,8 @@ class MesaDialogoController extends Controller
      */
     public function store(Request $request)
     {
+        //Obtenemos el usuario autenticado
+        $user = Auth::user();
         //Guarda la información de la nueva mesa de dialogo
         if($request->nuevo == true ){
             
@@ -196,6 +198,7 @@ class MesaDialogoController extends Controller
             $mesa_dialogo->fecha = $request->fecha;
             $mesa_dialogo->sector_id = $request->sector_id;
             $mesa_dialogo->descripcion = $request->descripcion;
+            $mesa_dialogo->user_id = $user->id;
           
             $mesa_dialogo->save();
 
@@ -207,8 +210,6 @@ class MesaDialogoController extends Controller
             try{
                 DB::beginTransaction();
 
-                //Obtenemos el usuario autenticado
-                $user = Auth::user();
                 $aux = json_decode($request->mesa_dialogo, true);
                 
                 //Toma el objeto de la mesa validado y guarda en la bdd    

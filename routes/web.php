@@ -153,6 +153,10 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
      Route::resource('soluciones','SolucionesController');
 
      Route::resource('instituciones','InstitucionController');
+     
+     Route::resource('consejoSectorial','ConsejoSectorialController');
+     
+     Route::resource('consejoInstitucions','ConsejoInstitucionsController');
 
      //Route::get('soluciones','SolucionesController@create');
      //Route::post('soluciones/guardar','SolucionesController@store');
@@ -178,6 +182,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
           'uses'=>'ConsejoConsultivoController@vistaPreviaCCPT',
           'as'=>'ccpt.vistaPrevia'
      ]);
+     
 
 
      Route::resource('vocaciones_productivas','VocacionesProductivasController');  //J. Arcos -- rutas para UsersController
@@ -235,6 +240,22 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
      
      Route::resource('mesadialogo','MesaDialogoController');
 
+//Administrar Consejo Sectorial
+Route::get('/crear-consejo-sectorial', 'ConsejoSectorialController@create');
+Route::get('/editar-consejo-sectorial/{id}/edit', 'ConsejoSectorialController@edit');
+Route::get('/listar-consejo-sectorial', 'ConsejoSectorialController@index');
+Route::resource('consejosSectoriales', 'ConsejoSectorialController');
+//Administrar Instituciones
+Route::get('/crear-institucion', 'InstitucionController@create');
+Route::get('/editar-institucion/{id}/edit', 'InstitucionController@edit');
+Route::get('/listar-institucion', 'InstitucionController@index');
+Route::resource('instituciones', 'InstitucionController');
+//Administrar Instituciones por Consejos
+Route::get('/crear-consejo-institucions', 'ConsejoInstitucionsController@create');
+Route::get('/editar-consejo-institucions/{id}/edit', 'ConsejoInstitucionsControllerstitucionController@edit');
+Route::get('/listar-consejo-institucions', 'ConsejoInstitucionsController@index');
+Route::resource('consejoInstituciones', 'ConsejoInstitucionsController');
+Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsController@institucionesSectoresLista');
 
 
 
