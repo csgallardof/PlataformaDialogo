@@ -1,0 +1,53 @@
+/* AGREGADOS */
+
+table.dataTable.nowrap th, table.dataTable.nowrap td {
+    white-space: normal;
+}
+
+
+.buttons-copy, .buttons-csv, .buttons-excel, .buttons-print {
+      color: #fff !important;
+      font-weight: 400;
+      background: #00acac !important;
+      border-color: #ffffff !important;
+}
+
+.buttons-pdf {
+      color: #fff !important;
+      font-weight: 400;
+      background: #DD1919 !important;
+      border-color: #ffffff !important;
+}
+
+.row-m-t-3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    /* background: url(../imagenes/background_home_inteligencia_productiva-2.jpg); */
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.slick-slide:focus { outline: none; }
+
+table.dataTable thead th {
+    outline: none;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding-left: 10px;
+}
+
+.notificaciones
+{
+  color:green; 
+  padding: 1%;
+  font-size: 120%;
+}
+
+

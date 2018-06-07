@@ -1,0 +1,6 @@
+Commands:
+systemctl restart httpd
+chown -R apache:apache *
+
+To update:
+git pull
