@@ -260,8 +260,12 @@ body.page-navbar-fixed-top-sm {
 /* 2.4 Navbar Default Setting  */
 
 .header.navbar.navbar-default {
-    background: #0c3c55;
+    /*background: #0c3c55; */
+
+    background: #0c3c55; /* For browsers that do not support gradients */
+    background: radial-gradient(#015c9c, #103a68);
 }
+
 
 
 /* 2.5 Navbar Transparent & Inverse Setting  */
@@ -1107,9 +1111,12 @@ body.page-navbar-fixed-top-sm {
 /* 13.1 Footer Element Setting */
 
 .footer {
-    padding: 60px 0;
-    background: #0c3c55;
+    padding: 0px 0 !important;
+    height: 100px;
+    
     text-align: center;
+    background: #0c3c55; /* For browsers that do not support gradients */
+    background: radial-gradient(#015c9c, #103a68);
 }
 .footer .footer-brand-logo {
     display: block;
@@ -3231,9 +3238,10 @@ a.list-group-item.active:focus {
 .row-m-t-3 {
     margin-top: 70px;
     margin-bottom: 0px;
-    background: url(../imagenes/background_home_inteligencia_productiva-2.jpg);
+    background: url(../imagenes/dialogo_nacional/background-imagen-dialogo.jpg);
     padding-top: 200px;
     padding-bottom: 50px;
+    background-size: 1500px 800px;
 }
 
 .row-m-t-4 {
@@ -3257,16 +3265,16 @@ a.list-group-item.active:focus {
 
 .btn.btn-buscar {
     color: #fff;
-    background: #F26F21;
-    border-color: #F26F21;
+    background: #43a3f2;
+    border-color: #43a3f2;
 }
 .btn-buscar:hover,
 .btn-buscar:focus,
 .btn-buscar:active,
 .btn-buscar.active,
 .open .dropdown-toggle.btn-buscar {
-    background: #EF5D06 ;
-    border-color: #F26F21;
+    background: #035695;
+    border-color:#035695;
     color: #fff !important;
 }
 .btn-group .btn.btn-buscar:not(.active) + .btn.btn-buscar,

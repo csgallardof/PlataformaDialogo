@@ -1,7 +1,22 @@
 <!-- begin #footer -->
 <div id="footer" class="footer">
+    <div class="col-md-12">
+        <div class="col-md-3 p-t-10" style="background: url(imagenes/dialogo_nacional/footer_ecuador_1.jpg);">
+            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_3.png') }}" width="70px" height="100px" >
+        </div>
 
-    <div class="container">
+        <div class="col-md-5 p-t-10">
+            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_3.png') }}" width="30px" height="35px" >
+        </div>
+
+        <div class="col-md-4 p-t-10">
+            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_2.png') }}" width="350px" height="100px" >
+        </div>
+        
+        
+    </div>
+
+    {{-- <div class="container">
         <div class="footer-brand">
             <img src="{{ asset('imagenes/inteligencia_productiva_home_white.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="400px" height="65px">
             <img src="{{ asset('imagenes/logo_mipro_white.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="175px" height="62px">
@@ -18,6 +33,6 @@
         <p class="text-white">
             Versión Beta 1.0 <br />
         </p>
-    </div>
+    </div> --}}
 </div>
 <!-- end #footer -->

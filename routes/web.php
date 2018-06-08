@@ -15,7 +15,7 @@
 Auth::routes();
 
 Route::get('/', function () {
-     return view('inicio');
+     return view('dialogo_inicio');
 });
 
 Route::get('/reporte','SolucionesController@reporte1');

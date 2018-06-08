@@ -1,0 +1,5 @@
+Footer: Inicio: #0061a2, Fin: #193b68
+Botones: #3893e6
+Texto Titulo: #409bee
+Boton estados propuesta fondo: #6cb9ff
+Cuadros estadisticos resumen detalle propuestas: Cuadro pequeno inicial: #045894, Cuadro largo final: #dbe2e9, Texto: #214974
