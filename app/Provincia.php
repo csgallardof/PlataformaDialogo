@@ -26,6 +26,8 @@ class Provincia extends Model
     	return $this->hasMany('App\Canton');
     }
 
-
+    public static function provincias($id){
+       return Provincia::Where('zona_id','=',$id)->orderBy('nombre_provincia','ASC')->get();
+    }
 
 }

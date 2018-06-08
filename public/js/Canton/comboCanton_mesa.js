@@ -1,5 +1,5 @@
 
-function getSelectValue(){
+function getSelectCantones(){
 
 	var selectedValue= document.getElementById("select-provincia").value;	
 	console.log(selectedValue);
