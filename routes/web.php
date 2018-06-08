@@ -14,11 +14,14 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-     return view('dialogo_inicio');
-});
 
-Route::get('/reporte','SolucionesController@reporte1');
+Route::get('/','PaginasController@homeDialogo');
+
+// Route::get('/', function () {
+//      return view('dialogo.home-dialogo');
+// });
+
+
 
 Route::get('/inicio2', function () {
      return view('inicio2');
@@ -117,6 +120,8 @@ Route::get('storage/{archivo}', function ($archivo) {
 Route::get('/descargar/Mesas', 'ExcelController@exportMesas');
 
 Route::get('/descargar/CCPT', 'ExcelController@exportConsejo');
+
+
 
 /*
 *

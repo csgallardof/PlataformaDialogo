@@ -657,7 +657,7 @@ body.page-navbar-fixed-top-sm {
 .team {
     text-align: center;
     padding: 80px 30px;
-    background: #f3f3f3;
+    /* background: #f3f3f3; */
 
 }
 .team .image {
