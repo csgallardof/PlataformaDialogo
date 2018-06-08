@@ -105,9 +105,7 @@
 										</td>
 										<td>
 											<a href="{{ '/admin/mesadialogo/'.$mesadialogo->id.'/edit' }}" class="btn btn-primary" title="Editar Mesa de Dialogo"><span class="glyphicon glyphicon-pencil"></span></a>
-											<a href="{{ '/admin/mesadialogo/'.$mesadialogo->id.'/actividades' }}" class="btn btn-primary" title="Registrar actividades"><span class="glyphicon glyphicon-list-alt"></span></a>
 											<a href="{{ '/admin/mesadialogo/'.$mesadialogo->id.'/propuestas' }}" class="btn btn-primary" title="Registrar propuestas"><span class="glyphicon glyphicon-th-list"></span></a>
-											<a href="{{ '/admin/mesadialogo/'.$mesadialogo->id.'/responsables' }}" class="btn btn-primary" title="Registrar responsables y coresponsables"><span class="glyphicon glyphicon-user"></span></a>
 										</td>
 						            </tr>
 						        @endforeach

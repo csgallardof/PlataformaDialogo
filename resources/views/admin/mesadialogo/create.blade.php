@@ -12,7 +12,7 @@
   <link href="{{ asset('/css/animate.min.css') }}" rel="stylesheet" /> 
   <link href="{{ asset('/css/style-responsive.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('/css/theme/default.css') }}" rel="stylesheet" id="theme" />  
-
+  <script src="{{ asset('js/Canton/comboCanton.js') }}"></script>
 @endsection
 
 @section('edit_titulo')Registrar @endsection
@@ -117,7 +117,7 @@
                         <div class="form-group">
                                 <label class="col-md-2 control-label" for="zona_id">Zona:</label>
                                 <div class="col-md-4">
-                                    <select class="form-control" id="zona_id" name="zona_id">
+                                    <select class="form-control" id="select-zona" name="zona_id" onchange="getSelectProvincias();">
                                         <option value="">Seleccione una zona</option>
                                         @foreach($zonas as $zona)
                                             @if(isset($item) && $item->zona_id == $zona->id)
@@ -134,55 +134,61 @@
                                 </div>
                                 <label class="col-md-2 control-label" for="provincia_id">Provincia:</label>
                                 <div class="col-md-4">
-                                    <select class="form-control" id="provincia_id" name="provincia_id" >
+                                    <select class="form-control" id="select-provincia" name="provincia_id" onchange="getSelectCantones();">
                                         <option value="">Seleccione una provincia</option>
-                                        @foreach($provincias as $provincia)
-                                            @if(isset($item) && $item->provincia_id == $provincia->id)
-                                                <option value="{{ $provincia->id }}" selected> 
-                                                   {{ $provincia->nombre_provincia }}
-                                                </option>
-                                            @else
-                                                <option value="{{ $provincia->id }}"> 
-                                                    {{ $provincia->nombre_provincia }}
-                                                </option>
-                                            @endif
-                                        @endforeach
+                                        @if(isset($provincias))
+                                            @foreach($provincias as $provincia)
+                                                @if(isset($item) && $item->provincia_id == $provincia->id)
+                                                    <option value="{{ $provincia->id }}" selected> 
+                                                       {{ $provincia->nombre_provincia }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $provincia->id }}"> 
+                                                        {{ $provincia->nombre_provincia }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="canton_id">Cant&oacute;n:</label>
                                 <div class="col-md-4">
-                                    <select class="form-control" id="canton_id" name="canton_id">
+                                    <select class="form-control" id="select-canto" name="canton_id" onchange="getSelectParroquias();">
                                         <option value="">Seleccione un cantón</option>
-                                        @foreach($cantones as $canton)
-                                            @if(isset($item) && $item->canton_id == $canton->id)
-                                                <option value="{{ $canton->id }}" selected> 
-                                                    {{ $canton->nombre_canton }}
-                                                </option>
-                                            @else
-                                                <option value="{{ $canton->id }}"> 
-                                                    {{ $canton->nombre_canton }}
-                                                </option>
-                                            @endif
-                                        @endforeach
+                                        @if(isset($cantones))
+                                            @foreach($cantones as $canton)
+                                                @if(isset($item) && $item->canton_id == $canton->id)
+                                                    <option value="{{ $canton->id }}" selected> 
+                                                        {{ $canton->nombre_canton }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $canton->id }}"> 
+                                                        {{ $canton->nombre_canton }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <label class="col-md-2 control-label" for="parroquia_id">Parroquia:</label>
                                 <div class="col-md-4">
-                                    <select class="form-control" id="parroquia_id" name="parroquia_id" >
+                                    <select class="form-control" id="select-parroquia" name="parroquia_id" >
                                         <option value="">Seleccione una parroquia</option>
-                                        @foreach($parroquias as $parroquia)
-                                            @if(isset($item) && $item->parroquia_id == $parroquia->id)
-                                                <option value="{{ $parroquia->id }}" selected> 
-                                                    {{ $parroquia->nombre_parroquia }}
-                                                </option>
-                                            @else
-                                                <option value="{{ $parroquia->id }}"> 
-                                                    {{ $parroquia->nombre_parroquia }}
-                                                </option>
-                                            @endif
-                                        @endforeach
+                                        @if(isset($parroquias))
+                                            @foreach($parroquias as $parroquia)
+                                                @if(isset($item) && $item->parroquia_id == $parroquia->id)
+                                                    <option value="{{ $parroquia->id }}" selected> 
+                                                        {{ $parroquia->nombre_parroquia }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $parroquia->id }}"> 
+                                                        {{ $parroquia->nombre_parroquia }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -245,5 +251,10 @@
         </div>
     </div>
 </div>
-@endsection
 
+@section('end_js')
+    @parent
+    <script src="{{ asset('js/Provincia/comboProvincia.js') }}"></script>
+    <script src="{{ asset('js/Canton/comboCanton_mesa.js') }}"></script>
+    <script src="{{ asset('js/Parroquia/comboParroquia.js') }}"></script>
+@endsection

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Canton extends Model
 { 
 	public static function cantones($id){
-	   return Canton::Where('provincia_id','=',$id)
+	   return Canton::Where('provincia_id','=',$id)->orderBy('nombre_canton','ASC')
 		->get();
 
 	}

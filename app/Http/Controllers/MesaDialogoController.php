@@ -55,9 +55,6 @@ class MesaDialogoController extends Controller
         $instituciones= Institucion::all();
         $consejosSectoriales= ConsejoSectorial::all();
         $zonas= Zona::all();
-        $provincias= Provincia::all();
-        $cantones= Canton::all();
-        $parroquias= Parroquia::all();
         $sectores= Sector::all();
 
         return view('admin.mesadialogo.create')->with(["nuevo"=> true,
@@ -65,10 +62,7 @@ class MesaDialogoController extends Controller
                                                     "instituciones"=>$instituciones,
                                                     "consejosSectoriales"=>$consejosSectoriales,
                                                     "sectores"=>$sectores,
-                                                    "zonas"=>$zonas,
-                                                    "provincias"=>$provincias,
-                                                    "cantones"=>$cantones,
-                                                    "parroquias"=>$parroquias
+                                                    "zonas"=>$zonas
                                                     ]); 
     }
 
@@ -93,16 +87,22 @@ class MesaDialogoController extends Controller
     public function edit($id)
     {
         $item = MesaDialogo::find($id);
-
+        //Obtenemos las listas que se desplegarán en los combos del formulario
         $tiposDialogo= TipoDialogo::all();
         $instituciones= Institucion::all();
         $consejosSectoriales= ConsejoSectorial::all();
         $zonas= Zona::all();
-        $provincias= Provincia::all();
-        $cantones= Canton::all();
-        $parroquias= Parroquia::all();
+        if(!is_null($item->zona_id)){
+            $provincias= Provincia::provincias($item->zona_id);
+        }
+        if(!is_null($item->provincia_id)){
+            $cantones= Canton::cantones($item->provincia_id);                
+        }
+        if(!is_null($item->canton_id)){
+            $parroquias= Parroquia::parroquias($item->canton_id);                
+        }
         $sectores= Sector::all();
-
+        //Enviamos a la vista todos los valores requeridos para la edición
         return view('admin.mesadialogo.edit', compact('item'))->with(["nuevo"=>false,
                                                                     "tiposDialogo"=>$tiposDialogo,
                                                                     "instituciones"=>$instituciones,
@@ -352,7 +352,12 @@ class MesaDialogoController extends Controller
             }
         }//fin del else
     }
-
+    public function obtenerProvincias(Request $request, $id){
+        return Provincia::provincias($id);
+    }
+    public function obtenerParroquias(Request $request, $id){
+        return Parroquia::parroquias($id);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -770,7 +775,15 @@ class MesaDialogoController extends Controller
             $total_errores = count($errores) + count($errores_participante) + count($errores_solucion);
             Flash::error("Se han encontrado ". $total_errores ." errores detallados a continuaci&oacute;n:");
         }else{
-            Flash::info("Se encontraron ". count($informacion_participantes)." participantes y ".count($informacion_propuestas)." propuestas para la mesa: ".$mesa_dialogo->nombre.".". "Haga click en <b>\"Guardar\"</b> para almacenar la información de la matriz.");
+            $totalErrorParticipantes = 0;
+            if(isset($informacion_participantes)){
+                $totalErrorParticipantes =count($informacion_participantes);
+            }
+            $totalErrorPropuestas = 0;
+            if(isset($informacion_propuestas)){
+                $totalErrorPropuestas =count($informacion_propuestas);
+            }
+            Flash::info("Se encontraron ".$totalErrorParticipantes." participantes y ".$totalErrorPropuestas." propuestas para la mesa: ".$mesa_dialogo->nombre.".". "Haga click en <b>\"Guardar\"</b> para almacenar la información de la matriz.");
         }
 
         $datos_participante = Collection::make($participantes);
