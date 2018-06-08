@@ -11,8 +11,7 @@
   <link href="{{ asset('/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('/css/animate.min.css') }}" rel="stylesheet" /> 
   <link href="{{ asset('/css/style-responsive.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('/css/theme/default.css') }}" rel="stylesheet" id="theme" />  
-  <script src="{{ asset('js/Canton/comboCanton.js') }}"></script>
+  <link href="{{ asset('/css/theme/default.css') }}" rel="stylesheet" id="theme" />
 @endsection
 
 @section('edit_titulo')Registrar @endsection
@@ -24,7 +23,7 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <h4>@yield('edit_titulo') Mesa de Dialogo</h4>
+                    <h4>@yield('edit_titulo') Mesa de Di&aacute;logo</h4>
                     <a href="{{ route('mesadialogo.index') }}" class="btn btn-primary pull-right">Regresar</a>
                     <br><br>
                 </div>
@@ -95,7 +94,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="lider">Lider:</label>
+                            <label class="col-md-2 control-label" for="lider">L&iacute;der:</label>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="lider" name="lider" placeholder="Líder" value="@yield('edit_lider')">
                             </div>
@@ -156,7 +155,7 @@
                                 <label class="col-md-2 control-label" for="canton_id">Cant&oacute;n:</label>
                                 <div class="col-md-4">
                                     <select class="form-control" id="select-canto" name="canton_id" onchange="getSelectParroquias();">
-                                        <option value="">Seleccione un cantón</option>
+                                        <option value="">Seleccione Canton</option>
                                         @if(isset($cantones))
                                             @foreach($cantones as $canton)
                                                 @if(isset($item) && $item->canton_id == $canton->id)
@@ -201,7 +200,7 @@
                                         <input type="date" class="form-control" id="fecha" name="fecha" placeholder="fechacha" value="{{ date('Y-m-d')}}" required>
                                     @endif
                                 </div>
-                                <label class="col-md-2 control-label" for="organizacion">Organización:</label>
+                                <label class="col-md-2 control-label" for="organizacion">Organizaci&oacute;n:</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" id="organizacion" name="organizacion" placeholder="Organización" value="@yield('edit_organizacion')">
                                 </div>
@@ -224,7 +223,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <label class="col-md-2 control-label" for="descripcion">Descripción:</label>
+                                <label class="col-md-2 control-label" for="descripcion">Descripci&oacute;n:</label>
                                 <div class="col-md-4">
                                     <textarea class="form-control" id="descripcion" name="descripcion" rows="2" placeholder="Descripcion de la mesa de dialogo">@yield('edit_descripcion')</textarea>
                                 </div>
@@ -251,7 +250,7 @@
         </div>
     </div>
 </div>
-
+@endsection
 @section('end_js')
     @parent
     <script src="{{ asset('js/Provincia/comboProvincia.js') }}"></script>

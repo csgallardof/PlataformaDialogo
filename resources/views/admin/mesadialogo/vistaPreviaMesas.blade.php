@@ -51,11 +51,11 @@
 					
 				
 				<div class="panel-heading">
-	            	<h4>Vista previa Mesa de Dialogo</h4>
+	            	<h4>Vista previa Mesa de Di&aacute;logo</h4>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>NOMBRE:</b></div>
+	            		<div class="col-md-2"><b>Nombre:</b></div>
 	            		<div class="col-md-5">{{ $mesa_dialogo->nombre }}</div>
-	            		<div class="col-md-2"><b>TIPO:</b></div>
+	            		<div class="col-md-2"><b>Tipo:</b></div>
 	            		<div class="col-md-3">
 	            			@if(isset($mesa_dialogo->tipo_dialogo_id))
 	            				{{ $mesa_dialogo->tipoDialogo->nombre }}
@@ -63,13 +63,13 @@
 	            		</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>ORGANIZADOR:</b></div>
+	            		<div class="col-md-2"><b>Organizador:</b></div>
 	            		<div class="col-md-5">
 	            			@if(isset($mesa_dialogo->organizador_id))
 	            				{{ $mesa_dialogo->organizador->nombre_institucion }}
 	            			@endif
 	            		</div>
-	            		<div class="col-md-2"><b>CONSEJO SECTORIAL:</b></div>
+	            		<div class="col-md-2"><b>Consejo Sectorial:</b></div>
 	            		<div class="col-md-3">
 	            			@if(isset($mesa_dialogo->consejo_sectorial_id))
 	            				{{ $mesa_dialogo->consejoSectorial->nombre_consejo }}
@@ -77,19 +77,19 @@
 	            		</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>LIDER:</b></div>
+	            		<div class="col-md-2"><b>L&iacute;der:</b></div>
 	            		<div class="col-md-5">{{ $mesa_dialogo->lider }}</div>
-	            		<div class="col-md-2"><b>COORDINADOR:</b></div>
+	            		<div class="col-md-2"><b>Coordinador:</b></div>
 	            		<div class="col-md-3">{{ $mesa_dialogo->coordinador }}</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>ZONA:</b></div>
+	            		<div class="col-md-2"><b>Zona:</b></div>
 	            		<div class="col-md-5">	            			
 	            			@if(isset($mesa_dialogo->zona_id))
 	            				{{ $mesa_dialogo->zona->nombre }}
 	            			@endif
 	            		</div>
-	            		<div class="col-md-2"><b>PROVINCIA:</b></div>
+	            		<div class="col-md-2"><b>Provincia:</b></div>
 	            		<div class="col-md-3">
 	            			@if(isset($mesa_dialogo->provincia_id))
 	            				{{ $mesa_dialogo->provincia->nombre_provincia }}
@@ -97,13 +97,13 @@
 	            		</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>CANTON:</b></div>
+	            		<div class="col-md-2"><b>Cant&oacute;n:</b></div>
 	            		<div class="col-md-5">
 	            			@if(isset($mesa_dialogo->canton_id))
 	            				{{ $mesa_dialogo->canton->nombre_canton }}
 	            			@endif
 	            		</div>
-	            		<div class="col-md-2"><b>PARROQUIA:</b></div>
+	            		<div class="col-md-2"><b>Parroquia:</b></div>
 	            		<div class="col-md-3">
 	            			@if(isset($mesa_dialogo->parroquia_id))
 	            				{{ $mesa_dialogo->parroquia->nombre_parroquia }}
@@ -111,23 +111,23 @@
 	            		</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>LUGAR:</b></div>
+	            		<div class="col-md-2"><b>Lugar:</b></div>
 	            		<div class="col-md-5">{{ $mesa_dialogo->lugar }}</div>
-	            		<div class="col-md-2"><b>GRUPO:</b></div>
+	            		<div class="col-md-2"><b>Grupo:</b></div>
 	            		<div class="col-md-3">{{ $mesa_dialogo->organizacion }}</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>SECTOR:</b></div>
+	            		<div class="col-md-2"><b>Sector:</b></div>
 	            		<div class="col-md-5">
 							@if(isset($mesa_dialogo->sector_id))
 	            				{{ $mesa_dialogo->sector->nombre_sector }}
 	            			@endif
 	            		</div>
-	            		<div class="col-md-2"><b>FECHA:</b></div>
+	            		<div class="col-md-2"><b>Fecha:</b></div>
 	            		<div class="col-md-3">{{ $mesa_dialogo->fecha }}</div>
 	            	</div>
 	            	<div class="row">
-	            		<div class="col-md-2"><b>DESCRIPCION:</b></div>
+	            		<div class="col-md-2"><b>Descripci&oacute;n:</b></div>
 	            		<div class="col-md-10">{{ $mesa_dialogo->descripcion }}</div>
 	            	</div>
 				</div>
@@ -137,21 +137,21 @@
 				  		<caption><strong>&nbsp;Listado de participantes validados</strong></caption>
 				        <thead>
 				            <tr>
-				                <th># FILA</th>
-				                <th class="text-center">NOMBRES</th>
-				                <th class="text-center">APELLIDOS</th>
-				                <th class="text-center">EMAIL</th>
-				                <th class="text-center">CELULAR</th>
-				                <th class="text-center">TEL&Eacute;FONO Y EXT</th>
-				                <th class="text-center">GRUPO EN EL QUE PARTICIPAR&Aacute;</th>
-				                <th class="text-center">TIPO PARTICIPANTE</th>
-				                <th class="text-center">EMPRESA</th>
-				                <th class="text-center">CARGO</th>
-				                <th class="text-center">SECTOR EMPRESA</th>
+				                <th>Fila</th>
+				                <th class="text-center">Nombres</th>
+				                <th class="text-center">Apellidos</th>
+				                <th class="text-center">Email</th>
+				                <th class="text-center">Celular</th>
+				                <th class="text-center">Tel&eacute;fono y ext</th>
+				                <th class="text-center">Grupo en el que participar&aacute;</th>
+				                <th class="text-center">Tipo participante</th>
+				                <th class="text-center">Empresa</th>
+				                <th class="text-center">Cargo</th>
+				                <th class="text-center">Sector empresa</th>
 			            	</tr>
 				        </thead>
 				        <tbody>
-				        	<?php $c=3 ?>
+				        	<?php $c=2 ?>
 				        	@if(isset($datos_participante))
 					        	@foreach($datos_participante as $participante)
 									<tr>
@@ -190,23 +190,22 @@
 				  		<caption><strong>&nbsp;Listado de propuestas validadas</strong></caption>
 				        <thead>
 				            <tr>
-				                <th># FILA</th>
-				                <th class="text-center">ESLAB&Oacute;N DE LA CADENA PRODUCTIVA</th>
-				                <th class="text-center">PROPUESTA SOLUCI&Oacute;N</th>
-				                <th class="text-center">PROPUESTA AJUSTADA</th>
-				                <th class="text-center">PALABRAS CLAVE</th>
-				                <th class="text-center">&Aacute;MBITO</th>
-				                <th class="text-center">RESPONSABLE DE EJECUCI&Oacute;N</th>
-				                <th class="text-center">CO-RESPONSABLES DE EJECUCIÓN</th>
-				                <th class="text-center">FECHA CUMPLIMIENTO</th>
-				                <th class="text-center">PLAZO CUMPLIMIENTO</th>
-				                <th class="text-center">RIESGOS</th>
-				                <th class="text-center">SUPUESTOS</th>
-
+				                <th>Fila</th>
+				                <th class="text-center">Eslab&oacute;n de la cadena productiva</th>
+				                <th class="text-center">Propuesta de soluci&oacutr;n</th>
+				                <th class="text-center">Propuesta ajustada</th>
+				                <th class="text-center">palabras clave</th>
+				                <th class="text-center">&Aacute;mbito</th>
+				                <th class="text-center">Responsable de ejecuci&oacute;n</th>
+				                <th class="text-center">Co-responsables de ejecuci&oacute;n</th>
+				                <th class="text-center">Fecha cumplimiento</th>
+				                <th class="text-center">Plazo cumplimiento</th>
+				                <th class="text-center">Riesgos</th>
+				                <th class="text-center">Supuestos</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-				        	<?php $c=4 ?>
+				        	<?php $c=3 ?>
 				        	@if(isset($datos_solucion))
 					        	@foreach($datos_solucion as $solucion)
 									<tr>
