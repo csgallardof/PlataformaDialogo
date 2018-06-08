@@ -22,7 +22,7 @@
             <div class="panel panel-default">
                     
                     <div class="panel-heading">
-                        <h4>Registro de Mesas de Dialogo, Participantes y Propuestas(soluciones)</h4>
+                        <h4>Registro de Mesas de Di&aacute;logo, Participantes y Propuestas(soluciones)</h4>
                         <a href="{{ route('mesadialogo.index') }}" class="btn btn-primary pull-right">Regresar</a>
                         <br><br>
                     </div>
@@ -32,7 +32,7 @@
                             <blockquote class="f-s-14">
                                 <h4>Procedimiento:</h4>
                                 <ol>
-                                    <li>Haga clik en <b>"A&ntilde;adir"</b> y seleccione el archivo que contiene la matriz.</li>
+                                    <li>Haga clik en <b>"A&ntilde;adir"</b> y seleccione el archivo Excel que contiene la matriz.</li>
                                     <li>Haga click en <b>"Vista Previa"</b> para visualizar posibles errores o confirmar datos.</li>
                                 </ol>
                             </blockquote>
@@ -58,7 +58,7 @@
                             <div class="note note-info">
                                 <h4>Nota:</h4>
                                 <ul>
-                                    <li>Solo se permiten archivos con formato de la matriz y con extensi&oacute;n <strong>.xlsx</strong>.</li>
+                                    <li>Solo se permiten archivos Excel con formato de la matriz y con extensi&oacute;n <strong>.xlsx</strong>.</li>
                                 </ul>
                             </div>
                         </div>
