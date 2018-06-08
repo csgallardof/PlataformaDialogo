@@ -113,7 +113,6 @@
 											<td class="text-justify">{{ $mesadialogo->organizacion }}</td>
 											<td>
 												<a href="{{ '/admin/mesadialogo/'.$mesadialogo->id.'/edit' }}" class="btn btn-xs btn-primary" title="Editar Mesa de Di&aacute;logo"><span class="glyphicon glyphicon-pencil"></span></a>
-												<a href="{{ '/admin/mesadialogo/'.$mesadialogo->id.'/propuestas' }}" class="btn btn-xs btn-primary" title="Propuestas de la mesa"><span class="glyphicon glyphicon-th-list"></span></a>
 											</td>
 							            </tr>
 							        @endforeach
