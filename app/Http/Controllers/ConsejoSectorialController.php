@@ -19,7 +19,7 @@ use Laracasts\Flash\Flash;
 class ConsejoSectorialController extends Controller {
 
     public function create() {
-        return view('adminconsejosectorial.create');
+        return view('admin.consejosectorial.create');
     }
 
     public function edit($id) {

@@ -154,6 +154,8 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
 
      Route::resource('instituciones','InstitucionController');
      
+     Route::resource('institucioness','InstitucionesController');
+     
      Route::resource('consejoSectorial','ConsejoSectorialController');
      
      Route::resource('consejoInstitucions','ConsejoInstitucionsController');
@@ -246,10 +248,10 @@ Route::get('/editar-consejo-sectorial/{id}/edit', 'ConsejoSectorialController@ed
 Route::get('/listar-consejo-sectorial', 'ConsejoSectorialController@index');
 Route::resource('consejosSectoriales', 'ConsejoSectorialController');
 //Administrar Instituciones
-Route::get('/crear-institucion', 'InstitucionController@create');
-Route::get('/editar-institucion/{id}/edit', 'InstitucionController@edit');
-Route::get('/listar-institucion', 'InstitucionController@index');
-Route::resource('instituciones', 'InstitucionController');
+Route::get('/crear-institucion', 'InstitucionesController@create');
+Route::get('/editar-institucion/{id}/edit', 'InstitucionesController@edit');
+Route::get('/listar-institucion', 'InstitucionesController@index');
+Route::resource('instituciones', 'InstitucionesController');
 //Administrar Instituciones por Consejos
 Route::get('/crear-consejo-institucions', 'ConsejoInstitucionsController@create');
 Route::get('/editar-consejo-institucions/{id}/edit', 'ConsejoInstitucionsControllerstitucionController@edit');
