@@ -259,6 +259,10 @@ Route::get('/listar-consejo-institucions', 'ConsejoInstitucionsController@index'
 Route::resource('consejoInstituciones', 'ConsejoInstitucionsController');
 Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsController@institucionesSectoresLista');
 
+     Route::get('/actor/editar-actor-solucion/{solucion_id}','InstitucionController@transferirActorSolucion');
+
+     Route::post('/actor/editar-actor-solucion/{actorSolucionID}','InstitucionController@ActualizarActorSolucion');
+
 
 
 });
