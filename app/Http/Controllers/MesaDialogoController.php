@@ -294,13 +294,16 @@ class MesaDialogoController extends Controller
                 $datos_solucion = $request->datos_solucion;
                 if(isset($datos_solucion)){
                     $datos_solucion = Collection::make(json_decode($datos_solucion, true));
+                    //dd($datos_solucion);
                     foreach ($datos_solucion as $solucionAux) {
                         $solucion = new Solucion;
                         $solucion->mesa_id = $mesa_dialogo->id;
                         if(isset($solucionAux['sipoc_id'])){
                             $solucion->sipoc_id = $solucionAux['sipoc_id'];
                         }
+                        
                         $solucion->instrumento_id = $solucionAux['instrumento_id'];
+                        
                         $solucion->tipo_empresa_id = $solucionAux['tipo_empresa_id'];
                         $solucion->ambit_id = $solucionAux['ambit_id'];
                         $solucion->responsable_solucion = $solucionAux['responsable_solucion'];
@@ -637,16 +640,18 @@ class MesaDialogoController extends Controller
                     $informacion_propuestas[] = array(                     
                         'numFila' => $i,
                         'eslabonCP' => trim($objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue()),
-                        'propuesta_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue()),
-                        'pajustada' => trim($objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue()),
-                        'palabras_clave' => trim($objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue()),
-                        'ambito' => trim($objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue()),
-                        'responsable' => trim($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue()),
-                        'coresponsables' => trim($objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue()),
-                        'fecha' => trim($objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue()),
-                        'plazo' => trim($objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue()),
-                        'riesgos' => trim($objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue()),
-                        'supuestos' => trim($objPHPExcel->getActiveSheet()->getCell('K'.$i)->getCalculatedValue()),
+                        'problema_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue()),
+                        'propuesta_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue()),
+                        'pajustada' => trim($objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue()),
+                        'palabras_clave' => trim($objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue()),
+                        'ambito' => trim($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue()),
+                        'instumentos' => trim($objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue()),
+                        'responsable' => trim($objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue()),
+                        'coresponsables' => trim($objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue()),
+                        'fecha' => trim($objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue()),
+                        'plazo' => trim($objPHPExcel->getActiveSheet()->getCell('K'.$i)->getCalculatedValue()),
+                        'riesgos' => trim($objPHPExcel->getActiveSheet()->getCell('L'.$i)->getCalculatedValue()),
+                        'supuestos' => trim($objPHPExcel->getActiveSheet()->getCell('M'.$i)->getCalculatedValue()),
                     );
                 }        
      
@@ -675,10 +680,29 @@ class MesaDialogoController extends Controller
                         if( !is_null($ambito) ){
                             $solucion->ambit_id = $ambito-> id;
                         }else{
-                            $error = "Celda E". $fila['numFila'].": No se encontró el &aacute;mbito.";
+                            $error = "Celda F". $fila['numFila'].": No se encontró el &aacute;mbito.";
                             array_push($errores_solucion, $error);
                             $solucion->ambit_id = 0;
                             $valido = false;
+                        }
+
+                        //Validacion INSTRUMENTO
+
+                        if(!is_null($fila["instumentos"]) && !empty($fila["instumentos"])){
+                            
+                            $instrumento = DB::table('instrumentos')->where('nombre_instrumento', $fila["instumentos"] )->first();
+                            if( !is_null($instrumento) ){
+                            $solucion->instrumento_id = $instrumento-> id;
+                            }else{
+                                $error = "Celda G". $fila['numFila'].": No se encontró el instrumento.";
+                                array_push($errores_solucion, $error);
+                                $solucion->instrumento_id = 0;
+                                $valido = false;
+
+                            }
+                            
+                        }else{
+                            $solucion->instrumento_id = 0;
                         }
                             
                         //Validacion RESPONSABLE
@@ -686,7 +710,7 @@ class MesaDialogoController extends Controller
                         if( !is_null($responsable) ){
                             $solucion->responsable_solucion = $fila["responsable"];
                         }else{
-                            $error = "Celda F". $fila['numFila'].": No se encontró el responsable -> ".$fila["responsable"];
+                            $error = "Celda H". $fila['numFila'].": No se encontró el responsable -> ".$fila["responsable"];
                             array_push($errores_solucion, $error);
                             $solucion->responsable_solucion = $fila["responsable"];
                             $valido = false;
@@ -700,7 +724,7 @@ class MesaDialogoController extends Controller
                                 if( !is_null($coresponsable) ){
                                     $solucion->corresponsable_solucion = $fila["coresponsables"];
                                 }else{
-                                    $error = "Celda G". $fila['numFila'].": No se encontró el corresponsable -> ".$coresponsableAux;
+                                    $error = "Celda I". $fila['numFila'].": No se encontró el corresponsable -> ".$coresponsableAux;
                                     array_push($errores_solucion, $error);
                                     $solucion->corresponsable_solucion = $fila["coresponsables"];
                                     $valido = false;
@@ -714,7 +738,7 @@ class MesaDialogoController extends Controller
                         }
 
                         if($valido === true){
-                            $solucion->problema_solucion= '';             
+                                      
                             $solucion->verbo_solucion = ''; 
                             $solucion->sujeto_solucion = ''; 
                             $solucion->complemento_solucion = ''; 
@@ -722,11 +746,11 @@ class MesaDialogoController extends Controller
                             $solucion->plazo_cumplimiento = $fila["plazo"];
                             $solucion->riesgos_cumplimiento = $fila["riesgos"];
                             $solucion->supuestos_cumplimientos = $fila["supuestos"];
+                            $solucion->problema_solucion = $fila["problema_solucion"];
 
                             $solucion->pajustada = $fila["pajustada"];
                             $solucion->propuesta_solucion = $fila["propuesta_solucion"];
                             $solucion->palabras_clave = $fila["palabras_clave"];
-                            
                             $pajustada_aux = DB::table('pajustadas')->where('nombre_pajustada', $fila["pajustada"])->first();
                             if( !is_null($pajustada_aux) ){
                                 $solucion->pajustada_id = $pajustada_aux->id;
@@ -751,7 +775,6 @@ class MesaDialogoController extends Controller
                             $solucion->mesa_id = 0;
                             $solucion->estado_id = 1;
 
-                            $solucion->instrumento_id = 0;
                             $solucion->tipo_empresa_id = 0;
 
                             array_push($soluciones, $solucion);                        

@@ -18,7 +18,7 @@
 	<link href="{{ asset('css/animate.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/style.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/style-responsive.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('css/theme/default.css') }}" rel="stylesheet" id="theme" />
+	<link href="{{ asset('css/theme/default.css') }}" rel="stylesheet" id="theme" />z
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->

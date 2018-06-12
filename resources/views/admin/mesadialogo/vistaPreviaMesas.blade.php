@@ -192,10 +192,12 @@
 				            <tr>
 				                <th>Fila</th>
 				                <th class="text-center">Eslab&oacute;n de la cadena productiva</th>
+				                <th class="text-center">Problema Soucion</th>
 				                <th class="text-center">Propuesta de soluci&oacutr;n</th>
 				                <th class="text-center">Propuesta ajustada</th>
 				                <th class="text-center">palabras clave</th>
 				                <th class="text-center">&Aacute;mbito</th>
+				                <th class="text-center">Instrumentos</th>
 				                <th class="text-center">Responsable de ejecuci&oacute;n</th>
 				                <th class="text-center">Co-responsables de ejecuci&oacute;n</th>
 				                <th class="text-center">Fecha cumplimiento</th>
@@ -215,12 +217,20 @@
 												{{ $solucion->sipoc->nombre_sipoc }}
 											@endif						                	
 						                </td>
+						                 <td class="text-left">{{ $solucion->problema_solucion }}</td>
 						                <td class="text-left">{{ $solucion->propuesta_solucion }}</td>
 						                <td class="text-left">{{ $solucion->pajustada }}</td>
 						                <td class="text-left">{{ $solucion->palabras_clave }}</td>
 										<td class="text-left">
 											@if(isset($solucion->ambit_id))
 												{{ $solucion->ambit->nombre_ambit }}
+											@endif
+										</td>
+										<td class="text-left">
+											@if($solucion->instrumento_id!=0)
+												{{ $solucion->instrumento->nombre_instrumento }}
+											@else
+												Ninguno
 											@endif
 										</td>
 										<td class="text-left">{{ $solucion->responsable_solucion }}</td>

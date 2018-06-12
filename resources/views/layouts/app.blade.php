@@ -12,6 +12,7 @@
             <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
             <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/style-front.css') }}" rel="stylesheet" />
             <!-- ================== END BASE CSS STYLE ================== -->
         @show
 

@@ -235,7 +235,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
           'as'      =>   'mesadialogo.matrizCarga'
      ]);
 
-     Route::post('/mesadialogo/vistaPreviaMesas',[
+     Route::post('/mesadialogo/vistaPreviaMesas',[ 
           'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
           'as'      =>   'mesadialogo.vistaPreviaMesas'
      ]);
