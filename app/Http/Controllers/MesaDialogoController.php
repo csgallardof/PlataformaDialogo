@@ -339,6 +339,7 @@ class MesaDialogoController extends Controller
                         $solucion->vsector_id = $solucionAux['vsector_id'];
                         $solucion->solucion_ccpt = $solucionAux['solucion_ccpt'];
                         $solucion->estado_id = $solucionAux['estado_id'];
+                        $solucion->ponderacion = $solucionAux['ponderacion'];
                         $solucion->save();
                     }
                 }
@@ -652,6 +653,7 @@ class MesaDialogoController extends Controller
                         'plazo' => trim($objPHPExcel->getActiveSheet()->getCell('K'.$i)->getCalculatedValue()),
                         'riesgos' => trim($objPHPExcel->getActiveSheet()->getCell('L'.$i)->getCalculatedValue()),
                         'supuestos' => trim($objPHPExcel->getActiveSheet()->getCell('M'.$i)->getCalculatedValue()),
+                        'ponderacion' => trim($objPHPExcel->getActiveSheet()->getCell('N'.$i)->getCalculatedValue()),
                     );
                 }        
      
@@ -776,6 +778,12 @@ class MesaDialogoController extends Controller
                             $solucion->estado_id = 1;
 
                             $solucion->tipo_empresa_id = 0;
+                            if( !is_null($fila["ponderacion"])  && !empty($fila["ponderacion"])){
+                            $solucion->ponderacion = $fila["ponderacion"]; 
+                            }else
+                            $solucion->ponderacion = 0;
+                            
+                            
 
                             array_push($soluciones, $solucion);                        
                         }    
