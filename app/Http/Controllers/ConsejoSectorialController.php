@@ -45,14 +45,14 @@ class ConsejoSectorialController extends Controller {
 
         $consejoSectorial->nombre_consejo = $request->nombre_consejo;
         $consejoSectorial->save();
-        return redirect('/listar-consejo-sectorial');
+        return redirect('admin/listar-consejo-sectorial');
     }
 
     public function update(Request $request, $id) {
         $consejoSectorial = ConsejoSectorial::find($id);
         $consejoSectorial->nombre_consejo = $request->nombre_consejo;
         $consejoSectorial->save();
-        return redirect('/listar-consejo-sectorial');
+        return redirect('admin/listar-consejo-sectorial');
     }
 
 }

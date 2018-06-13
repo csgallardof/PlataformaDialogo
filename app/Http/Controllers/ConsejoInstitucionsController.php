@@ -6,7 +6,6 @@ use App\ConsejoInstitucion;
 use App\Institucion;
 use App\ConsejoSectorial;
 use DB;
- 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +59,7 @@ class ConsejoInstitucionsController extends Controller {
         $consejoInstitucion->consejo_id = $request->consejo_id;
         $consejoInstitucion->institucion_id = $request->institucion_id;
         $consejoInstitucion->save();
+        return redirect("/admin/listar-consejo-institucions");
     }
 
     /*
@@ -82,8 +82,11 @@ class ConsejoInstitucionsController extends Controller {
      * @param  \App\consejo_institucions  $consejo_institucions
      * @return \Illuminate\Http\Response
      */
-    public function edit(consejo_institucions $consejo_institucions) {
-        //
+    public function edit($id) {
+        $consejo = ConsejoSectorial::all();
+        $institucion = Institucion::all();
+        $item = ConsejoInstitucion::find($id);
+        return view('admin.consejoinstitucion.edit')->with(['item' => $item, "consejo" => $consejo, "institucion" => $institucion]);
     }
 
     /**
@@ -93,8 +96,13 @@ class ConsejoInstitucionsController extends Controller {
      * @param  \App\consejo_institucions  $consejo_institucions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, consejo_institucions $consejo_institucions) {
-        //
+    public function update(Request $request, $id) {
+        $consejoInstitucion = consejoInstitucion::find($id);
+
+        $consejoInstitucion->consejo_id = $request->consejo_id;
+        $consejoInstitucion->institucion_id = $request->institucion_id;
+        $consejoInstitucion->save();
+        return redirect("editar-consejo-institucions/" . $consejoInstitucion->consejo_id . "/edit");
     }
 
     /**
@@ -103,8 +111,10 @@ class ConsejoInstitucionsController extends Controller {
      * @param  \App\consejo_institucions  $consejo_institucions
      * @return \Illuminate\Http\Response
      */
-    public function destroy(consejo_institucions $consejo_institucions) {
-        //
+    public function destroy($id) {
+        $consejoInstitucion = consejoInstitucion::find($id)->delete();
+        $consejoInstitucion->destroy();
+        return redirect("/admin/listar-consejo-institucions");
     }
 
 }

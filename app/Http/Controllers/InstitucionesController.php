@@ -46,7 +46,7 @@ class InstitucionesController extends Controller {
         $institucion->nombre_institucion = $request->nombre_institucion;
         $institucion->siglas_institucion = $request->siglas_institucion;
         $institucion->save();
-        return redirect('/listar-institucion');
+        return redirect('admin/listar-institucion');
     }
 
     /**
@@ -89,7 +89,7 @@ class InstitucionesController extends Controller {
         //return redirect()->route('instituciones.index');
 
 
-        return redirect('/listar-institucion');
+        return redirect('admin/listar-institucion');
     }
 
     /**

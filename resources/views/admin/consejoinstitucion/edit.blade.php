@@ -1,9 +1,7 @@
-@extends('consejosectorial.create')
+@extends('admin.consejoinstitucion.create')
 
 @section('edit_titulo') Editar @endsection
-
-@section('edit_nombre_consejo',$item->nombre_consejo) 
-@section('edit_id',$item->id) 
+ 
 
 @section('edit_link') Actualizar @endsection
 
