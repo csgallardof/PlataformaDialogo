@@ -89,6 +89,11 @@
                                                 <a href= "/admin/actividad/create/{{$actorSolucion->id}}"  >
                                                         <i class="fa fa-2x fa-plus-circle"></i>
                                                 </a>
+
+                                                <a href= "/admin/actor/editar-actor-solucion/{{$actorSolucion->id}}"  >
+
+                                                       <i class="fa fa-2x fa-long-arrow-right"></i>
+                                                </a>
                                             </td>
                                             
 

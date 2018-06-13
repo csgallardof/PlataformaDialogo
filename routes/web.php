@@ -235,7 +235,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
           'as'      =>   'mesadialogo.matrizCarga'
      ]);
 
-     Route::post('/mesadialogo/vistaPreviaMesas',[
+     Route::post('/mesadialogo/vistaPreviaMesas',[ 
           'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
           'as'      =>   'mesadialogo.vistaPreviaMesas'
      ]);
@@ -259,6 +259,10 @@ Route::get('/delete-consejo-institucions/{id}/delete', 'ConsejoInstitucionsContr
 Route::get('/listar-consejo-institucions', 'ConsejoInstitucionsController@index');
 Route::resource('consejoInstituciones', 'ConsejoInstitucionsController');
 Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsController@institucionesSectoresLista');
+
+     Route::get('/actor/editar-actor-solucion/{solucion_id}','InstitucionController@transferirActorSolucion');
+
+     Route::post('/actor/editar-actor-solucion/{actorSolucionID}','InstitucionController@ActualizarActorSolucion');
 
 
 
