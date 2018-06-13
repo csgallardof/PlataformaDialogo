@@ -148,6 +148,7 @@
 				                <th class="text-center">Empresa</th>
 				                <th class="text-center">Cargo</th>
 				                <th class="text-center">Sector empresa</th>
+
 			            	</tr>
 				        </thead>
 				        <tbody>
@@ -204,6 +205,7 @@
 				                <th class="text-center">Plazo cumplimiento</th>
 				                <th class="text-center">Riesgos</th>
 				                <th class="text-center">Supuestos</th>
+				                <th class="text-center">Ponderación</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -239,6 +241,7 @@
 										<td class="text-center">{{ $solucion->plazo_cumplimiento }}</td>
 										<td class="text-left">{{ $solucion->riesgos_cumplimiento }}</td>
 										<td class="text-left">{{ $solucion->supuesto_cumplimientos }}</td>
+										<td class="text-left">{{ $solucion->ponderacion }}</td>
 						            </tr>
 					            @endforeach	
 					        @endif	            
