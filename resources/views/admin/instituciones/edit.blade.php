@@ -1,4 +1,4 @@
-@extends('instituciones.create')
+@extends('admin.instituciones.create')
 
 @section('edit_titulo') Editar @endsection
 

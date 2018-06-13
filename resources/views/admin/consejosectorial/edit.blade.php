@@ -1,4 +1,4 @@
-@extends('consejosectorial.create')
+@extends('admin.consejosectorial.create')
 
 @section('edit_titulo') Editar @endsection
 
