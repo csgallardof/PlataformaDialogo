@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProvinciasTable extends Migration
+class CreateCnTipoImpuestosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateProvinciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('provincias', function (Blueprint $table) {
+        Schema::create('cn_tipo_impuestos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre_provincia');
-            $table->integer('zona');
+            $table->string('nombre_tipo_impuesto');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateProvinciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('provincias');
+        Schema::dropIfExists('cn_tipo_impuestos');
     }
 }
