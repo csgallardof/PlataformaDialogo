@@ -427,7 +427,6 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
           
 });
-
-
-
+ 
+Route::get('/reporte','ReportePublicoController@listaReportes');
 
