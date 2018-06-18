@@ -8,7 +8,7 @@
                 <div class="panel-heading">@yield('edit_titulo') Consejo Sectorial - Instituci&oacute;n<a href="{{ route('consejoInstituciones.index') }}" class="btn btn-primary pull-right">Regresar</a>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('consejoInstituciones.store') }}/@yield('edit_id')">
+                    <form class="form-horizontal" method="POST" action="{{ route('consejoInstituciones.store') }}/@yield(':x')">
                         {{ csrf_field() }}
                         @section('edit_Method')
                         @show
@@ -18,6 +18,7 @@
 
                             <div class="col-md-6">
                                 <select class="form-control" name="consejo_id" id="consejo_id">
+
                                     @if( isset($consejo) )
                                     @foreach( $consejo as $sect )
                                     <option value="{{ $sect->id}}">
@@ -62,7 +63,7 @@
                         </div>
 
 
- 
+
                     </form>
                     @if(count($errors)>0)
                     <div class="alert alert-warning">
@@ -80,25 +81,32 @@
 <script>
 
 $(document).ready(function () {
-        $('#consejo_id').change(function () {
-        var consejo_id = $('#consejo_id').val();
-        console.log('entro' + consejo_id);
-         $('#divInstitucion').html('');
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '/consejoInstitucionesListar/' + consejo_id,
-            data: {'consejo_id': consejo_id},
-            success: function (data) {
-                
-               $.each(data, function (index) {
-                    $('#divInstitucion').append('<div>' + data[index].nombre_institucion + ' <a  > Quitar </a></div>');
-                }); 
-            }
-        });
+    $('#consejo_id').change(function () {
+        onChangeSector();
     });
-
 });
+$(window).load(function() {
+      onChangeSector();
+});
+function onChangeSector() {
+
+    var consejo_id = $('#consejo_id').val();
+    console.log('entro' + consejo_id);
+    $('#divInstitucion').html('');
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/admin/consejoInstitucionesListar/' + consejo_id,
+        data: {'consejo_id': consejo_id},
+        success: function (data) {
+
+            $.each(data, function (index) {
+                $('#divInstitucion').append('<div>' + data[index].nombre_institucion + ' <a href="/admin/delete-consejo-institucions/'+ data[index].id +'/delete"  > Quitar </a></div>');
+            });
+        }
+    });
+}
+
 </script>
 
 @endsection

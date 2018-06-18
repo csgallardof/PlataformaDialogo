@@ -21,7 +21,7 @@
                                 <th>#</th>
                                 <th>Consejo Sectorial</th>
                                 <th>Instituci&oacute;n</th>
-                                <th>Acción</th>
+                                 
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,6 @@
                                 <td>{{ $consejoInstitucion->id }}</td>
                                 <td>{{ $consejoInstitucion->consejo->nombre_consejo }}</td>
                                 <td>{{ $consejoInstitucion->institucion->nombre_institucion }}</td>
-                                <td><a href="{{ '/edtitar-consejo-institucions/'.$consejoInstitucion->id.'/edit' }}" class="btn btn-primary">Editar</a>  <a href="" class="btn btn-danger">Eliminar</a></td>
                             </tr>
                             @endforeach
 

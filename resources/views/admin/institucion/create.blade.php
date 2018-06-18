@@ -13,11 +13,11 @@
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('instituciones.store') }}@if(isset($item))/@yield('edit_id')@endif"
-                    >
+                          >
                         {{ csrf_field() }}
                         @section('edit_Method')
                         @show
-                        
+
                         <div class="form-group">
                             <label for="nombre_user" class="col-md-4 control-label">Nombre</label>
 
@@ -46,17 +46,17 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                     Registrar
+                                    Registrar
                                 </button>
                             </div>
                         </div>
                     </form>
                     @if(count($errors)>0)
-                        <div class="alert alert-warning">
-                            @foreach($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach
-                        </div>
+                    <div class="alert alert-warning">
+                        @foreach($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+                    </div>
                     @endif
                 </div>
             </div>

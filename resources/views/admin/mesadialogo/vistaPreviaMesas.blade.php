@@ -148,6 +148,7 @@
 				                <th class="text-center">Empresa</th>
 				                <th class="text-center">Cargo</th>
 				                <th class="text-center">Sector empresa</th>
+
 			            	</tr>
 				        </thead>
 				        <tbody>
@@ -192,16 +193,19 @@
 				            <tr>
 				                <th>Fila</th>
 				                <th class="text-center">Eslab&oacute;n de la cadena productiva</th>
+				                <th class="text-center">Problema Soucion</th>
 				                <th class="text-center">Propuesta de soluci&oacutr;n</th>
 				                <th class="text-center">Propuesta ajustada</th>
 				                <th class="text-center">palabras clave</th>
 				                <th class="text-center">&Aacute;mbito</th>
+				                <th class="text-center">Instrumentos</th>
 				                <th class="text-center">Responsable de ejecuci&oacute;n</th>
 				                <th class="text-center">Co-responsables de ejecuci&oacute;n</th>
 				                <th class="text-center">Fecha cumplimiento</th>
 				                <th class="text-center">Plazo cumplimiento</th>
 				                <th class="text-center">Riesgos</th>
 				                <th class="text-center">Supuestos</th>
+				                <th class="text-center">Ponderación</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -215,6 +219,7 @@
 												{{ $solucion->sipoc->nombre_sipoc }}
 											@endif						                	
 						                </td>
+						                 <td class="text-left">{{ $solucion->problema_solucion }}</td>
 						                <td class="text-left">{{ $solucion->propuesta_solucion }}</td>
 						                <td class="text-left">{{ $solucion->pajustada }}</td>
 						                <td class="text-left">{{ $solucion->palabras_clave }}</td>
@@ -223,12 +228,20 @@
 												{{ $solucion->ambit->nombre_ambit }}
 											@endif
 										</td>
+										<td class="text-left">
+											@if($solucion->instrumento_id!=0)
+												{{ $solucion->instrumento->nombre_instrumento }}
+											@else
+												Ninguno
+											@endif
+										</td>
 										<td class="text-left">{{ $solucion->responsable_solucion }}</td>
 										<td class="text-left">{{ $solucion->corresponsable_solucion }}</td>
 										<td class="text-center">{{ $solucion->fecha_cumplimiento }}</td>
 										<td class="text-center">{{ $solucion->plazo_cumplimiento }}</td>
 										<td class="text-left">{{ $solucion->riesgos_cumplimiento }}</td>
 										<td class="text-left">{{ $solucion->supuesto_cumplimientos }}</td>
+										<td class="text-left">{{ $solucion->ponderacion }}</td>
 						            </tr>
 					            @endforeach	
 					        @endif	            

@@ -412,6 +412,43 @@ class InstitucionController extends Controller
                                                            "soluciones" =>$soluciones ]);
     }
 
+    public function transferirActorSolucion($solucion_id){
+
+        $instituciones = DB::table('users')
+                        ->select('users.id','name')
+                        ->join('role_user','users.id','=','role_user.user_id')
+                        ->where('role_user.role_id','=',3)
+                        ->orderBy('name')->get();
+
+        
+
+        $actorSolucion= DB::table('solucions')
+                        ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
+                        ->join('users','users.id','=','actor_solucion.user_id')
+                        ->join('estado_solucion','estado_solucion.id','=','solucions.estado_id')
+                        ->select('solucions.*','users.name','actor_solucion.tipo_actor','estado_solucion.nombre_estado','actor_solucion.id as actorSolucionID')
+                        ->where('solucions.id', $solucion_id )
+                        ->first();
+        //dd($actorSolucion);
+
+
+         return view('admin.actores.actualizarActorSolucion')->with(["instituciones"=>$instituciones,
+                                                           "actorSolucion" =>$actorSolucion ]);
+
+    }
+
+    public function ActualizarActorSolucion(Request $request,$actorSolucion_id)
+    {
+        
+        $actorSolucion = ActorSolucion::find($actorSolucion_id);
+        //dd($actorSolucion);
+        $actorSolucion->user_id = $request->institucion;
+        $actorSolucion->tipo_actor = $request->tipo_actor_id;
+        $actorSolucion->save();    
+        Flash::success("Transferencia de Institucion Responsable exitosa");
+        return redirect('/admin/actores/asignados');
+    }
+
 
 
     public function asignarActorSolucion(Request $request)

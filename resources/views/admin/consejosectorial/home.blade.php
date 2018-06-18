@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{ $consejoSectorial->id }}</td>
                                 <td>{{ $consejoSectorial->nombre_consejo }}</td>
-                                <td><a href="{{ '/editar-consejo-sectorial/'.$consejoSectorial->id.'/edit' }}" class="btn btn-primary">Editar</a>  <a href="" class="btn btn-danger">Eliminar</a></td>
+                                <td><a href="{{ 'editar-consejo-sectorial/'.$consejoSectorial->id.'/edit' }}" class="btn btn-primary">Editar</a>  <a href="" class="btn btn-danger">Eliminar</a></td>
                             </tr>
                             @endforeach
 

@@ -240,7 +240,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
           'as'      =>   'mesadialogo.matrizCarga'
      ]);
 
-     Route::post('/mesadialogo/vistaPreviaMesas',[
+     Route::post('/mesadialogo/vistaPreviaMesas',[ 
           'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
           'as'      =>   'mesadialogo.vistaPreviaMesas'
      ]);
@@ -259,10 +259,15 @@ Route::get('/listar-institucion', 'InstitucionesController@index');
 Route::resource('instituciones', 'InstitucionesController');
 //Administrar Instituciones por Consejos
 Route::get('/crear-consejo-institucions', 'ConsejoInstitucionsController@create');
-Route::get('/editar-consejo-institucions/{id}/edit', 'ConsejoInstitucionsControllerstitucionController@edit');
+Route::get('/editar-consejo-institucions/{id}/edit', 'ConsejoInstitucionsController@edit');
+Route::get('/delete-consejo-institucions/{id}/delete', 'ConsejoInstitucionsController@destroy');
 Route::get('/listar-consejo-institucions', 'ConsejoInstitucionsController@index');
 Route::resource('consejoInstituciones', 'ConsejoInstitucionsController');
 Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsController@institucionesSectoresLista');
+
+     Route::get('/actor/editar-actor-solucion/{solucion_id}','InstitucionController@transferirActorSolucion');
+
+     Route::post('/actor/editar-actor-solucion/{actorSolucionID}','InstitucionController@ActualizarActorSolucion');
 
 
 
@@ -427,7 +432,6 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
           
 });
-
-
-
+ 
+Route::get('/reporte','ReportePublicoController@listaReportes');
 
