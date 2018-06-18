@@ -340,6 +340,12 @@ class MesaDialogoController extends Controller
                         $solucion->solucion_ccpt = $solucionAux['solucion_ccpt'];
                         $solucion->estado_id = $solucionAux['estado_id'];
                         $solucion->ponderacion = $solucionAux['ponderacion'];
+                        $solucion->zona_id = $solucionAux['zona_id'];
+                        $solucion->lugar_solucion = $solucionAux['lugar_solucion'];
+                        if(isset($solucionAux['fecha_solucion'])){
+                            $solucion->fecha_solucion = $solucionAux['fecha_solucion'];
+                        }
+                        
                         $solucion->save();
                     }
                 }
@@ -654,6 +660,9 @@ class MesaDialogoController extends Controller
                         'riesgos' => trim($objPHPExcel->getActiveSheet()->getCell('L'.$i)->getCalculatedValue()),
                         'supuestos' => trim($objPHPExcel->getActiveSheet()->getCell('M'.$i)->getCalculatedValue()),
                         'ponderacion' => trim($objPHPExcel->getActiveSheet()->getCell('N'.$i)->getCalculatedValue()),
+                        'zona' => trim($objPHPExcel->getActiveSheet()->getCell('O'.$i)->getCalculatedValue()),
+                        'lugar_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('P'.$i)->getCalculatedValue()),
+                        'fecha_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('Q'.$i)->getCalculatedValue()),
                     );
                 }        
      
@@ -739,6 +748,31 @@ class MesaDialogoController extends Controller
                             $solucion->fecha_cumplimiento = $fecha;
                         }
 
+                        //FECHA DE solucion
+                        if(!is_null($fila['fecha_solucion']) && !empty($fila['fecha_solucion'])){    
+                            $fecha_solucion = date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fila["fecha_solucion"]));
+                            $solucion->fecha_solucion = $fecha_solucion;
+                        }
+
+                        //Validacion INSTRUMENTO
+
+                        if(!is_null($fila["zona"]) && !empty($fila["zona"])){
+                            
+                            $zona = DB::table('zona')->where('id', $fila["zona"] )->first();
+                            if( !is_null($zona) ){
+                            $solucion->zona_id = $zona-> id;
+                            }else{
+                                $error = "Celda G". $fila['numFila'].": No se encontró la Zona.";
+                                array_push($errores_solucion, $error);
+                                $solucion->zona_id = 0;
+                                $valido = false;
+
+                            }
+                            
+                        }else{
+                            $solucion->zona_id = 0;
+                        }
+
                         if($valido === true){
                                       
                             $solucion->verbo_solucion = ''; 
@@ -776,14 +810,16 @@ class MesaDialogoController extends Controller
                             $solucion->solucion_ccpt = "";
                             $solucion->mesa_id = 0;
                             $solucion->estado_id = 1;
-
+                            $solucion->lugar_solucion = $fila["lugar_solucion"];
                             $solucion->tipo_empresa_id = 0;
                             if( !is_null($fila["ponderacion"])  && !empty($fila["ponderacion"])){
                             $solucion->ponderacion = $fila["ponderacion"]; 
-                            }else
+                            }else{
                             $solucion->ponderacion = 0;
+                            }
                             
-                            
+
+
 
                             array_push($soluciones, $solucion);                        
                         }    
@@ -820,6 +856,7 @@ class MesaDialogoController extends Controller
 
             $datos_participante = Collection::make($participantes);
             $datos_solucion = Collection::make($soluciones);
+            //dd($datos_solucion);
             $errores = Collection::make($errores);
             $errores_participante = Collection::make($errores_participante);
             $errores_solucion = Collection::make($errores_solucion);
