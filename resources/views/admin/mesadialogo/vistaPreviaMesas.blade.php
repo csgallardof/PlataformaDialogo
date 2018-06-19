@@ -206,6 +206,9 @@
 				                <th class="text-center">Riesgos</th>
 				                <th class="text-center">Supuestos</th>
 				                <th class="text-center">Ponderación</th>
+				                <th class="text-center">Zona</th>
+				                <th class="text-center">Lugar</th>
+				                <th class="text-center">Fecha Solucion</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -242,6 +245,9 @@
 										<td class="text-left">{{ $solucion->riesgos_cumplimiento }}</td>
 										<td class="text-left">{{ $solucion->supuesto_cumplimientos }}</td>
 										<td class="text-left">{{ $solucion->ponderacion }}</td>
+										<td class="text-left">{{ $solucion->zona_id }}</td>
+										<td class="text-left">{{ $solucion->lugar_solucion }}</td>
+										<td class="text-left">{{ $solucion->fecha_solucion }}</td>
 						            </tr>
 					            @endforeach	
 					        @endif	            
