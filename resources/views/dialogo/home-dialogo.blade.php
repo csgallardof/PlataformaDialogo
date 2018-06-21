@@ -230,13 +230,7 @@
                   <div id="collapseThree" class="panel-collapse collapse">
                     <div class="panel-body">
                       El &Iacute;ndice &uacute;nico de competitividad provincial est&aacute; compuesto por 64 indicadores agrupados en 12 pilares.
-                      <br><br>
-                      <div class="col-md-12">
-                        <img class="img-responsive center-block" src="{{ asset('imagenes/competitividad/tablaIndicadores.png') }}">
-
-                                            </div>
-
-
+                      
                     </div>
                   </div>
                 </div>
@@ -268,42 +262,12 @@
                 <!-- begin row -->
                 <div class="row">
                     <div class="col-md-4">
-                        <a class="twitter-timeline box-tw" data-dnt="true" data-chrome="nofooter" href="https://twitter.com/hashtag/MesasDeCompetitividadEc" data-widget-id="909581797175984133">Tweets sobre #MesasDeCompetitividadEc</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                       
 
                     </div>
                     <div class="col-md-4 manual-work">
-
-
-
-
                         <div class="row row-space-12">
-                            <div id="myCarousel" class="carousel slide" data-interval="6000" data-ride="carousel">
-                                <!-- Wrapper for carousel items -->
-                                <div class="carousel-inner">
-                                    <div class="active item">
-                                        <img src="{{ asset('imagenes/CCT/1.jpg') }}" alt="First Slide">
-                                        <div class="carousel-caption">
-                                          <!-- <h3>First slide label</h3>
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <img src="{{ asset('imagenes/CCT/2.jpg') }}" alt="Second Slide">
-                                        <div class="carousel-caption">
-                                          <!-- <h3>Second slide label</h3>
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <img src="{{ asset('imagenes/CCT/3.jpg') }}" alt="Third Slide">
-                                        <div class="carousel-caption">
-                                          <!-- <h3>Third slide label</h3>
-                                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                          
                         </div>
 
                     </div>
