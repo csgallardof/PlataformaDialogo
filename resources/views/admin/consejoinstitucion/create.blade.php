@@ -53,18 +53,20 @@
                                 </button>
                             </div>
                         </div>
+                     
+ 
 
-                        <div class="form-group">
+                    <div class="form-group panel-body ">
 
-                            <div id="divInstitucion" name="divInstitucion" class="col-md-8">
-                                Grupo de Institucones .....
+                        <div id="divInstitucion" name="divInstitucion"  class="table-responsive ">
+                            Grupo de Institucones .....
 
-                            </div>
                         </div>
-
-
+                    </div>
 
                     </form>
+
+
                     @if(count($errors)>0)
                     <div class="alert alert-warning">
                         @foreach($errors->all() as $error)
@@ -85,8 +87,9 @@ $(document).ready(function () {
         onChangeSector();
     });
 });
-$(window).load(function() {
-      onChangeSector();
+ 
+$(window).load(function () {
+    onChangeSector();
 });
 function onChangeSector() {
 
@@ -99,9 +102,9 @@ function onChangeSector() {
         url: '/admin/consejoInstitucionesListar/' + consejo_id,
         data: {'consejo_id': consejo_id},
         success: function (data) {
-
+console.log(data);
             $.each(data, function (index) {
-                $('#divInstitucion').append('<div>' + data[index].nombre_institucion + ' <a href="/admin/delete-consejo-institucions/'+ data[index].id +'/delete"  > Quitar </a></div>');
+                $('#divInstitucion').append(' <div class= "col-sm-9" >' + data[index].nombre_institucion + '</div> <div class= "col-sm-1" ><a class="btn btn-danger" href="/admin/delete-consejo-institucions/' + data[index].id + '/delete" onclick = "if (! confirm(\'Desea quitar de la lista\')) { return false; }"  > Quitar </a></div>');
             });
         }
     });

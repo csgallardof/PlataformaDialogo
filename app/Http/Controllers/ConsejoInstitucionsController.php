@@ -42,6 +42,7 @@ class ConsejoInstitucionsController extends Controller {
         //$consejosInstitucions = ConsejoInstitucion::where("consejo_id", "=", $consejo_id)->get();
 
         $consejosInstitucions = DB::table('consejo_institucions')
+                        ->select('consejo_institucions.id','institucions.nombre_institucion')
                         ->join('institucions', 'institucions.id', '=', 'consejo_institucions.institucion_id')
                         ->join('consejo_sectorials', 'consejo_sectorials.id', '=', 'consejo_institucions.consejo_id')
                         ->where('consejo_institucions.consejo_id', '=', $consejo_id)->get();
@@ -112,8 +113,10 @@ class ConsejoInstitucionsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        $consejoInstitucion = consejoInstitucion::find($id)->delete();
-        $consejoInstitucion->destroy();
+      
+        $consejoInstitucion = consejoInstitucion::find($id);
+        $consejoInstitucion->delete();
+       
         return redirect("/admin/listar-consejo-institucions");
     }
 
