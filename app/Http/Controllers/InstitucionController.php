@@ -381,11 +381,13 @@ class InstitucionController extends Controller
     public function homeActoresPorAsignar(Request $request){
 
 
-        $actoresSolucionesPorAsignar = DB::SELECT("SELECT solucions.id, solucions.tipo_fuente ,solucions.verbo_solucion, solucions.sujeto_solucion, solucions.complemento_solucion, solucions.estado_id, estado_solucion.nombre_estado,solucions.responsable_solucion
-        from  solucions
-        join estado_solucion
-        on estado_solucion.id = solucions.estado_id
-        where solucions.estado_id = 1");
+        $actoresSolucionesPorAsignar = DB::SELECT("SELECT solucions.id, solucions.verbo_solucion, solucions.sujeto_solucion, 
+solucions.complemento_solucion, solucions.responsable_solucion, solucions.corresponsable_solucion, 
+solucions.tipo_fuente, estado_solucion.nombre_estado
+from solucions
+JOIN estado_solucion on estado_solucion.id = solucions.estado_id
+join mesa_dialogo on mesa_dialogo.id = solucions.mesa_id
+where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor_solucion)");
 
         return view('admin.actores.homeActoresPorAsignar')->with(["actoresSolucionesPorAsignar"=>$actoresSolucionesPorAsignar]); 
 
