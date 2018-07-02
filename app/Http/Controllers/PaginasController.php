@@ -947,6 +947,30 @@ class PaginasController extends Controller
         
     }
 
+    public function homeDialogo(){
+
+        $propuestas_institucion = DB::select("SELECT solucions.responsable_solucion, count(actividades.id) AS total
+                            FROM solucions
+                            INNER JOIN actor_solucion ON solucions.id = actor_solucion.solucion_id
+                            INNER JOIN actividades ON solucions.id = actividades.solucion_id
+                            INNER JOIN users ON actor_solucion.user_id = users.id
+                            WHERE  solucions.sector_id = 7
+                            GROUP BY  solucions.responsable_solucion ORDER BY total DESC");
+                            $propuestas_institucion=Collection::make($propuestas_institucion);
+
+
+
+                            
+        return view('dialogo.home-dialogo')->with([
+                                                "propuestas_institucion" => $propuestas_institucion
+                                                
+                                                ]);
+        
+        
+    }
+
+
+
 
 
 

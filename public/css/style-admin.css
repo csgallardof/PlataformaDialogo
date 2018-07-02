@@ -170,11 +170,17 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
 ------------------------------- */
 
 /* 1.1 Reset and overrides */
+@import url(//db.onlinewebfonts.com/c/d1e2a6e0e5c71b123bcc49017f12cdbc?family=Dolce+Vita+Heavy);
+
+@font-face{
+    font-family: 'font-plataforma';
+    src:url(//db.onlinewebfonts.com/c/d1e2a6e0e5c71b123bcc49017f12cdbc?family=Dolce+Vita+Heavy);
+}
 
 body {
     background: #d9e0e7;
     font-size: 12px;
-    font-family: 'Open Sans', "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'font-plataforma', Fallback, sans-serif;
     color: #707478;
 }
 .ie8 body {

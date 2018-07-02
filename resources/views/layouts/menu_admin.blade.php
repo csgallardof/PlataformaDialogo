@@ -13,7 +13,7 @@
 			                    <span class="icon-bar"></span>
 			                    </button>
 			                    <a href="{{ url('/admin/home') }}" class="navbar-brand">
-									<img src="{{ asset('imagenes/logo_mipro.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="130px" height="46px">
+									<img src="{{ asset('imagenes/dialogo_nacional/logo_dialogo_nacional.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="130px" height="46px">
 								</a>
 			                </div>
 			                <div id="navbar" class="navbar-collapse collapse">
