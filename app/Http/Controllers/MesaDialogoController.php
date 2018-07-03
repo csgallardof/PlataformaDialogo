@@ -340,6 +340,7 @@ class MesaDialogoController extends Controller
                         $solucion->solucion_ccpt = $solucionAux['solucion_ccpt'];
                         $solucion->estado_id = $solucionAux['estado_id'];
                         $solucion->ponderacion = $solucionAux['ponderacion'];
+                        $solucion->propuesta_solucion = $solucionAux['propuesta_solucion'];
                         $solucion->zona_id = $solucionAux['zona_id'];
                         $solucion->lugar_solucion = $solucionAux['lugar_solucion'];
                         if(isset($solucionAux['fecha_solucion'])){
