@@ -22,7 +22,8 @@ use App\Provincia;
 use App\Canton;
 use App\Parroquia;
 use App\User;
-
+use App\PalabrasClave;
+use App\ActorSolucion;
 use File;
 use DB;
 use PHPExcel; 
@@ -328,6 +329,7 @@ class MesaDialogoController extends Controller
                         }
                         $solucion->pajustada = $solucionAux['pajustada'];
                         $solucion->palabras_clave = $solucionAux['palabras_clave'];
+
                         $solucion->evento_id =  $solucionAux['evento_id'];
                         $solucion->lider_mesa_solucion = $solucionAux['lider_mesa_solucion'];
                         $solucion->sistematizador_solucion = $solucionAux['sistematizador_solucion'];
@@ -348,7 +350,62 @@ class MesaDialogoController extends Controller
                         }
                         
                         $solucion->save();
+
+                        /*RESPONSABLE*/
+                        $InstitucionResponsableID = DB::table('institucions')
+                                                      ->where('siglas_institucion', $solucionAux['responsable_solucion'])
+                                                      ->select('id')
+                                                      ->first();
+                                                      //var_dump($InstitucionCoResponsableID->id);
+                                    
+                                    $institucionSolucion= new ActorSolucion;
+                                    $institucionSolucion-> user_id = 0;
+                                    $institucionSolucion-> institucion_id = $InstitucionResponsableID->id;
+                                    $institucionSolucion-> solucion_id = $solucion->id;
+                                    $institucionSolucion-> tipo_actor = 1;
+                                    $institucionSolucion-> tipo_fuente = 0;
+                                    $institucionSolucion-> save();
+                        /*CORRESPONSABLES*/
+                        if(isset($solucionAux['corresponsable_solucion'])){
+                         $cadena = $solucionAux['corresponsable_solucion'];
+
+                                $array = explode(","." ", $cadena);
+                                
+                                foreach ($array as $array) {
+                                    //var_dump($array);
+                                    
+                                    $InstitucionCoResponsableID = DB::table('institucions')
+                                                      ->where('siglas_institucion', $array)
+                                                      ->select('id')
+                                                      ->first();
+                                                      //var_dump($InstitucionCoResponsableID->id);
+                                    
+                                    $institucionSolucion= new ActorSolucion;
+                                    $institucionSolucion-> user_id = 0;
+                                    $institucionSolucion-> institucion_id = $InstitucionCoResponsableID->id;
+                                    $institucionSolucion-> solucion_id = $solucion->id;
+                                    $institucionSolucion-> tipo_actor = 2;
+                                    $institucionSolucion-> tipo_fuente = 0;
+                                    $institucionSolucion-> save();
+
+                                }
+                            }
+
+                        /*PALABRAS CLAVES*/
+                        $cadenaPalabras = $solucionAux["palabras_clave"];
+                            $arrayPalabras = explode(","." ", $cadenaPalabras);
+                            
+                            foreach ($arrayPalabras as $arrayPalabras) {
+                               
+                                
+                                $solucionPalabraClave= new PalabrasClave;
+                                $solucionPalabraClave-> nombre = $arrayPalabras;
+                                $solucionPalabraClave-> solucion_id = $solucion->id;
+                                $solucionPalabraClave-> save();
+                                }
+
                     }
+
                 }
 
                 DB::commit();
