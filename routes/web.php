@@ -231,7 +231,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
 
      Route::get('actores/asignar-responsable/{idSolucion}',[
           'uses'=>'InstitucionController@createAsignar',
-          'as'=>'actorSolucion.create'
+          'as'=>'actorSolucion.create' 
      ]);
 
 

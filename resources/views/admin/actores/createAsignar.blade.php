@@ -35,24 +35,14 @@
                             <label for="solucion" class="col-md-4 control-label">Soluci&oacute;n:</label>
                             <div class="col-md-6">
                                 <div class="h5">
-                                    {{ $soluciones->verbo_solucion." ". $soluciones->sujeto_solucion." ".$soluciones->complemento_solucion  }}    
+                                    {{ $soluciones->propuesta_solucion}}    
                                 </div>
                                 
                                 
                             </div>
 
 
-                            <label for="tipo_fuente" class="col-md-4 control-label">Fuente:</label>
-                            <div class="col-md-6">
-
-                                @if($soluciones->tipo_fuente ==1)
-                                    <div class="h5">Mesas de Competitividad</div>
-                                @else
-                                    <div class="h5">Consejo Consultivo</div>
-                                @endif
-                                <!-- {{ $soluciones->tipo_fuente }} -->
-                                
-                               </div>
+                            
 
                             <label for="tipo_fuente" class="col-md-4 control-label">Responsable Sugerido:</label>
                             <div class="col-md-6">
@@ -68,7 +58,7 @@
                                 <select class="form-control" name = "institucion" data-size="15" data-live-search="true" data-style="btn-info" required>
                                     <option selected="selected" class="select_placeholder">Seleccione una Instituci&oacute;n</option>
                                     @foreach($instituciones as $institucion)
-                                        <option value="{{ $institucion->id }}" > {{ $institucion->name }}</option>
+                                        <option value="{{ $institucion->id }}" > {{ $institucion->nombre_institucion }} ({{$institucion->siglas_institucion}})</option>
                                     @endforeach
                                 </select>
 
