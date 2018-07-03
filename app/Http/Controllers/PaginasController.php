@@ -89,6 +89,29 @@ class PaginasController extends Controller
         }
 
        //dd(strtolower($buscar));
+        if($buscar ==''){
+            $resultados = Solucion::where('tipo_fuente','=',2)
+                            ->orderBy('id','DESC')
+                            ->get();
+                 $datosFiltroAmbito=0;
+                 $datosFiltroResponsable=0;
+                 $datosFiltroEstado=0;
+                 $datosFiltroSector=0;
+                 $datosFiltroResponsable=0;
+                 $filtros = 0; 
+
+                 //dd($resultados);          
+                 return view('publico.reportes.reporte-dialogo')->with([
+                                            "parametro"=>$buscar,
+                                            "resultados"=>$resultados,
+                                            "datosFiltroAmbito"=>$datosFiltroAmbito,
+                                            "datosFiltroSector"=>$datosFiltroSector,
+                                            "datosFiltroEstado"=>$datosFiltroEstado,
+                                            "datosFiltroResponsable"=>$datosFiltroResponsable,
+                                            "filtros"=>$filtros
+                                        ]);
+
+        }
 
         if(strtolower($buscar) == 'mesas competitividad' || strtolower($buscar) == 'consejo consultivo' || strtolower($buscar) == 'mesas de competitividad'){
 
