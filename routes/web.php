@@ -27,10 +27,18 @@ Route::get('/inicio2', function () {
      return view('inicio2');
 });
 
-Route::get('/busquedaAvanzada',[
-     'uses'=>'PaginasController@busquedaAvanzada',
-     'as'=>'nuevaBusqueda2'
+// Route::get('/busquedaAvanzada',[
+//      'uses'=>'PaginasController@busquedaAvanzada',
+//      'as'=>'nuevaBusqueda2'
+// ]);
+
+
+Route::get('/busquedaAvanzadaDialogo',[
+     'uses'=>'PaginasController@busquedaAvanzadaDialogo',
+     'as'=>'nuevaBusquedaDialogo'
 ]);
+
+
 
 Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']); 
 

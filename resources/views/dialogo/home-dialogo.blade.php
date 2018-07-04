@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Reporte')
+@section('title', '')
 
 @section('start_css')
   <link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
@@ -16,47 +16,6 @@
   <link href="{{asset('css/style-responsive.min.css')}}" rel="stylesheet" />
   <link href="{{asset ('css/theme/default.css')}}" rel="stylesheet" id="theme" />
   <link href="{{ asset('css/style-after.css') }}" rel="stylesheet" />
-
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
-
-   <script type="text/javascript">
-        google.charts.load('current', {packages:['corechart']});
-        google.charts.setOnLoadCallback(drawStuff);
-
-          function drawStuff() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Cadena SIPOC');
-            data.addColumn('number', 'Propuestas');
-            data.addRows([
-
-              @foreach($propuestas_institucion as $propuestas_institucions)
-                  ['{{ $propuestas_institucions ->responsable_solucion }}',{{ $propuestas_institucions ->total}}],  
-                @endforeach
-            ]);
-
-           var options = {
-             title: 'Actividades registradas por Institución',
-             width: 900,
-             height: 300,
-             legend: 'none',
-             bar: {groupWidth: '95%'},
-             vAxis: { gridlines: { count: 4 } }
-           };
-
-           var chart = new google.visualization.ColumnChart(document.getElementById('number_format_chart_institucion'));
-           chart.draw(data, options);
-
-           document.getElementById('format-select').onchange = function() {
-             options['vAxis']['format'] = this.value;
-             chart.draw(data, options);
-           };
-        };  
-      
-    </script>
-
-
 
 @endsection
 
@@ -79,13 +38,15 @@
 
                 <div class="panel-body text-center">
                   <div class="row">
-                    <form class="form-horizontal" role="form" method="GET" action="{{ route('nuevaBusqueda2') }}">
+                    <form class="form-horizontal" role="form" method="GET" action="{{ route('nuevaBusquedaDialogo') }}">
                     <div class="col-md-2"></div>
                     <div class="col-md-2" style="padding: 0px" > 
                       <select  style="text-align:center;width:100%;height:47px;font-size:14px;border-radius: 10px 0px 0px 10px;"  name="selectBusqueda" > 
-                                        <option value="0">Todas las Mesas</option>
-                                        <option value="2">Consejo Consultivo</option>
-                                        <option value="1">Mesas De Competitividad</option>
+                                        <option value="0">Tipos de Diálogo</option>
+
+                                        @foreach($tipo_dialogo as $tipo_dialogo)
+                                        <option value="{{ $tipo_dialogo->id }}" > {{ $tipo_dialogo->nombre }} </option>
+                                    @endforeach
                                         </select>
                     </div>
 
@@ -165,13 +126,13 @@
 
             <div class="row">
               
-               
+              <!--  
                 <div class="col-md-6">
                   <div id="number_format_chart_institucion"></div>
                 </div>
                 <div class="col-md-2">
                   
-                </div>
+                </div> -->
                     
                 
                     <!-- METODOLOGIA-->

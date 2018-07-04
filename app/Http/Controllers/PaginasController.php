@@ -14,6 +14,7 @@ use App\ActorSolucion;
 use App\Actividad;
 use App\Ambit;
 use App\EstadoSolucion;
+use App\TipoDialogo;
 use DB;
 use Illuminate\Support\Collection as Collection;
     
@@ -26,7 +27,26 @@ use App\Auth\Login;
 
 class PaginasController extends Controller
 {
-     public function busquedaAvanzada(Request $request){
+    
+    public function busquedaAvanzadaDialogo(Request $request){
+        //dd("hola");
+
+       $buscar = $request-> parametro;
+       
+       //dd($buscar); 
+
+       if ($buscar ==''){
+
+        $resultados = Solucion::paginate(15);
+        //dd($resultados);
+
+        return view('publico.reportes.reporte-dialogo')->with(["resultados"=>$resultados]);
+        
+       }
+
+    }
+
+    public function busquedaAvanzada(Request $request){
         $datosFiltroSector="";
         $datosFiltroEstado="";
         $datosFiltroAmbito="";
@@ -90,7 +110,7 @@ class PaginasController extends Controller
 
        //dd(strtolower($buscar));
         if($buscar ==''){
-            $resultados = Solucion::where('tipo_fuente','=',2)
+            $resultados = Solucion::where('tipo_fuente','=',1)
                             ->orderBy('id','DESC')
                             ->get();
                  $datosFiltroAmbito=0;
@@ -100,8 +120,8 @@ class PaginasController extends Controller
                  $datosFiltroResponsable=0;
                  $filtros = 0; 
 
-                 //dd($resultados);          
-                 return view('publico.reportes.reporte-dialogo')->with([
+                // dd($resultados);          
+                 return view('publico.reportes.reporte2')->with([
                                             "parametro"=>$buscar,
                                             "resultados"=>$resultados,
                                             "datosFiltroAmbito"=>$datosFiltroAmbito,
@@ -972,6 +992,12 @@ class PaginasController extends Controller
 
     public function homeDialogo(){
 
+        $tipo_dialogo = DB::table('tipo_dialogo')
+                        ->select('id','nombre')
+                        ->orderBy('nombre')->get();
+                        //dd($instituciones);
+        
+
         $propuestas_institucion = DB::select("SELECT solucions.responsable_solucion, count(actividades.id) AS total
                             FROM solucions
                             INNER JOIN actor_solucion ON solucions.id = actor_solucion.solucion_id
@@ -983,12 +1009,13 @@ class PaginasController extends Controller
 
 
 
-                            
+        //dd($propuestas_institucion);                            
         return view('dialogo.home-dialogo')->with([
-                                                "propuestas_institucion" => $propuestas_institucion
-                                                
+                                                "propuestas_institucion" => $propuestas_institucion,
+                                                "tipo_dialogo"=>$tipo_dialogo,
                                                 ]);
-        
+
+        return view('dialogo.home-dialogo')->with(["propuestas_institucion"=>$propuestas_institucion]);        
         
     }
 

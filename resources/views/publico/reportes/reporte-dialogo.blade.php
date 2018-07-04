@@ -36,11 +36,11 @@
 
                             <div class="form-group">
 
-                                <form class="form-horizontal" role="form" method="GET" action="{{ route('nuevaBusqueda2') }}">
+                                <form class="form-horizontal" role="form" method="GET" action="{{ route('nuevaBusquedaDialogo') }}">
 
                                     <div class="input-group custom-search-form">
 
-                                        <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo" name="parametro" value="{{$parametro}}" required style="font-size: 16px" >
+                                        <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo" name="parametro" value="" required style="font-size: 16px" >
                                         <span class="input-group-btn">
                                             <button class="btn btn-buscar btn-lg" style="background: #EF5D06; color: #fff; " type="submit" height="50px">
                                                 <span class="glyphicon glyphicon-search"></span>
@@ -75,15 +75,6 @@
 					Resultados de la B&uacute;squeda</span>
 
 
-						{{-- @if(isset($parametro))
-							Se muestran los resultados para "
-							<a href="/busqueda?parametro={{ Request::get('parametro') }}">
-								<b style="color: #00acac; font-size: 16px">{{ $parametro }}</b>
-							</a>
-							"
-						@endif --}}
-
-          			</div>
 
 					<!-- inicio cuadrados -->
 					<br>
