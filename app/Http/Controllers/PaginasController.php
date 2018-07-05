@@ -35,14 +35,136 @@ class PaginasController extends Controller
        
        //dd($buscar); 
 
-       if ($buscar ==''){
-
-        $resultados = Solucion::paginate(15);
-        //dd($resultados);
-
-        return view('publico.reportes.reporte-dialogo')->with(["resultados"=>$resultados]);
         
-       }
+            // if ($buscar==''){
+            
+            //     $resultados = Solucion::orderBy('estado_id','DESC')->paginate(20);
+            //     dd($resultados);
+            //     return view('publico.reportes.reporte-dialogo', compact('resultados'));    
+            // }
+        if( ($request->selectBusqueda=='no') and ($buscar=='') ){
+
+            //dd($request->selectBusqueda);
+           // $resultados = Solucion::where('provincias.','LIKE','%' . $buscar . '%')
+           //                         ->paginate();
+
+
+            $resultados = Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->orderBy('solucions.estado_id','DESC')
+                                ->paginate(20);
+            //dd($resultados);
+
+            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+        }
+
+        // // Busqueda tipo Dialogo sin parametro
+        if( isset($request->selectBusqueda) and ($buscar=='') ){
+
+            //dd($request->selectBusqueda);
+           // $resultados = Solucion::where('provincias.','LIKE','%' . $buscar . '%')
+           //                         ->paginate();
+
+
+            $resultados = Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->where('tipo_dialogo.id','=', $request->selectBusqueda )
+                                ->orderBy('solucions.estado_id','DESC')
+                                ->paginate(10);
+            //dd($resultados);
+
+            $url = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
+
+            //dd($url);
+
+            return view('publico.reportes.reporte-dialogo')->with([
+                                            "url"=>$url,
+                                            "resultados"=>$resultados                                            
+                                        ]);
+
+            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+        }
+
+
+        // Busqueda tipo Dialogo con parametro de busqueda
+        if( isset($request->selectBusqueda) and ($buscar!='') ){
+
+           // dd($buscar.$request->selectBusqueda);
+           // $resultados = Solucion::where('provincias.','LIKE','%' . $buscar . '%')
+           //                         ->paginate();
+             
+
+            $resultados =Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
+                                ->join('institucions','institucions.id','=','actor_solucion.institucion_id')
+                                ->orwhere('institucions.nombre_institucion','LIKE','%' . $buscar . '%')
+                                ->orwhere('institucions.siglas_institucion','LIKE','%' . $buscar . '%')
+                                ->orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
+                                ->where('tipo_dialogo.id','=', $request->selectBusqueda )
+                                ->paginate(10);
+
+
+            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+        }
+
+
+        // if( isset($request->selectBusqueda) && $request->selectBusqueda >0 ){
+            
+            
+        //     $resultados1 = Solucion::select('solucions.*')
+        //                         ->join('provincias', 'solucions.provincia_id', '=', 'provincias.id')
+        //                         ->where('provincias.nombre_provincia','LIKE','%' . $buscar . '%')
+        //                         ;
+
+        //     $resultados2 = Solucion::select('solucions.*')
+        //                         ->join('actor_solucion', 'solucions.id', '=', 'actor_solucion.solucion_id')
+        //                         ->join('users','actor_solucion.user_id','=','users.id')
+        //                         ->where('users.name','LIKE','%' . $buscar . '%')
+        //                         ;//SOLO QUERY
+
+        //     $resultados3 = Solucion::select('solucions.*')
+        //                         ->join('sectors', 'solucions.sector_id', '=', 'sectors.id')
+        //                         ->where('sectors.nombre_sector','=','%' . $buscar . '%')
+        //                         ;//SOLO QUERY
+        //                        // dd($resultados3);
+
+        //     $resultados5 = Solucion::select('solucions.*')
+        //                         ->join('estado_solucion', 'solucions.estado_id', '=', 'estado_solucion.id')
+        //                         ->where('estado_solucion.nombre_estado','LIKE','%' . $buscar . '%')
+        //                         ;//SOLO QUERY
+        //     $resultados6 = Solucion::select('solucions.*')
+        //                         ->join('ambits', 'solucions.ambit_id', '=', 'ambits.id')
+        //                         ->where('ambits.nombre_ambit','LIKE','%' . $buscar . '%')
+        //                         ;//SOLO QUERY
+
+        //     $resultados = Solucion::orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
+        //                         ->orwhere( DB::raw('CONCAT( TRIM(solucions.propuesta_solucion))','concatenado'),'LIKE','%' . $buscar . '%')
+        //                         ->union($resultados1) // UNION CON  EL QUERY1 ANTERIOR
+        //                         ->union($resultados2) // UNION CON  EL QUERY2 ANTERIOR
+        //                         ->union($resultados3) // UNION CON  EL QUERY3 ANTERIOR
+        //                         //->union($resultados4) // UNION CON  EL QUERY4 ANTERIOR
+        //                         ->union($resultados5) // UNION CON  EL QUERY5 ANTERIOR 
+        //                         ->union($resultados6) // UNION CON  EL QUERY5
+        //                        ->get();
+
+        //     return view('publico.reportes.reporte-dialogo')->with([
+        //                                     "resultados"=>$resultados,
+        //                                 ]);
+        // }
+
+                                            
+
+
+
+
+       
 
     }
 
@@ -60,7 +182,7 @@ class PaginasController extends Controller
        if( isset($request->selectBusqueda) && $request->selectBusqueda >0 ){
             
             $filtros["mesas"]= $request->selectBusqueda;
-             $resultados1 = Solucion::select('solucions.*')
+            $resultados1 = Solucion::select('solucions.*')
                                 ->join('provincias', 'solucions.provincia_id', '=', 'provincias.id')
                                 ->where('provincias.nombre_provincia','LIKE','%' . $buscar . '%')
                                 ;

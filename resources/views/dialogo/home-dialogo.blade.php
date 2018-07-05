@@ -42,7 +42,7 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-2" style="padding: 0px" > 
                       <select  style="text-align:center;width:100%;height:47px;font-size:14px;border-radius: 10px 0px 0px 10px;"  name="selectBusqueda" > 
-                                        <option value="0">Tipos de Diálogo</option>
+                                        <option value="no">Tipos de Diálogo</option>
 
                                         @foreach($tipo_dialogo as $tipo_dialogo)
                                         <option value="{{ $tipo_dialogo->id }}" > {{ $tipo_dialogo->nombre }} </option>

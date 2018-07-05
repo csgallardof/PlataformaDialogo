@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Reporte')
+@section('title', 'Busqueda - Plataforma de Diálogo')
 
 @section('start_css')
   @parent
@@ -148,97 +148,50 @@
 					<div class="col-md-12">
 
 						@if(isset($resultados))
-							<table id="data-table" class="table nowrap" width="100%">
-								<thead>
-									<th class="text-left f-s-18">Propuestas Encontradas</th>
 
-                  <!-- revisar funcion laravel str_limit -->
-
-								</thead>
-								<tbody>
-						        	@foreach( $resultados as $resultados)
-						        		<tr>
-											@if($resultados->tipo_fuente==1)
-							                	<td class="text-left p-t-15">
+				<!-- Inicio tabla paginado -->
+					<table id="" class="table nowrap" width="100%">
+						<thead>
+							<th class="text-left f-s-18">Propuestas Encontradas</th>
+						</thead>
+						<tbody>
+							@foreach( $resultados as $resultado)
+							<tr>
+								<td class="text-left p-t-15">
+									
 									<div class="text-justify">
-									<a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/detalle-despliegue-dialogo/{{ $resultados->id}}">ver</a>
+										<a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/detalle-despliegue-dialogo/{{ $resultado->id}}">ver</a>
 
-									<p class="total_propuestas_estilo_1">
-  								<span class="total_propuestas_estilo_heading"><?php echo ucfirst(mb_strtolower($resultados->problema_solucion)); ?></span><br>
+										<p class="total_propuestas_estilo_1">
+		  								<span class="total_propuestas_estilo_heading"><?php echo ucfirst(mb_strtolower($resultado->problema_solucion)); ?></span><br>
 
-  								<font><?php echo ucfirst(mb_strtolower($resultados->verbo_solucion." ".$resultados->sujeto_solucion." ".$resultados->complemento_solucion)) ?></font><br>
+		  								<font><?php echo ucfirst(mb_strtolower($resultado->propuesta_solucion)) ?></font><br>
 
-  								<b><font >Fuente: </font></b>Mesas de Competitividad<br>
+		  								<b><font >Fuente: </font></b><?php echo ucfirst(mb_strtolower($resultado->nombre)) ?><br>
 
-  								<font ><strong>Responsable: </strong>{{$resultados->responsable_solucion}}</font><br>
+		  								<font ><strong>Responsable: </strong>{{$resultado->responsable_solucion}}</font><br>
 
-
-								@if($resultados->estado_id>=1)
-								<div class="progress progress-striped active " style="width:50%">
+	                                 </div>
+	                                 <div class="progress progress-striped active" style="width:50%">
+	                                 	@if($resultado->estado_id>=1)
                                         <div class="progress-bar progress-bar-primary" style="width: 33%">En Análisis</div>
-                                        @if($resultados->estado_id>=3)
+                                        @endif
+                                        @if($resultado->estado_id>=3)
                                         <div class="progress-bar progress-bar-info" style="width: 33%">En Desarrollo</div>
-                                        @if($resultados->estado_id==4)
+                                        @endif
+                                        @if($resultado->estado_id==4)
                                         <div class="progress-bar progress-bar-success" style="width: 34%">Finalizado</div>
                                         @endif
-                                        @endif
+                                        
 
-                                  </div>
-                                @endif
-
-							</p>
-
-							</div>
-
-							                	</td>
-							                @endif
-							                @if($resultados->tipo_fuente==2)
-							                	<td class="text-left p-t-15">
-
-
-							<div class="text-justify">
-							<a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/detalle-despliegue-dialogo/{{$resultados->id}}">ver</a>
-							<p>
-
-                <!-- {{$resultados->problema_solucion}}<br /> -->
-                <!-- {{$solucion->ambit->nombre_ambit}}<br /> -->
-
-                <?php $complemento = str_limit($resultados->complemento_solucion, 400); ?>
-
-                <span class="total_propuestas_estilo_heading"><?php echo ucfirst(mb_strtolower($complemento)) ?></span><br>
-                <font><?php echo ucfirst(mb_strtolower($resultados->sujeto_solucion)) ?></font><br>
-                <!-- <font><?php echo ucfirst(mb_strtolower($resultados->problema_solucion)) ?></font><br> -->
-                
-
-                <b><font >Fuente: </font></b>Consejo Consultivo Productivo y Tributario<br>
-								<font ><strong>Responsable: </strong>{{$resultados->responsable_solucion}}</font><br>
-
-                                @if($resultados->estado_id>=1)
-								<div class="progress progress-striped active" style="width:50%">
-                                        <div class="progress-bar progress-bar-primary" style="width: 33%">En Análisis</div>
-                                        @if($resultados->estado_id>=3)
-                                        <div class="progress-bar progress-bar-info" style="width: 33%">En Desarrollo</div>
-                                        @if($resultados->estado_id==4)
-                                        <div class="progress-bar progress-bar-success" style="width: 34%">Finalizado</div>
-                                        @endif
-                                        @endif
-
-                                  </div>
-                                @endif
-
-							</p>
-
-							</div>
-
-							                	</td>
-							                @endif
-
-
-
-							            </tr>
-						            @endforeach
-			     				</tbody>
-							</table>
+                                  	</div>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+					
+					{!! $resultados->setPath('')!!}					
 						@endif
 
 						<!-- Fin Contenido -->
