@@ -77,16 +77,16 @@ class PaginasController extends Controller
                                 ->paginate(10);
             //dd($resultados);
 
-            $url = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
 
-            //dd($url);
+           // dd($urlResultados);
 
             return view('publico.reportes.reporte-dialogo')->with([
-                                            "url"=>$url,
+                                            "urlResultados"=>$urlResultados,
                                             "resultados"=>$resultados                                            
                                         ]);
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+            
         }
 
 
@@ -108,10 +108,15 @@ class PaginasController extends Controller
                                 ->orwhere('institucions.siglas_institucion','LIKE','%' . $buscar . '%')
                                 ->orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
                                 ->where('tipo_dialogo.id','=', $request->selectBusqueda )
-                                ->paginate(10);
+                                ->paginate(20);
 
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro='.$buscar;
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+            return view('publico.reportes.reporte-dialogo')->with([
+                                            "urlResultados"=>$urlResultados,
+                                            "resultados"=>$resultados                                            
+                                        ]);
+            
         }
 
 
