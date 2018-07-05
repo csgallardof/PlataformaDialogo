@@ -55,9 +55,15 @@ class PaginasController extends Controller
                                 ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
                                 ->orderBy('solucions.estado_id','DESC')
                                 ->paginate(20);
+            $resultadosreporte = Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->orderBy('solucions.estado_id','DESC')
+                                ->get();
             //dd($resultados);
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))-with(["resultadosreporte"=>$resultadosreporte]);
         }
 
         // // Busqueda tipo Dialogo sin parametro
@@ -75,6 +81,13 @@ class PaginasController extends Controller
                                 ->where('tipo_dialogo.id','=', $request->selectBusqueda )
                                 ->orderBy('solucions.estado_id','DESC')
                                 ->paginate(10);
+            $resultadosreporte = Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->where('tipo_dialogo.id','=', $request->selectBusqueda )
+                                ->orderBy('solucions.estado_id','DESC')
+                                ->get();
             //dd($resultados);
 
             $url = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
@@ -83,10 +96,11 @@ class PaginasController extends Controller
 
             return view('publico.reportes.reporte-dialogo')->with([
                                             "url"=>$url,
-                                            "resultados"=>$resultados                                            
+                                            "resultados"=>$resultados,
+                                            "resultadosreporte"=>$resultadosreporte                                            
                                         ]);
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte]);;
         }
 
 
@@ -110,8 +124,20 @@ class PaginasController extends Controller
                                 ->where('tipo_dialogo.id','=', $request->selectBusqueda )
                                 ->paginate(10);
 
+            $resultadosreporte =Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
+                                ->join('institucions','institucions.id','=','actor_solucion.institucion_id')
+                                ->orwhere('institucions.nombre_institucion','LIKE','%' . $buscar . '%')
+                                ->orwhere('institucions.siglas_institucion','LIKE','%' . $buscar . '%')
+                                ->orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
+                                ->where('tipo_dialogo.id','=', $request->selectBusqueda )
+                                ->get();
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'));
+
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte]);
         }
 
 

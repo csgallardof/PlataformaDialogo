@@ -161,7 +161,7 @@
 									<th class="text-left f-s-18">id</th>
 								</thead>
 								<tbody>
-									@foreach( $resultados as $excel)
+									@foreach( $resultadosreporte as $excel)
 									<tr>
 									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
 									<td>{{$excel->id}}</td>
@@ -186,7 +186,7 @@
 									<th class="text-left f-s-18">id</th>
 								</thead>
 								<tbody>
-									@foreach( $resultados as $excel)
+									@foreach( $resultadosreporte as $excel)
 									<tr>
 									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
 									<td>{{$excel->id}}</td>
