@@ -22,7 +22,7 @@
           <ol class="breadcrumb">
 
             <li class="home"><a href="{{ url('/') }}"><i class="fa fa-home fa-lg"></i><span></span></a></li>
-            <li class="active"><a href="{{ url('/busquedaAvanzada') }}">Resultados de la B&uacute;squeda</a></li>
+            <li class="active"><a href="{{ url('/busquedaAvanzada') }}">Resultados de la B&uacute;squeda </a></li>
 
           </ol>
         </div><hr style="margin-top:-10px;">
@@ -40,7 +40,7 @@
 
                                     <div class="input-group custom-search-form">
 
-                                        <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo" name="parametro" value="" required style="font-size: 16px" >
+                                        <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo " name="parametro" value="" required style="font-size: 16px" >
                                         <span class="input-group-btn">
                                             <button class="btn btn-buscar btn-lg" style="background: #EF5D06; color: #fff; " type="submit" height="50px">
                                                 <span class="glyphicon glyphicon-search"></span>
@@ -143,6 +143,60 @@
 				<!-- end col-3 -->
 					</div>
 					<!-- Final cuadrados -->
+
+					<div class="col-md-12">
+						<form target="_blank" method="POST" action="/propuesta-dialogo-nacional/descargar-excel" enctype="multipart/form-data">
+							{{ csrf_field() }}
+							<div class="form-group">
+                                    <div class="col-md-2 ">
+                                        
+                                        <button type="submit"  class="btn btn-primary">Descargar Excel</button>
+
+                                    </div>
+                                      
+                                </div>
+							<table hidden>
+								<thead>
+									<th class="text-left f-s-18">Seleccionar</th>
+									<th class="text-left f-s-18">id</th>
+								</thead>
+								<tbody>
+									@foreach( $resultados as $excel)
+									<tr>
+									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
+									<td>{{$excel->id}}</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</form>
+						<form target="_blank" method="POST" action="/propuesta-dialogo-nacional/descargar-pdf/1" enctype="multipart/form-data">
+							{{ csrf_field() }}
+							<div class="form-group">
+                                    <div class="col-md-3 ">
+                                        
+                                        <button type="submit"  class="btn btn-success">Descargar PDF</button>
+
+                                    </div>
+                                      
+                                </div>
+							<table hidden>
+								<thead>
+									<th class="text-left f-s-18">Seleccionar</th>
+									<th class="text-left f-s-18">id</th>
+								</thead>
+								<tbody>
+									@foreach( $resultados as $excel)
+									<tr>
+									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
+									<td>{{$excel->id}}</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</form>
+						
+					</div>
 
 				<!-- Inicio col-8 tabla -->
 					<div class="col-md-12">

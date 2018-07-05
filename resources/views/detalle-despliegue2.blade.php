@@ -97,7 +97,16 @@
 								<div class="panel-body">
 
 									<div class="media-body"><br />
+										<dl class="dl-horizontal">
+										
+											<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar</a>
+											<a href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar</a>
+
+											
+											
+										</dl>
 									<dl class="dl-horizontal">
+
 											<label class='text-success'>Estado de Compromiso:</label> &nbsp;&nbsp;&nbsp;
 											<span class="label label-warning f-s-13">
 												@if(isset($solucion))

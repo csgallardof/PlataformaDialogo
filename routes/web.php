@@ -49,8 +49,18 @@ Route::post('/reporte',[
      'uses'=>'SolucionesController@buscar',
      'as'=>'reporte1.resultado'
 ]);
- 
-Route::get('/detalle-despliegue-dialogo/{id}','PaginasController@detalledespliegue2');
+
+Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada'); 
+
+Route::get('/propuesta-detallada/descargar-pdf/{idPropuesta}/{tipo}','PdfController@crearReportePropuestaDetallada'); 
+
+Route::post('/propuesta-dialogo-nacional/descargar-excel','ExcelController@exportarPropuestasDialogoNacional'); 
+
+Route::post('/propuesta-dialogo-nacional/descargar-pdf/{tipo}','PdfController@exportarPropuestasDialogoNacional'); 
+
+
+
+Route::get('/detalle-despliegue-dialogo/{id}','PaginasController@detalledespliegue2'); 
 
 
 Route::get('/foro-de-la-produccion-impulso-innovacion', 'PaginasController@foroproduccion');

@@ -28,7 +28,7 @@ use App\Auth\Login;
 class PaginasController extends Controller
 {
     
-    public function busquedaAvanzadaDialogo(Request $request){
+    public function busquedaAvanzadaDialogo(Request $request){ 
         //dd("hola");
 
        $buscar = $request-> parametro;
