@@ -142,15 +142,22 @@
       }
 
     </script>
-    <div class="container" >
-        <div class="content" style="margin-top: 50px">
-            <div class="title2">    
-                <h3>Reporte de Propuestas</h3>  </div>
+    <br><br><br><br>
+	<!-- begin row -->
+	<div id="about" class="content work" data-scrollview="true">
+   <div class="container" data-animation="true" data-animation-type="fadeInDown">
+          <div class="toolbar title_ip_breadcrumb fit-m-b-10">  
+                <h3> Reportes Dialogo Nacional 
+                
+                
+                </h3> 
+          <hr>
+          </div>
             <div class="row col-sm-12">
                 <form method="POST"  action="/reporte">
                     {{ csrf_field() }}
                     <div class="form-group col-sm-4">
-                        <label for="consejoSectorial_id">CONSEJO SECTORIAL:</label>
+                        <label for="consejoSectorial_id">Consejo sectorial:</label>
                          <select class="form-control" name="consejoSectorial_id" id="consejoSectorial_id">
                                     <option value="-1" selected="true"> - Seleccione - </option>
                                     @if( isset($consejoSectorial_) )
@@ -163,7 +170,7 @@
                                 </select>
                     </div>
                     <div class="form-group col-sm-4">
-                        <label for="estado_id">ESTADOS:</label>
+                        <label for="estado_id">Estados:</label>
                  
                          <select class="form-control" name="estado_id" id="estado_id">
                                     <option value="-1" selected="true"> - Seleccione - </option>
@@ -177,7 +184,7 @@
                                 </select>
                     </div>
                      <div class="form-group col-sm-4">
-                        <label for="institucion_id">INSTITUCION:</label>
+                         <label for="institucion_id">Instituci&oacute;n:</label>
                         <select class="form-control" name="institucion_id" id="institucion_id">
                                     <option value="-1" selected="true"> - Seleccione - </option>
                                     @if( isset($institucion_) )
@@ -203,7 +210,7 @@
                                 </select>
                     </div> 
                        <div class="form-group col-sm-4">
-                        <label for="zona_id">ZONA:</label>
+                        <label for="zona_id">Zona:</label>
                         <select class="form-control" name="zona_id" id="zona_id">
                                      <option value="-1" selected="true"> - Seleccione - </option>
                                     @if( isset($zona_) )
@@ -215,11 +222,33 @@
                                     @endif
                                 </select>
                     </div> 
-                      <div class="form-group col-sm-4">
-                        <label for="palabra_clave">PALABRA CLAVE:</label>
-                        <input type="text" class="form-control" id="palabra_clave" name="palabra_clave">
+                    <div class="form-group col-sm-4">
+                        <label for="palabra_clave_id">Palabra Clave:</label>
+                        <select class="form-control" name="palabra_clave_id" id="palabra_clave_id">
+                            <option value="-1" selected="true"> - Seleccione - </option>
+                            @if( isset($palabraClave_) )
+                            @foreach( $palabraClave_ as $item )
+                            <option value="{{ $item->nombre}}">
+                                {{ $item->nombre}}
+                            </option>
+                            @endforeach
+                            @endif
+                        </select>
                     </div> 
-                    <button type="submit" class="btn btn-default">Buscar...</button>
+                     <div class="form-group col-sm-4">
+                         <label for="palabra_clave_id">Ponderaci&oacute;n:</label>
+                         <select class="form-control" name="ponderacion_id" id="ponderacion_id">
+                            <option value="-1" selected="true"> - Seleccione - </option>
+                            <option value="0">0</option>
+                            <option value="25">25</option>
+                            <option value="25">50</option>
+                            <option value="25">75</option>
+                            <option value="25">100</option>                            
+                        </select>
+                     
+                         <button type="submit" class="btn btn-default">Buscar...</button>
+                    </div>
+                     
                 </form> 
             </div>
  
