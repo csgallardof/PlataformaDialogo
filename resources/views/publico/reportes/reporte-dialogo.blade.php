@@ -67,7 +67,8 @@
 					<span class="title_ip_h1">
 
 						<?php $total = 0;
-							foreach ($resultados as $solucion){
+
+							foreach ($resultadosreporte as $solucion){
 								$total=$total+1;
 							}
 						?>
@@ -161,7 +162,7 @@
 									<th class="text-left f-s-18">id</th>
 								</thead>
 								<tbody>
-									@foreach( $resultados as $excel)
+									@foreach( $resultadosreporte as $excel)
 									<tr>
 									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
 									<td>{{$excel->id}}</td>
@@ -186,7 +187,7 @@
 									<th class="text-left f-s-18">id</th>
 								</thead>
 								<tbody>
-									@foreach( $resultados as $excel)
+									@foreach( $resultadosreporte as $excel)
 									<tr>
 									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
 									<td>{{$excel->id}}</td>

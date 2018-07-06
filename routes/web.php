@@ -34,7 +34,7 @@ Route::get('/inicio2', function () {
 
 
 Route::get('/busquedaAvanzadaDialogo',[
-     'uses'=>'PaginasController@busquedaAvanzadaDialogo',
+     'uses'=>'PaginasController@busquedaAvanzadaDialogo', 
      'as'=>'nuevaBusquedaDialogo'
 ]);
 
