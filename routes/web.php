@@ -27,10 +27,18 @@ Route::get('/inicio2', function () {
      return view('inicio2');
 });
 
-Route::get('/busquedaAvanzada',[
-     'uses'=>'PaginasController@busquedaAvanzada',
-     'as'=>'nuevaBusqueda2'
+// Route::get('/busquedaAvanzada',[
+//      'uses'=>'PaginasController@busquedaAvanzada',
+//      'as'=>'nuevaBusqueda2'
+// ]);
+
+
+Route::get('/busquedaAvanzadaDialogo',[
+     'uses'=>'PaginasController@busquedaAvanzadaDialogo', 
+     'as'=>'nuevaBusquedaDialogo'
 ]);
+
+
 
 Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']); 
 
@@ -41,8 +49,18 @@ Route::post('/reporte',[
      'uses'=>'SolucionesController@buscar',
      'as'=>'reporte1.resultado'
 ]);
- 
-Route::get('/detalle-despliegue-dialogo/{id}','PaginasController@detalledespliegue2');
+
+Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada'); 
+
+Route::get('/propuesta-detallada/descargar-pdf/{idPropuesta}/{tipo}','PdfController@crearReportePropuestaDetallada'); 
+
+Route::post('/propuesta-dialogo-nacional/descargar-excel','ExcelController@exportarPropuestasDialogoNacional'); 
+
+Route::post('/propuesta-dialogo-nacional/descargar-pdf/{tipo}','PdfController@exportarPropuestasDialogoNacional'); 
+
+
+
+Route::get('/detalle-despliegue-dialogo/{id}','PaginasController@detalledespliegue2'); 
 
 
 Route::get('/foro-de-la-produccion-impulso-innovacion', 'PaginasController@foroproduccion');
@@ -231,7 +249,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
 
      Route::get('actores/asignar-responsable/{idSolucion}',[
           'uses'=>'InstitucionController@createAsignar',
-          'as'=>'actorSolucion.create'
+          'as'=>'actorSolucion.create' 
      ]);
 
 

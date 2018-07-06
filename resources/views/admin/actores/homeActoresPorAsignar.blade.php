@@ -44,7 +44,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Fuente</th>
+                                            
                                             <th>Soluci&oacute;n</th>
                                             <th style="align-content: center;">Responsable <small>(sugeridos en mesas)</small></th>
                                             <th>Estado</th>
@@ -57,15 +57,9 @@
                                             <td class="text-justify">
                                                 {{$actorSolucion->id}}
                                             </td>
+                                           
                                             <td class="text-justify">
-                                                @if($actorSolucion-> tipo_fuente == 1)
-                                                    {{ "Mesas Competitivas" }}
-                                                @else
-                                                    {{ "Consejo Consultivo" }}
-                                                @endif
-                                            </td>
-                                            <td class="text-justify">
-                                                {{ $actorSolucion->verbo_solucion." ".$actorSolucion->sujeto_solucion ." ".$actorSolucion->complemento_solucion }}
+                                                {{ $actorSolucion->propuesta_solucion }}
                                             </td>
                                             <td class="text-justify">
                                                {{ $actorSolucion->responsable_solucion }}

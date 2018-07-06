@@ -169,20 +169,31 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
    1.0 General reset & setup
 ------------------------------- */
 
+@font-face {
+    font-family: dolce_vita_light;
+    src: url(../fonts/dolce_vita_light.ttf);
+}
+
+@font-face {
+    font-family: dolce_vita_heavy_bold;
+    src: url(../fonts/dolce_vita_heavy_bold.ttf);
+}
+
 /* 1.1 Reset and overrides */
 
 body {
     background: #fff;
     font-size: 14px;
-    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
-    color: #444444;
-    line-height: 20px;
+    font-weight: 300;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #545454;
+    line-height: 1.6;
 }
 .ie8 body {
     font-family: Arial,sans-serif;
 }
 h1, h2, h3, h4, h5, h6{
-    font-weight: 500;
+    font-weight: 350;
     color: #242a30;
 }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
@@ -331,12 +342,17 @@ label {
     -moz-transition: all .2s linear;
     transition: all .2s linear;
 }
+
+.header_main_properties {
+   padding: 0px 15px 4px 18px;
+}
+
 .header.navbar .navbar-nav > li > a {
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 375;
     line-height: 20px;
     color: #ffffff;
-    font-weight: 600;
-    padding: 25px 15px;
+    padding: 25px 25px;
 }
 .header.navbar .navbar-nav > li.active > a,
 .header.navbar .navbar-nav > li > a:hover,
@@ -382,9 +398,12 @@ label {
 /* 2.4 Navbar Default Setting  */
 
 .header.navbar.navbar-default {
-  /*  background: #0c3c55; */
-    background: #0c3c55; /* For browsers that do not support gradients */
-    background: radial-gradient(#015c9c, #103a68);
+
+    background-image:    -moz-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 250px);
+    background-image: -webkit-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 250px);
+    background-image:      -o-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 250px);
+    background-image:     -ms-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 250px);
+    background-image:         radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 250px);
 
 }
 
@@ -448,7 +467,7 @@ label {
     display: block;
 }
 .navbar-nav .dropdown-menu {
-    background: #F3F3F3;
+    background: #ffffff;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -530,22 +549,28 @@ label {
 .sidebar {
     width: 220px;
     position: absolute;
-    left: 0;
+    /* left: 0; */
+    left: -220px;
     top: 0;
     bottom: 0;
-    padding-top: 54px;
+    /* padding-top: 54px; */
+    padding-top: 0;
     background: #2d353c;
-    z-index: 10;
+    /* z-index: 10; */
+    z-index: 1030;
     -webkit-transform: translateZ(0);
 }
+
 .sidebar-bg {
     background: #2d353c;
     position: fixed;
     top: 0;
-    left: 0;
+    /* left: 0; */
+    left: -220px;
     bottom: 0;
     width: 220px;
-    z-index: 0;
+    z-index: 1030;
+    /* z-index: 0; */
 }
 .sidebar .nav > li:before,
 .sidebar .nav > li:after,
@@ -558,7 +583,7 @@ label {
 .sidebar .nav > li > a {
     padding: 8px 20px;
     line-height: 20px;
-    color: #a8acb1;
+    color: #ffffff;
 }
 .sidebar.sidebar-grid .nav > li > a {
     border-bottom: 1px solid #383f46;
@@ -2392,6 +2417,21 @@ a.list-group-item.active > .badge,
 .m-t-30 { margin-top: 30px !important; }
 .m-t-35 { margin-top: 35px !important; }
 .m-t-40 { margin-top: 40px !important; }
+.m-t-45 { margin-top: 45px !important; }
+.m-t-50 { margin-top: 50px !important; }
+.m-t-55 { margin-top: 55px !important; }
+.m-t-60 { margin-top: 60px !important; }
+.m-t-65 { margin-top: 65px !important; }
+.m-t-70 { margin-top: 70px !important; }
+.m-t-75 { margin-top: 75px !important; }
+.m-t-80 { margin-top: 80px !important; }
+.m-t-85 { margin-top: 85px !important; }
+.m-t-90 { margin-top: 90px !important; }
+.m-t-95 { margin-top: 95px !important; }
+.m-t-100 { margin-top: 100px !important; }
+.m-t-105 { margin-top: 105px !important; }
+.m-t-110 { margin-top: 110px !important; }
+.m-t-115 { margin-top: 115px !important; }
 
 .m-r-0 { margin-right: 0px !important; }
 .m-r-1 { margin-right: 1px !important; }
@@ -6348,11 +6388,41 @@ body.flat-black {
 /* 13.1 Footer Element Setting */
 
 .footer {
-    padding: 60px 0;
-    background: #0c3c55;
-    text-align: center;
-    margin-top: 100px;
+    /* margin-top: 100px; */
+    background-image:    -moz-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 450px);
+    background-image: -webkit-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 450px);
+    background-image:      -o-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 450px);
+    background-image:     -ms-radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 450px);
+    background-image:         radial-gradient(50px 100px, circle farthest-corner, #0061a2, #193b68 450px);
+
+    height: 300px;
+
 }
+
+.footer_title_gobierno {
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 150px;
+}
+
+.ecuador_footer_img {
+    background-image: url(../imagenes/dialogo_nacional/footer_logos_1.png);
+    height: 300px;
+    background-repeat: no-repeat;
+}
+
+.government_footer_logos {
+  height: 300px;
+}
+
+.government_footer_logos > img {
+  position: relative;
+  /* left: 0;
+  bottom: 0;
+  margin-bottom: 20px; */
+  text-align:center;
+}
+
 .footer .footer-brand-logo {
     display: block;
     margin: 0 auto 10px;
@@ -6560,4 +6630,278 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
 
 table.dataTable thead th {
     outline: none;
+}
+
+
+/*AGREGADO*/
+
+/* 3.18 Component - Modal Setting */
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+}
+
+.modal-content {
+    border: none;
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.modal-header {
+    padding: 12px 15px;
+    border-bottom-color: #e2e7eb;
+}
+.modal-header .close {
+    margin-top: 2px;
+}
+.modal-body {
+    padding: 15px;
+}
+.modal-footer {
+    border-top-color: #e2e7eb;
+    padding: 14px 15px 15px;
+}
+
+.modal-message .modal-dialog {
+    width: 100%;
+}
+.modal-message .modal-content {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.modal-message .modal-header,
+.modal-message .modal-body,
+.modal-message .modal-footer {
+    width: 60%;
+    border: none;
+    margin: 0 auto;
+}
+.modal-backdrop.fade.in {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+/*Agregados*/
+
+.background-home {
+  background-image: url(../imagenes/dialogo_nacional/fondo_2.jpg);
+  background-size: cover;
+  /* background-size: 1500px 800px; */
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.content-adds-1 {
+      padding: 100px 15px 75px !important;
+}
+
+.content-adds-2 {
+      padding: 60px 15px 75px !important;
+}
+
+.row-m-t-3 {
+    margin-top: 70px;
+    margin-bottom: 0px;
+    padding-top: 200px;
+    padding-bottom: 50px;
+}
+
+.row-m-t-4 {
+    margin-top: 80px;
+}
+
+.row-m-t-minus-25 {
+    margin-top: -25px;
+}
+
+/*Otros*/
+
+.social-list > a > i {
+  color: #ffffff;
+}
+
+.timeline-Tweet-text {
+    font-size: 15px ;
+}
+
+
+.btn.btn-buscar {
+    color: #fff;
+    background: #43a3f2;
+    border-color: #43a3f2;
+}
+.btn-buscar:hover,
+.btn-buscar:focus,
+.btn-buscar:active,
+.btn-buscar.active,
+.open .dropdown-toggle.btn-buscar {
+    background: #035695;
+    border-color:#035695;
+    color: #fff !important;
+}
+.btn-group .btn.btn-buscar:not(.active) + .btn.btn-buscar,
+.input-group-btn .btn.btn-buscar:not(.active) + .btn.btn-buscar {
+    border-left-color: #F26F21;
+
+}
+
+
+/* effect for home */
+
+.container2 {
+    position: relative;
+
+}
+
+.container-work {
+    position: relative;
+    margin: 15px
+
+}
+
+.text-block2 {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-color: black;
+    color: white;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+
+.img-over {
+    text-align: center;
+    padding: 0 40px;
+    background: #f3f3f3;
+
+
+}
+
+.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 6px;
+  right: -20px;
+  background-color: #008CBA;
+  overflow: hidden;
+  width: 100%;
+  height:0;
+  transition: .5s ease;
+}
+
+
+/*espacio*/
+.box{
+  box-model: border-box;
+  border: 3px solid transparent;
+  background-clip:padding-box;
+}
+
+.box-4{
+  box-model: border-box;
+  padding: 100px 100px;
+  border: 1px solid transparent;
+  background-clip:padding-box;
+}
+
+.box-tw{
+    height: 200px;
+}
+
+
+.box-foro{
+    text-align: left !important;
+}
+
+.btn-home-ip-custom {
+  color: #fff;
+  background: #F26F21;
+  border-color: #F26F21;
+  font-weight: bold;
+}
+
+.btn-home-ip-custom:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+/* //////////// */
+
+.search-home input[type="text"], #tipo_dialogo, #btn_buscar {
+    margin-bottom: 0 !important;
+    border: none !important;
+    height: 50px !important;
+    padding: 10px 12px !important;
+    font-size: 13px;
+}
+
+.btn-default {
+  background-color: #3893e6 !important;
+}
+
+select option {
+  background: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #545454;
+  line-height: 1.6;
+}
+
+  .home_part1_size_images {
+  width: 90px;
+  height: 90px;
+}
+
+.home_sentence {
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.home_author_sentence {
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.home_main_icon_line1 {
+  color: white;
+  font-weight: 550;
+  margin-top: 14px;
+  line-height: 0.5;
+}
+
+.home_main_icon_line2 {
+  color: white;
+  font-style: italic;
+  letter-spacing: 1.2px;
+  font-weight: 450;
+  font-size: 12px;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    margin-top: -5px;
 }

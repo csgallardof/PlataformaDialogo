@@ -1,25 +1,27 @@
+<br /><br />
+
+<div id="social_network" class="social_network">
+    <div class="col-md-12">
+      <a><img src="{{ asset('imagenes/dialogo_nacional/facebook.png') }}" width="30px" height="30px" /></a>
+      <a><img src="{{ asset('imagenes/dialogo_nacional/twitter.png') }}" width="30px" height="30px" /></a>
+      <a><img src="{{ asset('imagenes/dialogo_nacional/youtube.png') }}" width="30px" height="30px" /></a>
+      <a><img src="{{ asset('imagenes/dialogo_nacional/flicker.png') }}" width="30px" height="30px" /></a>
+    </div>
+</div>
+
+<br /><br />
 
 <div id="footer" class="footer p-0">
     <div class="col-md-12">
-        <div class="col-md-3 p-t-10" style="background: url(imagenes/dialogo_nacional/footer_logos_1.png);  background-size: 300px 250px; background-repeat: no-repeat; ">
-            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_3.png') }}" class="pull-left" width="70px" height="85px" >
-        </div>
-
-        <div class="col-md-5 p-t-10">
-            <div >
-                <h4><span style="color: #fff;">GOBIERNO DE</span> <strong><span style="color: white";>LA REPUBLICA DEL ECUADOR</span></strong></h4>
-                
+        <div class="ecuador_footer_img col-md-9 p-t-10">
+            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_3.png') }}" class="m-t-75 pull-left" width="115px" height="194px" >
+            <div class="footer_title_gobierno">
+                <h3><span style="color: #fff;font-family: dolce_vita_light;">GOBIERNO DE&nbsp;</span><span style="color: white;font-family: dolce_vita_heavy_bold;";>LA REPUBLICA DEL ECUADOR</span></h3>
             </div>
-           
         </div>
-
-        <div class="col-md-4 p-t-10">
-            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_2.png') }}" width="270px" height=80px" >
+        <div class="col-md-3 government_footer_logos">
+            <img class="center-block m-t-110" src="{{ asset('imagenes/dialogo_nacional/footer_logos_2.png') }}" width="260px" height="82px">
         </div>
-        
-        
     </div>
-
-    
 </div>
 <!-- end #footer -->

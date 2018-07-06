@@ -463,6 +463,7 @@ body.page-navbar-fixed-top-sm {
     top: 0;
     bottom: 0;
 }
+
 .content.has-bg .container {
     position: relative;
 }
@@ -1113,7 +1114,7 @@ body.page-navbar-fixed-top-sm {
 .footer {
     padding: 0px 0 !important;
     height: 100px;
-    
+
     text-align: center;
     background: #0c3c55; /* For browsers that do not support gradients */
     background: radial-gradient(#015c9c, #103a68);
@@ -3316,8 +3317,6 @@ a.list-group-item.active:focus {
 
 }
 
-
-
 .overlay {
   position: absolute;
   bottom: 100%;
@@ -3365,3 +3364,5 @@ a.list-group-item.active:focus {
   color: #ffffff !important;
   text-decoration: underline !important;
 }
+
+/* //////////// */
