@@ -1,3 +1,15 @@
+<br /><br />
+
+<div id="social_network" class="social_network">
+    <div class="col-md-12">
+      <a><img src="{{ asset('imagenes/dialogo_nacional/facebook.png') }}" width="30px" height="30px" /></a>
+      <a><img src="{{ asset('imagenes/dialogo_nacional/twitter.png') }}" width="30px" height="30px" /></a>
+      <a><img src="{{ asset('imagenes/dialogo_nacional/youtube.png') }}" width="30px" height="30px" /></a>
+      <a><img src="{{ asset('imagenes/dialogo_nacional/flicker.png') }}" width="30px" height="30px" /></a>
+    </div>
+</div>
+
+<br /><br />
 
 <div id="footer" class="footer p-0">
     <div class="col-md-12">

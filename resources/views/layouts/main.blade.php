@@ -29,7 +29,7 @@
 			<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 			<link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
 			<link href="{{ asset('css/theme/default.css') }}" rel="stylesheet" id="theme" />
-            <link href="{{ asset('css/inteligencia.css') }}" rel="stylesheet" /> -->
+      <link href="{{ asset('css/inteligencia.css') }}" rel="stylesheet" /> -->
 
 			<link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
 		  <link href="{{ asset('plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
@@ -57,7 +57,7 @@
 		<!-- ================== END BASE JS ================== -->
 
     <!-- Styles -->
-    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 	</head>
 
@@ -66,7 +66,7 @@
     <div id="page-container" class="fade">
 			@include ('layouts.menu')
 			@yield ('contenido')
-			@include ('layouts.common_modals')
+			<!-- @include ('layouts.common_modals') -->
 			@include ('layouts.footer')
     </div>
 
@@ -90,7 +90,8 @@
 		    <script src="{{ asset('js/table-manage-responsive.demo.min.js') }}"></script>
 		    <script src="{{ asset('js/SelectBusqueda/selectsBusquedaAvanzada.js') }}"></script>
 		    <!-- <script src="{{ asset('js/custom-mipro.js') }}"></script> -->
-		    <!-- <script src="{{ asset('js/apps.js') }}"></script>
+		    <script src="{{ asset('js/apps.js') }}"></script>
+				<!-- <script src="{{ asset('js/apps.min.js')}}"></script>
 		    <script src="{{ asset('js/dashboard.js') }}"></script> -->
 
 		@show

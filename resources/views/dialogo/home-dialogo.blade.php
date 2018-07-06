@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', '')
+@section('title', 'Inicio')
 
 @section('start_css')
   @parent
@@ -240,7 +240,7 @@
 @section('end_js')
   @parent
 
-  <script src="{{ asset('js/apps.min.js')}}"></script>
+  
   <script src="{{ asset('js/ui-modal-notification.demo.js') }}"></script>
 @endsection
 
