@@ -124,7 +124,7 @@
 										<dl class="dl-horizontal">
 										
 											<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar Excel</a>
-											<a href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar PDF</a>
+											<a target="_blank" href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar PDF</a>
 
 											
 											

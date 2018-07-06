@@ -137,6 +137,7 @@ class ExcelController extends Controller
             
         \Excel::create('Propuesta Detallada', function($excel) use($idPropuesta){
             $estado_solucion = DB::table('solucions')->where('id', $idPropuesta)->first();
+
             if ($estado_solucion->estado_id==1) {
                 //dd('estoy aki');
                 $solucion = DB::table('solucions')  
@@ -144,7 +145,7 @@ class ExcelController extends Controller
                                                     ->where('solucions.id', $idPropuesta)
                                                     ->select('solucions.*','estado_solucion.nombre_estado')
                                                     ->first();
-                //dd($solucion);
+                
                  $excel->sheet('Propuesta Solucion', function($sheet) use($solucion) {
        
             
@@ -163,7 +164,7 @@ class ExcelController extends Controller
                 'ACTIVIDADES'
             ]);
 
-            
+                
                
                 $sheet->row(2, [
                     strtoupper($solucion->id),
@@ -180,7 +181,7 @@ class ExcelController extends Controller
             
          
         });
-            }else
+            }else{
          
             DB::statement('SET GLOBAL group_concat_max_len = 9000000'); 
         $solucion= DB::table('solucions')->leftJoin('actividades', 'actividades.solucion_id', '=', 'solucions.id')
@@ -195,7 +196,7 @@ class ExcelController extends Controller
                                             ->first();
        
        
-
+       
        //dd($estado_solucion->estado_id);
             
             $excel->sheet('Propuesta Solucion', function($sheet) use($solucion) {
@@ -233,6 +234,7 @@ class ExcelController extends Controller
             
          
         });
+        }
          
         })->export('xlsx');
 
