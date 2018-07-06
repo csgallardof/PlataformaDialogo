@@ -67,7 +67,8 @@
 					<span class="title_ip_h1">
 
 						<?php $total = 0;
-							foreach ($resultados as $solucion){
+
+							foreach ($resultadosreporte as $solucion){
 								$total=$total+1;
 							}
 						?>
@@ -201,7 +202,7 @@
 				<!-- Inicio col-8 tabla -->
 					<div class="col-md-12">
 
-						@if(isset($resultados))
+				@if(isset($resultados))
 
 				<!-- Inicio tabla paginado -->
 					<table id="" class="table nowrap" width="100%">
@@ -245,7 +246,7 @@
 						</tbody>
 					</table>
 					
-					{!! $resultados->setPath('')!!}					
+					{!! $resultados->setPath($urlResultados)!!}					
 						@endif
 
 						<!-- Fin Contenido -->

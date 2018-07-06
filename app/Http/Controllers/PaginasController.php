@@ -42,7 +42,7 @@ class PaginasController extends Controller
             //     dd($resultados);
             //     return view('publico.reportes.reporte-dialogo', compact('resultados'));    
             // }
-        if( ($request->selectBusqueda=='no') and ($buscar=='') ){
+        if( ($request->selectBusqueda=='no') && ($buscar=='') ){
 
             //dd($request->selectBusqueda);
            // $resultados = Solucion::where('provincias.','LIKE','%' . $buscar . '%')
@@ -55,6 +55,7 @@ class PaginasController extends Controller
                                 ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
                                 ->orderBy('solucions.estado_id','DESC')
                                 ->paginate(20);
+
             $resultadosreporte = Solucion::select('solucions.*','mesa_dialogo.nombre')
                                 ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
                                 ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
@@ -63,7 +64,9 @@ class PaginasController extends Controller
                                 ->get();
             //dd($resultados);
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'))-with(["resultadosreporte"=>$resultadosreporte]);
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
+
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte,"urlResultados"=>$urlResultados]);
         }
 
         // // Busqueda tipo Dialogo sin parametro
@@ -81,6 +84,7 @@ class PaginasController extends Controller
                                 ->where('tipo_dialogo.id','=', $request->selectBusqueda )
                                 ->orderBy('solucions.estado_id','DESC')
                                 ->paginate(10);
+
             $resultadosreporte = Solucion::select('solucions.*','mesa_dialogo.nombre')
                                 ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
                                 ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
@@ -90,17 +94,19 @@ class PaginasController extends Controller
                                 ->get();
             //dd($resultados);
 
-            $url = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
 
-            //dd($url);
+           // dd($urlResultados);
 
             return view('publico.reportes.reporte-dialogo')->with([
-                                            "url"=>$url,
-                                            "resultados"=>$resultados,
-                                            "resultadosreporte"=>$resultadosreporte                                            
+                                            "urlResultados"=>$urlResultados,
+                                            "resultadosreporte"=>$resultadosreporte,
+                                            "resultados"=>$resultados                                            
                                         ]);
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte]);;
+            
+
+            
         }
 
 
@@ -122,7 +128,10 @@ class PaginasController extends Controller
                                 ->orwhere('institucions.siglas_institucion','LIKE','%' . $buscar . '%')
                                 ->orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
                                 ->where('tipo_dialogo.id','=', $request->selectBusqueda )
-                                ->paginate(10);
+                                ->paginate(20);
+
+
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro='.$buscar;
 
             $resultadosreporte =Solucion::select('solucions.*','mesa_dialogo.nombre')
                                 ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
@@ -137,7 +146,11 @@ class PaginasController extends Controller
                                 ->get();
 
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte]);
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))
+                                                ->with(["resultadosreporte"=>$resultadosreporte,
+                                                        "urlResultados"=>$urlResultados,
+                                                ]);
+
         }
 
 
