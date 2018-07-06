@@ -482,7 +482,10 @@ class PaginasController extends Controller
     }
     public function detalledespliegue2(Request $request, $idSolucion){
  
-        $solucion = Solucion::where('id','=',$idSolucion)->first();
+        $solucion = Solucion::where('solucions.id','=',$idSolucion)
+                                ->join('mesa_dialogo','mesa_dialogo.id','=','solucions.mesa_id')
+                                ->select('mesa_dialogo.*','solucions.*')
+                                ->first();
         //dd($solucion);
 
         $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)

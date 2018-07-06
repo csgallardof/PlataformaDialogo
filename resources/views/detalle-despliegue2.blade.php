@@ -41,7 +41,11 @@
 
 									<p style="padding-left:15%">
 										@if(isset($solucion))
+											@if(isset($solucion->sipoc->nombre_sipoc))
 											{{ $solucion->sipoc->nombre_sipoc }}
+											@else
+											No Existe Registro
+											@endif
 										@endif
 									</p>
 
@@ -52,27 +56,47 @@
 
 								<p style="padding-left:15%">
 										@if(isset($solucion))
+											@if(isset($solucion->instrumento->nombre_instrumento))
 											{{ $solucion->instrumento->nombre_instrumento }}
+											@else
+											No Existe Registro
+											@endif
 										@endif
+
 								</p>
 								<h4 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Clasificación Empresa</strong></h4>
 								<p style="padding-left:15%">
+
 									@if(isset($solucion))
+											@if(isset($solucion->tipoEmpresa->nombre_tipo_empresa))
 											{{ $solucion->tipoEmpresa->nombre_tipo_empresa }}
-										@endif
+											@else
+											No Existe Registro
+											@endif
+									@endif
+									
 								</p>
 								<h4 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Ámbito</strong></h4>
 								<p style="padding-left:15%">
+									
 									@if(isset($solucion))
+											@if(isset($solucion->ambit->nombre_ambit))
 											{{ $solucion->ambit->nombre_ambit }}
-
-										@endif
+											@else
+											No Existe Registro
+											@endif
+									@endif
 								</p >
 								<h4 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Sector</strong></h4>
 								<p style="padding-left:15%">
 									@if(isset($solucion))
-            								{{ $solucion->sector->nombre_sector }}
-            							@endif
+											@if(isset($solucion->sector->nombre_sector))
+											{{ $solucion->sector->nombre_sector }}
+											@else
+											No Existe Registro
+											@endif
+									@endif
+									
 								</p >
 
 
@@ -99,8 +123,8 @@
 									<div class="media-body"><br />
 										<dl class="dl-horizontal">
 										
-											<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar</a>
-											<a href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar</a>
+											<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar Excel</a>
+											<a href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar PDF</a>
 
 											
 											
@@ -278,7 +302,7 @@
 									<p>
                           				<strong>Evento:</strong>
             							@if(isset($solucion))
-            								{{ $solucion->evento->nombre_evento }}
+            								{{ $solucion->nombre }}
             							@endif
             							<br /><strong>Provincia:</strong>
             							@if(isset($solucion))
@@ -286,11 +310,15 @@
             							@endif
             							<br /><strong>Líder de Mesa:</strong>
             							@if(isset($solucion))
-            								{{ $solucion->lider_mesa_solucion }}
+            								{{ $solucion->lider }}
             							@endif
             							<br /><strong>Sistematizador de Mesa:</strong>
             							@if(isset($solucion))
-            								{{ $solucion->sistematizador_solucion }}
+            								{{ $solucion->sistematizador }}
+            							@endif
+            							<br /><strong>Coordinador de Mesa:</strong>
+            							@if(isset($solucion))
+            								{{ $solucion->coordinador }}
             							@endif
 
                                    	</p>
@@ -315,9 +343,7 @@
 									<blockquote>
 										  	<p><h5>
 										  		@if(isset($solucion))
-													{{ $solucion->verbo_solucion }} <br />
-                          {{ $solucion->sujeto_solucion }} <br />
-                          {{ $solucion->complemento_solucion }}
+													{{ $solucion->problema_solucion }} 
 												@endif
 										  	</h5>
                                    	</blockquote>
