@@ -1,65 +1,160 @@
 <!-- begin #header -->
-<div id="header" class="header navbar navbar-default navbar-fixed-top" >
-		<!-- begin container -->
-		<div class="container">
-				<!-- begin navbar-header -->
-				<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar">
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-						</button>
-
-						<a href="{{ url('/') }}" class="navbar-brand">
-								<img src="{{ asset('imagenes/dialogo_nacional/logo_dialogo_nacional.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="130px" height="46px">
-						</a>
-
-				</div>
-				<!-- end navbar-header -->
-
-				<div class="collapse navbar-collapse navbar-right" id="header-navbar">
-                    <ul class="nav navbar-nav  navbar-right">
-                        
-                        {{-- <li>
-                            <a href="{{ url('/') }}">
-                                <i></i> Inicio
-                            </a>
-                        </li> --}}
-                        <li>
-                            <a href="/estructura-promedio-costos-gastos-empresas">
-                                <i></i>DOCUMENTOS INTERACTIVOS
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://encuestas.administracionpublica.gob.ec/index.php/887844/lang-es#" target="_blank">
-                                <i></i> INFORME DEL DIÁLOGO
-                            </a>
-                        </li>
-                        
-                        
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i></i>CONSEJOS SECTORIALES<b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">DE LA POLÍTICA</a></li>
-                                <li><a href="#">DE LO SOCIAL</a></li>
-                                <li><a href="#">DE LA PRODUCCIÓN</a></li>
-                                
-                                
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/login">
-                                <i class="fa fa-user fa-fw"></i> INGRESAR
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-				<!-- end navbar-collapse -->
-				
-
+<div id="header" class="header navbar navbar-default navbar-fixed-top">
+	<!-- begin container-fluid -->
+	<div class="header_main_properties container-fluid">
+		<!-- begin mobile sidebar expand / collapse button -->
+		<div class="navbar-header">
+			<!-- <a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> Color Admin</a> -->
+			<a href="{{ url('/') }}" class="navbar-brand">
+					<img src="{{ asset('imagenes/dialogo_nacional/logo_dialogo_nacional.png') }}" class="center-block img-responsive" alt="" width="115px" height="50px">
+			</a>
+			<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 		</div>
-		<!-- end container -->
+		<!-- end mobile sidebar expand / collapse button -->
+
+		<!-- begin navbar-collapse -->
+						<div class="collapse navbar-collapse pull-left" id="top-navbar">
+								<ul class="nav navbar-nav">
+
+										<li class="dropdown dropdown-lg">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;Informes<b class="caret"></b></a>
+												<div class="dropdown-menu dropdown-menu-lg">
+														<div class="row">
+
+																<div class="col-md-2 col-sm-2">
+																		<a class="text-left" href="">
+																			<h4 class="dropdown-header">Informe del Diálogo Nacional</h4>
+																			<div class="row">
+																					<div class="col-md-12 col-xs-12">
+																								<img src="{{ asset('imagenes/dialogo_nacional/portada_informe_dialogo.png') }}" class="img-rounded" alt="" width="125px" height="125px">
+																					</div>
+																			</div>
+																		</a>
+																</div>
+
+																<div class="col-md-2 col-sm-2">
+																		<h4 class="dropdown-header">Reportes en línea</h4>
+																		<div class="row">
+																				<div class="col-md-12 col-xs-12">
+																						<ul class="nav">
+																								<li><a href="#" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte General</a></li>
+																								<li><a href="#" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Productivo</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																</div>
+
+																<div class="col-md-4 col-sm-4">
+																		<h4 class="dropdown-header">Acerca del Diálogo Nacional</h4>
+																		<p style="text-align: justify;">
+																				El presidente Lenín Moreno ha convocado a un gran Diálogo Nacional con el objetivo de escuchar las propuestas de diferentes actores de la sociedad, recibir sus aportes, encontrar y sistematizar la diversidad de “posiciones comunes”, identificar posibles convergencias y visualizar acciones concurrentes, sin distanciarse de los principios y las bases fundacionales del proyecto político ganador en las pasadas elecciones.
+																		</p>
+																</div>
+														</div>
+												</div>
+										</li>
+										<li>
+												<a href="#">
+														<i class="fa fa-calendar fa-fw"></i>&nbsp;Próximas Mesas
+												</a>
+										</li>
+										<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+														<i class="fa fa-comments-o fa-fw"></i>&nbsp;Participar<b class="caret"></b>
+												</a>
+												<ul class="dropdown-menu" role="menu">
+														<li><a href="#">Enviar mi propuesta</a></li>
+														<li><a href="#">Alertas Productivas</a></li>
+														<li><a href="#">Alertas Ciudadanas</a></li>
+														<li><a href="#">Reportar un hecho relevante</a></li>
+														<li><a href="#">Quiero ser veedor</a></li>
+														<!-- <li class="divider"></li> -->
+												</ul>
+										</li>
+										<li>
+												<a href="#">
+														<i class="fa fa-newspaper-o fa-fw"></i>&nbsp;Noticias
+												</a>
+										</li>
+
+								</ul>
+						</div>
+		<!-- end navbar-collapse -->
+
+		<div class="collapse navbar-collapse pull-right" id="top-navbar">
+				<ul class="nav navbar-nav">
+
+					<li>
+							<a href="#">
+									<i class="fa fa-user fa-fw"></i> Ingresar
+							</a>
+					</li>
+
+				</ul>
+		</div>
+
+		<!-- begin header navigation right -->
+
+		<!-- end header navigation right -->
+	</div>
+	<!-- end container-fluid -->
 </div>
 <!-- end #header -->
+
+<!-- ////// -->
+<!-- SIDEBAR -->
+<!-- ////// -->
+
+<div id="sidebar" class="sidebar toggled">
+	<!-- begin sidebar scrollbar -->
+	<div data-scrollbar="true" data-height="100%">
+		<!-- begin sidebar user -->
+		<ul class="nav">
+			<li class="nav-profile">
+				<div class="info">
+					Menú
+				</div>
+			</li>
+		</ul>
+		<!-- end sidebar user -->
+		<!-- begin sidebar nav -->
+		<ul class="nav">
+			<li class="has-sub">
+				<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-laptop"></i>
+						<span>Informes</span>
+					</a>
+				<ul class="sub-menu">
+						<li><a href="index.html">Informe del Diálogo Nacional</a></li>
+						<li><a href="index_v2.html">Reporte General</a></li>
+						<li><a href="index_v2.html">Reporte Productivo</a></li>
+				</ul>
+			</li>
+			<li class="has-sub">
+				<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-laptop"></i>
+						<span>Participar</span>
+					</a>
+				<ul class="sub-menu">
+						<li><a href="index.html">Enviar mi propuesta</a></li>
+						<li><a href="index_v2.html">Alertas Productivas</a></li>
+						<li><a href="index_v2.html">Alertas Ciudadanas</a></li>
+						<li><a href="index_v2.html">Reportar un hecho relevante</a></li>
+						<li><a href="index_v2.html">Quiero ser veedor</a></li>
+				</ul>
+			</li>
+			<li><a href="index.html">Próximas Mesas</a></li>
+			<li><a href="index.html">Noticias</a></li>
+		</ul>
+		<!-- end sidebar nav -->
+	</div>
+	<!-- end sidebar scrollbar -->
+</div>
+<div class="sidebar-bg"></div>
+<!-- end #sidebar -->

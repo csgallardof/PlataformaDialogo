@@ -7,7 +7,8 @@
 	<head>
 
 		<meta charset="utf-8" />
-		<title>Inteligencia Productiva - @yield('title')</title>
+		<title>Diálogo Nacional - @yield('title')</title>
+		<link rel="shortcut icon" href="{{ asset('imagenes/dialogo_nacional/favicon.ico') }}">
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<meta content="Sistema de Inteligencia Productiva MIPRO" name="description" />
 		<meta content="Ministerio de Industrias y Productividad" name="author" />
@@ -22,13 +23,30 @@
 
 		<!-- ================== BEGIN BASE CSS STYLE ================== -->
 		@section('start_css')
-			<link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
+			<!-- <link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
 			<link href="{{ asset('plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
-			<!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+			<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 			<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 			<link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
 			<link href="{{ asset('css/theme/default.css') }}" rel="stylesheet" id="theme" />
-            <link href="{{ asset('css/inteligencia.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/inteligencia.css') }}" rel="stylesheet" /> -->
+
+			<link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
+		  <link href="{{ asset('plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
+			<link href="{{ asset('css/inteligencia.css') }}" id="theme" rel="stylesheet" />
+		  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+		  <!-- <link href="{{ asset('css/style-front.css') }}" rel="stylesheet" /> -->
+		  <!-- <link href="{{ asset('css/style-responsive-front.css') }}" rel="stylesheet" /> -->
+		  <!-- <link href="{{ asset('css/theme/default-front.css') }}" id="theme" rel="stylesheet" /> -->
+
+
+		  <link href="{{asset('plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" />
+		  <link href="{{asset('css/animate.min.css')}}" rel="stylesheet" />
+		  <!-- <link href="{{asset ('css/style.min.css')}}" rel="stylesheet" /> -->
+		  <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet" />
+		  <link href="{{asset ('css/theme/default.css')}}" rel="stylesheet" id="theme" />
+		  <link href="{{ asset('css/style-after.css') }}" rel="stylesheet" />
+
 		@show
 		<!-- ================== END BASE CSS STYLE ================== -->
 
@@ -39,7 +57,7 @@
 		<!-- ================== END BASE JS ================== -->
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
 
 	</head>
 
@@ -67,13 +85,13 @@
 			<!-- ================== END BASE JS ================== -->
 			<script src="{{ asset('plugins/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
 		    <script src="{{ asset('plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-		    <script src="{{ asset('plugins/DataTables/js/jquery.dataTables.js') }}"></script>
-		    <script src="{{ asset('plugins/DataTables/js/dataTables.responsive.js') }}"></script>
+		    <!-- <script src="{{ asset('plugins/DataTables/js/jquery.dataTables.js') }}"></script>
+		    <script src="{{ asset('plugins/DataTables/js/dataTables.responsive.js') }}"></script> -->
 		    <script src="{{ asset('js/table-manage-responsive.demo.min.js') }}"></script>
 		    <script src="{{ asset('js/SelectBusqueda/selectsBusquedaAvanzada.js') }}"></script>
-		    <script src="{{ asset('js/custom-mipro.js') }}"></script>
-		    <script src="{{ asset('js/apps.js') }}"></script>
-		    <script src="{{ asset('js/dashboard.js') }}"></script>
+		    <!-- <script src="{{ asset('js/custom-mipro.js') }}"></script> -->
+		    <!-- <script src="{{ asset('js/apps.js') }}"></script>
+		    <script src="{{ asset('js/dashboard.js') }}"></script> -->
 
 		@show
 
@@ -84,7 +102,7 @@
 	</script>
 
 	<script type="text/javascript">
-		
+
 		function botonesRequeridos(){
 			var sipoc =  document.getElementById('selectSipoc').value;
 			var ambit = document.getElementById('selectAmbit').value;
@@ -96,7 +114,7 @@
 			if( sipoc > 0 || ambit > 0){
 				return true;
 			}
-			
+
 		}
 
 	</script>

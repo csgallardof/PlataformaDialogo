@@ -1,4 +1,4 @@
-/*   
+/*
 Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.4
 Version: 1.7.0
 Author: Sean Ngu
@@ -39,7 +39,7 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
         to { right: 0; }
     }
     .page-with-two-sidebar .sidebar.sidebar-right,
-    .page-with-two-sidebar .sidebar-bg.sidebar-right { 
+    .page-with-two-sidebar .sidebar-bg.sidebar-right {
         right: -220px;
         left: auto !important;
         position: fixed;
@@ -62,6 +62,11 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
 }
 
 @media (max-width: 767px) {
+
+  .header_main_properties {
+      padding: 0px 15px 15px 18px;
+  }
+
     .page-header-fixed {
         padding-top: 109px;
     }
@@ -87,10 +92,10 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
         width: auto;
     }
     .navbar-header {
-        border-bottom: 1px solid #eee;
+        /* border-bottom: 1px solid #eee; */
     }
     .navbar-inverse .navbar-header {
-        border-bottom: 1px solid #2d353c;
+        /* border-bottom: 1px solid #2d353c; */
     }
     .navbar-nav {
         margin: 0;
@@ -107,7 +112,7 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
     .navbar-form {
         margin: 0;
         padding: 12px 10px;
-        border: none;    
+        border: none;
         -webkit-box-shadow: none;
         box-shadow: none;
     }
@@ -155,7 +160,7 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
     .navbar-nav .open .dropdown-menu > li > a {
         padding: 5px 15px;
     }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, 
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
         background: #edf0f5;
     }
@@ -237,11 +242,11 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
     .footer {
         margin: 0 20px;
     }
-    .table-responsive .table > thead > tr > th, 
-    .table-responsive .table > tbody > tr > th, 
-    .table-responsive .table > tfoot > tr > th, 
-    .table-responsive .table > thead > tr > td, 
-    .table-responsive .table > tbody > tr > td, 
+    .table-responsive .table > thead > tr > th,
+    .table-responsive .table > tbody > tr > th,
+    .table-responsive .table > tfoot > tr > th,
+    .table-responsive .table > thead > tr > td,
+    .table-responsive .table > tbody > tr > td,
     .table-responsive .table > tfoot > tr > td {
         white-space: nowrap;
     }
@@ -774,7 +779,7 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
     }
     .page-with-wide-sidebar.page-with-right-sidebar .sidebar,
     .page-with-wide-sidebar.page-with-right-sidebar .sidebar-bg,
-    .page-with-wide-sidebar.page-with-two-sidebar .sidebar.sidebar-right, 
+    .page-with-wide-sidebar.page-with-two-sidebar .sidebar.sidebar-right,
     .page-with-wide-sidebar.page-with-two-sidebar .sidebar-bg.sidebar-right {
         left: auto;
         right: -250px;

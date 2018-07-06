@@ -101,8 +101,8 @@ $(document).ready(function(){
                   <div class="row">
                     <form class="form-horizontal" role="form" method="GET" action="{{ route('nuevaBusqueda2') }}">
                     <div class="col-md-2"></div>
-                    <div class="col-md-2" style="padding: 0px" > 
-                      <select  style="text-align:center;width:100%;height:47px;font-size:14px;border-radius: 10px 0px 0px 10px;"  name="selectBusqueda" > 
+                    <div class="col-md-2" style="padding: 0px" >
+                      <select  style="text-align:center;width:100%;height:47px;font-size:14px;border-radius: 10px 0px 0px 10px;"  name="selectBusqueda" >
                                         <option value="0">Todas las Mesas</option>
                                         <option value="2">Consejo Consultivo</option>
                                         <option value="1">Mesas De Competitividad</option>
@@ -128,27 +128,27 @@ $(document).ready(function(){
                 <div class="col-md-8 col-md-offset-2 row-m-t-minus-25" >
                     <div class="panel-body text-center">
 
-                        
+
 
                         <a href="{{ url('/busqueda?parametro=Consejo_consultivo') }}" class="btn btn-home-ip-custom btn-lg m-r-5">Consejo Consultivo</a>
 
                         <a href="{{ url('/busqueda?parametro=Mesas_Competitividad') }}" class="btn btn-home-ip-custom btn-lg m-r-5">Mesas de Competitividad</a>
-                          
-                  
+
+
 
                   <div class="panel-body text-center" style="opacity:0.7;">
-                      <div class="col-md-2"></div>    
+                      <div class="col-md-2"></div>
                       <div class="col-md-8">
                           <div class="widget widget-stats " style="background-color: #FBFCFC">
                               <div class="stats-icon stats-icon-lg"><i class="fa fa-comments fa-fw"></i></div>
                               <div class="stats-title" style="color: black"> <strong>CONCEJO CONSULTIVO</strong></div>
                               <div class="row">
-                              <div class="col-md-6" style="border-right: 1px solid black;padding:0%">   
-                              
+                              <div class="col-md-6" style="border-right: 1px solid black;padding:0%">
+
 
                               <div class="stats-desc" style="color: black">Reportes</div>
 
-                      
+
                               <div class="stats-desc pull-left">
                                       <a href="/reporte-home/lista-propuesta/1/1" target="_blank" class="btn">
                                     <small><i class="fa fa-download">&nbsp;</i>Propuestas en Análisis</small>
@@ -168,10 +168,10 @@ $(document).ready(function(){
 
                               </div>
                             </div>
-                              
+
                               <div class="col-md-6" >
                                 <div class="stats-desc" style="color: black">Estadisticas</div>
-                              
+
                               <div class="stats-desc pull-left">
                                       <a href="/dialogo-nacional-estadisticas"  class="btn">
                                     <small><i class="fa  fa-line-chart">&nbsp;</i>Estadisticas</small>
@@ -179,20 +179,20 @@ $(document).ready(function(){
 
                               </div>
 
-                            
+
                               </div>
                               </div>
                           </div>
                     </div>
                 </div>
 
-                      
-                  
-        
+
+
+
                     </div>
                 </div>
 
-                
+
 
 
 
@@ -380,7 +380,7 @@ $(document).ready(function(){
 
 @section('end_js')
   @parent
-  
+
   <script src="{{ asset('js/apps.min.js')}}"></script>
   <script src="{{ asset('js/ui-modal-notification.demo.js') }}"></script>
 @endsection
