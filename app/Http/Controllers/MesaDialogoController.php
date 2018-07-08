@@ -177,6 +177,8 @@ class MesaDialogoController extends Controller
      */
     public function store(Request $request)
     {
+       
+        //dd($request->nuevo);
         //Obtenemos el usuario autenticado
         $user = Auth::user();
         //Guarda la información de la nueva mesa de dialogo
@@ -572,16 +574,16 @@ class MesaDialogoController extends Controller
                     $mesa_dialogo->canton_id=$canton->id;
                 }
             }
-            if( !is_null($parroquia) && $parroquia != 'N/A' ){
-                $parroquia = DB::table('parroquia')->where('nombre_parroquia', $parroquia)->first();
-                if( $parroquia == null){
-                    $error = "La parroquia ingresada no es v&aacute;lida.";
-                    array_push($errores, $error);
-                    $valido = false;
-                }else{
-                    $mesa_dialogo->parroquia_id=$parroquia->id;
-                }
-            }
+            // if( !is_null($parroquia) && $parroquia != 'N/A' ){
+            //     $parroquia = DB::table('parroquia')->where('nombre_parroquia', $parroquia)->first();
+            //     if( $parroquia == null){
+            //         $error = "La parroquia ingresada no es v&aacute;lida.";
+            //         array_push($errores, $error);
+            //         $valido = false;
+            //     }else{
+            //         $mesa_dialogo->parroquia_id=$parroquia->id;
+            //     }
+            // }
             if(!is_null($sector)){
                 $sector = DB::table('sectors')->where('nombre_sector', $sector)->first();
                 if( $sector == null){

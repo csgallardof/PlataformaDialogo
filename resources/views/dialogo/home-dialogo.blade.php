@@ -89,21 +89,52 @@
         </div>
 
         <!-- begin #team -->
-        <div id="team" class="content team" data-scrollview="true">
+        <div id="team" class="content team text-center" data-scrollview="true">
 
-            <div class="row">
+            <div class="row text-center">
 
-              <!--
-                <div class="col-md-6">
-                  <div id="number_format_chart_institucion"></div>
+            <div class="col-md-7 p-30">
+              <div class="panel-body">
+              <ul class="media-list media-list-with-divider">
+              
+
+                  <li class="media media-sm">
+                    <div class="media-body text-right">
+                            <div class="media">
+                          <a class="media-left" href="javascript:;">
+                                      <img src="{{ asset('imagenes/dialogo_nacional/noticia-2-dialogo.png') }}" alt="" class="" />
+                          </a>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>MINISTERIO DE EDUCACIÓN Y SENECYT ABREN DIÁLOGO NACIONAL PARA APORTAR AL TEMA EDUCATIVO</strong></h4>
+                            <p>Quito (Pichincha). – Con el fin de recoger sugerencias para mejorar la educación media y superior, el Ministerio de Educación (MinEduc) y la Secretaría Nacional de Educación Superior, Ciencia, Tecnología e Innovación (Senescyt) abren el Diálogo Nacional por la Educación para todos los actores de la sociedad que quieran aportar en el tema educativo. Estas dos instituciones mantendrán una reunión el martes 18 de julio, a las 08:30.</p>
+                                <p>
+                          </div>
+                        </div>
+                            
+                        </li>
+
+
+                        <li class="media media-sm">
+                    <div class="media-body text-right">
+                            <div class="media">
+                          <a class="media-left" href="javascript:;">
+                                      <img src="{{ asset('imagenes/dialogo_nacional/noticia-1-dialogo.png') }}" alt="" class="" />
+                          </a>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>LOJA RECIBIRÁ LA PRÓXIMA ‘MESA DE DIÁLOGO’ DE COMUNICACIÓN</strong></h4>
+                            <p>Quito (Pichincha).- La Universidad Técnica Particular de Loja (UTPL) acogerá una nueva jornada del ‘Diálogo Nacional’, llamado por el Gobierno, durante el cual se tratarán temas relativos a la comunicación. Tres temas marcarán la jornada: garantías y derechos de la comunicación, regulación y control; y publicidad y producción nacional..</p>
+                                <p>
+                          </div>
+                        </div>
+                            
+                        </li>
+                  </ul>
+
+
                 </div>
-                <div class="col-md-2">
-
-                </div> -->
-
-
-                    <!-- METODOLOGIA-->
-            <div class="col-md-3">
+                  
+            </div>
+            <div class="col-md-4 p-25">
               <div class="panel-group" id="accordion">
                 <div class="panel panel-inverse overflow-hidden">
                   <div class="panel-heading">
@@ -163,6 +194,23 @@
                   </div>
                 </div>
 
+                 <div class="panel panel-inverse overflow-hidden">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                      <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                          <i class="fa fa-plus-circle pull-right"></i>
+                       Media
+                      </a>
+                    </h3>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      <iframe class="youtube-player" type="text/html" width="300" height="250" src="http://www.youtube.com/embed/vPur9z0pHYI?version=3&amp;rel=1&amp;fs=1&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" frameborder="0" allowfullscreen="true"></iframe>
+
+                    </div>
+                  </div>
+                </div>
+
               </div>
               </div>
             <!-- FIN DE METODOLOGIA-->
@@ -179,61 +227,7 @@
 
 
 
-        <!-- begin #work -->
-        <div id="work" class="content" data-scrollview="true">
-            <!-- begin container -->
-            <div class="container" data-animation="true" data-animation-type="fadeInDown">
-
-                <hr class="hr_style1 row-m-b-1"><!-- End Spacing -->
-
-
-                <!-- begin row -->
-                <div class="row">
-                    <div class="col-md-4">
-
-
-                    </div>
-                    <div class="col-md-4 manual-work">
-                        <div class="row row-space-12">
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4 manual-work">
-
-                        <div class="col-12"><h3><span style="color: #F26F21; text-align: left;"><strong>Contáctanos</span></strong></h2></div>
-
-                        <table class="table table-profile">
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td style="text-align: left;"><small>
-                                        <br> Plataforma Gubernamental de Gestión Financiera. Pisos 8 y 9 <br> <strong>Código Postal:</strong> 170506 <br> Quito-Ecuador </small></td>
-                                </tr>
-
-                                <tr>
-
-                                    <td style="text-align: left;"><small><strong>Teléfono:</strong> 593-2 394 8760</small></td>
-                                </tr>
-                                <tr>
-
-                                    <td style="text-align: left;"><small><strong>mail:</strong> inteligencia@mipro.gob.ec</small></td>
-                                </tr>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-
-
-            </div>
-            <!-- end container -->
-        </div>
-        <!-- end #work -->
+      
 
 @endsection
 

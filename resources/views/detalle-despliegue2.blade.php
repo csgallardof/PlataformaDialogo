@@ -15,7 +15,7 @@
 		<!-- begin #about -->
 		<div class="content row-m-t-2" data-scrollview="true">
 				<!-- begin container -->
-			<div class="container" data-animation="true" data-animation-type="fadeInDown">
+			<div class="container-fluid" data-animation="true" data-animation-type="fadeInDown">
 
         <div class="toolbar title_ip_breadcrumb fit-m-b-10">
           <ol class="breadcrumb">
@@ -32,11 +32,32 @@
 				<div class="row">
 					<!-- begin col-5 -->
 					<div class="col-md-3">
+
 						<div class="panel panel-inverse" data-sortable-id="index-6" style="border: #D7DBDD 1px solid; padding: 1%">
+							<dl class="dl-horizontal">
+										
+								<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar Excel</a>
+								<a target="_blank" href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar PDF</a>
+
+								
+								
+							</dl>
 
 
+							<h5 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Estado de Compromiso:</strong></h5>
 
-								<h5 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Eslabon de la cadena productiva</strong></h5>
+
+									<p style="padding-left:15%">
+										<span class="label label-warning f-s-13">
+											@if(isset($solucion))
+												{{ $solucion->estado->nombre_estado }}
+											@endif
+										</span>
+									</p>
+
+							<br>
+
+							<h5 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Eslabon de la cadena productiva</strong></h5>
 
 
 									<p style="padding-left:15%">
@@ -106,40 +127,21 @@
 					<!-- inicio acciones -->
 					<div class="col-md-9">
 
+					<div class="panel panel-inverse overflow-hidden">
+						<div class="panel-heading" style="background-color:#214974">
+							<h3 class="panel-title" style="color:white">
+	                  			<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseInfoGeneral">
+	                      		<i class="fa fa-plus-circle pull-right"></i>
+								<strong>Informacion General</strong>
+	                  			</a>
+							</h3>
+						</div>
+            		<div id="collapseInfoGeneral" class="panel-collapse collapse">
 
-
-			        <div class="panel-group" id="accordion">
-						<div class="panel panel-inverse overflow-hidden" >
-							<div class="panel-heading" style="background-color:#214974">
-								<h3 class="panel-title" style="color:white">
-									 <strong>
-										Informacion General
-									</strong>
-								</h3>
-							</div>
-							<div >
-								<div class="panel-body">
+							<div class="panel-body">
 
 									<div class="media-body"><br />
-										<dl class="dl-horizontal">
-										
-											<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar Excel</a>
-											<a target="_blank" href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar PDF</a>
-
-											
-											
-										</dl>
-									<dl class="dl-horizontal">
-
-											<label class='text-success'>Estado de Compromiso:</label> &nbsp;&nbsp;&nbsp;
-											<span class="label label-warning f-s-13">
-												@if(isset($solucion))
-													{{ $solucion->estado->nombre_estado }}
-												@endif
-											</span>
-										</dl>
-
-	                                <br>
+										f
 	                                <label class='text-success'>
 
 	                                	<strong>Datos Generales:</strong>
@@ -285,7 +287,7 @@
 							</div>
 						</div>
 						<div class="panel panel-inverse overflow-hidden">
-							<div class="panel-heading" style="background-color:#214974">
+							<div class="panel-heading header_detail_propuesta">
 								<h3 class="panel-title" style="color:#ffffff">
 									<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
 									    <i class="fa fa-plus-circle pull-right"></i>
@@ -343,13 +345,15 @@
 									<blockquote>
 										  	<p><h5>
 										  		@if(isset($solucion))
-													{{ $solucion->problema_solucion }} 
+													{{ $solucion->propuesta_solucion }} 
 												@endif
 										  	</h5>
                                    	</blockquote>
 								</div>
 							</div>
 						</div>
+						@if(isset($solucion))
+							@if($solucion->probleme_solucion!='')
 						<div class="panel panel-inverse overflow-hidden">
 							<div class="panel-heading" style="background-color:#214974" >
 								<h3 class="panel-title" style="color:#ffffff">
@@ -359,7 +363,7 @@
 									</a>
 								</h3>
 							</div>
-							<div id="collapseFour" class="panel-collapse collapse in">
+							<div id="collapseFour" class="panel-collapse collapse">
 								<div class="panel-body">
 									<label class='text-success'>
                                 		<i class="fa fa-cheked-o fa-fw"></i><strong>Problematica</strong>
@@ -374,6 +378,8 @@
 								</div>
 							</div>
 						</div>
+							@endif
+						@endif
 
 
 						<div class="panel panel-inverse  overflow-hidden">
