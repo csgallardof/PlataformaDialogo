@@ -11,14 +11,14 @@
  
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load("visualization", "1",  {'packages':['corechart','bar','table']});
+      google.charts.load('visualization',"1",{'packages':['corechart','bar','table']});
       google.charts.setOnLoadCallback(drawChart);
       google.charts.setOnLoadCallback(drawChartMesa);
       google.charts.setOnLoadCallback(drawChartPlazo);
       google.charts.setOnLoadCallback(drawChartZona);
       google.charts.setOnLoadCallback(drawChartInstitucion);
       google.charts.setOnLoadCallback(drawChartActividad);
-       google.charts.setOnLoadCallback(drawTable);
+      google.charts.setOnLoadCallback(drawTable);
 
 
       function drawChart() {
@@ -28,19 +28,18 @@
            ['{{$solicitudes->nombre}}',{{$solicitudes->analisis}},{{$solicitudes->desarrollo}},{{$solicitudes->finalizado}}],
            @endforeach
         ]);
-         var options = {            
-            chart: {
+         var options = {
+          chart: {
             title: 'Propuestas designadas por Consejo Sectorial',
-            },
-              hAxis: {
-                    slantedText: true,
-                    slantedTextAngle: 90
-                },
-           
-      };
-    
+            subtitle: '',
+          }
+        };
+
+        //var chart = new google.visualization.PieChart(document.getElementById('estadosDiv'));
+        //chart.draw(data, options);
+        
         var chart = new google.charts.Bar(document.getElementById('estadosDiv'));
-        chart.draw(data, options);
+        chart.draw(data, google.charts.Bar.convertOptions(options));
         
       }
       
@@ -54,7 +53,7 @@
       
          var options = {
           chart: {
-            title: 'Número de propuestas por Mesas de Diálogo ',
+            title: 'Número de propuestas por Mesas de Diálogo',
             //subtitle: 'Estados de propuestas Analisis, Desarrollo, Finalizdo',
           }
         };
@@ -69,14 +68,14 @@
       
       function drawChartZona() {
         var data = google.visualization.arrayToDataTable([
-          ['Zona', 'Analisis','Desarrollo', 'Finalizado'],
+          ['Mesa Dialogo', 'Analisis','Desarrollo', 'Finalizado'],
            @foreach($zona as $zonas)
            ['{{$zonas->nombre}}',{{$zonas->analisis}},{{$zonas->desarrollo}},{{$zonas->finalizado}}],
            @endforeach
         ]);
         var options = {
           chart: {
-            title: 'Número de propuestas por Zonas',
+            title: 'Número de propuestas por Zona',
             //subtitle: 'Estados de propuestas Analisis, Desarrollo, Finalizdo',
           }
         };
@@ -89,13 +88,13 @@
           
       function drawChartPlazo() {
         var data = google.visualization.arrayToDataTable([
-          ['Propuestas por Plazo', 'Total'],
+          ['Propuestas por plzo y estado', 'Total'],
            @foreach($plazo as $plazos)
            ['{{$plazos->plazo}}',{{$plazos->total}}],
            @endforeach
         ]);
         var options = {
-          title: 'Propuestas por Plazo'
+          title: 'Plazo'
         };
         var chart = new google.visualization.PieChart(document.getElementById('plazosDiv'));
         chart.draw(data, options);
@@ -112,7 +111,7 @@
               var options = {
           chart: {
             title: 'Propuestas por Instituciones',
-            //subtitle: 'Estados de propuestas Analisis, Desarrollo, Finalizdo',
+          //  subtitle: 'Estados de propuestas Analisis, Desarrollo, Finalizdo',
           }
         };
                 var chart = new google.charts.Bar(document.getElementById('institucionesDiv'));
@@ -255,11 +254,9 @@
  
 
             <div class="row col-sm-12">
-                <div id="estadosDiv" style="width: 900px; height: 400px;" class=" col-sm-12"></div>
-            </div>
-              <div class="row col-sm-12">
 
-                <div id="mesasDiv" style="width: 900px; height: 400px;" class=" col-sm-12"></div>
+                <div id="estadosDiv" style="width: 400px; height: 400px;" class=" col-sm-6"></div>
+                <div id="mesasDiv" style="width: 400px; height: 400px;" class=" col-sm-6"></div>
             </div>
             <div class="row col-sm-12">
                 <div id="zonasDiv" style="width: 400px; height: 400px;" class=" col-sm-6"></div>
