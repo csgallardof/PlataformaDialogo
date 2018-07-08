@@ -96,17 +96,7 @@ inner join consejo_sectorials cs On cs.id= m.consejo_sectorial_id
 where cs.id > 0 $cs $e $m
 ) solictud 
  group by nombre;");
-        echo "select nombre  ,count(Analisis)analisis,
-sum(Desarrollo) desarrollo,sum(Finalizado) finalizado from 
-(SELECT cs.nombre_consejo nombre,
-$case
-   FROM solucions s
-inner join estado_solucion e On e.id= s.estado_id
-inner join mesa_dialogo m On m.id = s.mesa_id 
-inner join consejo_sectorials cs On cs.id= m.consejo_sectorial_id
-where cs.id > 0 $cs $e $m
-) solictud 
- group by nombre;";
+         
         $solicitud = Collection::make($solicitud);
 
         /* Reporte por mesa */
