@@ -15,7 +15,7 @@
             <div class="container p-t-25" data-animation="true" data-animation-type="fadeInDown">
 
                 <div class="col-md-12 p-t-25">
-                    <div class="panel-body">
+                    <div class="panel-body home_main_web_title">
                         <h2 class="text-center text-white"><strong>DIALOGO NACIONAL PÚBLICO-PRIVADO</strong></h2>
                         <h5 class="text-center text-white home_sentence">“Dialogar no es muestra de debilidad, es una muestra de sabiduría. Nada sobre los ciudadanos, sin los ciudadanos”</h5>
                         <h6 class="text-center text-white home_author_sentence">Lenín Moreno Garcés<br />Presidente Constitucional de la República del Ecuador</h6>
@@ -24,11 +24,10 @@
 
                         <div class="panel-body text-center">
 
-
                                   <div class="row">
                                       <div class="col-xs-8 col-xs-offset-2">
                                           <form method="GET" action="{{ route('nuevaBusquedaDialogo') }}" id="searchForm" class="search-home input-group">
-                                              <div class="input-group-btn search-panel">
+                                              <div class="input-group-btn search-panel hidden-xs">
                                                   <select name="selectBusqueda" id="tipo_dialogo" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                       <option value="no">Filtrar por tipo de diálogo</option>
 
@@ -41,7 +40,7 @@
                                               <input id="buscar_general" type="text" class="form-control" name="parametro" placeholder="Buscar información sobre propuestas y pedidos del diálogo nacional">
                                               <span class="input-group-btn">
                                                   <button id="btn_buscar" class="btn btn-default" type="submit">
-                                                     Buscar
+                                                     <text class="hidden-xs">Buscar</text><i class="fa fa-2x fa-search visible-xs"></i>
                                                   </button>
                                               </span>
                                           </form><!-- end form -->
@@ -51,10 +50,10 @@
                           <p style="margin-top: 10px" class="text-white">Ejemplo: Costos de energía electrica, Promoción turística, Consejo Consultivo, Innovaci&oacute;n.</p>
                         </div>
 
-                <div class="col-md-12 p-b-30">
-                      <div class="col-md-2">
+                <div class="col-md-12 col-xs-12 p-b-30">
+                      <div class="col-md-2 col-xs-2">
                       </div>
-                      <div class="col-md-2 text-center ">
+                      <div class="col-md-2 col-xs-2 text-center ">
                         <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_1.png') }}">
                         <div class="text-center">
                           <div class="home_main_icon_line1">DIÁLOGOS</div>
@@ -62,21 +61,21 @@
                         </div>
 
                       </div>
-                      <div class="col-md-2 text-center ">
+                      <div class="col-md-2 col-xs-2 text-center ">
                         <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_2.png') }}" >
                         <div class="text-center">
-                          <div class="home_main_icon_line1">DIÁLOGOS</div>
+                          <div class="home_main_icon_line1 ">DIÁLOGOS</div>
                           <div class="home_main_icon_line2">SECTORIALES</div>
                         </div>
                       </div>
-                      <div class="col-md-2 text-center ">
+                      <div class="col-md-2 col-xs-2 text-center ">
                         <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_3.png') }}" >
                         <div class="text-center">
                           <div class="home_main_icon_line1">DIÁLOGOS</div>
                           <div class="home_main_icon_line2">PRODUCTIVOS</div>
                         </div>
                       </div>
-                      <div class="col-md-2 text-center ">
+                      <div class="col-md-2 col-xs-2 text-center ">
                         <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_4.png') }}" >
                         <div class="text-center">
                           <div class="home_main_icon_line1">LOGROS</div>
@@ -96,7 +95,7 @@
             <div class="col-md-7 p-30">
               <div class="panel-body">
               <ul class="media-list media-list-with-divider">
-              
+
 
                   <li class="media media-sm">
                     <div class="media-body text-right">
@@ -110,7 +109,7 @@
                                 <p>
                           </div>
                         </div>
-                            
+
                         </li>
 
 
@@ -126,13 +125,13 @@
                                 <p>
                           </div>
                         </div>
-                            
+
                         </li>
                   </ul>
 
 
                 </div>
-                  
+
             </div>
             <div class="col-md-4 p-25">
               <div class="panel-group" id="accordion">
@@ -227,14 +226,14 @@
 
 
 
-      
+
 
 @endsection
 
 @section('end_js')
   @parent
 
-  
+
   <script src="{{ asset('js/ui-modal-notification.demo.js') }}"></script>
 @endsection
 
