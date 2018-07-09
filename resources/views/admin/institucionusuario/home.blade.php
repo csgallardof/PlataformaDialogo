@@ -20,6 +20,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Usuario</th>
+                                <th>Correo</th>
                                 <th>Instituci&oacute;n</th>
                                  
                             </tr>
@@ -28,14 +29,15 @@
                             @foreach($institucionUsuarios as $institucionUsuario)
                             <tr>
                                 <td>{{$institucionUsuario->id}}</td>
-                                <td>{{$institucionUsuario->usuario->name}}</td>
+                                <td>{{$institucionUsuario->usuario->apellidos}} {{$institucionUsuario->usuario->name}}</td>
+                                <td>{{$institucionUsuario->usuario->email}}</td>
                                 <td>{{$institucionUsuario->institucion->nombre_institucion}}</td>
                             </tr>
                             @endforeach
 
                         </tbody>
                     </table>
-                     
+            
                 </div>
             </div>
         </div>

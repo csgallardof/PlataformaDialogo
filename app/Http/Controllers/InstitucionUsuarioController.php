@@ -13,13 +13,13 @@ class InstitucionUsuarioController extends Controller
 {
 
      public function index() {
-        $institucionUsuario =   InstitucionUsuario::all();
+        $institucionUsuario =   InstitucionUsuario::all()->sortBy('usuario_id');
         return view('admin.institucionusuario.home')->with(["institucionUsuarios" => $institucionUsuario]);
     }
     
      public function create() {
-        $usuario = User::all();
-        $institucion = Institucion::all();
+        $usuario = User::all()->sortBy('apellidos');
+        $institucion = Institucion::all()->sortBy('nombre_institucion');
         return view('admin.institucionusuario.create')->with(["usuario" => $usuario, "institucion" => $institucion]);
     }
 
@@ -28,16 +28,16 @@ class InstitucionUsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function institucionesSectoresLista($id) {
+    public function institucionesUsuariosLista($institucion_id) {
 
         //$consejosInstitucions = ConsejoInstitucion::where("consejo_id", "=", $consejo_id)->get();
 
-        $consejosInstitucions = DB::table('institucion_usuario')
-                        ->select('institucion_usuario.id','institucions.nombre_institucion')
-                        ->join('institucions', 'institucions.id', '=', 'institucion_usuario.institucion_id')
-                        ->join('user', 'user.id', '=', 'institucion_usuario.usuario_id')
-                        ->where('institucion_usuario.institucion_id', '=', $id)->get();
-        return json_encode($consejosInstitucions);
+        $institucionUsuarios = DB::table('institucion_usuarios')
+                        ->select('institucion_usuarios.id','users.name', 'users.apellidos', 'users.email')
+                        ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
+                        ->join('users', 'users.id', '=', 'institucion_usuarios.usuario_id')
+                        ->where('institucion_usuarios.institucion_id', '=', $institucion_id)->get();
+        return json_encode($institucionUsuarios);
     }
 
     /**
@@ -47,11 +47,11 @@ class InstitucionUsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $institucionusuario = new InstitucionUsuario();
+        $institucionusuario = new InstitucionUsuario;
         $institucionusuario->usuario_id = $request->usuario_id;
         $institucionusuario->institucion_id = $request->institucion_id;
         $institucionusuario->save();
-        return redirect("/admin/listar-institucion-usuario");
+        return redirect("/admin/listar-institucion-usuarios");
     }
 
     /*

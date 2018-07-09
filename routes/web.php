@@ -282,12 +282,14 @@ Route::get('/crear-institucion-usuarios', 'InstitucionUsuarioController@create')
 Route::get('/editar-institucion-usuarios/{id}/edit', 'InstitucionUsuarioController@edit');
 Route::get('/delete-institucion-usuarios/{id}/delete', 'InstitucionUsuarioController@destroy');
 Route::get('/listar-institucion-usuarios', 'InstitucionUsuarioController@index');
+Route::get('institucionUsuariosListar/{institucion_id}','InstitucionUsuarioController@institucionesUsuariosLista');
 
 //Administrar Instituciones por Consejos
 Route::get('/crear-consejo-institucions', 'ConsejoInstitucionsController@create');
 Route::get('/editar-consejo-institucions/{id}/edit', 'ConsejoInstitucionsController@edit');
 Route::get('/delete-consejo-institucions/{id}/delete', 'ConsejoInstitucionsController@destroy');
 Route::get('/listar-consejo-institucions', 'ConsejoInstitucionsController@index');
+
 Route::resource('consejoInstituciones', 'ConsejoInstitucionsController');
 Route::resource('institucionUsuarios','InstitucionUsuarioController');
 Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsController@institucionesSectoresLista');

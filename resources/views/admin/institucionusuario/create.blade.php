@@ -14,24 +14,7 @@
                         @show
 
                         <div class="form-group">
-                            <label for="usuario_id" class="col-md-4 control-label">Usuario</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="usuario_id" id="usuario_id">
-
-                                    @if( isset($usuario) )
-                                    @foreach( $usuario as $sect )
-                                    <option value="{{ $sect->id}}">
-                                        {{ $sect->name}}
-                                    </option>
-                                    @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="institucion_id" class="col-md-4 control-label">Instituci&oacute;n</label>
+                                 <label for="institucion_id" class="col-md-4 control-label">Instituci&oacute;n</label>
 
                             <div class="col-md-6">
 
@@ -44,6 +27,25 @@
                                     </option>
                                     @endforeach
 
+                                    @endif
+                                </select>
+                            </div>
+                                 
+                          
+                        </div>
+
+                        <div class="form-group">
+                         <label for="usuario_id" class="col-md-4 control-label">Usuario</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="usuario_id" id="usuario_id">
+
+                                    @if( isset($usuario) )
+                                    @foreach( $usuario as $sect )
+                                    <option value="{{ $sect->id}}">
+                                         {{ $sect->apellidos}} {{ $sect->name}} / {{ $sect->email}}
+                                    </option>
+                                    @endforeach
                                     @endif
                                 </select>
                             </div>
@@ -104,7 +106,7 @@ function onChangeSector() {
         success: function (data) {
 console.log(data);
             $.each(data, function (index) {
-                $('#divInstitucion').append(' <div class= "col-sm-9" >' + data[index].nombre_institucion + '</div> <div class= "col-sm-1" ><a class="btn btn-danger" href="/admin/delete-consejo-institucions/' + data[index].id + '/delete" onclick = "if (! confirm(\'Desea quitar de la lista\')) { return false; }"  > Quitar </a></div>');
+                $('#divInstitucion').append(' <div class= "col-sm-9" >' + data[index].apellidos + ' '+ data[index].name +' / '+ data[index].email + '</div> <div class= "col-sm-1" ><a class="btn btn-danger" href="/admin/delete-institucion-usuarios/' + data[index].id + '/delete" onclick = "if (! confirm(\'Desea quitar de la lista\')) { return false; }"  > Quitar </a></div>');
             });
         }
     });
