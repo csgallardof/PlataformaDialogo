@@ -59,7 +59,16 @@ class ConsejoInstitucionsController extends Controller {
         $consejoInstitucion = new ConsejoInstitucion();
         $consejoInstitucion->consejo_id = $request->consejo_id;
         $consejoInstitucion->institucion_id = $request->institucion_id;
-        $consejoInstitucion->save();
+        $consejosInstitucions = DB::table('consejo_institucions')
+                        ->select('consejo_institucions.id', 'institucions.nombre_institucion')
+                        ->join('institucions', 'institucions.id', '=', 'consejo_institucions.institucion_id')
+                        ->join('consejo_sectorials', 'consejo_sectorials.id', '=', 'consejo_institucions.consejo_id')
+                        ->where('consejo_institucions.consejo_id', '=', $request->consejo_id)
+                        ->where('consejo_institucions.institucion_id', '=', $request->institucion_id)->get();
+        if ($consejosInstitucions == null) {
+            $consejoInstitucion->save();
+        }
+         
         return redirect("/admin/listar-consejo-institucions");
     }
 

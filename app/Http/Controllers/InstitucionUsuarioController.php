@@ -50,7 +50,17 @@ class InstitucionUsuarioController extends Controller
         $institucionusuario = new InstitucionUsuario;
         $institucionusuario->usuario_id = $request->usuario_id;
         $institucionusuario->institucion_id = $request->institucion_id;
-        $institucionusuario->save();
+        
+         $institucionUsuarios = DB::table('institucion_usuarios')
+                        ->select('institucion_usuarios.id','users.name', 'users.apellidos', 'users.email')
+                        ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
+                        ->join('users', 'users.id', '=', 'institucion_usuarios.usuario_id')
+                        ->where('institucion_usuarios.institucion_id', '=', $request->institucion_id)
+                        ->where('institucion_usuarios.usuario_id', '=', $request->usuario_id)->get();
+         if ($institucionUsuarios == null){
+                  $institucionusuario->save();
+         
+         }
         return redirect("/admin/listar-institucion-usuarios");
     }
 
