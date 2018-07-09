@@ -16,6 +16,7 @@ Auth::routes();
 
 
 Route::get('/','PaginasController@homeDialogo');
+Route::get('/calendario-dialogo-nacional','PaginasController@calendarioDialogo');
 
 // Route::get('/', function () {
 //      return view('dialogo.home-dialogo');

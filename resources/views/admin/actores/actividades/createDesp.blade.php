@@ -112,8 +112,8 @@
 									    	<select class="form-control" name="institucion_id" id="exampleSelect1">
 									      		@if( isset($actoresSoluciones) )
 													@foreach( $actoresSoluciones as $actorSolucion )
-														<option value="{{ $actorSolucion->usuario-> id}}">
-															{{ $actorSolucion->usuario-> name }}
+														<option value="{{ $actorSolucion-> id}}">
+															{{ $actorSolucion->nombre_institucion }}
 														</option>
 													@endforeach
 												@endif

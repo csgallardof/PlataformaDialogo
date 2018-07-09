@@ -76,11 +76,14 @@ class PaginasController extends Controller
            // $resultados = Solucion::where('provincias.','LIKE','%' . $buscar . '%')
            //                         ->paginate();
 
+            dd($request->selectBusqueda);
 
-            $resultados = Solucion::select('solucions.*','mesa_dialogo.nombre')
+            $resultados = Solucion::select('solucions.*','mesa_dialogo.*', 'tipo_dialogo.*')
                                 ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
                                 ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
                                 ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
+                                ->join('institucions','institucions.id','=','actor_solucion.institucion_id')
                                 ->where('tipo_dialogo.id','=', $request->selectBusqueda )
                                 ->orderBy('solucions.estado_id','DESC')
                                 ->paginate(10);
@@ -96,7 +99,7 @@ class PaginasController extends Controller
 
             $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
 
-           // dd($urlResultados);
+            dd($resultados);
 
             return view('publico.reportes.reporte-dialogo')->with([
                                             "urlResultados"=>$urlResultados,
@@ -505,7 +508,7 @@ class PaginasController extends Controller
                                             ->where('tipo_fuente','=',1)
                                             ->orderBy('tipo_actor','ASC')->get();
 
-        //dd(count($actoresSoluciones));
+       // dd(count($actoresSoluciones));
 
         $actividades = Actividad::where('solucion_id','=',$idSolucion)
                                             ->where('tipo_fuente','=',1)
@@ -1182,6 +1185,16 @@ class PaginasController extends Controller
         return view('dialogo.home-dialogo')->with(["propuestas_institucion"=>$propuestas_institucion]);        
         
     }
+
+    public function calendarioDialogo(){
+
+        
+
+        return view('dialogo.calendario-dialogo');        
+        
+    }
+
+
 
 
 

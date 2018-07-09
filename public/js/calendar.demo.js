@@ -63,32 +63,83 @@ var handleCalendarDemo = function () {
         },
 		editable: true,
 		events: [
+		
 			{
-				title: 'Event',
-				start: new Date(y, m, 0),
-				end: new Date(y, m, 1),
-				className: 'bg-purple',
-				media: '<i class="fa fa-trophy"></i>',
-				description: 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'
-			},
-			{
-				title: 'Daily Meeting',
-				start: new Date(y, m, 10),
-				end: new Date(y, m, 12),
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 11,),
+				end: new Date(y, 5 , 11),
 				allDay: false,
 				className: 'bg-blue',
 				media: '<i class="fa fa-users"></i>',
-				description: 'Lorem ipsum dolor sit amet adipiscing elit.'
+				description: '- MAG <br> -MIPRO <br>, -DGAC.'
 			},
 			{
-				title: 'Click for Google',
-				start: new Date(y, m, 15),
-				end: new Date(y, m, 17),
-				url: 'http://google.com/',
-				className: 'bg-green',
-				media: '<i class="fa fa-google-plus"></i>',
-				description: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'
-			}
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 12,),
+				end: new Date(y, 5 , 13),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- MTOP <br> -SRI <br>, -MDT.'
+			},
+			{
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 13,),
+				end: new Date(y, 5 , 13),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- PROECUADOR <br> -MEER <br>, -SENAE.'
+			},
+			{
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 14,),
+				end: new Date(y, 5 , 14),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- INEN <br> -MINTUR <br>, -MAP.'
+			},
+			{
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 15,),
+				end: new Date(y, 5 , 15),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- BANECUADOR <br> -AGROCALIDAD <br>, -SERCOP.'
+			},
+
+			{
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 18,),
+				end: new Date(y, 5 , 18),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- MIENTE <br> -INMOBILIAR <br>, -ARCSA.'
+			},
+			{
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 19,),
+				end: new Date(y, 5 , 19),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- IEPS <br> -MEF <br>, -CFN.'
+			},
+			{
+				title: 'Articulación Institucional',
+				start: new Date(y,5 , 20,),
+				end: new Date(y, 5 , 20),
+				allDay: false,
+				className: 'bg-blue',
+				media: '<i class="fa fa-users"></i>',
+				description: '- MCEI'
+			},
+			
+
+			
 		]
 	});
 	

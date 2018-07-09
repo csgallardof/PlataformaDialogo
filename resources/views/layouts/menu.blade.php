@@ -26,7 +26,7 @@
 														<div class="row">
 
 																<div class="col-md-2 col-sm-2">
-																		<a class="text-left" href="">
+																		<a class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf">
 																			<h4 class="dropdown-header">Informe del Diálogo Nacional</h4>
 																			<div class="row">
 																					<div class="col-md-12 col-xs-12">
@@ -41,8 +41,8 @@
 																		<div class="row">
 																				<div class="col-md-12 col-xs-12">
 																						<ul class="nav">
-																								<li><a href="#" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte General</a></li>
-																								<li><a href="#" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Productivo</a></li>
+																								<li><a href="{{ url('/reporte') }}" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte General</a></li>
+																								<li><a href="http://www.inteligenciaproductiva.gob.ec/dialogo-nacional-estadisticas" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Productivo</a></li>
 																						</ul>
 																				</div>
 																		</div>
@@ -58,7 +58,7 @@
 												</div>
 										</li>
 										<li>
-												<a href="#">
+												<a href="/calendario-dialogo-nacional">
 														<i class="fa fa-calendar fa-fw"></i>&nbsp;Próximas Mesas
 												</a>
 										</li>
@@ -89,7 +89,7 @@
 				<ul class="nav navbar-nav">
 
 					<li>
-							<a href="#">
+							<a href="login">
 									<i class="fa fa-user fa-fw"></i> Ingresar
 							</a>
 					</li>

@@ -14,19 +14,59 @@
 
 <br><br><br><br>
 	<!-- begin row -->
-	<div id="about" class="content work" data-scrollview="true">
-		<div class="container" data-animation="true" data-animation-type="fadeInDown">
+	<div class="row-m-t-3 p-t-40" data-scrollview="true">
+		<div class="container-fluid" data-animation="true" data-animation-type="fadeInDown">
 
 
         <div class="toolbar title_ip_breadcrumb fit-m-b-10">
           <ol class="breadcrumb">
 
             <li class="home"><a href="{{ url('/') }}"><i class="fa fa-home fa-lg"></i><span></span></a></li>
-            <li class="active"><a href="{{ url('/busquedaAvanzada') }}">Resultados de la B&uacute;squeda </a></li>
+            <li class="active"><a href="#">Resultados de la B&uacute;squeda </a></li>
 
           </ol>
-        </div><hr style="margin-top:-10px;">
-		<div class="row">
+        </div>
+		<div class="row p-20">
+			<div class="col-md-3" style="border: #D7DBDD 1px solid; padding: 1%">
+
+				<form role="form" method="GET" action="">
+				
+				<div class="toolbar title_ip_breadcrumb fit-m-b-10">
+
+		          <ol class="breadcrumb">
+
+		            <li class="home">Filtros</li>
+		            <li class="active"><button type="submit" class="btn btn-primary m-l-20 pull-rigth">Aplicar Filtros</button></li>
+
+		          </ol>
+		        </div>
+					<div class="form-group">
+						<?php // $arraySectors[] = array(); ?>
+
+						 		
+
+                				<?php $arraySectors[] = array(); ?>
+
+						 		<div >
+
+							    <label for="sectorSelect">Fuentes</label>
+								 	<select class="form-group form-control" id="sectorSelect" name="sectorSelect" >
+								 		<option value="0">Seleccionar </option>
+								 		@foreach( $resultados as $fuentes)
+								 			<option value="{{ $fuentes->nombre_institucion}}">{{ $fuentes->nombre_institucion}}</option>
+								 			
+								 		@endforeach
+								 			}
+								 	</select>
+                				</div>
+                				
+
+						 		
+						 		
+                				
+					</div>
+				</form>
+			</div>
 			
 			<div class="col-md-9">
 
@@ -40,11 +80,12 @@
 
                                     <div class="input-group custom-search-form">
 
-                                        <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo " name="parametro" value="" required style="font-size: 16px" >
+                                       <!--  <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo " name="parametro" value="" required style="font-size: 16px" > -->
+                                       <input id="buscar_general" type="text" class="form-control input-lg" name="parametro" placeholder="Buscar información sobre propuestas y pedidos del diálogo nacional" required>
                                         <span class="input-group-btn">
-                                            <button class="btn btn-buscar btn-lg" style="background: #EF5D06; color: #fff; " type="submit" height="50px">
-                                                <span class="glyphicon glyphicon-search"></span>
-                                            </button>
+                                           	<button id="btn_buscar" class="btn btn-default" type="submit">
+                                            	Buscar
+                                          	</button>
                                         </span>
 
                                     </div>
@@ -58,9 +99,7 @@
 			    </div>
 
           <div class="col-md-2">
-            <div class="panel-body text-center">
-              <a href="/descargar/Mesas" class="btn  btn-success btn-lg pull-right"><i class="fa fa-download"></i>&nbsp;Descargar</a>
-            </div>
+            
           </div>
 
 					<div class="col-md-12">
