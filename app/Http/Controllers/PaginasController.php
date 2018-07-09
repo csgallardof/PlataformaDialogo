@@ -76,9 +76,9 @@ class PaginasController extends Controller
            // $resultados = Solucion::where('provincias.','LIKE','%' . $buscar . '%')
            //                         ->paginate();
 
-            dd($request->selectBusqueda);
+          
 
-            $resultados = Solucion::select('solucions.*','mesa_dialogo.*', 'tipo_dialogo.*')
+            $resultados = Solucion::select('mesa_dialogo.*', 'tipo_dialogo.*','solucions.*')
                                 ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
                                 ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
                                 ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
@@ -99,7 +99,7 @@ class PaginasController extends Controller
 
             $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
 
-            dd($resultados);
+            //dd($resultados);
 
             return view('publico.reportes.reporte-dialogo')->with([
                                             "urlResultados"=>$urlResultados,
