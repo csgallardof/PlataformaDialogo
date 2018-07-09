@@ -319,9 +319,15 @@ class ActividadesController extends Controller
                                 ->where('tipo_fuente','=', 1)
                                 ->orderBy('created_at','ASC')->get();
 
-        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',1)
-                                            ->orderBy('tipo_actor','ASC')->get();
+        // $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+        //                                     ->where('tipo_fuente','=',1)
+        //                                     ->orderBy('tipo_actor','ASC')->get();
+
+        $actoresSoluciones = ActorSolucion::select('institucions.id','institucions.nombre_institucion','actor_solucion.*')
+                                            ->join('institucions', 'institucions.id','=','actor_solucion.institucion_id')
+                                            ->where('actor_solucion.solucion_id','=',$idSolucion)
+                                            ->get();
+        //dd($actoresSoluciones);
 
         return view('admin.actores.actividades.createDesp')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
     }

@@ -24,7 +24,7 @@
 					<div class="widget widget-stats bg-green-darker">
 						<div class="stats-icon"><i class="fa fa-desktop"></i></div>
 						<div class="stats-info">
-							<h4>Soluci&oacute;n</h4>
+							<h4>Soluci&oacute;nee</h4>
 							<p class="f-s-20">
 								@if (isset($solucion) )
 									{{ $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion }}

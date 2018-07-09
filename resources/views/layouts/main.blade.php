@@ -33,7 +33,7 @@
 
 			<link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
 		  <link href="{{ asset('plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
-			<link href="{{ asset('css/inteligencia.css') }}" id="theme" rel="stylesheet" />
+		<link href="{{ asset('css/inteligencia.css') }}" id="theme" rel="stylesheet" />
 		  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 		  <!-- <link href="{{ asset('css/style-front.css') }}" rel="stylesheet" /> -->
 		  <!-- <link href="{{ asset('css/style-responsive-front.css') }}" rel="stylesheet" /> -->

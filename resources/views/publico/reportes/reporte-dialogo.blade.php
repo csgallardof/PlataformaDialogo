@@ -49,12 +49,14 @@
 
 						 		<div >
 
-							    <label for="sectorSelect">Fuentesss</label>
+							    <label for="sectorSelect">Fuentes</label>
 								 	<select class="form-group form-control" id="sectorSelect" name="sectorSelect" >
 								 		<option value="0">Seleccionar </option>
 								 		@foreach( $resultados as $fuentes)
+								 			<option value="{{ $fuentes->nombre_institucion}}">{{ $fuentes->nombre_institucion}}</option>
 								 			
 								 		@endforeach
+								 			}
 								 	</select>
                 				</div>
                 				
