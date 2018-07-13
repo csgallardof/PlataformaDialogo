@@ -168,4 +168,24 @@ class Solucion extends Model
         return $this->belongsTo('App\EstadoSolucion');
     }
 
+    public function indice_competitividad(){
+
+        return $this->belongsTo('App\IndiceCompetitividad');
+    }
+
+    public function politica(){
+
+        return $this->belongsTo('App\Politica');
+    }
+
+    public function estado_publicacion(){
+
+        return $this->belongsTo('App\EstadoPublicacion');
+    }
+
+    public function plan_nacional(){
+
+        return $this->belongsTo('App\PlanNacional');
+    }
+
 }

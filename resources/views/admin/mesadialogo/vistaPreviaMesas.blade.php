@@ -148,6 +148,10 @@
 				                <th class="text-center">Empresa</th>
 				                <th class="text-center">Cargo</th>
 				                <th class="text-center">Sector empresa</th>
+				                <th class="text-center">Indice competitividad</th>
+				                <th class="text-center">Política</th>
+				                <th class="text-center">Plan Nacional</th>
+
 
 			            	</tr>
 				        </thead>
@@ -209,6 +213,9 @@
 				                <th class="text-center">Zona</th>
 				                <th class="text-center">Lugar</th>
 				                <th class="text-center">Fecha Solucion</th>
+				                <th class="text-center">Indice de competitividad</th>
+				                <th class="text-center">Politica</th>
+				                <th class="text-center">Plan Nacional</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -248,6 +255,9 @@
 										<td class="text-left">{{ $solucion->zona_id }}</td>
 										<td class="text-left">{{ $solucion->lugar_solucion }}</td>
 										<td class="text-left">{{ $solucion->fecha_solucion }}</td>
+										<td class="text-left">{{ $solucion->indice_competitividad->nombre_indice_competitividad }}</td>
+										<td class="text-left">{{ $solucion->politica->nombre_politica }}</td>
+										<td class="text-left">{{ $solucion->plan_nacional->nombre_plan_nacional }}</td>
 						            </tr>
 					            @endforeach	
 					        @endif	            

@@ -118,7 +118,7 @@ class InstitucionesController extends Controller {
         Mail::send('emails.correoRegistro', ["institucion" => $institucion, "password" => $password], function($msj) use ($correo) {
             $msj->subject('Inteligencia Productiva - Notificación de registro en Inteligencia Productiva');
             //$msj->to( $correo);
-            $msj->to('js-arcos@hotmail.com');
+            $msj->to('csgallardof@gmail.com');
         });
     }
 

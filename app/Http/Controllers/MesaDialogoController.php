@@ -24,6 +24,10 @@ use App\Parroquia;
 use App\User;
 use App\PalabrasClave;
 use App\ActorSolucion;
+use App\EstadoPublicacion;
+use App\IndiceCompetitividad;
+use App\PlanNacional;
+
 use File;
 use DB;
 use PHPExcel; 
@@ -214,6 +218,8 @@ class MesaDialogoController extends Controller
                 DB::beginTransaction();
 
                 $aux = json_decode($request->mesa_dialogo, true);
+
+               // dd($aux);
                 
                 //Toma el objeto de la mesa validado y guarda en la bdd    
                 $mesa_dialogo = new MesaDialogo;
@@ -293,20 +299,22 @@ class MesaDialogoController extends Controller
                         $participante->save();
                     }
                 }
+
                 //Toma la lista de objetos de propuestas (soluciones) y guarda en la bdd 
                 $datos_solucion = $request->datos_solucion;
                 if(isset($datos_solucion)){
                     $datos_solucion = Collection::make(json_decode($datos_solucion, true));
-                    //dd($datos_solucion);
+                   // dd($datos_solucion);
                     foreach ($datos_solucion as $solucionAux) {
                         $solucion = new Solucion;
                         $solucion->mesa_id = $mesa_dialogo->id;
+
                         if(isset($solucionAux['sipoc_id'])){
                             $solucion->sipoc_id = $solucionAux['sipoc_id'];
                         }
                         
                         $solucion->instrumento_id = $solucionAux['instrumento_id'];
-                        
+
                         $solucion->tipo_empresa_id = $solucionAux['tipo_empresa_id'];
                         $solucion->ambit_id = $solucionAux['ambit_id'];
                         $solucion->responsable_solucion = $solucionAux['responsable_solucion'];
@@ -350,9 +358,35 @@ class MesaDialogoController extends Controller
                         if(isset($solucionAux['fecha_solucion'])){
                             $solucion->fecha_solucion = $solucionAux['fecha_solucion'];
                         }
+                        $solucion->indice_competitividad_id = $solucionAux['indice_competitividad_id'];
+                        $solucion->politica_id = $solucionAux['politica_id'];
+                        $solucion->plan_nacional_id = $solucionAux['plan_nacional_id'];
+                        //dd($aux['organizador_id']);
                         
+                        $InstitucionResponsableSiglas = DB::table('institucions')
+                                                      ->where('siglas_institucion', $solucionAux['responsable_solucion'])
+                                                      ->select('id', 'siglas_institucion')
+                                                      ->first();
+                        //echo date_format($date, 'Y-m-d H:i:s');
+
+                        
+                        $codigo_solucions = $InstitucionResponsableSiglas->siglas_institucion."-".$solucion->fecha_solucion.'-'.date('H'.'i'.'s');
+
+                        //dd($codigo_solucions);
+
+                        $solucion->cod_solucions = $codigo_solucions;
+
                         $solucion->save();
 
+                        $correo = $institucion->email;
+                        Mail::send('emails.correoRegistro', ["institucion" => $institucion, "password" => $password], function($msj) use ($correo) {
+                            $msj->subject('Inteligencia Productiva - Notificación de registro en Inteligencia Productiva');
+                            //$msj->to( $correo);
+                            $msj->to('csgallardof@gmail.com');
+                        });
+
+                        //dd($codigo_solucions);
+                        
                         /*RESPONSABLE*/
                         $InstitucionResponsableID = DB::table('institucions')
                                                       ->where('siglas_institucion', $solucionAux['responsable_solucion'])
@@ -367,6 +401,7 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> tipo_actor = 1;
                                     $institucionSolucion-> tipo_fuente = 0;
                                     $institucionSolucion-> save();
+
                         /*CORRESPONSABLES*/
                         if(isset($solucionAux['corresponsable_solucion'])){
                          $cadena = $solucionAux['corresponsable_solucion'];
@@ -404,11 +439,17 @@ class MesaDialogoController extends Controller
                                 $solucionPalabraClave-> nombre = $arrayPalabras;
                                 $solucionPalabraClave-> solucion_id = $solucion->id;
                                 $solucionPalabraClave-> save();
+
                                 }
 
+
                     }
+                  
+
+                    
 
                 }
+
 
                 DB::commit();
                 Flash::success("La información de la matriz ha sido guardada exitosamente.");
@@ -723,12 +764,16 @@ class MesaDialogoController extends Controller
                         'zona' => trim($objPHPExcel->getActiveSheet()->getCell('O'.$i)->getCalculatedValue()),
                         'lugar_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('P'.$i)->getCalculatedValue()),
                         'fecha_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('Q'.$i)->getCalculatedValue()),
+                        'indice_competitividad' => trim($objPHPExcel->getActiveSheet()->getCell('R'.$i)->getCalculatedValue()),
+                        'politica' => trim($objPHPExcel->getActiveSheet()->getCell('S'.$i)->getCalculatedValue()),
+                        'plan_nacional' => trim($objPHPExcel->getActiveSheet()->getCell('T'.$i)->getCalculatedValue()),
                     );
+                    //dd($informacion_propuestas);
                 }        
      
                 //recorremos todos los registros recogidos de propuestas (soluciones)
                 foreach ($informacion_propuestas as $fila) {   
-                    if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "") 
+                    if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["indice_competitividad"] != "" && $fila["politica"] != "" && $fila["plan_nacional"] != "" ) 
                     {    //validamos que todos los campos de cada registro no se encuentren vacios
                         $valido = true;
                         $solucion = new Solucion;
@@ -736,6 +781,7 @@ class MesaDialogoController extends Controller
                         //Validacion SIPOC (Eslabón de la cadena Productiva)
                         if( !is_null($fila["eslabonCP"]) ){
                             $sipoc = DB::table('sipocs')->where('nombre_sipoc', $fila["eslabonCP"] )->first();
+                            //dd($sipoc);
                             if( !is_null($sipoc) ){
                                 $solucion->sipoc_id = $sipoc-> id;
                             }else{
@@ -833,6 +879,58 @@ class MesaDialogoController extends Controller
                             $solucion->zona_id = 0;
                         }
 
+                        //Validacion INDICE COMPETITIVIDAD
+
+                        if( !is_null($fila["indice_competitividad"]) ){
+                            
+                            $indice_competitividad = DB::table('indice_competitividads')->where('nombre_indice_competitividad', $fila["indice_competitividad"] )->first();
+                            
+                            if( !is_null($sipoc) ){
+                                $solucion->indice_competitividad_id = $indice_competitividad-> id;
+                            }else{
+                                $error = "Celda A". $fila['numFila'].": No se encontró el sipoc.";
+                                array_push($errores_solucion, $error);
+                                $solucion->indice_competitividad_id = 0;
+                                $valido = false;
+                            }
+                        }
+                        
+
+                        //Validacion POLITICA
+
+                        if( !is_null($fila["politica"]) ){
+                            
+                            $politica = DB::table('politicas')->where('nombre_politica', $fila["politica"] )->first();
+                            //dd($politica);
+                            
+                            if( !is_null($politica) ){
+                                $solucion->politica_id = $politica -> id;
+                            }else{
+                                $error = "Celda S". $fila['numFila'].": No se encontró el politica.";
+                                array_push($errores_solucion, $error);
+                                $solucion->indice_competitividad_id = 0;
+                                $valido = false;
+                            }
+                        }
+
+
+                        //Validacion PLAN NACIONAL
+
+                        if( !is_null($fila["plan_nacional"]) ){
+                            
+                            $plan_nacional = DB::table('plan_nacionals')->where('nombre_plan_nacional', $fila["plan_nacional"] )->first();
+                            
+                            if( !is_null($plan_nacional) ){
+                                $solucion->plan_nacional_id = $plan_nacional -> id;
+                            }else{
+                                $error = "Celda T". $fila['numFila'].": No se encontró el plan nacional.";
+                                array_push($errores_solucion, $error);
+                                $solucion->plan_nacional_id = 0;
+                                $valido = false;
+                            }
+                        }
+                        
+
                         if($valido === true){
                                       
                             $solucion->verbo_solucion = ''; 
@@ -920,6 +1018,8 @@ class MesaDialogoController extends Controller
             $errores = Collection::make($errores);
             $errores_participante = Collection::make($errores_participante);
             $errores_solucion = Collection::make($errores_solucion);
+
+            //dd($datos_solucion);
             
             return view('admin.mesadialogo.vistaPreviaMesas')->with(["mesa_dialogo"=> $mesa_dialogo, "datos_participante"=>$datos_participante, "datos_solucion"=>$datos_solucion, "errores"=>$errores, "errores_participante"=>$errores_participante, "errores_solucion"=>$errores_solucion, "nombreArchivo"=>$nombreArchivo]);
 
