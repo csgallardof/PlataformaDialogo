@@ -888,3 +888,26 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
         margin-top: 20px;
     }
 }
+
+/* Custom CSS */
+
+@media (max-width: 767px) {
+  .home_main_icon_line1 {
+    color: white;
+    font-weight: 550;
+    margin-top: 14px;
+    line-height: 0.5;
+    font-size: 10px;
+  }
+
+  .home_main_icon_line2 {
+    color: white;
+    font-style: italic;
+    letter-spacing: 1.2px;
+    font-weight: 450;
+    font-size: 8px;
+  }
+  .home_main_web_title > h2 {
+    font-size: 20px;
+  }
+}
