@@ -7,6 +7,7 @@ use App\Pajustada;
 use App\Actividad;
 use App\ActorSolucion;
 use App\Archivo;
+use Mail;
 
 
 use DB;
@@ -510,11 +511,23 @@ class ActividadesController extends Controller
                 $solucion->save();
             }
         }
+        
+
+        // dd($actividad);
+
+            Mail::send('emails.correoRegistroActividad', ["solucion"=>$solucion ,"actividad" => $actividad], function($msj) {
+            $msj->to('jpantoja@mipro.gob.ec', '')->subject('Inteligencia Productiva - Notificación de registro una Actvidad');
+                //$msj->to( $correo);
+                
+            $msj->from('inteligencia.contacto@gmail.com','Plataforma de Dialogo');
+        });
+
+        dd("hasta aca");
 
         $actividad-> save();
 
-         $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
-            $solucionAsignada = Solucion::find($idSolucion);
+        $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
+        $solucionAsignada = Solucion::find($idSolucion);
             
             //dd($actividadcreada->fecha_inicio,$solucionAsignada->pajustada_id,$SolucionesUnificadas);
             
@@ -595,7 +608,7 @@ class ActividadesController extends Controller
 
         Flash::success("Se ha creado la actividad exitosamente");
 
-            return redirect('/admin/actores/asignados');
+        return redirect('/admin/actores/asignados');
     }
 
     /**

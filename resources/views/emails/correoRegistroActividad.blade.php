@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -6,7 +5,7 @@
 <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
-  <title>Color Admin | Email Template - System</title>
+  <title>Inteligencia Productiva - Notificación de registro en Inteligencia Productiva</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
   <meta content="" name="description" />
   <meta content="" name="author" />
@@ -949,7 +948,7 @@
                                             <table class="six columns">
                                                 <tr>
                                                     <td>
-                                                        <a href="index.html"><img src="assets/img/logo.png" /></a>
+                                                        <a href="index.html"><img src="http://inteligenciaproductiva.gob.ec/imagenes/logo_mipro.png" /></a>
                                                     </td>
                                                     <td class="expander"></td>
                                                 </tr>
@@ -989,20 +988,23 @@
                                         <table class="twelve columns">
                                             <tr>
                                                 <td class="last">
-                                                    <h4>Welcome to Wrapbootstrap.</h4>
-                                                    <p class="m-b-5">Please click the following URL to activate your account:</p>
+                                                    <h4>PLatafoma de Dialogo Productivo.</h4>
+                                                    <p class="m-b-5">Ha registrado la actividad:{{ $actividad->comentario }}
+
+                                                    </p>
                                                 </td>
+                                                
                                             </tr>
                                             <tr>
-                                                <td class="panel">
-                                                    <a href="javascript:;">https://www.wrapbootstrap.com/registration/activate/?code=28a782891</a>
+                                              <td class="last">
+                                                    <h4>Para la propuesta de solucion.</h4>
+                                                    <p class="m-b-5">{{ $solucion->propuesta_solucion }}
+
+                                                    </p>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p class="m-t-15 last">If clicking the URL above does not work, copy and paste the URL into a browser window.</p>
-                                                </td>
-                                            </tr>
+                                            </tr>  
+                                           
+                                            
                                         </table>
                                     </td>
                                     <!-- end wrapper -->
@@ -1012,34 +1014,7 @@
                             <!-- begin divider -->
                             <table class="divider"></table>
                             <!-- end divider -->
-                            <!-- begin row -->
-                            <table class="row">
-                                <tr>
-                                    <!-- begin wrapper -->
-                                    <td class="wrapper">
-                                        <!-- begin twelve columns -->
-                                        <table class="twelve columns">
-                                            <tr>
-                                                <td>
-                                                    <h4>Discount 80%!</h4>
-                                                    <p>
-                                                        Quisque eget pulvinar nisi, et mattis leo. Aenean nec ligula aliquet, tincidunt massa ac, eleifend velit. Ut ac enim a enim tempor volutpat. Mauris quis sagittis nunc, et convallis nulla. Fusce gravida lacus sed vulputate scelerisque.
-                                                    </p>
-                                                    <p>
-                                                        <a href="index.html"><img src="assets/img/product/product-preview.jpg" /></a>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <!-- end twelve columns -->
-                                        <p>
-                                            <i>This ia a system generated email and reply is not required.</i>
-                                        </p>
-                                    </td>
-                                    <!-- end wrapper -->
-                                </tr>
-                            </table>
-                            <!-- end row -->
+                            
                         </td>
                     </tr>
                 </table>

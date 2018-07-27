@@ -45,6 +45,9 @@
 
 
 							<h5 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Estado de Compromiso:</strong></h5>
+									<p><strong>Codigo:</strong>@if(isset($solucion))
+												{{ $solucion->cod_solucions }}
+											@endif</p>
 
 
 									<p style="padding-left:15%">

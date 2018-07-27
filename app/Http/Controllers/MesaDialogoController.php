@@ -34,6 +34,8 @@ use PHPExcel;
 use PHPExcel_IOFactory; 
 use PHPExcel_Shared_Date;
 
+use Mail;
+
 class MesaDialogoController extends Controller
 {
 
@@ -378,12 +380,7 @@ class MesaDialogoController extends Controller
 
                         $solucion->save();
 
-                        $correo = $institucion->email;
-                        Mail::send('emails.correoRegistro', ["institucion" => $institucion, "password" => $password], function($msj) use ($correo) {
-                            $msj->subject('Inteligencia Productiva - Notificación de registro en Inteligencia Productiva');
-                            //$msj->to( $correo);
-                            $msj->to('csgallardof@gmail.com');
-                        });
+                       
 
                         //dd($codigo_solucions);
                         

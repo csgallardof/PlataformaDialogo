@@ -22,6 +22,7 @@ use Illuminate\Support\Collection as Collection;
 use App\Provincia;
 use App\Sipoc;
 use App\Sector;
+use Mail;
 
 use App\Auth\Login;
 
@@ -1192,6 +1193,16 @@ class PaginasController extends Controller
 
         return view('dialogo.calendario-dialogo');        
         
+    }
+
+    public function enviarmail(){
+
+        Mail::send('emails.correoRegistro', ['name', 'hola'], function($msj) {
+            $msj->to('inteligencia.contacto@gmail.com', 'Dos')->subject('Inteligencia Productiva - Notificación de registro en Inteligencia Productiva');
+            //$msj->to( $correo);
+            
+            $msj->from('inteligencia.contacto@gmail.com','Uno');
+        });
     }
 
 

@@ -239,7 +239,7 @@
 					</div>
 
 				<!-- Inicio col-8 tabla -->
-					<div class="col-md-12">
+				<div class="col-md-12">
 
 				@if(isset($resultados))
 

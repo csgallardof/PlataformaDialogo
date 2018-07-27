@@ -28,11 +28,14 @@ Route::get('/inicio2', function () {
      return view('inicio2');
 });
 
+
+
 // Route::get('/busquedaAvanzada',[
 //      'uses'=>'PaginasController@busquedaAvanzada',
 //      'as'=>'nuevaBusqueda2'
 // ]);
 
+Route::get('/mail','PaginasController@enviarmail'); 
 
 Route::get('/busquedaAvanzadaDialogo',[
      'uses'=>'PaginasController@busquedaAvanzadaDialogo', 
