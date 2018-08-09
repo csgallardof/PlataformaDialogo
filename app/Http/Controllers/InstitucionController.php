@@ -165,24 +165,16 @@ class InstitucionController extends Controller
         $totalCorresponsable = ActorSolucion::where('user_id','=',$usuario_id)
                                          ->where('tipo_actor','=','2')->count();
 
-        $solucionesDespliegue= DB::select("SELECT solucions.*, actor_solucion.tipo_actor,estado_solucion.nombre_estado,pajustadas.nombre_pajustada FROM solucions 
-                                        INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
-                                        INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
-                                         LEFT JOIN pajustadas ON solucions.pajustada_id = pajustadas.id
-                                        WHERE 
-                                        ( actor_solucion.tipo_fuente = 1 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 1 ) OR
-                                        ( actor_solucion.tipo_fuente = 1 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 2 ); 
-                                        ");
-        //dd($solucionesDespliegue);
-        $solucionesCCPT = DB::select("SELECT DISTINCT pajustadas.*, actor_solucion.tipo_actor, solucions.tipo_fuente 
-                                    FROM pajustadas 
-                                    INNER JOIN actor_solucion ON actor_solucion.solucion_id = pajustadas.id
-                                    INNER JOIN solucions ON solucions.pajustada_id = pajustadas.id
-                                    WHERE 
-                                    ( actor_solucion.tipo_fuente = 2 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 1 ) OR
-                                    ( actor_solucion.tipo_fuente = 2 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 2 ); 
-                                    ");
-
+        $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join user_institucions on user_institucions.institucion_id = institucions.id
+                                    inner join users on user_institucions.user_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where users.id ='.$usuario_id);
+       
+       
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
@@ -193,7 +185,6 @@ class InstitucionController extends Controller
 
         //dd($tipo_fuente);
         return view('institucion.home')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
-                                                "solucionesCCPT"=>$solucionesCCPT,
                                                 "totalDespliegue"=>$totalDespliegue,
                                                 "totalConsejo"=>$totalConsejo,
                                                 "totalResponsable"=>$totalResponsable,
