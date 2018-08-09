@@ -309,6 +309,7 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
 
 Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
+
      Route::get('home','InstitucionController@home');  //página dashboard para las instituciones
  
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegue','as'=>'verSolucion.despliegue']);
@@ -462,7 +463,9 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      Route::post('/seleccion-propuestas-unificadas/create-pajustada-unificar/pajustadas',['uses'=>'PropuestasUnificadasController@definirPajustada','as'=>'definirPajustada']);
 
-          
+
+    Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');      
+
 });
  
 Route::get('/reporte','ReportePublicoController@listaReportes');

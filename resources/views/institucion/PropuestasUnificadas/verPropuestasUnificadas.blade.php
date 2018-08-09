@@ -2,8 +2,7 @@
 
 @section('title','Inicio')
 
-
-@section('content')
+@section('content')  
 
 
 		<!-- begin #content -->
@@ -11,12 +10,7 @@
 			<!-- begin breadcrumb -->
 
 			<br />
-
-
-
-
-
-			<!--
+			<!-- 
 
 				@if($tipo_fuente==5 or $tipo_fuente==4)
 			<ol class="breadcrumb pull-right">
@@ -25,8 +19,8 @@
 			</ol>
 			@endif
 			 -->
-
-
+			
+			
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<!-- <div class="brand">
@@ -110,31 +104,10 @@
 				<!-- end col-3 -->
 			</div>
 			<!-- end row -->
-
-
-
-
-
 			<div>
-				<div class="alert alert-success fade in m-b-15" >
-							<small>
-								En caso de que una propuesta no pertenezca a su institución, contactarse a inteligencia@mipro.gob.ec con su respectiva justificación. <br>
-								Si desea actualizar su usuario contactarse inteligencia@mipro.gob.ec
-
-								<span class="close" data-dismiss="alert">&times;</span>
-								</small>
-							</div>
-							<div class="alert alert-info fade in m-b-15">
-								<small>
-								Al momento de unificar Propuestas las acciones no se transfieren.
-								<span class="close" data-dismiss="alert">&times;</span>
-								</small>
-							</div>
-
-					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/unificar-propuestas">Unificar Propuestas</a>
-
-					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/unificar-propuestas">Ver Propuestas Unificadas</a>
-
+				
+					
+				
 			</div>
 			<!-- begin row -->
 			<div class="row">
@@ -145,54 +118,40 @@
 					<ul class="nav nav-tabs nav-tabs-inverse nav-justified nav-justified-mobile" data-sortable-id="index-2">
 
 						<li class="active">
-							<a href="#responsable" data-toggle="tab">
+							<a href="#responsable"  data-toggle="tab">
 								<i class="fa fa-sticky-note-o m-r-5"></i>
-								<span class="hidden-xs">Responsable</span>
+								<span class="hidden-xs" ">Responsable</span>
 								@if( isset($totalResponsable) )
 									({{ $totalResponsable }})
 								@endif
 							</a>
 						</li>
-						<li class="">
-							<a href="#corresponsable" data-toggle="tab">
-								<i class="fa fa-sticky-note m-r-5"></i>
-								<span class="hidden-xs">Corresponsable</span>
-								@if( isset($totalCorresponsable) )
-									({{ $totalCorresponsable }})
-								@endif
-							</a>
-						</li>
-						<li class=""><a href="#general" data-toggle="tab"><i class="fa fa-newspaper-o m-r-5"></i> <span class="hidden-xs">
-						Todas (
-						@if (isset($solucionesDespliegue) )
-								@if(isset($solucionesCCPT) )
-									{{count($solucionesDespliegue) + count($solucionesCCPT)}}
-								@else
-									{{count($solucionesDespliegue)}}
-								@endif
-							@else
-								@if(isset($solucionesCCPT) )
-									{{count($solucionesCCPT)}}
-								@else
-									0
-								@endif
-							@endif
-							)
-						</span></a></li>
+						
+						
 					</ul>
 					<div class="tab-content" data-sortable-id="index-3">
 
 						<!--SOLUCIONES RESPONSABLE-->
+						@include('flash::message')
+						
 						<div class="tab-pane fade active in" id="responsable">
 							<div class="" data-scrollbar="false">
+								<div>
+									
+								</div>
+								<form  method="POST" action="/institucion/seleccion-propuestas-unificadas" enctype="multipart/form-data">
+									{{ csrf_field() }}
+									<button type="submit"  class="btn btn-primary pull-right">Unificar</button>
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th></th>
 											<th>Codigo</th>
 											<th>Propuesta</th>
+											<th>Propuesta Unificada</th>
 											<th>Fuente</th>
 											<th>Estado</th>
-											<th>Acción</th>
+											
 										</tr>
 									</thead>
 									<tbody>
@@ -201,9 +160,17 @@
 											@foreach($solucionesDespliegue as $solucionD)
 												@if($solucionD->tipo_actor == 1)
 													<tr>
+														 <td><input type="checkbox" name="check[]" id="chk{{$solucionD->id}}" value='{{$solucionD->id}}'> </td>
 														<td class="text-justify">{{$solucionD->id}}</td>
 														<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
-
+														<td class="text-justify">
+															@if($solucionD->pajustada_id==0)
+																No asignado
+															@else
+																{{$solucionD->nombre_pajustada}}
+															@endif
+															
+														</td>
 														<td>
 															@if($solucionD->tipo_fuente == 1)
 																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
@@ -211,53 +178,26 @@
 																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
 															@endif
 														</td>
-
 														<td>
 															@if($solucionD->nombre_estado=="Cierre")
 															<span class="label label-success f-s-12" style="background-color: #28B463">{{$solucionD->nombre_estado}}</span>
-																<span class="label label-info">
-																	@if($solucionD->pajustada_id!=0)
-																		Unificado
-																	@else
-																		No Unificado
-																	@endif
-
-																</span>
 															@endif
 
 															@if($solucionD->nombre_estado=="En Desarrollo")
 															<span class="label label-default f-s-12" style="background-color: #CA6F1E">{{$solucionD->nombre_estado}}</span>
-																<span class="label label-info">
-																	@if($solucionD->pajustada_id!=0)
-																		Unificado
-																	@else
-																		No Unificado
-																	@endif
-
-																</span>
 															@endif
-
+															
 															@if($solucionD->nombre_estado=="En Análisis")
 															<span class="label label-default f-s-12" style="background-color: #A6ACAF">{{$solucionD->nombre_estado}}</span>
-																<span class="label label-info">
-																	@if($solucionD->pajustada_id!=0)
-																		Unificado
-																	@else
-																		No Unificado
-																	@endif
-
-																</span>
-
 															@endif
 														</td>
-														<td>
-															<a href="{{ route('verSolucion.despliegue',[1,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle</a>
-														</td>
+														
 													</tr>
 												@endif
 											@endforeach
-
+											
 										@endif
+
 
 										@if( isset($solucionesCCPT) )
 
@@ -273,9 +213,7 @@
 															@endif
 														</td>
 
-														<td>
-															<a href="{{ route('verSolucion.consejo',[1,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-														</td>
+														
 													</tr>
 												@endif
 											@endforeach
@@ -284,157 +222,15 @@
 
 									</tbody>
 								</table>
+								</form>
 							</div>
 						</div>
+
 						<!--FIN SOLUCIONES RESPONSABLE-->
 
-						<!--SOLUCIONES CORRESPONSABLE-->
-						<div class="tab-pane fade" id="corresponsable">
-							<div class="height-lg" data-scrollbar="true">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Propuesta</th>
-											<th>Fuente</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										@if( isset($solucionesDespliegue) )
+						
 
-											@foreach($solucionesDespliegue as $solucionD)
-												@if($solucionD->tipo_actor == 2)
-													<tr>
-														<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
-														<td>
-															@if($solucionD->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-														<td>
-															<a href="{{ route('verSolucion.despliegue',[2,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-														</td>
-													</tr>
-												@endif
-											@endforeach
-
-										@endif
-
-										@if( isset($solucionesCCPT) )
-
-											@foreach($solucionesCCPT as $solucionCC)
-												@if($solucionCC->tipo_actor == 2)
-													<tr>
-														<td class="text-justify">{{$solucionCC->nombre_pajustada}}</td>
-														<td>
-															@if($solucionCC->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-
-														<td>
-															<a href="{{ route('verSolucion.consejo',[2,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-														</td>
-													</tr>
-												@endif
-											@endforeach
-
-										@endif
-
-
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<!--FIN SOLUCIONES CORRESPONSABLE-->
-
-						<!--SOLUCIONES EN GENERAL-->
-						<div class="tab-pane fade" id="general">
-							<div class="height-lg" data-scrollbar="true">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Propuesta</th>
-											<th>Responsabilidad</th>
-											<th>Fuente</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										@if( isset($solucionesDespliegue) )
-
-											@foreach($solucionesDespliegue as $solucionD)
-											<tr>
-												<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
-
-												<td>
-													@if($solucionD->tipo_actor == 1)
-														<em>{{ "Responsable" }}</em>
-													@else
-														<em>{{ "Corresponsable" }}</em>
-													@endif
-												</td>
-												<td>
-													@if($solucionD->tipo_fuente == 1)
-														<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-													@else
-														<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-													@endif
-												</td>
-												<td>
-													@if($solucionD->tipo_actor == 1)
-														<a href="{{ route('verSolucion.despliegue',[1,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@else
-														<a href="{{ route('verSolucion.despliegue',[2,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@endif
-												</td>
-											</tr>
-											@endforeach
-
-										@endif
-
-										@if( isset($solucionesCCPT) )
-
-											@foreach($solucionesCCPT as $solucionCC)
-											<tr>
-												<td class="text-justify">{{$solucionCC->nombre_pajustada}}</td>
-
-												<td>
-													@if($solucionCC->tipo_actor == 1)
-														<em>{{ "Responsable" }}</em>
-													@else
-														<em>{{ "Corresponsable" }}</em>
-													@endif
-												</td>
-												<td>
-													@if($solucionCC->tipo_fuente == 1)
-														<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-													@else
-														<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo2" }}</label>
-													@endif
-												</td>
-												<td>
-													@if($solucionCC->tipo_actor == 1)
-														<a href="{{ route('verSolucion.consejo',[1,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@else
-														<a href="{{ route('verSolucion.consejo',[2,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@endif
-												</td>
-											</tr>
-											@endforeach
-
-										@endif
-
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<!--FIN SOLUCIONES EN GENERAL-->
-
+						
 
 					</div>
 
@@ -457,7 +253,7 @@
 								<ul>
 									@foreach($notificaciones as $notificacion)
 										<li>
-											{!! substr($notificacion-> comentario,0,65).'..' !!} <br>
+											{{ substr($notificacion-> comentario,0,65).'..' }} <br>
 											{{ substr($notificacion-> fecha_inicio,0,10) }}
 											@if($notificacion->tipo_fuente == 1)
 												<a href="{{ route('verSolucion.despliegue',[2,$notificacion-> solucion_id]) }}" class="pull-right f-s-13 f-w-500">Ver m&aacute;s</a><br><br>

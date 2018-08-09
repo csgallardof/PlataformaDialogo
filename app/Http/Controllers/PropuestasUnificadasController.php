@@ -198,4 +198,12 @@ class PropuestasUnificadasController extends Controller
     	//dd("se guardo");
 
     }
+
+
+    public function verPropuestasUnificadas(){
+        $varPrueba = 12;
+      //  dd($varPrueba);
+//dd('HOLA');
+        return view('institucion.PropuestasUnificadas.verPropuestasUnificadas');
+    }
 }
