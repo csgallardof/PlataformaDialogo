@@ -90,20 +90,7 @@
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							<h4>MIS PROPUESTAS | @auth {{ Auth::user()->name }}@endauth</h4>
-							@if (isset($solucionesDespliegue) )
-								@if(isset($solucionesCCPT) )
-									<p>{{ count($solucionesDespliegue) + count($solucionesCCPT) }} Propuestas</p>
-								@else
-									<p>{{ count($solucionesDespliegue) }} Propuestas </p>
-								@endif
-							@else
-								@if(isset($solucionesCCPT) )
-									<p>{{ count($solucionesCCPT) }} Propuestas</p>
-								@else
-									<p>0 Soluciones</p>
-								@endif
-							@endif
+							<h4>
 						</div>
 					</div>
 				</div>
@@ -162,20 +149,7 @@
 						</li>
 						<li class=""><a href="#general" data-toggle="tab"><i class="fa fa-newspaper-o m-r-5"></i> <span class="hidden-xs">
 						Todas (
-						@if (isset($solucionesDespliegue) )
-								@if(isset($solucionesCCPT) )
-									{{count($solucionesDespliegue) + count($solucionesCCPT)}}
-								@else
-									{{count($solucionesDespliegue)}}
-								@endif
-							@else
-								@if(isset($solucionesCCPT) )
-									{{count($solucionesCCPT)}}
-								@else
-									0
-								@endif
-							@endif
-							)
+						
 						</span></a></li>
 					</ul>
 					<div class="tab-content" data-sortable-id="index-3">
@@ -200,50 +174,31 @@
 												@if($solucionD->tipo_actor == 1)
 													<tr>
 														<td class="text-justify">{{$solucionD->id}}</td>
-														<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
+														<td class="text-justify">{{$solucionD->propuesta_solucion}}</td>
 
 														<td>
-															@if($solucionD->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
+															
 														</td>
 
 														<td>
 															@if($solucionD->nombre_estado=="Cierre")
 															<span class="label label-success f-s-12" style="background-color: #28B463">{{$solucionD->nombre_estado}}</span>
 																<span class="label label-info">
-																	@if($solucionD->pajustada_id!=0)
-																		Unificado
-																	@else
-																		No Unificado
-																	@endif
-
+																	
 																</span>
 															@endif
 
 															@if($solucionD->nombre_estado=="En Desarrollo")
 															<span class="label label-default f-s-12" style="background-color: #CA6F1E">{{$solucionD->nombre_estado}}</span>
 																<span class="label label-info">
-																	@if($solucionD->pajustada_id!=0)
-																		Unificado
-																	@else
-																		No Unificado
-																	@endif
-
+																
 																</span>
 															@endif
 
 															@if($solucionD->nombre_estado=="En Análisis")
 															<span class="label label-default f-s-12" style="background-color: #A6ACAF">{{$solucionD->nombre_estado}}</span>
 																<span class="label label-info">
-																	@if($solucionD->pajustada_id!=0)
-																		Unificado
-																	@else
-																		No Unificado
-																	@endif
-
+																	
 																</span>
 
 															@endif
@@ -257,28 +212,7 @@
 
 										@endif
 
-										@if( isset($solucionesCCPT) )
-
-											@foreach($solucionesCCPT as $solucionCC)
-												@if($solucionCC->tipo_actor == 1)
-													<tr>
-														<td class="text-justify">{{$solucionCC->nombre_pajustada}}</td>
-														<td>
-															@if($solucionCC->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-
-														<td>
-															<a href="{{ route('verSolucion.consejo',[1,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-														</td>
-													</tr>
-												@endif
-											@endforeach
-
-										@endif
+										
 
 									</tbody>
 								</table>
@@ -286,151 +220,11 @@
 						</div>
 						<!--FIN SOLUCIONES RESPONSABLE-->
 
-						<!--SOLUCIONES CORRESPONSABLE-->
-						<div class="tab-pane fade" id="corresponsable">
-							<div class="height-lg" data-scrollbar="true">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Propuesta</th>
-											<th>Fuente</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										@if( isset($solucionesDespliegue) )
-
-											@foreach($solucionesDespliegue as $solucionD)
-												@if($solucionD->tipo_actor == 2)
-													<tr>
-														<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
-														<td>
-															@if($solucionD->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-														<td>
-															<a href="{{ route('verSolucion.despliegue',[2,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-														</td>
-													</tr>
-												@endif
-											@endforeach
-
-										@endif
-
-										@if( isset($solucionesCCPT) )
-
-											@foreach($solucionesCCPT as $solucionCC)
-												@if($solucionCC->tipo_actor == 2)
-													<tr>
-														<td class="text-justify">{{$solucionCC->nombre_pajustada}}</td>
-														<td>
-															@if($solucionCC->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-
-														<td>
-															<a href="{{ route('verSolucion.consejo',[2,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-														</td>
-													</tr>
-												@endif
-											@endforeach
-
-										@endif
-
-
-									</tbody>
-								</table>
-							</div>
-						</div>
+						
 						<!--FIN SOLUCIONES CORRESPONSABLE-->
 
 						<!--SOLUCIONES EN GENERAL-->
-						<div class="tab-pane fade" id="general">
-							<div class="height-lg" data-scrollbar="true">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Propuesta</th>
-											<th>Responsabilidad</th>
-											<th>Fuente</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										@if( isset($solucionesDespliegue) )
-
-											@foreach($solucionesDespliegue as $solucionD)
-											<tr>
-												<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
-
-												<td>
-													@if($solucionD->tipo_actor == 1)
-														<em>{{ "Responsable" }}</em>
-													@else
-														<em>{{ "Corresponsable" }}</em>
-													@endif
-												</td>
-												<td>
-													@if($solucionD->tipo_fuente == 1)
-														<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-													@else
-														<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-													@endif
-												</td>
-												<td>
-													@if($solucionD->tipo_actor == 1)
-														<a href="{{ route('verSolucion.despliegue',[1,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@else
-														<a href="{{ route('verSolucion.despliegue',[2,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@endif
-												</td>
-											</tr>
-											@endforeach
-
-										@endif
-
-										@if( isset($solucionesCCPT) )
-
-											@foreach($solucionesCCPT as $solucionCC)
-											<tr>
-												<td class="text-justify">{{$solucionCC->nombre_pajustada}}</td>
-
-												<td>
-													@if($solucionCC->tipo_actor == 1)
-														<em>{{ "Responsable" }}</em>
-													@else
-														<em>{{ "Corresponsable" }}</em>
-													@endif
-												</td>
-												<td>
-													@if($solucionCC->tipo_fuente == 1)
-														<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-													@else
-														<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo2" }}</label>
-													@endif
-												</td>
-												<td>
-													@if($solucionCC->tipo_actor == 1)
-														<a href="{{ route('verSolucion.consejo',[1,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@else
-														<a href="{{ route('verSolucion.consejo',[2,$solucionCC->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
-													@endif
-												</td>
-											</tr>
-											@endforeach
-
-										@endif
-
-									</tbody>
-								</table>
-							</div>
-						</div>
+						
 						<!--FIN SOLUCIONES EN GENERAL-->
 
 
