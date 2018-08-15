@@ -464,7 +464,9 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      Route::post('/seleccion-propuestas-unificadas/create-pajustada-unificar/pajustadas',['uses'=>'PropuestasUnificadasController@definirPajustada','as'=>'definirPajustada']);
 
 
-    Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');      
+    Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');  
+   // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
+    Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
 });
  

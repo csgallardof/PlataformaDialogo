@@ -497,6 +497,8 @@ class PaginasController extends Controller
         
 
     }
+
+
     public function detalledespliegue2(Request $request, $idSolucion){
  
         $solucion = Solucion::where('solucions.id','=',$idSolucion)
@@ -1204,11 +1206,6 @@ class PaginasController extends Controller
             $msj->from('inteligencia.contacto@gmail.com','Uno');
         });
     }
-
-
-
-
-
 
 
 

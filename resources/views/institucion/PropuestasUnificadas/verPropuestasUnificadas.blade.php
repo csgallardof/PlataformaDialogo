@@ -10,15 +10,6 @@
 			<!-- begin breadcrumb -->
 
 			<br />
-			<!-- 
-
-				@if($tipo_fuente==5 or $tipo_fuente==4)
-			<ol class="breadcrumb pull-right">
-				<a href="/institucion/consejo-sectorial-produccion" class="btn btn-primary">Consejo Sectorial</a>
-
-			</ol>
-			@endif
-			 -->
 			
 			
 			<!-- end breadcrumb -->
@@ -141,85 +132,23 @@
 								</div>
 								<form  method="POST" action="/institucion/seleccion-propuestas-unificadas" enctype="multipart/form-data">
 									{{ csrf_field() }}
-									<button type="submit"  class="btn btn-primary pull-right">Unificar</button>
+									<button type="submit"  class="btn btn-primary pull-right">Regresar</button>
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th></th>
-											<th>Codigo</th>
-											<th>Propuesta</th>
-											<th>Propuesta Unificada</th>
-											<th>Fuente</th>
-											<th>Estado</th>
-											
+											<th>Ajustadas</th>
+											<th>Comentario</th>
+											<th>Detalle propuestas unificadas</th>
 										</tr>
 									</thead>
 									<tbody>
-										@if( isset($solucionesDespliegue) )
-
-											@foreach($solucionesDespliegue as $solucionD)
-												@if($solucionD->tipo_actor == 1)
-													<tr>
-														 <td><input type="checkbox" name="check[]" id="chk{{$solucionD->id}}" value='{{$solucionD->id}}'> </td>
-														<td class="text-justify">{{$solucionD->id}}</td>
-														<td class="text-justify">{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}}</td>
-														<td class="text-justify">
-															@if($solucionD->pajustada_id==0)
-																No asignado
-															@else
-																{{$solucionD->nombre_pajustada}}
-															@endif
-															
-														</td>
-														<td>
-															@if($solucionD->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-														<td>
-															@if($solucionD->nombre_estado=="Cierre")
-															<span class="label label-success f-s-12" style="background-color: #28B463">{{$solucionD->nombre_estado}}</span>
-															@endif
-
-															@if($solucionD->nombre_estado=="En Desarrollo")
-															<span class="label label-default f-s-12" style="background-color: #CA6F1E">{{$solucionD->nombre_estado}}</span>
-															@endif
-															
-															@if($solucionD->nombre_estado=="En Análisis")
-															<span class="label label-default f-s-12" style="background-color: #A6ACAF">{{$solucionD->nombre_estado}}</span>
-															@endif
-														</td>
-														
-													</tr>
-												@endif
-											@endforeach
-											
-										@endif
-
-
-										@if( isset($solucionesCCPT) )
-
-											@foreach($solucionesCCPT as $solucionCC)
-												@if($solucionCC->tipo_actor == 1)
-													<tr>
-														<td class="text-justify">{{$solucionCC->nombre_pajustada}}</td>
-														<td>
-															@if($solucionCC->tipo_fuente == 1)
-																<label class="label label-warning f-s-12" style="background-color: rgb(52, 143, 226)">{{ "Mesas Competitivas" }}</label>
-															@else
-																<label class="label label-warning f-s-12" style="background-color: #727cb6">{{ "Consejo Consultivo" }}</label>
-															@endif
-														</td>
-
-														
-													</tr>
-												@endif
-											@endforeach
-
-										@endif
-
+									@foreach($unificadas as $unificadas)
+										<tr>
+											<td class="text-justify">{{$unificadas->nombre_pajustada}}</td>
+											<td class="text-justify">{{$unificadas->comentario_union}}</td>
+											 <td><a href="#modal-detalle" class="btn btn-sm btn-default" data-toggle="modal" >Detalle</a></td>
+ 										</tr>
+								    @endforeach
 									</tbody>
 								</table>
 								</form>
@@ -249,25 +178,8 @@
 							<h4 class="panel-title">Notificaciones<br> (&uacute;ltima semana)</h4>
 						</div>
 						<div class="panel-body">
-							@if( isset($notificaciones) && count($notificaciones) > 0 )
-								<ul>
-									@foreach($notificaciones as $notificacion)
-										<li>
-											{{ substr($notificacion-> comentario,0,65).'..' }} <br>
-											{{ substr($notificacion-> fecha_inicio,0,10) }}
-											@if($notificacion->tipo_fuente == 1)
-												<a href="{{ route('verSolucion.despliegue',[2,$notificacion-> solucion_id]) }}" class="pull-right f-s-13 f-w-500">Ver m&aacute;s</a><br><br>
-											@endif
-											@if($notificacion->tipo_fuente == 2)
-												<a href="{{ route('verSolucion.consejo',[2,$notificacion-> solucion_id]) }}" class="pull-right f-s-13 f-w-500">Ver m&aacute;s</a><br><br>
-											@endif
-
-										</li>
-									@endforeach
-								</ul>
-							@else
-								No existen notificaciones recientes.
-							@endif
+							
+					
 						</div>
 					</div>
 					<!-- <div class="panel panel-inverse" data-sortable-id="index-7">
@@ -292,4 +204,46 @@
 		</div>
 		<!-- end #content -->
 
+
+<!-- #modal-detalle-->
+							<div class="modal" id="modal-detalle">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											<h4 class="modal-title">Detalle propuestas unificadas</h4>
+										</div>
+										<div class="modal-body">
+											
+                                <form  method="POST" action="" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+									<table class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Ajustada</th>
+											<th>Propuesta</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    @foreach($uniDetalle1 as $uniDetalle1)
+										<tr>
+											<td class="text-justify">{{$uniDetalle1->id}}</td>
+											<td class="text-justify">{{$uniDetalle1->pajustada}}</td>
+											<td class="text-justify">{{$uniDetalle1->propuesta_solucion}}</td>
+ 										</tr>
+								    @endforeach
+									</tbody>
+								</table>
+								</form>
+
+										</div>
+										<div class="modal-footer">
+											
+										<a href="http://localhost:8000/admin/soluciones/create" class="btn btn-sm btn-white" >Nueva Propuesta</a>
+											<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+										</div>
+									</div>
+								</div>
+							</div>
 		@stop
