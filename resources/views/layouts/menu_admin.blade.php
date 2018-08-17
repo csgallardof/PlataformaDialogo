@@ -32,6 +32,7 @@
                                                             <li><a href="{{ route('consejoSectorial.index') }}">Consejo Sectorial</a></li>
                                                             <li><a href="{{ route('consejoInstitucions.index') }}">Consejo Sectorial - Instituci&oacute;n</a></li>
                                                             <li><a href="{{ route('institucionUsuarios.index') }}">Instituci&oacute;n - Usuario</a></li>
+                                                            <li><a href="{{ route('usuario.index') }}">Usuario</a></li>
 				                        </ul>
 			                        </li>
 			                        <li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a></li>

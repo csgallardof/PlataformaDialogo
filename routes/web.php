@@ -95,9 +95,6 @@ Route::get('/estructura-promedio-costos-gastos-empresas', 'PaginasController@est
 Route::get('/dialogo-nacional-estadisticas','PaginasController@ReporteDialogoGrafico');
 
 
-
-// rutas pruebas usuarios
-
 Route::get('/usuarios','PaginasController@usuarios');
 
 Route::get('/EventosParticipantes','PaginasController@UsuariosEvento');
@@ -287,6 +284,14 @@ Route::get('/delete-institucion-usuarios/{id}/delete', 'InstitucionUsuarioContro
 Route::get('/listar-institucion-usuarios', 'InstitucionUsuarioController@index');
 Route::get('institucionUsuariosListar/{institucion_id}','InstitucionUsuarioController@institucionesUsuariosLista');
 
+//Administrar Usuarios
+//Route::resource('/admin/usuario','InstitucionController');
+Route::resource('usuario','UsuarioController');
+Route::resource('/crear-usuario','UsuarioController@store');
+Route::get('/editar-usuario/{id}/edit', 'UsuarioController@edit');
+Route::get('/listar-usuario', 'UsuarioController@index');
+// rutas pruebas usuarios
+
 //Administrar Instituciones por Consejos
 Route::get('/crear-consejo-institucions', 'ConsejoInstitucionsController@create');
 Route::get('/editar-consejo-institucions/{id}/edit', 'ConsejoInstitucionsController@edit');
@@ -465,6 +470,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
     Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');  
+     Route::get('/detalle-propuestas-unificadas','PropuestasUnificadasController@detallePropuestasUnificadas');  
    // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 

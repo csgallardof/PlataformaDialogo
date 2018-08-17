@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Instituciones<a href="{{ route('instituciones.create') }}" class="btn btn-primary pull-right">Nuevo</a></div>
+                <div class="panel-heading">Instituci&oacute;n<a href="{{ route('instituciones.create') }}" class="btn btn-primary pull-right">Nuevo</a></div>
 
                 <div class="panel-body">
                     <form  action="{{route('instituciones.index')}}">
@@ -37,7 +37,7 @@
 
                                 <td><a href="{{ 'editar-institucion/'.$institucion->id.'/edit' }}" class="btn btn-primary">Editar</a>  <a href="" class="btn btn-danger">Eliminar</a></td>
                             </tr>
-                            @endforeach		            
+                            @endforeach                 
                         </tbody>
                     </table>
                     {{ $instituciones->links() }}
