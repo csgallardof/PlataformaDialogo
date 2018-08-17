@@ -254,7 +254,7 @@
 								<td class="text-left p-t-15">
 									
 									<div class="text-justify">
-										<a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/detalle-despliegue-dialogo/{{ $resultado->id}}">ver</a>
+										 <a   class="btn btn-primary pull-right m-b-30 m-l-30"  href="{{ url('/detalle-despliegue-dialogo/'.$resultado->id) }}">ver</a>
 
 										<p class="total_propuestas_estilo_1">
 		  								<span class="total_propuestas_estilo_heading"><?php echo ucfirst(mb_strtolower($resultado->problema_solucion)); ?></span><br>
