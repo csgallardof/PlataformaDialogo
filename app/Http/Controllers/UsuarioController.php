@@ -40,14 +40,12 @@ class UsuarioController extends Controller {
             'nombre_usuario' => 'required',
             'apellidos_usuario' => 'required',
             'cedula' => 'required|unique:users',
-            'password' => 'required|required:users',
             'email' => 'required|unique:users'
                   ]
                 , [
             'nombre_usuario.required' => 'Debe ingresar el nombre',
             'apellidos_usuario.required' => 'Debe ingresar los apellidos',
             'cedula.unique' => 'Ya existe un usuario con esta cédula',
-            'password.required' => 'Se debe ingresar la clave del usuario',
             'email.unique' => 'Ya existe un usuario con ese email'
         ]);
 
@@ -56,7 +54,12 @@ class UsuarioController extends Controller {
         $usuario->apellidos = $request->apellidos_usuario;
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
-        $usuario->password = $request->password;//falta la encriptacion de la clave
+       
+        $password = str_split($request->nombre_usuario,3)[0].
+                    str_split($request->email,3)[0].
+                    substr($request->cedula, -4);  
+        $usuario->password = bcrypt($password);
+
         $usuario->telefono = $request->telefono;
         $usuario->celular = $request->celular;
         $usuario->institucion_id = 0;//por verificar si debe ser ingresada informacion o no en este campo

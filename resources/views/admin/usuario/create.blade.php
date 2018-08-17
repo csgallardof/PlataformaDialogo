@@ -70,17 +70,7 @@
                             </div>
                         </div>
 
-                     <div class="form-group">
-                            <label for="password" class="col-md-4 control-label">Clave</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="text" class="form-control" name="password" placeholder="Ingrese su clave" required value="@if(isset($item))@yield('edit_clave_usuario')@endif"  autofocus>
-
-                            </div>
-                        </div>
-
-
-
+                   
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
