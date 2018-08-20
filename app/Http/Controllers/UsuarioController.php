@@ -146,7 +146,7 @@ class UsuarioController extends Controller {
      */
     public function home(Request $request) {
         
-        return view('admin.instituciones.home');
+        return view('admin.usuario.home');
     }
 
    

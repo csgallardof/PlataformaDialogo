@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Rol Usuario</div>
+                <div class="panel-heading">Instituci&oacute;n Usuario<a href="{{ route('rolUsuario.create') }}" class="btn btn-primary pull-right">Nuevo</a></div>
                 <div class="panel-body">
                     <form  action="{{route('rolUsuario.index')}}">
                         <div class="form-group">
@@ -17,13 +19,17 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nombres</th>
-                                <th>C&eacute;dula</th>
-                                <th>Rol</th>
+                                <th>Usuario</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
-                          
+                            @foreach($rolUsuario as $datos)
+                            <tr>
+                                <td>{{$datos->id}}</td>
+                                <td> <td>{{$datos->role->id}} </td></td>
+                            </tr>
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -34,4 +40,6 @@
     </div>
 </div>
 </div>
+
+
 @endsection
