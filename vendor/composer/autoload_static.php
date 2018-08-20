@@ -377,6 +377,7 @@ class ComposerStaticInit52d8e3ef1ac43b4999b23ad33ea12686
         'AddColumnToTable' => __DIR__ . '/../..' . '/database/migrations/2017_11_14_152320_add_column_to_table.php',
         'AddColumnToTableUsers' => __DIR__ . '/../..' . '/database/migrations/2017_11_14_174018_add_column_to_table_users.php',
         'AddColumnasToSolucionsTable' => __DIR__ . '/../..' . '/database/migrations/2018_06_18_113817_add_columnas_to_solucions_table.php',
+        'AddConflictoToSolucions' => __DIR__ . '/../..' . '/database/migrations/2018_08_17_155916_add_conflicto_to_solucions.php',
         'AddCreateTipoEmpresaTable' => __DIR__ . '/../..' . '/database/migrations/2017_11_15_171909_add_create_tipo_empresa_table.php',
         'AddEstadoIdSolucionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_11_23_201708_add_estado_id_solucions_table.php',
         'AddFkestadoPublicacionToSolucions' => __DIR__ . '/../..' . '/database/migrations/2018_07_11_112050_add_fkestadoPublicacion_to_solucions.php',

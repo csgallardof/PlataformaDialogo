@@ -469,8 +469,19 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
 });
+
  
 Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
+
+
+// Consejo Sectorial
+
+Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
+     
+     Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
+
+});
+
  
 

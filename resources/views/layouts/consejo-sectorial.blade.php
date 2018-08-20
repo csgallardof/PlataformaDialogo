@@ -56,10 +56,9 @@
 			<div class="container-fluid">
 				<!-- begin mobile sidebar expand / collapse button -->
 				<div class="navbar-header">
-					<a href="{{ url('institucion/home') }}" class="navbar-brand">
-								<img src="{{ asset('imagenes/logo_mipro_white.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="130px" height="46px">
+					<a href="{{ url('consejo-sectorial/consejo-sectorial-propuestas') }}" class="navbar-brand">
+								
 					</a>
-					<img src="{{ asset('imagenes/inteligencia_productiva_home_white.png') }}" class="center-block img-responsive m-t-20" alt="Cinque Terre" width="250px" height="65px">
 					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -78,11 +77,7 @@
 							<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth </span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
-							<!-- <li class="arrow"></li>
-							<li><a href="javascript:;">Editar Perfil</a></li>
-							<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span>Mensajes</a></li>
-							<li><a href="javascript:;">Ajustes</a></li>
-							<li class="divider"></li> -->
+					
 							<li>
 								<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         	                		Salir
