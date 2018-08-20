@@ -20,20 +20,32 @@
                             <tr>
                                 <th>#</th>
                                 <th>Usuario</th>
-                              
-                            </tr>
+                                <th>Rol</th>
+                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($rolUsuario as $datos)
+                            @foreach($listaRolUsuario as $datos)
                             <tr>
                                 <td>{{$datos->id}}</td>
-                                <td> <td>{{$datos->role->id}} </td></td>
+                                
+                                @foreach($listaUsuarios as $usuario)
+                                    @if($datos->user_id == $usuario->id)
+                                    <td>{{$usuario->name}} {{$usuario->apellidos}}</td>
+                                    @endif 
+                                @endforeach
+
+                                 @foreach($listaRoles as $rol)
+                                    @if($datos->role_id == $rol->id)
+                                    <td>{{$rol->nombre_role}}</td>
+                                    @endif 
+                                  @endforeach
+
                             </tr>
                             @endforeach
 
                         </tbody>
                     </table>
-            
+             
                 </div>
             </div>
         </div>

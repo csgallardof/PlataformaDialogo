@@ -16,12 +16,19 @@ class RolUsuarioController extends Controller
 {
 
      public function index() {
-        $rolUsuario =   RoleUser::all()->sortBy('user_id');
+        $listaRolUsuario =   RoleUser::all()->sortBy('user_id');
+
+        $listaRoles = Role::all();
+
+        $listaUsuarios = User::all();
       
-      
-         // $rolUsuario = RoleUser::all();
+    
         //dd($rolUsuario);
-        return view('admin.rolusuario.home')->with( ["rolUsuario" => $rolUsuario] );
+        return view('admin.rolusuario.home')->with( ["listaRolUsuario" => $listaRolUsuario
+                                                      ,"listaRoles" => $listaRoles
+                                                      ,"listaUsuarios" => $listaUsuarios]);
 }
+
+
 
 }
