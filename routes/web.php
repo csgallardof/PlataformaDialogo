@@ -296,6 +296,8 @@ Route::resource('rol','RolController');
 
 //Administrar Rol Usuario
 Route::resource('rolUsuario','RolUsuarioController');
+Route::get('/listar-rol-usuarios', 'RolUsuarioController@index');
+Route::get('/editar-rol-usuario/{id_usuario}{id_rol}/edit', 'RolUsuarioController@edit');
 
 
 //Administrar Instituciones por Consejos

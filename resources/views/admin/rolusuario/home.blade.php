@@ -21,6 +21,7 @@
                                 <th>#</th>
                                 <th>Usuario</th>
                                 <th>Rol</th>
+                                <th>Acciones</th>
                              </tr>
                         </thead>
                         <tbody>
@@ -39,13 +40,14 @@
                                     <td>{{$rol->nombre_role}}</td>
                                     @endif 
                                   @endforeach
+                            <td><a href="{{ 'editar-rol-usuario/'.$datos->id.'/edit' }}" class="btn btn-primary">Editar</a></td>
 
                             </tr>
                             @endforeach
 
                         </tbody>
                     </table>
-             
+                    {{ $listaRolUsuario->links() }}
                 </div>
             </div>
         </div>
