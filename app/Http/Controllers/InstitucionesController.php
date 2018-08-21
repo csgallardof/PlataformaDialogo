@@ -24,6 +24,7 @@ class InstitucionesController extends Controller {
 
         $instituciones = Institucion::where('nombre_institucion', 'like', '%' . $request->input('search') . '%')
                         ->orwhere('siglas_institucion', 'like', '%' . $request->input('search') . '%')->paginate(10);
+    
         return view('admin.instituciones.home')->with(["instituciones" => $instituciones]);
     }
 

@@ -146,7 +146,9 @@
 										<tr>
 											<td class="text-justify">{{$unificadas->nombre_pajustada}}</td>
 											<td class="text-justify">{{$unificadas->comentario_union}}</td>
-											 <td><a href="#modal-detalle" class="btn btn-sm btn-default" data-toggle="modal" >Detalle</a></td>
+											 <td><!--<a href="#modal-detalle?{{$unificadas->id}}" class="btn btn-sm btn-default" data-toggle="modal" >Detalle</a>-->
+											 <a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/detalle-propuestas-unificadas">Detalle</a>	
+											 </td>
  										</tr>
 								    @endforeach
 									</tbody>
@@ -215,7 +217,7 @@
 										</div>
 										<div class="modal-body">
 											
-                                <form  method="POST" action="" enctype="multipart/form-data">
+                                <form  method="GET" action="" enctype="multipart/form-data">
                                 {{ csrf_field() }}
 									<table class="table table-bordered table-striped">
 									<thead>
@@ -226,13 +228,7 @@
 										</tr>
 									</thead>
 									<tbody>
-                                    @foreach($uniDetalle1 as $uniDetalle1)
-										<tr>
-											<td class="text-justify">{{$uniDetalle1->id}}</td>
-											<td class="text-justify">{{$uniDetalle1->pajustada}}</td>
-											<td class="text-justify">{{$uniDetalle1->propuesta_solucion}}</td>
- 										</tr>
-								    @endforeach
+                                   
 									</tbody>
 								</table>
 								</form>

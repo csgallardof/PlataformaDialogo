@@ -13,8 +13,11 @@ class InstitucionUsuarioController extends Controller
 {
 
      public function index() {
-        $institucionUsuario =   InstitucionUsuario::all()->sortBy('usuario_id');
-        return view('admin.institucionusuario.home')->with(["institucionUsuarios" => $institucionUsuario]);
+        $institucionUsuario =   InstitucionUsuario::all();
+        
+        //dd($institucionUsuario);
+
+        return view('admin.institucionusuario.home')->with(["institucionUsuarios" => $institucionUsuario]); 
     }
     
      public function create() {

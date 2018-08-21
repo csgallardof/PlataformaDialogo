@@ -37,9 +37,11 @@ class ActividadesController extends Controller
         }
 
         $solucion = DB::select("SELECT solucions.* FROM solucions
-                                INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
-                                WHERE actor_solucion.user_id = ". Auth::user()->id." AND actor_solucion.solucion_id = ".$idSolucion." AND actor_solucion.tipo_actor = ". $tipo_actor."
-                                ;");
+                                INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
+                                INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
+                                WHERE ui.user_id = ". Auth::user()->id." AND asl.solucion_id = ".$idSolucion." AND     
+                                asl.tipo_actor = ". $tipo_actor." ;");
+
 
         $this->notFound($solucion);  //REDIRECCIONA AL ERROR 404  SI EL OBJETO NO EXISTE
 
