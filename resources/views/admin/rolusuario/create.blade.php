@@ -8,12 +8,14 @@
                 <div class="panel-heading">@yield('edit_titulo') Rol - Usuario<a href="{{ route('rolUsuario.index') }}" class="btn btn-primary pull-right">Regresar</a>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('rolUsuario.store') }}/@yield(':x')">
-                        {{ csrf_field() }}
+
+<form class="form-horizontal" method="POST" action="{{ route('rolUsuario.store') }}@if(isset($datos))/@yield('edit_id')@endif"
+                    >
+                           {{ csrf_field() }}
                         @section('edit_Method')
                         @show
 
- <div class="form-group">
+                         <div class="form-group">
                          <label for="usuario_id" class="col-md-4 control-label">Usuario</label>
 
                             <div class="col-md-6">
@@ -28,11 +30,7 @@
                                     @endif
                                 </select>
                             </div>
-                            <div class="col-md-8 col-md-offset-2">
-                                <button type="submit" class="btn btn-primary">
-                                    Agregar
-                                </button>
-                            </div>
+                          
                         </div>
 
                         <div class="form-group">
@@ -40,7 +38,7 @@
 
                             <div class="col-md-6">
 
-                                <select class="form-control" name="roles_id" id="roles_id">
+                                <select class="form-control" name="rol_id" id="rol_id">
 
                                     @if( isset($rol) )
                                     @foreach( $rol as $rol )
@@ -53,7 +51,11 @@
                                 </select>
                             </div>
                                  
-                          
+                           <div class="col-md-8 col-md-offset-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Agregar
+                                </button>
+                            </div>
                         </div>
 
                        

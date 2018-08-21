@@ -20,20 +20,35 @@
                             <tr>
                                 <th>#</th>
                                 <th>Usuario</th>
-                              
-                            </tr>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($rolUsuario as $datos)
+                            @foreach($listaRolUsuario as $datos)
                             <tr>
                                 <td>{{$datos->id}}</td>
-                                <td> <td>{{$datos->id}} </td></td>
+
+                                
+                                @foreach($listaUsuarios as $usuario)
+                                    @if($datos->user_id == $usuario->id)
+                                    <td>{{$usuario->name}} {{$usuario->apellidos}}</td>
+                                    @endif 
+                                @endforeach
+
+                                 @foreach($listaRoles as $rol)
+                                    @if($datos->role_id == $rol->id)
+                                    <td>{{$rol->nombre_role}}</td>
+                                    @endif 
+                                  @endforeach
+                            <td><a href="{{ 'editar-rol-usuario/'.$datos->id.'/edit' }}" class="btn btn-primary">Editar</a></td>
+
                             </tr>
                             @endforeach
 
                         </tbody>
                     </table>
-            
+                    {{ $listaRolUsuario->links() }}
                 </div>
             </div>
         </div>

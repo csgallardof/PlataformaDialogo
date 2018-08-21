@@ -8,6 +8,8 @@ use App\User;
 use App\InstitucionUsuario;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
+use Mail;
 
 class InstitucionUsuarioController extends Controller
 {
