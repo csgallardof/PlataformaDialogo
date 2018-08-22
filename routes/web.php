@@ -297,7 +297,7 @@ Route::resource('rol','RolController');
 //Administrar Rol Usuario
 Route::resource('rolUsuario','RolUsuarioController');
 Route::get('/listar-rol-usuarios', 'RolUsuarioController@index');
-Route::get('/editar-rol-usuario/{id_usuario}{id_rol}/edit', 'RolUsuarioController@edit');
+Route::get('/editar-rol-usuario/{id}/edit', 'RolUsuarioController@edit');
 
 
 //Administrar Instituciones por Consejos
@@ -478,7 +478,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
     Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');  
-     Route::get('/detalle-propuestas-unificadas','PropuestasUnificadasController@detallePropuestasUnificadas');  
+     Route::get('/detalle-propuestas-unificadas/{id}','PropuestasUnificadasController@detallePropuestasUnificadas');  
    // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 

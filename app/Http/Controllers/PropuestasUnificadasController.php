@@ -201,61 +201,25 @@ class PropuestasUnificadasController extends Controller
 
 
     public function verPropuestasUnificadas(){
-      //  $varPrueba = 12;
-      //  dd($varPrueba);//para ver los valores
-//dd('HOLA');
-       
-    
- /* $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.comentario_union 
-                            from solucions 
-                            inner join pajustadas 
-                            on pajustadas.id = solucions.pajustada_id
-                            order by solucions.pajustada_id; ");
-
-      */
-//$idAjustada = $request['idAjustada'];
-$unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.comentario_union, id 
+        $unificadas = DB::select("select  pajustadas.id, pajustadas.nombre_pajustada, pajustadas.comentario_union, id 
                             from pajustadas ; ");
-//dd($unificadas);
-
-//dd($unificadas);
-
-//$detalle = DB::select("select solucions.id, solucions.pajustada, solucions.propuesta_solucion
- //                           from solucions ; ");
- 
-
-// detallePropuestasUnificadas(1);
-        
-  
-return view('institucion.PropuestasUnificadas.verPropuestasUnificadas')->with([
+        return view('institucion.PropuestasUnificadas.verPropuestasUnificadas')->with([
                                                 "unificadas"=>$unificadas
-                                                //,"detalle"=>$detalle
-                                               
-                                                ]);
-
+                                                 ]);
     }
 
-//public function detallePropuestasUnificadas(Request $request){
-public function detallePropuestasUnificadas(){
-  //  public function detallePropuestasUnificadas (Request $request, $idAjusta){
-  //  $pAjusta = Post::where('idAjusta',$idAjusta); 
-      //dd($pAjusta);    
- 
-  $uniDetalle1 = DB::select("select solucions.id, solucions.pajustada, solucions.propuesta_solucion
-                            from solucions ");
-                           // where solucions.pajustada_id = "$idAjusta"; ");
+public function detallePropuestasUnificadas( $request){
 
-
-  
-  //$urlResultados = '?idAjusta='.$request->$uniDetalle1->id;
-    //dd($urlResultados);
-
-  //return view('institucion.PropuestasUnificadas.verPropuestasUnificadas.post',compact('post'));
-  //->with(["uniDetalle1"=>$uniDetalle1]);
-
+  $uniDetalle = DB::select("select solucions.propuesta_solucion,solucions.ponderacion, solucions.lugar_solucion
+                                 from solucions 
+                                inner join pajustadas 
+                                on pajustadas.id = solucions.pajustada_id
+                                where solucions.pajustada_id = ".$request.
+                               " order by solucions.pajustada_id ");
+                          
 
    return view('institucion.PropuestasUnificadas.detallePropuestasUnificadas')->with([
-                                            "uniDetalle1"=>$uniDetalle1
+                                            "uniDetalle"=>$uniDetalle
                                             // , "urlResultados"=>$urlResultados
                                              ]);
     }
