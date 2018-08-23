@@ -26,7 +26,7 @@
 							<h4>Soluci&oacute;n</h4>
 							<p class="f-s-20">
 								@if (isset($solucion) )
-									{{ $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion }}
+									{{ $solucion->propuesta_solucion }}
 								@endif
 							</p>
 						</div>
@@ -109,6 +109,9 @@
 										@endif
 									@endif
 
+
+
+
 									<h3>LISTA DE ACTIVIDADES</h3><hr>
 									@if( isset( $actividades ) && count($actividades) > 0)
 										<?php $count=count($actividades) ; ?>
@@ -124,7 +127,7 @@
 
 												<b> Fecha de Inicio: </b> {{ substr($actividad->fecha_inicio,0,10) }}<br>
 												@if( $actividad-> ejecutor_id > 0 )
-													<b> Ejecutor: </b> {{ $actividad-> usuario-> name }}<br><br>
+													<b> Ejecutor: </b> {{ $actividad-> institucion-> nombre_institucion }}<br><br>
 												@endif
 
 													<!--ARCHIVOS-->
@@ -193,7 +196,7 @@
 									@if( isset($actoresSoluciones) )
 										@foreach( $actoresSoluciones as $actorSolucion )
 											<tr>
-												<td>{{ $actorSolucion->usuario->name}}</td>
+												<td>{{ $actorSolucion->institucion->nombre_institucion}}</td>
 												<td>
 													@if($actorSolucion->tipo_actor == 1)
 														<em>{{ "Responsable" }}</em>

@@ -21,9 +21,12 @@ class ActorSolucion extends Model
         return $this->belongsTo('App\Solucion','solucion_id');
     }
 
-    public function pajustada()
+   
+    public function institucion()
     {
-        return $this->belongsTo('App\Pajustada','solucion_id');
+        return $this->belongsTo('App\Institucion','institucion_id');
     }
+
+
 
 }

@@ -27,7 +27,7 @@
 							<h4>Soluci&oacute;n</h4>
 							<p class="f-s-20">
 								@if (isset($solucion) )
-									{{ $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion }}
+									{{ $solucion->propuesta_solucion }}
 								@endif
 							</p>
 						</div>
@@ -82,8 +82,8 @@
 									    	<select class="form-control" name="institucion_id" id="exampleSelect1">
 									      		@if( isset($actoresSoluciones) )
 													@foreach( $actoresSoluciones as $actorSolucion )
-														<option value="{{ $actorSolucion->usuario-> id}}">
-															{{ $actorSolucion->usuario-> name }}
+														<option value="{{ $actorSolucion->institucion-> id}}">
+															{{ $actorSolucion->institucion-> nombre_institucion }}
 														</option>
 													@endforeach
 												@endif
@@ -158,7 +158,7 @@
 												<br><br>
 
 												@if( $actividad-> ejecutor_id > 0 )
-													<b> Ejecutor: </b> {{ $actividad-> usuario-> name }}<br>
+													<b> Ejecutor: </b> {{ $actividad-> institucion-> nombre_institucion }}<br>
 												@endif
 
 											</p>

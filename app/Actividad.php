@@ -11,9 +11,9 @@ class Actividad extends Model
 
     protected $primaryKey = 'id';
 
-    public function usuario()
+    public function institucion()
     {
-        return $this->belongsTo('App\User','ejecutor_id');
+        return $this->belongsTo('App\Institucion','ejecutor_id');
     }
 
     public function archivo()

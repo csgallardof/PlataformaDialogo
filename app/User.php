@@ -91,6 +91,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Actividad','ejecutor_id','id');
     }
 
+   
     public function admin()
     {
         $roles = $this->roles()->get();
@@ -119,25 +120,9 @@ class User extends Authenticatable
             //     $is_institucion++;
             // }
         }
-        // dd($is_institucion);
-        // if ($is_admin == 1 ){
-        //     return 1;
-        // }
-        
-        // if($is_admin == 1){
-        //     return 1;    
-        // }elseif ($is_admin == 2) {
-        //     return 2;
-        // }{
-        //     //return true;
-        //     return false;
-        // }
-        
-
-        //var_dump($roles);
-        
-
+       
     }
 
     
+
 }

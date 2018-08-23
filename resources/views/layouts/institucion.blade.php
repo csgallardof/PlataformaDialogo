@@ -75,7 +75,10 @@
 					
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" style="color: #FFF" data-toggle="dropdown">
-							<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth </span> <b class="caret"></b>
+							<span class="hidden-xs">
+							@auth 
+								{{ Auth::user()->name }} 
+							@endauth </span>2 <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
 							<!-- <li class="arrow"></li>

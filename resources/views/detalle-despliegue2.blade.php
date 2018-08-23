@@ -241,7 +241,7 @@
 											@foreach($actoresSoluciones as $actorSolucion)
 												@if($actorSolucion->tipo_actor == 1)
 
-													{{ $actorSolucion->usuario-> name }}
+													{{ $actorSolucion->institucion->nombre_institucion }}
 
 
 
@@ -259,7 +259,7 @@
 											<ul>
 												@foreach($actoresSoluciones as $actorSolucion)
 													@if($actorSolucion->tipo_actor == 2)
-														<li>{{ " ".$actorSolucion->usuario-> name }}</li>
+														<li>{{ " ".$actorSolucion->institucion->nombre_institucion }}</li>
 													@else
 													No Asignado
 													@endif
@@ -417,7 +417,7 @@
 
 						        		<td>
 						        		<b>Fecha de Inicio: </b> {{ $actividad-> created_at}}<br>
-						        		<b>Ejecutor: </b> {{ $actividad-> usuario-> name}}<br>
+						        		<b>Ejecutor: </b> {{ $actividad-> institucion->nombre_institucion}}<br>
 										{!! $actividad -> comentario!!}<br>
 										<!--ARCHIVOS-->
 											@if( count( $actividad-> archivo) > 0)
