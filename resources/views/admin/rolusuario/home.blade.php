@@ -40,7 +40,8 @@
                                     <td>{{$rol->nombre_role}}</td>
                                     @endif 
                                   @endforeach
-                            <td><a href="{{ 'editar-rol-usuario/'.$datos->id.'/edit' }}" class="btn btn-primary">Editar</a></td>
+                            <td> <a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/admin/editar-rol-usuario/{{$datos->id}}">Editar</a> 
+                            </td>
 
                             </tr>
                             @endforeach

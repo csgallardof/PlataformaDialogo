@@ -15,19 +15,6 @@ use Illuminate\Support\Facades\Auth;
 class RolUsuarioController extends Controller
 {
 
-     /*public function index() {
-        $listaRolUsuario =   RoleUser::all()->sortBy('user_id');
-
-        $listaRoles = Role::all();
-
-        $listaUsuarios = User::all();
-      
-    
-        //dd($rolUsuario);
-        return view('admin.rolusuario.home')->with( ["listaRolUsuario" => $listaRolUsuario
-                                                      ,"listaRoles" => $listaRoles
-                                                      ,"listaUsuarios" => $listaUsuarios]);
-}*/
 public function index(Request $request) {
 
      //$listaRolUsuario =   RoleUser::all()->sortBy('user_id')->simplePaginate(10);
@@ -77,10 +64,30 @@ public function create() {
     }
 
 public function edit($id) {
-        $usuario = User::all();
+     /*   $usuario = User::all();
         $rol = Role::all();
         $item = RoleUser::find($id);
         return view('admin.rolusuario.edit')->with(['item' => $item, "usuario" => $usuario, "rol" => $rol]);
+    */
+        $rolUsuario = RoleUser::find($id);
+
+        $usuario = User::find( $rolUsuario -> user_id);
+
+        $rol = Role::find($rolUsuario -> role_id);
+
+        $roles = Role::all();
+      //dd($rol );
+        return view('admin.rolusuario.edit')->with(['rolUsuario' => $rolUsuario, "usuario" => $usuario, "rol" => $rol,
+            "roles" => $roles]);
+
+    }
+
+ public function update(Request $request, $id) {
+        $rolusuario = RoleUser::find($id);
+//dd($rolusuario);
+        $rolusuario->role_id = $request->rol_id;
+        $rolusuario->save();
+        return redirect("admin/rolUsuario" );
     }
 
 }
