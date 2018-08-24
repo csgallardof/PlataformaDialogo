@@ -26,11 +26,13 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($institucionUsuarios as $institucionUsuario)
+                                <?php // dd($institucionUsuario); ?>
                             <tr>
                                 <td>{{$institucionUsuario->id}}</td>
-                                <td>{{$institucionUsuario->users->apellidos}} {{$institucionUsuario->users->name}}</td>
-                                <td>{{$institucionUsuario->users->email}}</td>
+                                <td>{{$institucionUsuario->usuario->apellidos}} {{$institucionUsuario->usuario->name}}</td>
+                                <td>{{$institucionUsuario->usuario->email}}</td>
                                 <td>{{$institucionUsuario->institucion->nombre_institucion}}</td>
                             </tr>
                             @endforeach
