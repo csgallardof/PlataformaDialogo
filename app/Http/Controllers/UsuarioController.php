@@ -103,14 +103,12 @@ class UsuarioController extends Controller {
             'nombre_usuario' => 'required',
             'apellidos_usuario' => 'required',
             'cedula' => 'required',
-            'password' => 'required',
             'email' => 'required'
                   ]
                 , [
             'nombre_usuario.required' => 'Debe ingresar el nombre',
             'apellidos_usuario.required' => 'Debe ingresar los apellidos',
             'cedula.required' => 'Debe ingresar la cédula',
-            'password.required' => 'Debe ingresar la clave del usuario',
             'email.required' => 'Debe ingresar el email'
         ]);
 
