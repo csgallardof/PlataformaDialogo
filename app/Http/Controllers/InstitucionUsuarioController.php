@@ -66,15 +66,13 @@ class InstitucionUsuarioController extends Controller
                         ->where('institucion_usuarios.usuario_id', '=', $request->usuario_id)
                         ->get();
 
-        //dd($institucionUsuariosquery);
-         if (isset($institucionUsuariosquery)){
+        //dd(json_encode($institucionUsuariosquery));
+         if ($institucionUsuariosquery->isEmpty()){
 
-                //dd('uno');
+                //dd('hola');
                 $institucionusuario->save();
-
-                  
-         
          }
+         
         return redirect("/admin/listar-institucion-usuarios");
     }
 
