@@ -132,10 +132,11 @@
 								</div>
 								<form  method="POST" action="/institucion/seleccion-propuestas-unificadas" enctype="multipart/form-data">
 									{{ csrf_field() }}
-									<button type="submit"  class="btn btn-primary pull-right">Regresar</button>
+									 <a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/institucion/home">Regresar</a>	
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th>Id</th>
 											<th>Ajustadas</th>
 											<th>Comentario</th>
 											<th>Detalle propuestas unificadas</th>
@@ -144,10 +145,11 @@
 									<tbody>
 									@foreach($unificadas as $unificadas)
 										<tr>
+											<td class="text-justify" name="parametro" >{{$unificadas->id}}</td>
 											<td class="text-justify">{{$unificadas->nombre_pajustada}}</td>
 											<td class="text-justify">{{$unificadas->comentario_union}}</td>
 											 <td><!--<a href="#modal-detalle?{{$unificadas->id}}" class="btn btn-sm btn-default" data-toggle="modal" >Detalle</a>-->
-											 <a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/detalle-propuestas-unificadas">Detalle</a>	
+											 <a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/detalle-propuestas-unificadas/{{$unificadas->id}}">Detalle</a>	
 											 </td>
  										</tr>
 								    @endforeach

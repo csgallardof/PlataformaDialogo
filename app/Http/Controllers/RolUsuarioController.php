@@ -12,44 +12,46 @@ use App\Role;
 use Illuminate\Support\Facades\Auth;
 
 
+
+
 class RolUsuarioController extends Controller
 {
 
-     /*public function index() {
-        $listaRolUsuario =   RoleUser::all()->sortBy('user_id');
-
-        $listaRoles = Role::all();
-
-        $listaUsuarios = User::all();
-      
-    
-        //dd($rolUsuario);
-        return view('admin.rolusuario.home')->with( ["listaRolUsuario" => $listaRolUsuario
-                                                      ,"listaRoles" => $listaRoles
-                                                      ,"listaUsuarios" => $listaUsuarios]);
-}*/
 public function index(Request $request) {
 
-     //$listaRolUsuario =   RoleUser::all()->sortBy('user_id')->simplePaginate(10);
+    
 
-     $listaRolUsuario =   DB::table('role_user')->paginate(10);
+//dd($request->input('search'));
+if($request->input('search') == null){
+$listaRolUsuario = DB::table('role_user')
+                ->select('role_user.*')
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->join('users', 'users.id', '=', 'role_user.user_id')
+                ->paginate(10); 
+}else{ 
+   $listaRolUsuario = DB::table('role_user')
+                 ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->join('users', 'users.id', '=', 'role_user.user_id')
+                ->select('role_user.*')
+                 ->where('users.name', 'LIKE',  '%'.$request->input('search').'%' )
+                 ->paginate(10); 
+}
+    
 
 
      $listaRoles = Role::all();
 
      $listaUsuarios = User::all();
 
+  // dd($listaRolUsuario);
 
-       /* $listaRoles = Role::where('nombre_role', 'like', '%' . $request->input('search') . '%')->paginate(10);
-        
-        $listaUsuarios = User::where('name', 'like', '%' . $request->input('search') . '%')
-                        ->orwhere('apellidos', 'like', '%' . $request->input('search') . '%')->paginate(10);
-    */
-
-        return view('admin.rolusuario.home')->with( ["listaRolUsuario" => $listaRolUsuario
+         return view('admin.rolusuario.home')->with( ["listaRolUsuario" => $listaRolUsuario
                                                       ,"listaRoles" => $listaRoles
                                                       ,"listaUsuarios" => $listaUsuarios]);
     }
+
+
+
 
 public function create() {
         $usuario = User::all()->sortBy('apellidos');
@@ -67,7 +69,7 @@ public function create() {
                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
                         ->join('users', 'users.id', '=', 'role_user.user_id')
                         ->where('role_user.role_id', '=', $request->role_id)
-                        ->where('role_user.user_id', '=', $request->user_id)->get();
+                        ->orwhere('role_user.user_id', '=', $request->user_id)->get();
          
         //dd($rolusuario->user_id);
                   $rolusuario->save();
@@ -77,10 +79,24 @@ public function create() {
     }
 
 public function edit($id) {
-        $usuario = User::all();
-        $rol = Role::all();
-        $item = RoleUser::find($id);
-        return view('admin.rolusuario.edit')->with(['item' => $item, "usuario" => $usuario, "rol" => $rol]);
+         $rolUsuario = RoleUser::find($id);
+
+         $usuario = User::find( $rolUsuario -> user_id);
+
+        $rol = Role::find($rolUsuario -> role_id);
+
+        $roles = Role::all();
+      //dd($rol );
+        return view('admin.rolusuario.edit')->with(['rolUsuario' => $rolUsuario, "usuario" => $usuario, "rol" => $rol,
+            "roles" => $roles]);
+
+    }
+
+ public function update(Request $request, $id) {
+        $rolusuario = RoleUser::find($id);
+        $rolusuario->role_id = $request->rol_id;
+        $rolusuario->save();
+        return redirect("admin/rolUsuario" );
     }
 
 }

@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Instituci&oacute;n Usuario<a href="{{ route('rolUsuario.create') }}" class="btn btn-primary pull-right">Nuevo</a></div>
+                <div class="panel-heading">Rol Usuario<a href="{{ route('rolUsuario.create') }}" class="btn btn-primary pull-right">Nuevo</a></div>
                 <div class="panel-body">
                     <form  action="{{route('rolUsuario.index')}}">
                         <div class="form-group">
@@ -35,13 +35,13 @@
                                     <td>{{$usuario->name}} {{$usuario->apellidos}}</td>
                                     @endif 
                                 @endforeach
-
-                                 @foreach($listaRoles as $rol)
+                                @foreach($listaRoles as $rol)
                                     @if($datos->role_id == $rol->id)
                                     <td>{{$rol->nombre_role}}</td>
                                     @endif 
                                   @endforeach
-                            <td><a href="{{ 'editar-rol-usuario/'.$datos->id.'/edit' }}" class="btn btn-primary">Editar</a></td>
+                            <td> <a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/admin/editar-rol-usuario/{{$datos->id}}">Editar</a> 
+                            </td>
 
                             </tr>
                             @endforeach

@@ -199,6 +199,7 @@ class PropuestasUnificadasController extends Controller
 
     }
 
+
  public function verPropuestasUnificadas(){
       //  $varPrueba = 12;
       //  dd($varPrueba);//para ver los valores
@@ -247,8 +248,10 @@ public function detallePropuestasUnificadas(){
     //dd($urlResultados);
   //return view('institucion.PropuestasUnificadas.verPropuestasUnificadas.post',compact('post'));
   //->with(["uniDetalle1"=>$uniDetalle1]);
+
+
    return view('institucion.PropuestasUnificadas.detallePropuestasUnificadas')->with([
-                                            "uniDetalle1"=>$uniDetalle1
+                                            "uniDetalle"=>$uniDetalle
                                             // , "urlResultados"=>$urlResultados
                                              ]);
     }
