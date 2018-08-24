@@ -11,15 +11,15 @@ class RoleUser extends Model
 
     // /* Relacion entre Role y RoleUser */
 
-    // public function role() {
-    //     return $this->belongsTo('App\Role', 'id');
-    // }
+     public function role() {
+         return $this->belongsTo('App\Role', 'id');
+     }
 
     //  Relacion entre Usuario y RoleUser 
 
-    // public function usuario() {
-    //     return $this->belongsTo('App\User', 'id');
-    // }
+     public function usuario() {
+         return $this->belongsTo('App\User', 'id');
+     }
 
     
 
