@@ -71,6 +71,8 @@ class InstitucionUsuarioController extends Controller
 
                 //dd('hola');
                 $institucionusuario->save();
+         }else{
+            Flash::success("El usuario ya se encuentra asignado a una institución");
          }
          
         return redirect("/admin/listar-institucion-usuarios");

@@ -9,6 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Instituci&oacute;n Usuario<a href="{{ route('institucionUsuarios.create') }}" class="btn btn-primary pull-right">Nuevo</a></div>
                 <div class="panel-body">
+                    @include(message)
                     <form  action="{{route('institucionUsuarios.index')}}">
                         <div class="form-group">
                             <input class ="form-control" name="search"/>
