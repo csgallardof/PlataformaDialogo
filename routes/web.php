@@ -302,6 +302,9 @@ Route::resource('usuario','UsuarioController');
 Route::resource('/crear-usuario','UsuarioController@store');
 Route::get('/editar-usuario/{id}/edit', 'UsuarioController@edit');
 Route::get('/listar-usuario', 'UsuarioController@index');
+Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
+Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
+
 
 //Administrar Roles
 Route::resource('rol','RolController');

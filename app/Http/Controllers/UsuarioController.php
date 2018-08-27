@@ -103,14 +103,12 @@ class UsuarioController extends Controller {
             'nombre_usuario' => 'required',
             'apellidos_usuario' => 'required',
             'cedula' => 'required',
-            'password' => 'required',
             'email' => 'required'
                   ]
                 , [
             'nombre_usuario.required' => 'Debe ingresar el nombre',
             'apellidos_usuario.required' => 'Debe ingresar los apellidos',
             'cedula.required' => 'Debe ingresar la cédula',
-            'password.required' => 'Debe ingresar la clave del usuario',
             'email.required' => 'Debe ingresar el email'
         ]);
 
@@ -166,5 +164,76 @@ class UsuarioController extends Controller {
             $msj->to($correo);
         });
     }
+
+    public function cambiarClave($id) {
+     // dd($id);
+
+     /*    $rolUsuario = RoleUser::find($id);
+
+         $usuario = User::find( $rolUsuario -> user_id);
+
+        $rol = Role::find($rolUsuario -> role_id);
+
+        $roles = Role::all();
+         return view('admin.rolusuario.edit')->with(['rolUsuario' => $rolUsuario, "usuario" => $usuario, "rol" => $rol,
+            "roles" => $roles]);
+
+*/
+        $usuario = User::find($id);
+      // dd($usuario);
+       /* $this->validate($request, [
+            'clave' => 'required'
+                  ]
+                , [
+            'clave.required' => 'Debe ingresar la contraseña'
+        ]);
+
+
+        $usuario->name = $request->clave;*/
+        $usuario->save();
+
+    //  return redirect('admin/listar-usuario');
+
+
+        return view('admin.usuario.clave', compact('usuario'));
+
+     }
+
+
+     public function updateClave(Request $request, $id) {
+        $usuario = User::find($id);
+       
+        $this->validate($request, [
+            'clave1' => 'required',
+            'clave2' => 'required'
+                  ]
+                , [
+            'clave1.required' => 'Debe ingresar la clave',
+            'clave2.required' => 'Debe ingresar la clave'
+        ]);
+
+         if( $request->clave1 !=  $request->clave2){
+          // dd( "diferentes");
+           // $this-> 'La clave debe ser la misma';
+            //Flash::success("Mensaje de prueba1");
+            //flash('Message1')->error()->important();
+
+            //flash('mensaje', 'Este es el mensaje');
+
+
+             flash('mensaje')->important;
+             dd(flash('mensaje')->important);
+        }else{
+            Flash::success("Mensaje de prueba2");
+        }
+
+//dd( $request->clave1);
+        $usuario->password = bcrypt($request->clave1);
+
+         $usuario->save();
+
+        return redirect('admin/listar-usuario');
+    }
+
 
 }

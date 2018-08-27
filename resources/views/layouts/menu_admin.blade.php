@@ -23,7 +23,7 @@
 			                                <li><a href="{{ route('ambits.index') }}">&Aacute;mbito</a></li>
 				                            <li><a href="{{ route('thematics.index') }}">Eje temático</a></li>
 				                            <li><a href="{{ route('instrumentos.index') }}">Instrumentos</a></li>
-			                                <li><a href="{{ route('pajustadas.index') }}">Palabra Ajustada</a></li>
+			                                <li><a href="{{ route('pajustadas.index') }}">Propuesta</a></li>
 				                            <li><a href="{{ route('provincias.index') }}">Provincia</a></li>
 			                                <li><a href="{{ route('sectors.index') }}">Sectores</a></li>
 				                            <li><a href="{{ route('sipocs.index') }}">Sipoc</a></li>
@@ -32,9 +32,9 @@
                                                             <li><a href="{{ route('consejoSectorial.index') }}">Consejo Sectorial</a></li>
                                                             <li><a href="{{ route('consejoInstitucions.index') }}">Consejo Sectorial - Instituci&oacute;n</a></li>
                                                             <li><a href="{{ route('institucionUsuarios.index') }}">Instituci&oacute;n - Usuario</a></li>
-                                                             <li><a href="{{ route('rolUsuario.index') }}">Rol - Usuario</a></li>
                                                             <li><a href="{{ route('usuario.index') }}">Usuario</a></li>
                                                             <li><a href="{{ route('rol.index') }}">Rol</a></li>
+                                                            <li><a href="{{ route('rolUsuario.index') }}">Rol - Usuario</a></li>
 				                        </ul>
 			                        </li>
 			                        <li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a></li>
@@ -59,7 +59,8 @@
 										</a>
 										<ul class="dropdown-menu animated fadeInLeft">
 											<li class="arrow"></li>
-											<li><a href="#">Cambiar Contrase&ntilde;a</a></li>
+											 <li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
+
 											<li>
 												<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             		Salir
