@@ -106,4 +106,28 @@ class PdfController extends Controller
         if($tipo==1){return $pdf->stream('PropuestaDestalladaDialogoNacional.pdf');}
         if($tipo==2){return $pdf->download('PropuestaDestalladaDialogoNacional.pdf'); }
     }
+
+
+    /**
+     * Funcion para la generación de un pdf dado un nombre
+     * @param $dato1
+     * @param $vistaurl
+     * @param $tipo
+     * @return mixed
+     */
+    public function crearPDFmod($dato1,$vistaurl,$tipo,$nombrearchivo)
+    {
+
+        $data1 = $dato1;
+
+        $date = date('Y-m-d');
+        $view = \View::make($vistaurl, compact('date'))->with(["data1"=>$data1]);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+
+        if($tipo==1){return $pdf->stream($nombrearchivo.'.pdf');}
+        if($tipo==2){return $pdf->download($nombrearchivo.'.pdf'); }
+    }
+
+
 }
