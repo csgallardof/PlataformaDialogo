@@ -508,17 +508,14 @@ class PaginasController extends Controller
         //dd($solucion);
 
         $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',1)
                                             ->orderBy('tipo_actor','ASC')->get();
 
        // dd(count($actoresSoluciones));
 
         $actividades = Actividad::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',1)
                                             ->orderBy('created_at','DESC')
                                             ->get();
          $actividadUltima = Actividad::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',1)
                                             ->orderBy('created_at','DESC')
                                             ->first();
 
@@ -530,6 +527,7 @@ class PaginasController extends Controller
                                             "actividades"=>$actividades
                                         ]);
     }
+
      public function despliegueterritorial(){
 
 

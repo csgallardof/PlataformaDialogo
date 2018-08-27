@@ -118,7 +118,7 @@
 					<ul class="nav nav-tabs nav-tabs-inverse nav-justified nav-justified-mobile" data-sortable-id="index-2">
 
 						<li class="active">
-							<a href="#responsable"  data-toggle="tab">
+							<a <a href=responsable"  data-toggle="tab">
 								<i class="fa fa-sticky-note-o m-r-5"></i>
 								<span class="hidden-xs" ">Responsable</span>
 								@if( isset($totalResponsable) )

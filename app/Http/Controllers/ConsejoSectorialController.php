@@ -55,4 +55,15 @@ class ConsejoSectorialController extends Controller {
         return redirect('admin/listar-consejo-sectorial');
     }
 
+    public function cs_propuestas(){
+        
+        //dd('hola');
+
+        return view('consejosectorial.home');
+    }
+
+
+
+    
+
 }

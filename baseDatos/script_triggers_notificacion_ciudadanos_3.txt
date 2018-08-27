@@ -1,0 +1,57 @@
+
+
+/*
+
+AUtor: Alex Dominguez
+fecha:20180821
+
+*/
+
+create table notificacion_ciudadano(
+  not_cd_id int NOT NULL AUTO_INCREMENT,
+  not_cd_email varchar(50) NOT NULL,
+  not_cd_fecha date,
+  not_cd_solucion_id int NOT NULL,
+  PRIMARY KEY (not_cd_id)
+
+);
+
+
+
+
+create table notificacion_ciudadano_propuesta(
+   not_cdp_id int NOT NULL AUTO_INCREMENT,
+   not_cdp_solucion_id int,
+   not_cdp_fecha date,
+   not_cdp_estado int default 0,
+   not_cdp_detalle varchar(100),
+   not_cdp_tipo_cambio int,
+   PRIMARY KEY (not_cdp_id)
+);
+
+
+DELIMITER $$
+
+CREATE TRIGGER ingreso_notificacion_ciudadano_propuesta AFTER UPDATE ON solucions
+FOR EACH ROW BEGIN
+ insert into notificacion_ciudadano_propuesta(not_cdp_solucion_id,not_cdp_fecha,not_cdp_estado,not_cdp_detalle,not_cdp_tipo_cambio) 
+  values (old.id, NOW(),0,'Se actualizo el estado de la propuesta',1);
+
+
+END;
+$$
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE TRIGGER ingreso_notificacion_ciudadano_actividad AFTER INSERT ON actividades
+FOR EACH ROW BEGIN
+ insert into notificacion_ciudadano_propuesta(not_cdp_actividad_id,not_cdp_fecha,not_cdp_estado,not_cdp_detalle,not_cdp_tipo_cambio) 
+  values (new.solucion_id, NOW(),0, 'Se ingresaron actividades para la propuesta',2);
+
+END;
+
+$$
+
+DELIMITER ;

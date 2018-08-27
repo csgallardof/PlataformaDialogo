@@ -20,6 +20,7 @@
           <ol class="breadcrumb">
             <li class="home"><a href="{{ url('/') }}"><i class="fa fa-home fa-lg"></i><span></span></a></li>
             <li class="active"><a href="{{ url('/busqueda?parametro=Consejo_consultivo') }}">Resultados de la B&uacute;squeda</a></li>
+
             <li class="active"><a href="#">Detalle de la propuesta</a></li>
             <label class='text-success pull-right'>
 							<a href="{{ url('/') }}" class="btn btn-link fit-m-t-1"><i class="fa fa-1x fa-search"></i> Nueva Consulta</a>
@@ -167,7 +168,7 @@
 										@if(isset($actoresSoluciones))
 											@foreach($actoresSoluciones as $actorSolucion)
 												@if($actorSolucion->tipo_actor == 1)
-													{{ $actorSolucion->usuario-> name }}
+													{{ $actorSolucion->institucion-> nombre_institucion }}
 												@endif
 											@endforeach
 										@endif
@@ -181,7 +182,7 @@
 											<ul>
 												@foreach($actoresSoluciones as $actorSolucion)
 													@if($actorSolucion->tipo_actor == 2)
-														<li>{{ " ".$actorSolucion->usuario-> name }}</li>
+														<li>{{ " ".$actorSolucion->institucion-> nombre_institucion }}</li>
 													@endif
 												@endforeach
 											</ul>
@@ -211,7 +212,7 @@
 											<li class="media media-lg">
 												<div class="media-body">
 													<b>Fecha de Inicio: </b> {{ $actividad-> created_at}}<br>
-													<b>Ejecutor: </b> {{ $actividad-> usuario-> name}}<br>
+													<b>Ejecutor: </b> {{ $actividad-> institucion-> nombre_institucion}}<br>
 													<h5 class="media-heading"></h5>
 													{{ $actividad -> comentario}}
 													<br>

@@ -23,7 +23,7 @@
                                     @if( isset($institucion) )
                                     @foreach( $institucion as $ins )
                                     <option value="{{ $ins->id}}">
-                                        {{ $ins->nombre_institucion}}
+                                        {{ $ins->siglas_institucion}} /{{ $ins->nombre_institucion}}
                                     </option>
                                     @endforeach
 

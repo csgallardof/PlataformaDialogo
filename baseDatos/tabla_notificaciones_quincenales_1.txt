@@ -1,0 +1,19 @@
+/*Autor: Alex Dominguez
+  Fecha: 21/08/2018
+*/
+DROP TABLE IF EXISTS notificacion_quincenal;
+
+create table notificacion_quincenal(
+   solucion_id  int,
+   problema_solucion varchar(500),
+   fecha_registro date,
+   estado_solucion varchar(100),
+   dependencia varchar(100),
+   institucion_id int,
+   email_usuario varchar(200),
+   usuario_id int,
+   estado int,
+   fecha_creacion_not date,
+   fecha_envio date
+       
+);

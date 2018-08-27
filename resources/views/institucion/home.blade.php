@@ -102,7 +102,7 @@
 
 
 
-			<div>
+			<!-- <div>
 				<div class="alert alert-success fade in m-b-15" >
 							<small>
 								En caso de que una propuesta no pertenezca a su institución, contactarse a inteligencia@mipro.gob.ec con su respectiva justificación. <br>
@@ -122,7 +122,7 @@
 
 					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/ver-propuestas-unificadas">Ver Propuestas Unificadas</a>
 
-			</div>
+			</div> -->
 			<!-- begin row -->
 			<div class="row">
 				<!-- begin col-8 -->
@@ -183,7 +183,7 @@
 														</td>
 
 														<td>
-															@if($solucionD->nombre_estado=="Cierre")
+															@if($solucionD->nombre_estado=="Finalizado")
 															<span class="label label-success f-s-12" style="background-color: #28B463">{{$solucionD->nombre_estado}}</span>
 																<span class="label label-info">
 																	
@@ -223,6 +223,41 @@
 						<!--FIN SOLUCIONES RESPONSABLE-->
 
 						
+						<!--SOLUCIONES CORRESPONSABLE-->
+						<div class="tab-pane fade" id="corresponsable">
+							<div class="height-lg" data-scrollbar="true">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Propuesta</th>
+											<th>Fuente</th>
+											<th>Acción</th>
+										</tr>
+									</thead>
+									<tbody>
+										@if( isset($solucionesDespliegue) )
+
+											@foreach($solucionesDespliegue as $solucionD)
+												@if($solucionD->tipo_actor == 2)
+													<tr>
+														<td class="text-justify">{{$solucionD-> propuesta_solucion}}</td>
+														
+														<td>
+															<a href="{{ route('verSolucion.despliegue',[2,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
+														</td>
+													</tr>
+												@endif
+											@endforeach
+
+										@endif
+
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--FIN SOLUCIONES CORRESPONSABLE-->
+
 						<!--FIN SOLUCIONES CORRESPONSABLE-->
 
 						<!--SOLUCIONES EN GENERAL-->
@@ -253,12 +288,9 @@
 										<li>
 											{!! substr($notificacion-> comentario,0,65).'..' !!} <br>
 											{{ substr($notificacion-> fecha_inicio,0,10) }}
-											@if($notificacion->tipo_fuente == 1)
 												<a href="{{ route('verSolucion.despliegue',[2,$notificacion-> solucion_id]) }}" class="pull-right f-s-13 f-w-500">Ver m&aacute;s</a><br><br>
-											@endif
-											@if($notificacion->tipo_fuente == 2)
-												<a href="{{ route('verSolucion.consejo',[2,$notificacion-> solucion_id]) }}" class="pull-right f-s-13 f-w-500">Ver m&aacute;s</a><br><br>
-											@endif
+											
+											
 
 										</li>
 									@endforeach

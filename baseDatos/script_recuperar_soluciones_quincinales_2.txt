@@ -1,0 +1,44 @@
+/*Autor: Alex Dominguez
+  Fecha: 21/08/2018
+*/
+
+delimeter #
+
+create PROCEDURE pr_notificaciones_quincenales()
+proc_main:begin
+
+
+create temporary table propuestas_pendientes(
+   solucion_id  int,
+   problema_solucion varchar(500),
+   fecha_registro date,
+   estado_solucion varchar(100),
+   dependencia varchar(100),
+   institucion_id int
+      	
+);
+
+insert into propuestas_pendientes
+SELECT s.id as solucion_id, problema_solucion,s.created_at as FECHA_REGISTRO, es.nombre_estado,
+       case  
+   when tipo_actor = 1 then "RESPONSABLE" 
+   when tipo_actor = 2 then "CORRESPONSABLE" 
+end as dependencia , acs.institucion_id  
+FROM `solucions` s, estado_solucion es,actor_solucion acs,  institucions i
+WHERE s.estado_id = es.id
+and   s.id = acs.solucion_id
+and   acs.institucion_id = i.id 
+and   es.id in(1,2,3)
+order by es.nombre_estado;
+
+
+SET @curdt = CURDATE();
+insert into notificacion_quincenal
+select pp.*, u.email, u.id,0,@curdt, ''
+from propuestas_pendientes pp, users u, user_institutions ui
+where pp.institucion_id = ui.institucion_id
+and u.id = ui.user_id;
+
+
+
+end proc_main #

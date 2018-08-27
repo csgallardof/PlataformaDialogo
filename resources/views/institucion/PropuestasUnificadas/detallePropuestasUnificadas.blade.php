@@ -132,27 +132,23 @@
 								</div>
 								<form  method="POST" action="/institucion/seleccion-propuestas-unificadas" enctype="multipart/form-data">
 									{{ csrf_field() }}
-									 <a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/institucion/home">Regresar</a>	
+										<a   class="btn btn-primary pull-right m-b-30 m-l-30" href="/institucion/ver-propuestas-unificadas" >Regresar</a>	
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th>Id</th>
-											<th>Ajustadas</th>
-											<th>Comentario</th>
-											<th>Detalle propuestas unificadas</th>
+											<th>Propuesta</th>
+											<th>Ponderaci&oacute;n</th>
+											<th>Lugar de soluci&oacute;n</th>
 										</tr>
 									</thead>
 									<tbody>
-									@foreach($unificadas as $unificadas)
+                                    @foreach($uniDetalle as $detalle)
 										<tr>
-											<td class="text-justify" name="parametro" >{{$unificadas->id}}</td>
-											<td class="text-justify">{{$unificadas->nombre_pajustada}}</td>
-											<td class="text-justify">{{$unificadas->comentario_union}}</td>
-											 <td><!--<a href="#modal-detalle?{{$unificadas->id}}" class="btn btn-sm btn-default" data-toggle="modal" >Detalle</a>-->
-											 <a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/detalle-propuestas-unificadas/{{$unificadas->id}}">Detalle</a>	
-											 </td>
+											<td class="text-justify">{{$detalle->propuesta_solucion}}</td>
+											<td class="text-justify">{{$detalle->ponderacion}}</td>
+											<td class="text-justify">{{$detalle->lugar_solucion}}</td>
  										</tr>
-								    @endforeach
+								    @endforeach									
 									</tbody>
 								</table>
 								</form>
@@ -174,10 +170,7 @@
 					<div class="panel panel-inverse" data-sortable-id="index-6">
 						<div class="panel-heading">
 							<div class="panel-heading-btn">
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a> -->
+							
 							</div>
 							<h4 class="panel-title">Notificaciones<br> (&uacute;ltima semana)</h4>
 						</div>
@@ -186,21 +179,7 @@
 					
 						</div>
 					</div>
-					<!-- <div class="panel panel-inverse" data-sortable-id="index-7">
-						<div class="panel-heading">
-							<div class="panel-heading-btn">
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-							</div>
-							<h4 class="panel-title">&Uacute;ltimas actividades</h4>
-						</div>
-						<div class="panel-body">
-
-						</div>
-					</div> -->
-
+					
 				</div>
 				<!-- end col-4 -->
 			</div>
@@ -209,39 +188,5 @@
 		<!-- end #content -->
 
 
-<!-- #modal-detalle-->
-							<div class="modal" id="modal-detalle">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-											<h4 class="modal-title">Detalle propuestas unificadas</h4>
-										</div>
-										<div class="modal-body">
-											
-                                <form  method="GET" action="" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-									<table class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Ajustada</th>
-											<th>Propuesta</th>
-										</tr>
-									</thead>
-									<tbody>
-                                   
-									</tbody>
-								</table>
-								</form>
 
-										</div>
-										<div class="modal-footer">
-											
-										<a href="http://localhost:8000/admin/soluciones/create" class="btn btn-sm btn-white" >Nueva Propuesta</a>
-											<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-										</div>
-									</div>
-								</div>
-							</div>
 		@stop

@@ -28,10 +28,23 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {
-        if(Auth::user()->admin() == true){
+        if(Auth::user()->admin() == 1){
+            //dd('admin');
             return '/admin/home';    
-        }else{
+        }
+        if(Auth::user()->admin() == 2){
+           // dd('Participante');
+           // return
+        }
+
+        if(Auth::user()->admin() == 3){
+            //dd('Institución');
             return '/institucion/home';
+        }
+
+        if(Auth::user()->admin() == 4){
+            //dd('ConsejoSectorial');
+            return '/consejo-sectorial/consejo-sectorial-propuestas';
         }
         
     }

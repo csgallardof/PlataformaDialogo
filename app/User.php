@@ -91,29 +91,38 @@ class User extends Authenticatable
         return $this->hasMany('App\Actividad','ejecutor_id','id');
     }
 
+   
     public function admin()
     {
         $roles = $this->roles()->get();
         
         $is_admin = 0;
+        $is_institucion = 0;
         foreach ($roles as $rol) {
-            if($rol->id === 1){
-                $is_admin++;
+
+            //dd($rol);
+
+            if ($rol->nombre_role =='Admin'){
+                return 1;
             }
-        }
-        //dd($is_admin);
-        if($is_admin > 0){
-            return true;    
-        }else{
-            //return true;
-            return false;
-        }
-        
 
-        //var_dump($roles);
-        
-
+            if ($rol->nombre_role =='Institución'){
+                return 3;
+            }
+            if ($rol->nombre_role =='ConsejoSectorial'){
+                return 4;
+            }
+            //dd($rol);
+            // if($rol->id == 1){
+            //     $is_admin++;
+            // }
+            // if($rol->id == 2){
+            //     $is_institucion++;
+            // }
+        }
+       
     }
 
     
+
 }

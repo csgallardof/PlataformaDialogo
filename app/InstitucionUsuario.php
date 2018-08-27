@@ -23,4 +23,6 @@ class InstitucionUsuario extends Model {
         return $this->belongsTo('App\User', 'usuario_id');
     }
 
+    
+
 }

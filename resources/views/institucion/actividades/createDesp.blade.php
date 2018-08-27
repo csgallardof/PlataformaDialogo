@@ -11,11 +11,7 @@
 				<li class="active">Nueva Actividad</li>
 			</ol>
 			<!-- end breadcrumb -->
-			<!-- begin page-header -->
-			<!-- <div class="brand">
-                <img src="{{ asset('imagenes/inteligencia_productiva_home.png') }}" class="left-block img-responsive" alt="Cinque Terre" width="337px" height="55px"><br>
-            </div> -->
-			<!-- end page-header -->
+			
 
 			<!-- begin row -->
 			<div class="row">
@@ -27,7 +23,7 @@
 							<h4>Soluci&oacute;nee</h4>
 							<p class="f-s-20">
 								@if (isset($solucion) )
-									{{ $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion }}
+									{{ $solucion->propuesta_solucion }}
 								@endif
 							</p>
 						</div>
@@ -96,15 +92,19 @@
 									 			</div>
 									 			<input id="calendar" type="date" name="fecha" value="{{ date('Y-m-d') }}">
 									  	</div>
-									  	@endif									  	
+									  	@endif
+
+									  	<?php 
+									  		//dd($actoresSoluciones);
+									  	?>									  	
 
 									  	<div class="form-group">
 									    	<label for="exampleSelect1">Instituci&oacute;n ejecutora</label>
 									    	<select class="form-control" name="institucion_id" id="exampleSelect1">
 									      		@if( isset($actoresSoluciones) )
 													@foreach( $actoresSoluciones as $actorSolucion )
-														<option value="{{ $actorSolucion->usuario-> id}}">
-															{{ $actorSolucion->usuario-> name }}
+														<option value="{{ $actorSolucion->institucion-> id}}">
+															{{ $actorSolucion->institucion-> nombre_institucion }}
 														</option>
 													@endforeach
 												@endif
@@ -157,7 +157,7 @@
 												<br><br>
 
 												@if( $actividad-> ejecutor_id > 0 )
-													<b> Ejecutor: </b> {{ $actividad-> usuario-> name }}<br>
+													<b> Ejecutor: </b> {{ $actividad-> institucion-> nombre_institucion }}<br>
 												@endif
 
 											</p>

@@ -42,15 +42,19 @@ class ActividadesController extends Controller
                                 INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
                                 WHERE ui.user_id = ". Auth::user()->id." AND asl.solucion_id = ".$idSolucion." AND asl.tipo_actor = ". $tipo_actor." ;");
 
+        
         $this->notFound($solucion);  //REDIRECCIONA AL ERROR 404  SI EL OBJETO NO EXISTE
 
         $actividades = Actividad::where('solucion_id','=',$idSolucion)
                                 ->where('tipo_fuente','=', 1)
                                 ->orderBy('created_at','DESC')->get();
 
+
         $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',1)
                                             ->orderBy('tipo_actor','ASC')->get();
+
+        //dd($tipo_actor);
+
 
         $tipo_fuente = Auth::user()->tipo_fuente; 
 
@@ -63,6 +67,8 @@ class ActividadesController extends Controller
     }
 
     public function vistaParametrosCumplimiento($idSolucion){
+        
+        //dd('hola');
         $tipo_fuente = Auth::user()->tipo_fuente;
         $actividades = Actividad::where('solucion_id','=',$idSolucion)
                                 ->where('tipo_fuente','=', 1)
@@ -119,18 +125,18 @@ class ActividadesController extends Controller
     public function vistaFinalizarPropuesta($idSolucion){
 
          Flash::success("Registre la Actividad para finalizar la Propuesta");
+
+         //dd('hola');
         $solucion = Solucion::find($idSolucion);
 
         $tipo_fuente = Auth::user()->tipo_fuente;
 
         $actividades = Actividad::where('solucion_id','=',$idSolucion)
-                                ->where('tipo_fuente','=', 1)
                                 ->orderBy('created_at','ASC')->get();
 
         $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',1)
                                             ->orderBy('tipo_actor','ASC')->get();
-
+        
         return view('institucion.actividades.createAccionFinalizarPropuesta')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
     }
 
@@ -301,14 +307,18 @@ class ActividadesController extends Controller
         $tipo_fuente = Auth::user()->tipo_fuente;
 
         $actividades = Actividad::where('solucion_id','=',$idSolucion)
-                                ->where('tipo_fuente','=', 1)
                                 ->orderBy('created_at','ASC')->get();
 
+        
         $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
-                                            ->where('tipo_fuente','=',0)
                                             ->orderBy('tipo_actor','ASC')->get();
 
-        return view('institucion.actividades.createDesp')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
+        //dd($actividades);
+
+        return view('institucion.actividades.createDesp')->with(["solucion"=>$solucion,
+                                                                "actividades"=>$actividades,
+                                                                "actoresSoluciones"=>$actoresSoluciones,
+                                                                "tipo_fuente"=>$tipo_fuente]);
     }
 
     public function createDespliegueAdmin($idSolucion)

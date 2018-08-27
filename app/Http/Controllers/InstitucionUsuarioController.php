@@ -8,13 +8,18 @@ use App\User;
 use App\InstitucionUsuario;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
+use Mail;
 
 class InstitucionUsuarioController extends Controller
 {
 
      public function index() {
-        $institucionUsuario =   InstitucionUsuario::all()->sortBy('usuario_id');
-        return view('admin.institucionusuario.home')->with(["institucionUsuarios" => $institucionUsuario]);
+        $institucionUsuario =   InstitucionUsuario::all();
+        
+        //dd($institucionUsuario);
+
+        return view('admin.institucionusuario.home')->with(["institucionUsuarios" => $institucionUsuario]); 
     }
     
      public function create() {
@@ -31,12 +36,12 @@ class InstitucionUsuarioController extends Controller
     public function institucionesUsuariosLista($institucion_id) {
 
         //$consejosInstitucions = ConsejoInstitucion::where("consejo_id", "=", $consejo_id)->get();
-
-        $institucionUsuarios = DB::table('institucion_usuarios')
-                        ->select('institucion_usuarios.id','users.name', 'users.apellidos', 'users.email')
-                        ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
-                        ->join('users', 'users.id', '=', 'institucion_usuarios.usuario_id')
-                        ->where('institucion_usuarios.institucion_id', '=', $institucion_id)->get();
+        
+        $institucionUsuarios = DB::table('user_institucions')
+                        ->select('user_institucions.id','users.name', 'users.apellidos', 'users.email')
+                        ->join('institucions', 'institucions.id', '=', 'user_institucions.institucion_id')
+                        ->join('users', 'users.id', '=', 'user_institucions.usuario_id')
+                        ->where('user_institucions.institucion_id', '=', $institucion_id)->get();
         return json_encode($institucionUsuarios);
     }
 
@@ -50,17 +55,24 @@ class InstitucionUsuarioController extends Controller
         $institucionusuario = new InstitucionUsuario;
         $institucionusuario->usuario_id = $request->usuario_id;
         $institucionusuario->institucion_id = $request->institucion_id;
+
+
         
-         $institucionUsuarios = DB::table('institucion_usuarios')
+         $institucionUsuariosquery = DB::table('institucion_usuarios')
                         ->select('institucion_usuarios.id','users.name', 'users.apellidos', 'users.email')
                         ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
                         ->join('users', 'users.id', '=', 'institucion_usuarios.usuario_id')
                         ->where('institucion_usuarios.institucion_id', '=', $request->institucion_id)
-                        ->where('institucion_usuarios.usuario_id', '=', $request->usuario_id)->get();
-         if ($institucionUsuarios == null){
-                  $institucionusuario->save();
-         
+                        ->where('institucion_usuarios.usuario_id', '=', $request->usuario_id)
+                        ->get();
+
+        //dd(json_encode($institucionUsuariosquery));
+         if ($institucionUsuariosquery->isEmpty()){
+
+                //dd('hola');
+                $institucionusuario->save();
          }
+         
         return redirect("/admin/listar-institucion-usuarios");
     }
 

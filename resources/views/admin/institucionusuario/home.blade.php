@@ -26,7 +26,9 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($institucionUsuarios as $institucionUsuario)
+                                <?php // dd($institucionUsuario); ?>
                             <tr>
                                 <td>{{$institucionUsuario->id}}</td>
                                 <td>{{$institucionUsuario->usuario->apellidos}} {{$institucionUsuario->usuario->name}}</td>

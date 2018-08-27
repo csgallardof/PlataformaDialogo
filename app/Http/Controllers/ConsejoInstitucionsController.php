@@ -56,6 +56,8 @@ class ConsejoInstitucionsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+
+        //dd($request);
         $consejoInstitucion = new ConsejoInstitucion();
         $consejoInstitucion->consejo_id = $request->consejo_id;
         $consejoInstitucion->institucion_id = $request->institucion_id;
@@ -65,8 +67,11 @@ class ConsejoInstitucionsController extends Controller {
                         ->join('consejo_sectorials', 'consejo_sectorials.id', '=', 'consejo_institucions.consejo_id')
                         ->where('consejo_institucions.consejo_id', '=', $request->consejo_id)
                         ->where('consejo_institucions.institucion_id', '=', $request->institucion_id)->get();
+        
         if ($consejosInstitucions == null) {
             $consejoInstitucion->save();
+
+            dd('llego');
         }
          
         return redirect("/admin/listar-consejo-institucions");
