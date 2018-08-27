@@ -88,7 +88,7 @@ class NotificacionCiudadanoController extends Controller
         $ciudadanoEval->save();
 
         $notificacion_ciud = DB::select("select u.email, u.name, u.apellidos, s.* 
-                                         FROM solucions s, actor_solucion asl, user_institucions ui, users u, institucions inst 
+                                         FROM solucions s, actor_solucion asl, user_institucions ui, users u 
                                          where s.id=asl.solucion_id and ui.institucion_id = asl.institucion_id 
                                          and u.id= ui.user_id and asl.tipo_actor=1 and s.id=".$solucion_id);
 
