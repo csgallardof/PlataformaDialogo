@@ -32,20 +32,15 @@ class ActividadesController extends Controller
 
     public function verActividadesDespliegue($tipo_actor, $idSolucion){
 
-        if( $tipo_actor != 1 && $tipo_actor != 2 ){ 
+        if( $tipo_actor != 1 && $tipo_actor != 2 ){
             return abort(404);
         }
 
-         //dd($idSolucion);
 
         $solucion = DB::select("SELECT solucions.* FROM solucions
                                 INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
                                 INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
-                                WHERE ui.institucion_id = ( select institucions.id from users 
-                                inner join user_institucions on user_institucions.user_id = users.id
-                                inner join institucions on institucions.id = user_institucions.institucion_id
-                                where users.id = ". Auth::user()->id.
-                                ") AND asl.solucion_id = ".$idSolucion." ;");
+                                WHERE ui.user_id = ". Auth::user()->id." AND asl.solucion_id = ".$idSolucion." AND asl.tipo_actor = ". $tipo_actor." ;");
 
         
         $this->notFound($solucion);  //REDIRECCIONA AL ERROR 404  SI EL OBJETO NO EXISTE
@@ -532,7 +527,7 @@ class ActividadesController extends Controller
         // dd($actividad);
 
             Mail::send('emails.correoRegistroActividad', ["solucion"=>$solucion ,"actividad" => $actividad], function($msj) {
-            $msj->to('jpantoja@mipro.gob.ec', '')->subject('Inteligencia Productiva - Notificación de registro una Actvidad');
+            $msj->to('alex.dominguez@secom.gob.ec', '')->subject('Inteligencia Productiva - Notificación de registro una Actvidad');
                 //$msj->to( $correo);
                 
             $msj->from('inteligencia.contacto@gmail.com','Plataforma de Dialogo');

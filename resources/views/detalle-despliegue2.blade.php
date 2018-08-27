@@ -6,11 +6,100 @@
   @parent
   <link href="{{ asset('plugins/DataTablesv2/datatables.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/style-after.css') }}" rel="stylesheet" />
+  <script src="{{ asset('js/gen_validatorv4.js?1') }}" type="text/javascript"></script>
+
 @endsection
 
 @section('contenido')
 
 <br><br><br><br>
+<style>
+	.myButton {
+		-moz-box-shadow:inset 0px 39px 0px -24px #e67a73;
+		-webkit-box-shadow:inset 0px 39px 0px -24px #e67a73;
+		box-shadow:inset 0px 39px 0px -24px #e67a73;
+		background-color:#e4685d;
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		border-radius:4px;
+		border:1px solid #ffffff;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:15px;
+		padding:6px 15px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #9e1208;
+	}
+	.myButton:hover {
+		background-color:#eb675e;
+	}
+	.myButton:active {
+		position:relative;
+		top:1px;
+	}
+
+
+
+
+	.myButton2 {
+		-moz-box-shadow:inset 0px 39px 0px -24px #e67a73;
+		-webkit-box-shadow:inset 0px 39px 0px -24px #e67a73;
+		box-shadow:inset 0px 39px 0px -24px #E7E360;
+		background-color:#E7E360;
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		border-radius:4px;
+		border:1px solid #ffffff;
+		display:inline-block;
+		cursor:pointer;
+		color:#000000;
+		font-family:Arial;
+		font-size:15px;
+		padding:6px 15px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #9e1208;
+	}
+	.myButton2:hover {
+		background-color:#CAC413;
+	}
+	.myButton2:active {
+		position:relative;
+		top:1px;
+	}
+
+
+
+
+
+	.myButton3 {
+		-moz-box-shadow:inset 0px 39px 0px -24px #3dc21b;
+		-webkit-box-shadow:inset 0px 39px 0px -24px #3dc21b;
+		box-shadow:inset 0px 39px 0px -24px #3dc21b;
+		background-color:#44c767;
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		border-radius:4px;
+		border:1px solid #18ab29;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:15px;
+		padding:6px 15px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #2f6627;
+	}
+	.myButton3:hover {
+		background-color:#5cbf2a;
+	}
+	.myButton3:active {
+		position:relative;
+		top:1px;
+	}
+</style>
+
 
 		<!-- begin #about -->
 		<div class="content row-m-t-2" data-scrollview="true">
@@ -43,8 +132,43 @@
 								
 							</dl>
 
+							<form  method='POST' action="{{ url('/registrarCorreoNotificacion',[$solucion->id]) }}" id="frmEmailCiudadano">
+								{{ csrf_field() }}
 
-							<h5 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Estado de Compromiso:</strong></h5>
+								@if(isset($mensaje_cd))
+									<strong><span style="color: darkred">{{$mensaje_cd}}</span></strong>
+								@endif
+
+								<table>
+									<tr>
+										<th colspan="2">
+											<p><strong><span style="font-size:small ">Desea recibir notificaciones de esta propuesta?</span></strong></p>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<label for="emailciudadano"><span style="font-size:small ">Ingese su email:</span></label>
+										</td>
+										<td>
+											<input id="emailciudadano" type="text" name="emailciudadano" >
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2"  style="text-align: left; padding-bottom: 10pt; padding-top: 10pt">
+											<button type="submit" class="btn btn-primary pull-left">Registrar</button>
+										</td>
+									</tr>
+								</table>
+
+
+							</form>
+							<script type="text/javascript">
+                                var frmvalidator  = new Validator("frmEmailCiudadano");
+                                frmvalidator.addValidation("emailciudadano","req","Porfavor ingrese su email");
+                                frmvalidator.addValidation("emailciudadano","email","El formato de email ingresado es incorrecto");
+                            </script>
+
+                                <h5 class="panel-title alert detalle_evento_info_adicional fade in m-b-15" style="padding: 5px 5px 5px 15px;"><strong>Estado de Compromiso:</strong></h5>
 									<p><strong>Codigo:</strong>@if(isset($solucion))
 												{{ $solucion->cod_solucions }}
 											@endif</p>
@@ -459,6 +583,92 @@
 
 						</div>
 
+						<!-- panel para evaluacion de ciudadanos-->
+                        <?php session_start();
+                        unset($_SESSION['ciudadano_evalua']);?>
+
+				@if(!Auth::user())
+					<?php if(!isset($_SESSION['ciudadano_evalua'])){ ?>
+						@if(!Session::has('ciudadano_evalua'))
+						<div class="panel panel-inverse overflow-hidden">
+							<div class="panel-heading header_detail_propuesta">
+								<h3 class="panel-title" style="color:#ffffff">
+									<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+										<i class="fa fa-plus-circle pull-right"></i>
+										<strong>Evalue esta propuesta</strong>
+									</a>
+								</h3>
+							</div>
+							<div id="collapseSix" class="panel-collapse collapse">
+								<br>
+								<script>
+									function mostrarComentario() {
+
+                                        document.getElementById("seccionComentarioC").style.visibility="visible";
+                                        document.getElementById("btnGuardarSemaforo").style.visibility="hidden";
+                                        return false;
+                                    }
+
+                                    function ocultarComentario() {
+
+                                        document.getElementById("seccionComentarioC").style.visibility="hidden";
+                                        document.getElementById("btnGuardarSemaforo").style.visibility="visible";
+                                        return false;
+                                    }
+								</script>
+									<form  method='POST' action="{{ url('/registrarEvaluacionC',[$solucion->id]) }}" id="frmEvaluaC">
+										{{ csrf_field() }}
+									<table>
+										<tr>
+
+											<td>
+												<input type="radio" name="rd_evaluac" value="BUENA" onclick="ocultarComentario();" />
+												<a href="#" class="myButton3"  title="OPCION COLOR VERDE PARA BUENA ">BUENA</a>
+											</td>
+
+											<td style="padding-left: 5px">
+												<input type="radio" name="rd_evaluac" value="NORMAL" onclick="ocultarComentario();"  />
+												<a href="#" class="myButton2"  title="OPCION COLOR AMARILLO PARA NORMAL ">NORMAL</a>
+											</td>
+
+
+											<td style="padding-left: 5px">
+												<input type="radio" name="rd_evaluac" value="MALA" onclick="mostrarComentario();" />
+												<a href="#" class="myButton" title="OPCION COLOR ROJO PARA MALA " >MALA</a>
+
+											</td>
+
+										</tr>
+										<tr><td colspan="3">
+											<br>
+											<button type="submit" class="btn btn-primary pull-left" id="btnGuardarSemaforo">Guardar</button>
+											</td>
+										</tr>
+									</table>
+								    </form>
+
+								<!-- Seccion para ingresar comentario en caso de seleccionar opcion MALA-->
+								<section id="seccionComentarioC" style="visibility: hidden;">
+									<form id="frmComentarioC" action="{{ url('/enviaCorreoCiudadano',[$solucion->id])}}" id="frmComentarioCd" method="POST">
+										{{ csrf_field() }}
+									<label for="comentario_propuesta_c">Inrese por favor un detalle de su elección:</label>
+								<textarea name="comentario_propuesta_c" id="comentario_propuesta_c" style="width: 80%; " maxlength="150">
+
+								</textarea>
+										<br>
+										<button type="submit" class="btn btn-primary pull-left">Enviar Email</button>
+									</form>
+								</section>
+								<!-- find de seccion -->
+
+
+								</div>
+							</div>
+						</div>
+					    @endif
+					<?php } ?>
+				@endif
+						<!-- fin de panel de evaluacion de ciudadanos-->
 
 					</div>
 
