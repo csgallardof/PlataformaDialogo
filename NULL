@@ -1,0 +1,16 @@
+Running scheduled command: App\Http\Controllers\NotificacionQuincenalController@enviarCorreo
+Running scheduled command: App\Http\Controllers\NotificacionQuincenalController@enviarCorreo
+Running scheduled command: App\Http\Controllers\NotificacionQuincenalController@enviarCorreo
+
+In Connection.php line 647:
+                                                                                                             
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nq.solicitud_id' in 'where clause' (SQL: CALL pr_  
+  notificaciones_quincenales())                                                                              
+                                                                                                             
+
+In Connection.php line 323:
+                                                                                              
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nq.solicitud_id' in 'where clause'  
+                                                                                              
+
+Running scheduled command: App\Http\Controllers\NotificacionQuincenalController@enviarCorreo

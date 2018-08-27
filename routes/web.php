@@ -14,6 +14,19 @@
 
 Auth::routes();
 
+Route::post('/enviarCorreoNotificacion/', ['uses'=>'NotificacionQuincenalController@enviarCorreo','as'=>'envioNotificacionQuincenal']);
+Route::post('/enviarCorreoNotificacionCiudadano/', ['uses'=>'NotificacionCiudadanoController@enviarCorreo','as'=>'envioNotificacionCiudadano']);
+
+Route::post('/enviaCorreoCiudadano/{idSolucion}', ['uses'=>'NotificacionCiudadanoController@enviarCorreoEvCd','as'=>'evaluacion.correoCiudadano']);
+
+
+
+Route::post('/registrarCorreoNotificacion/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEmail','as'=>'notificacion.saveCiudadano']);
+
+Route::post('/registrarEvaluacionC/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEval','as'=>'ciudadano.saveCiudadanoEval']);
+//Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']);
+
+Route::get('/prueba', 'NotificacionQuincenalController@prueba');
 
 Route::get('/','PaginasController@homeDialogo');
 Route::get('/calendario-dialogo-nacional','PaginasController@calendarioDialogo');
