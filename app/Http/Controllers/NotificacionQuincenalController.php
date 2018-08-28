@@ -109,6 +109,7 @@ class NotificacionQuincenalController extends Controller
         });
 
 
+        $notificacionPropuesta = DB::table('notificacion_quincenal')->where('estado', 0)->update(['estado' => 1]);
         return response()->json(['message' => 'Request completed']);
     }
 

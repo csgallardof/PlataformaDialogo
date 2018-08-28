@@ -26,9 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('00 00 15 * *');
 
-
-        $schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->everyMinute();
+        $schedule->call('App\Http\Controllers\NotificacionCiudadanoController@enviarCorreo')->dailyAt('00:00');
     }
 
     /**
