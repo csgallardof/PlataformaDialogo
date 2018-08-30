@@ -262,6 +262,7 @@ class NotificacionCiudadanoController extends Controller
 
         });
 
+        $notificacionPropuesta = DB::table('notificacion_ciudadano_propuesta')->where('not_cdp_estado', 0)->update(['not_cdp_estado' => 1]);
 
         return response()->json(['message' => 'Request completed']);
     }
