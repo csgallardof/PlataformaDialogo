@@ -111,7 +111,7 @@
 									    	<label for="exampleSelect1">Instituci&oacute;n ejecutora</label>
 									    	<select class="form-control" name="institucion_id" id="exampleSelect1">
 									      		@if( isset($actoresSoluciones) )
-													@foreach( $actoresSoluciones as $actorSolucion )
+|													@foreach( $actoresSoluciones as $actorSolucion )
 														<option value="{{ $actorSolucion-> id}}">
 															{{ $actorSolucion->nombre_institucion }}
 														</option>

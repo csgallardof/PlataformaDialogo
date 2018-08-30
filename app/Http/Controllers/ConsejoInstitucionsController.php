@@ -28,7 +28,7 @@ class ConsejoInstitucionsController extends Controller {
      */
     public function create() {
         $consejo = ConsejoSectorial::all();
-        $institucion = Institucion::all();
+        $institucion = Institucion::all()->sortBy('siglas_institucion');;
         return view('admin.consejoinstitucion.create')->with(["consejo" => $consejo, "institucion" => $institucion]);
     }
 
@@ -68,10 +68,10 @@ class ConsejoInstitucionsController extends Controller {
                         ->where('consejo_institucions.consejo_id', '=', $request->consejo_id)
                         ->where('consejo_institucions.institucion_id', '=', $request->institucion_id)->get();
         
-        if ($consejosInstitucions == null) {
+        if ($consejosInstitucions->isEmpty()) {
             $consejoInstitucion->save();
 
-            dd('llego');
+            //dd('llego');
         }
          
         return redirect("/admin/listar-consejo-institucions");

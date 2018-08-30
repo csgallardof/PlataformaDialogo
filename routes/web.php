@@ -510,7 +510,25 @@ Route::post('/reporte','ReportePublicoController@listaReportes');
 
 Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
      
-     Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
+     Route::get('/home','ConsejoSectorialController@RolConsejoSectorialindex');
+
+     Route::post('actores/porasignar',[
+          'uses'=>'InstitucionController@asignarActorSolucion',
+          'as'=>'actorSolucion.asignar'
+     ]);
+
+     //Administrar Usuarios
+     //Route::resource('usuario','UsuarioController');
+     
+     Route::get('/editar-usuario/{id}/edit', 'UsuarioController@edit');
+
+     Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
+
+
+     Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
+     Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
+     Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
+
 
 });
 

@@ -235,5 +235,45 @@ class UsuarioController extends Controller {
         return redirect('admin/listar-usuario');
     }
 
+    public function usuarios_cs() {
+        
+        $usuarios= DB::select('SELECT *, institucions.siglas_institucion        
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where consejo_sectorials.id=(select consejo_sectorials.id
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where users.id ='.Auth::user()->id.') order by users.id desc');
+
+
+        return view('admin.usuario.home-cs')->with(["usuarios"=>$usuarios]);
+    }
+
+
+    public function nuevo_usuario_institucion() {
+
+        $usuario_consejo= DB::select('SELECT *, institucions.siglas_institucion        
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where consejo_sectorials.id=(select consejo_sectorials.id
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where users.id ='.Auth::user()->id.') order by users.id desc');
+
+
+        return view('admin.usuario.create-cs')->with(["usuario_consejo" => $usuario_consejo]);
+    }
 
 }
