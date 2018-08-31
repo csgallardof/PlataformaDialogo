@@ -2,11 +2,13 @@
   Fecha: 21/08/2018
 */
 
-delimeter #
 
-create PROCEDURE pr_notificaciones_quincenales()
-proc_main:begin
 
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `forge`.`pr_notificaciones_quincenales` $$
+CREATE PROCEDURE `forge`.`pr_notificaciones_quincenales` ()
+BEGIN
 
 create temporary table propuestas_pendientes(
    solucion_id  int,
@@ -14,31 +16,44 @@ create temporary table propuestas_pendientes(
    fecha_registro date,
    estado_solucion varchar(100),
    dependencia varchar(100),
-   institucion_id int
-      	
-);
+   institucion_id int,
+   atendida_quince int  
 
-insert into propuestas_pendientes
-SELECT s.id as solucion_id, problema_solucion,s.created_at as FECHA_REGISTRO, es.nombre_estado,
-       case  
-   when tipo_actor = 1 then "RESPONSABLE" 
-   when tipo_actor = 2 then "CORRESPONSABLE" 
-end as dependencia , acs.institucion_id  
-FROM `solucions` s, estado_solucion es,actor_solucion acs,  institucions i
-WHERE s.estado_id = es.id
-and   s.id = acs.solucion_id
-and   acs.institucion_id = i.id 
-and   es.id in(1,2,3)
-order by es.nombre_estado;
+);
 
 
 SET @curdt = CURDATE();
+
+insert into propuestas_pendientes
+SELECT s.id as solucion_id, propuesta_solucion,s.created_at as FECHA_REGISTRO, es.nombre_estado,
+       case
+   when tipo_actor = 1 then "RESPONSABLE" 
+   when tipo_actor = 2 then "CORRESPONSABLE"
+end as dependencia , acs.institucion_id
+FROM `solucions` s, estado_solucion es,actor_solucion acs,  institucions i
+WHERE s.estado_id = es.id
+and   s.id = acs.solucion_id
+and   acs.institucion_id = i.id
+and   es.id in(1,2,3)
+and not exists(select 1 from  notificacion_quincenal nq where nq.solucion_id = s.id and nq.estado =0 and fecha_creacion_not = @curdt)
+order by es.nombre_estado;
+
+update propuestas_pendientes b
+set atendida_quince= 1
+from actividades a
+where a.solucion_id  = b.solucion_id  
+and a.created_at<=@curdt and a.created_at> (@curdt -interval '1' day*15);
+
 insert into notificacion_quincenal
 select pp.*, u.email, u.id,0,@curdt, ''
-from propuestas_pendientes pp, users u, user_institutions ui
+from propuestas_pendientes pp, users u, user_institucions ui
 where pp.institucion_id = ui.institucion_id
 and u.id = ui.user_id;
 
 
+select * from notificacion_quincenal where estado = 0 and fecha_creacion_not = @curdt order by atendida_quince asc, email_usuario;
 
-end proc_main #
+
+END $$
+
+DELIMITER ;

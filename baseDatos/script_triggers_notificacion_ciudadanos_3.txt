@@ -1,17 +1,29 @@
 
+/*****
 
-/*
-
-AUtor: Alex Dominguez
+Autor: Alex Dominguez
 fecha:20180821
 
-*/
+Fecha actualizacion: 2018-08-31
+
+*****/
+
+create table evaluacion_ciudadano(
+  ev_solicitud_id int,
+  ev_semaforo varchar(50),
+  created_at timestamp,
+  updated_at timestamp
+);
+
+
 
 create table notificacion_ciudadano(
   not_cd_id int NOT NULL AUTO_INCREMENT,
   not_cd_email varchar(50) NOT NULL,
   not_cd_fecha date,
   not_cd_solucion_id int NOT NULL,
+  created_at timestamp,
+  updated_at timestamp,
   PRIMARY KEY (not_cd_id)
 
 );
@@ -47,7 +59,7 @@ DELIMITER $$
 
 CREATE TRIGGER ingreso_notificacion_ciudadano_actividad AFTER INSERT ON actividades
 FOR EACH ROW BEGIN
- insert into notificacion_ciudadano_propuesta(not_cdp_actividad_id,not_cdp_fecha,not_cdp_estado,not_cdp_detalle,not_cdp_tipo_cambio) 
+ insert into notificacion_ciudadano_propuesta(not_cdp_solucion_id,not_cdp_fecha,not_cdp_estado,not_cdp_detalle,not_cdp_tipo_cambio) 
   values (new.solucion_id, NOW(),0, 'Se ingresaron actividades para la propuesta',2);
 
 END;
