@@ -1,0 +1,16 @@
+/**
+Autor:Alex Dominguez
+Fecha:2018-08-30
+**/
+
+
+create table email_ciudadano_comentario(
+    email_cc varchar(50),
+    comentario_cc text,
+    solicitud_id int,
+    estado_cc int,
+    created_at timestamp NULL DEFAULT NULL,
+    updated_at timestamp NULL DEFAULT NULL
+    
+	
+);
