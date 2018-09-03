@@ -45,9 +45,9 @@ where a.created_at<=@curdt and a.created_at> (@curdt -interval '1' day*15);
 
 insert into notificacion_quincenal
 select pp.*, u.email, u.id,0,@curdt, ''
-from propuestas_pendientes pp, users u, user_institucions ui
+from propuestas_pendientes pp, users u, institucion_usuarios ui
 where pp.institucion_id = ui.institucion_id
-and u.id = ui.user_id;
+and u.id = ui.usuario_id;
 
 
 select * from notificacion_quincenal where estado = 0 and fecha_creacion_not = @curdt order by atendida_quince asc, email_usuario;
