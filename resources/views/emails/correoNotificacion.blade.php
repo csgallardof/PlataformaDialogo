@@ -89,7 +89,7 @@ $total_no_atendidos=0;//para el caso de propuestas que no registren actividades 
         <?php
         $total_abiertos=$total_abiertos+1;
         ?>
-        @if( isset($notificacion[2])==0)
+        @if($notificacion[3]==0)
             <?php
             $total_no_atendidos=$total_no_atendidos+1;
             ?>
@@ -145,18 +145,16 @@ $total_no_atendidos=0;//para el caso de propuestas que no registren actividades 
     @foreach( $notificacionesq as $notificacion )
 <tr><td>{{$notificacion[0]}}</td>
 <td>{{$notificacion[1]}}</td>
-    <td>
-        @if( isset($notificacion[2])==0)
+    <td style="text-align: center;">
+        @if($notificacion[3]==0)
             <div class="foo red"> <span style="color: white"><b>NO</b></span> </div>
-        @endif
-
-        @if( isset($notificacion[2])==1)
-                <div class="foo blue"> <span style="color:white"><b>SI</b></span> </div>
+        @else
+            <div class="foo blue"> <span style="color:white"><b>SI</b></span> </div>
         @endif
 
     </td>
 
-    <td>
+    <td  style="text-align: center;">
 <a target="_blank" rel="noopener noreferrer"  class="myButton" href="http://localhost:8000/detalle-despliegue-dialogo/{{$notificacion[2]}}">VERDETALLE</a></td>
 </tr>
     @endforeach

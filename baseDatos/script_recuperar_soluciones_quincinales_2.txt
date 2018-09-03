@@ -29,7 +29,7 @@ SELECT s.id as solucion_id, propuesta_solucion,s.created_at as FECHA_REGISTRO, e
        case
    when tipo_actor = 1 then "RESPONSABLE" 
    when tipo_actor = 2 then "CORRESPONSABLE"
-end as dependencia , acs.institucion_id
+end as dependencia , acs.institucion_id,0
 FROM `solucions` s, estado_solucion es,actor_solucion acs,  institucions i
 WHERE s.estado_id = es.id
 and   s.id = acs.solucion_id
@@ -39,10 +39,9 @@ and not exists(select 1 from  notificacion_quincenal nq where nq.solucion_id = s
 order by es.nombre_estado;
 
 update propuestas_pendientes b
+inner join actividades a ON a.solucion_id  = b.solucion_id  
 set atendida_quince= 1
-from actividades a
-where a.solucion_id  = b.solucion_id  
-and a.created_at<=@curdt and a.created_at> (@curdt -interval '1' day*15);
+where a.created_at<=@curdt and a.created_at> (@curdt -interval '1' day*15);
 
 insert into notificacion_quincenal
 select pp.*, u.email, u.id,0,@curdt, ''
