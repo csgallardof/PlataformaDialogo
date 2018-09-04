@@ -1,6 +1,8 @@
 /*Autor: Alex Dominguez
   Fecha: 21/08/2018
 */
+
+
 DROP TABLE IF EXISTS notificacion_quincenal;
 
 create table notificacion_quincenal(
@@ -10,6 +12,7 @@ create table notificacion_quincenal(
    estado_solucion varchar(100),
    dependencia varchar(100),
    institucion_id int,
+   atendida_quince int,
    email_usuario varchar(200),
    usuario_id int,
    estado int,

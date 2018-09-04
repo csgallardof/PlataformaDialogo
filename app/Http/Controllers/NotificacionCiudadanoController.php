@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\NotificacionCiudadano;
+use App\EmailCiudadanoComentario;
 use App\EvaluacionCiudadano;
 use App\Solucion;
 use App\NotificacionQuincenal;
@@ -65,6 +66,8 @@ class NotificacionCiudadanoController extends Controller
     public function saveCiudadanoEval(Request $request,$solucion_id){
         $ciudadanoEval = new EvaluacionCiudadano();
         $ciudadanoEval->ev_semaforo  = $request-> rd_evaluac;
+        $ciudadanoEval->ev_solicitud_id  = $solucion_id;
+
         $ciudadanoEval->save();
         Flash::success("Se ha registrado su evaluación exitosamente");
 
@@ -80,15 +83,36 @@ class NotificacionCiudadanoController extends Controller
         $title='Percepción de ciudadanos frente a propuesta de mesa de dialogo';
 
         $mensaje_cd= $request->comentario_propuesta_c;
+        $mail_from= $request->email_cd_alerta;
 
+        //validacion de correo
+        $validacorreo = DB::table('email_ciudadano_comentario')->where('email_cc', $mail_from)->where('solicitud_id', $solucion_id)->first();
+        if($validacorreo)
+        {
+            $mensaje_cd='Su email ya se encuentra registrado';
+            Flash::error($mensaje_cd);
+            //return view('detalle-despliegue2')->with(["solucion"=>$Solucion,"solucion_id"=>$solucion_id,"mensaje_cd"=>$mensaje_cd]);
+            //return $this->detalleSolucion($solucion_id,$mensaje_cd);
+            return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
+        }
+
+        //
         $email_destino='';
 
         $ciudadanoEval = new EvaluacionCiudadano();
         $ciudadanoEval->ev_semaforo  = 'MALA';
+        $ciudadanoEval->ev_solicitud_id  = $solucion_id;
         $ciudadanoEval->save();
 
+        $email_ciudadano_comentario = new EmailCiudadanoComentario();
+        $email_ciudadano_comentario->email_cc      = $mail_from;
+        $email_ciudadano_comentario->comentario_cc = $mensaje_cd;
+        $email_ciudadano_comentario->solicitud_id =$solucion_id;
+        $email_ciudadano_comentario->estado_cc =0;
+        $email_ciudadano_comentario->save();
+
         $notificacion_ciud = DB::select("select u.email, u.name, u.apellidos, s.* 
-                                         FROM solucions s, actor_solucion asl, user_institucions ui, users u, institucions inst 
+                                         FROM solucions s, actor_solucion asl, user_institucions ui, users u 
                                          where s.id=asl.solucion_id and ui.institucion_id = asl.institucion_id 
                                          and u.id= ui.user_id and asl.tipo_actor=1 and s.id=".$solucion_id);
 
@@ -113,12 +137,13 @@ class NotificacionCiudadanoController extends Controller
         $fecha = date("Y-m-d");
 
         //$emails = ['cgallardo@mipro.gob.ec', 'xceli@senplades.gob.ec',$email_destino];
-        $emails = ['alex.dominguez@secom.gob.ec',$email_destino];
+        $emails = [$email_destino];
 
-        Mail::send('emails.correoComentarioCd', ['title' => $title,  'mensaje_cd'=>$mensaje_cd, 'nombre_completo'=>$nombre_completo, 'fecha'=>$fecha, 'propuesta_solucion'=>$propuesta_solucion], function ($message) use ($emails)
+        //$mail_from='inteligencia.contacto@gmail.com';
+        Mail::send('emails.correoComentarioCd', ['title' => $title,  'mensaje_cd'=>$mensaje_cd, 'nombre_completo'=>$nombre_completo, 'fecha'=>$fecha, 'propuesta_solucion'=>$propuesta_solucion, 'mail_from'=>$mail_from], function ($message) use ($emails,$mail_from)
         {
 
-            $message->from('inteligencia.contacto@gmail.com', 'Secretaria de Gestión de la Política');
+            $message->from($mail_from, 'Secretaria de Gestión de la Política');
             //$message->to('alexpatde@gmail.com')->subject('Reporte Quincenal de Propuestas Pendientes');
             $message->to($emails)->subject('Comentario Ciudadano-Mesas de dialogo');
 
@@ -262,6 +287,7 @@ class NotificacionCiudadanoController extends Controller
 
         });
 
+        $notificacionPropuesta = DB::table('notificacion_ciudadano_propuesta')->where('not_cdp_estado', 0)->update(['not_cdp_estado' => 1]);
 
         return response()->json(['message' => 'Request completed']);
     }

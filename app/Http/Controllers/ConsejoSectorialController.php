@@ -16,6 +16,12 @@ use App\ConsejoSectorial;
 use DB;
 use Laracasts\Flash\Flash;
 
+use App\Actividad;
+use App\EstadoSolucion;
+use App\Institucion;
+use App\Solucion;
+use App\ActorSolucion;
+
 class ConsejoSectorialController extends Controller {
 
     public function create() {
@@ -55,11 +61,30 @@ class ConsejoSectorialController extends Controller {
         return redirect('admin/listar-consejo-sectorial');
     }
 
-    public function cs_propuestas(){
-        
-        //dd('hola');
 
-        return view('consejosectorial.home');
+    public function RolConsejoSectorialindex(){
+
+       // dd(Auth::user()->id);
+        $resultados_propuestas= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where consejo_sectorials.id = ( select consejo_sectorials.id
+                                from users
+                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+
+        //dd($resultados_propuestas);
+        
+        return view('consejosectorial.home')->with(["resultados_propuestas"=>$resultados_propuestas
+
+                                            ]);
     }
 
 

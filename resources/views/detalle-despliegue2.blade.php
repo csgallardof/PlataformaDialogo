@@ -253,7 +253,7 @@
 					<!-- end col-5 -->
 					<!-- inicio acciones -->
 					<div class="col-md-9">
-
+						@include('flash::message')
 					<div class="panel panel-inverse overflow-hidden">
 						<div class="panel-heading" style="background-color:#214974">
 							<h3 class="panel-title" style="color:white">
@@ -587,7 +587,7 @@
                         <?php session_start();
                         unset($_SESSION['ciudadano_evalua']);?>
 
-				@if(!Auth::user())
+				
 					<?php if(!isset($_SESSION['ciudadano_evalua'])){ ?>
 						@if(!Session::has('ciudadano_evalua'))
 						<div class="panel panel-inverse overflow-hidden">
@@ -649,8 +649,13 @@
 
 								<!-- Seccion para ingresar comentario en caso de seleccionar opcion MALA-->
 								<section id="seccionComentarioC" style="visibility: hidden;">
-									<form id="frmComentarioC" action="{{ url('/enviaCorreoCiudadano',[$solucion->id])}}" id="frmComentarioCd" method="POST">
+									<form name="frmComentarioCd" action="{{ url('/enviaCorreoCiudadano',[$solucion->id])}}" id="frmComentarioCd" method="POST">
 										{{ csrf_field() }}
+										<lable for="email_cd_alerta" ><b>Email:</b></lable>
+										<input type="text" name="email_cd_alerta" id="email_cd_alerta" />
+										<br>
+
+
 									<label for="comentario_propuesta_c">Inrese por favor un detalle de su elección:</label>
 								<textarea name="comentario_propuesta_c" id="comentario_propuesta_c" style="width: 80%; " maxlength="150">
 
@@ -658,6 +663,12 @@
 										<br>
 										<button type="submit" class="btn btn-primary pull-left">Enviar Email</button>
 									</form>
+									<script type="text/javascript">
+                                        var frmvalidator2  = new Validator("frmComentarioCd");
+                                        frmvalidator2.addValidation("email_cd_alerta","req","Porfavor ingrese su email");
+                                        frmvalidator2.addValidation("comentario_propuesta_c","req","Porfavor ingrese su comentario");
+                                        frmvalidator2.addValidation("email_cd_alerta","email","El formato de email ingresado es incorrecto");
+									</script>
 								</section>
 								<!-- find de seccion -->
 
@@ -667,7 +678,7 @@
 						</div>
 					    @endif
 					<?php } ?>
-				@endif
+				
 						<!-- fin de panel de evaluacion de ciudadanos-->
 
 					</div>

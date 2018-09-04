@@ -27,7 +27,9 @@ class LoginController extends Controller
      * @var string
      */
     protected function redirectTo()
-    {
+    {   
+
+
         if(Auth::user()->admin() == 1){
             //dd('admin');
             return '/admin/home';    
@@ -44,7 +46,7 @@ class LoginController extends Controller
 
         if(Auth::user()->admin() == 4){
             //dd('ConsejoSectorial');
-            return '/consejo-sectorial/consejo-sectorial-propuestas';
+            return '/consejo-sectorial/home';
         }
         
     }

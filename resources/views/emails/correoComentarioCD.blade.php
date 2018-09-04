@@ -335,8 +335,13 @@
                         <tr>
                           <td>
                             <p align="justify">
-                            Se ha recibido una observaci&oacuten referente a la propuesta : <b>{{$propuesta_solucion}}</b>
+                              El ciudadano con e-mail: <a href="mailto:{{$mail_from}}">{{$mail_from}}</a>  ha enviado una observaci&oacuten referente a la propuesta : <b>{{$propuesta_solucion}}</b>
                             </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>Observación:</b>
                           </td>
                         </tr>
 <tr>
