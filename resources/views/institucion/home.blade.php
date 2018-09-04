@@ -140,7 +140,7 @@
 							</div>
 
 					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/unificar-propuestas">Unificar Propuestas</a>
-					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/unificar-propuestas">Unificar Propuestas</a>
+					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/ver-propuestas-unificadas">Ver Propuestas Unificadas</a>
 
 			</div>
 			<!-- begin row -->

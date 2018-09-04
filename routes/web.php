@@ -499,6 +499,22 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
    // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
+    //Mesas de Dialogo
+
+
+
+      Route::get('/mesadialogo/matrizCarga',[
+          'uses'    =>   'MesaDialogoController@matrizCarga',
+          'as'      =>   'mesadialogo.matrizCarga'
+     ]);
+
+     Route::post('/mesadialogo/vistaPreviaMesas',[ 
+          'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
+          'as'      =>   'mesadialogo.vistaPreviaMesas'
+     ]);
+     
+     Route::resource('mesadialogo','MesaDialogoController');
+
 });
 
  
@@ -528,6 +544,8 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
      Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
+
+     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
 
 });

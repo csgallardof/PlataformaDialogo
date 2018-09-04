@@ -15,18 +15,22 @@
                     >
                         {{ csrf_field() }}
                         @section('edit_Method')
+
+
                         @show
+
+                        <input type="hidden" name="crear_usuario_consejo" value="1">
 
                         <div class="form-group">
                             <label for="cedula" class="col-md-4 control-label">Institucion</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="consejo_id" id="consejo_id">
+                                <select class="form-control" name="institucion_id" id="institucion_id">
 
                                     @if( isset($usuario_consejo) )
-                                    @foreach( $usuario_consejo as $usuario_consejo )
+                                    @foreach( $usuario_consejo as $usuario_consejo)
                                     <option value="{{ $usuario_consejo->id}}">
-                                        {{ $usuario_consejo->nombre_institucion}}
+                                        {{ $usuario_consejo->siglas_institucion}} /{{ $usuario_consejo->nombre_institucion}}
                                     </option>
                                     @endforeach
                                     @endif

@@ -372,15 +372,16 @@ class ActividadesController extends Controller
      */
     public function saveActividad(Request $request, $tipo_actor, $idSolucion)
     {
+       // dd($request->institucion_id);
         $tipo_fuente = Auth::user()->tipo_fuente;
         $actividad = new Actividad;
-        $actividad-> comentario = $request-> comentario;
+        $actividad-> comentario = $request->comentario;
         $actividad-> solucion_id = $idSolucion;
-        $actividad-> ejecutor_id = $request-> institucion_id;
+        $actividad-> ejecutor_id = $request->institucion_id;
         $actividad-> tipo_fuente = $tipo_actor; 
         
 
-        //dd($request->tipo_fuente_id);
+       // dd($request->tipo_fuente_id);
         if( isset($request-> fecha) ){
             $actividad-> fecha_inicio = $request-> fecha. " 00:00:00";
             if($request->tipo_fuente_id ==1){
@@ -396,9 +397,9 @@ class ActividadesController extends Controller
                 $solucion->save();
             }
         }
-
+        
         $actividad-> save();
-
+        //dd('uno');
          $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
             $solucionAsignada = Solucion::find($idSolucion);
             
@@ -427,7 +428,7 @@ class ActividadesController extends Controller
                     //dd("no entre en el if");
             }
             }
-        
+        //dd('uno');
         $nombreArchivos="";
         $files = $request->file('files');
 
@@ -676,4 +677,40 @@ class ActividadesController extends Controller
     {
         //
     }
+
+
+    public function verActividadesDespliegueConsejo($tipo_actor, $idSolucion){
+
+      // dd('uno');
+
+
+        $solucion = DB::select("SELECT solucions.* FROM solucions
+                                INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
+                                INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
+                                WHERE asl.solucion_id = ".$idSolucion." ;");
+
+        
+        $this->notFound($solucion);  //REDIRECCIONA AL ERROR 404  SI EL OBJETO NO EXISTE
+
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                ->where('tipo_fuente','=', 1)
+                                ->orderBy('created_at','DESC')->get();
+
+
+        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('tipo_actor','ASC')->get();
+
+        //dd($tipo_actor);
+
+
+        $tipo_fuente = Auth::user()->tipo_fuente; 
+
+        return view('institucion.actividades.solucionDesp')->with(["actoresSoluciones"=>$actoresSoluciones,
+                                                            "solucion"=>$solucion[0],
+                                                            "actividades"=>$actividades,
+                                                            "tipo_actor"=>$tipo_actor,
+                                                            "tipo_fuente"=>$tipo_fuente
+                                                        ]);
+    }
+
 }

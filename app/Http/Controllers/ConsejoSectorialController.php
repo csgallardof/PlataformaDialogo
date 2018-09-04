@@ -65,7 +65,7 @@ class ConsejoSectorialController extends Controller {
     public function RolConsejoSectorialindex(){
 
        // dd(Auth::user()->id);
-        $resultados_propuestas= DB::select('SELECT solucions.id ,solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor   
+        $resultados_propuestas= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
                                 from institucions
                                 inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
                                 inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id

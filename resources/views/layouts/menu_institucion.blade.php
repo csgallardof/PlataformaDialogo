@@ -18,7 +18,8 @@
 			                </div>
 			                <div id="navbar" class="navbar-collapse collapse">
 			                    <ul class="nav navbar-nav">
-			                        <li><a href="/consejo-sectorial/listar-usuario">Usuarios</a></li>
+			                    	<li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a>
+			                        <li><a href="#">Propuestas Ajustadas</a></li>
 			                        <li><a href="#">Responsables</a></li>
 			                    </ul>
 			                    

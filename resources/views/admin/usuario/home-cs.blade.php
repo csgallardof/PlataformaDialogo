@@ -5,21 +5,32 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
-            <div class="panel panel-default">
-                <div class="panel-heading">Usuario<a href="/consejo-sectorial/nuevo-usuario-institucion/" class="btn btn-primary pull-right">Nuevo</a></div>
+        
+        <div class="col-md-12">
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                                <!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a> -->
+                            </div>
+                            <h3 align="left" class="panel-title">Usuarios</h3>
+                        </div>
 
-                <div class="panel-body">
-                    
-                    <div class="table-responsive">
-                        <table id="data-table" class="table table-striped table-bordered" width="100%">
+                        <div class="panel-body">
+
+                            <div class="table-responsive">
+                                <table id="data-table" class="table table-striped table-bordered" width="100%">
                             <thead>
                                 <tr>
                                     <th>Nombres - Apellidos</th>
                                     <th>C&eacute;dula</th>
                                     <th>Email</th>
                                     <th>Institucion</th>
-                                    <th>Opciones</th>
+                                    <th>Telefono</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,13 +58,11 @@
                                 @endforeach                 
                             </tbody>
                         </table>
+                            </div>
+                        </div>
                     </div>
-                    
+                    <!-- end panel -->
                 </div>
-
-            </div>
-        </div>
     </div>
-</div>
 </div>
 @endsection
