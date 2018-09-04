@@ -1,0 +1,22 @@
+
+ingreso_notificacion_ciudadano_actividad
+
+CREATE DEFINER=`root`@`localhost` TRIGGER ingreso_notificacion_ciudadano_actividad AFTER INSERT ON actividades
+
+FOR EACH ROW BEGIN
+ insert into notificacion_ciudadano_propuesta(not_cdp_actividad_id,not_cdp_fecha,not_cdp_estado,not_cdp_detalle,not_cdp_tipo_cambio) 
+  values (new.solucion_id, NOW(),0, 'Se ingresaron actividades para la propuesta',2);
+
+END
+
+
+
+ingreso_notificacion_ciudadano_propuesta
+
+CREATE DEFINER=`root`@`localhost` TRIGGER ingreso_notificacion_ciudadano_propuesta AFTER UPDATE ON solucions
+FOR EACH ROW BEGIN
+ insert into notificacion_ciudadano_propuesta(not_cdp_solucion_id,not_cdp_fecha,not_cdp_estado,not_cdp_detalle,not_cdp_tipo_cambio) 
+  values (old.id, NOW(),0,'Se actualizo el estado de la propuesta',1);
+
+
+END

@@ -499,6 +499,32 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
    // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
+
+   //Cambio de contraseña
+   Route::get('/cambiar-clave/{id}', 'InstitucionController@cambiarClave');
+   Route::post('/cambiar-clave/{id}', 'InstitucionController@updateClave');
+
+
+//REPORTES
+ Route::get('/reportes','ReportesController@listaMinisterio');
+ Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
+ Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
+   //Mesas de Dialogo
+
+
+
+      Route::get('/mesadialogo/matrizCarga',[
+          'uses'    =>   'MesaDialogoController@matrizCarga',
+          'as'      =>   'mesadialogo.matrizCarga'
+     ]);
+
+     Route::post('/mesadialogo/vistaPreviaMesas',[ 
+          'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
+          'as'      =>   'mesadialogo.vistaPreviaMesas'
+     ]);
+     
+     Route::resource('mesadialogo','MesaDialogoController');
+
 });
 
  
@@ -506,11 +532,35 @@ Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
 
 
+
+
 // Consejo Sectorial
 
 Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
+
+
+ Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
+     Route::get('/home','ConsejoSectorialController@RolConsejoSectorialindex');
+
+     Route::post('actores/porasignar',[
+          'uses'=>'InstitucionController@asignarActorSolucion',
+          'as'=>'actorSolucion.asignar'
+     ]);
+
+     //Administrar Usuarios
+     //Route::resource('usuario','UsuarioController');
      
-     Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
+     Route::get('/editar-usuario/{id}/edit', 'UsuarioController@edit');
+
+     Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
+
+
+     Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
+     Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
+     Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
+
+     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+
 
 });
 

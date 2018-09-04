@@ -241,7 +241,7 @@ class ExcelController extends Controller
     }
 
     public function exportarPropuestasDialogoNacional(Request $request){
-         
+    dd("exportarPropuestasDialogoNacional".$request);
         \Excel::create('Dialogo Nacional', function($excel) use($request) {
 
             $cheches = $request['check'];
@@ -291,6 +291,7 @@ class ExcelController extends Controller
         });
          
         })->export('xlsx');
+
     }
 
     

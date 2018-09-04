@@ -123,6 +123,26 @@
 					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/ver-propuestas-unificadas">Ver Propuestas Unificadas</a>
 
 			</div> -->
+			<div>
+				<div class="alert alert-success fade in m-b-15" >
+							<small>
+								En caso de que una propuesta no pertenezca a su institución, contactarse a inteligencia@mipro.gob.ec con su respectiva justificación. <br>
+								Si desea actualizar su usuario contactarse inteligencia@mipro.gob.ec
+
+								<span class="close" data-dismiss="alert">&times;</span>
+								</small>
+							</div>
+							<div class="alert alert-info fade in m-b-15">
+								<small>
+								Al momento de unificar Propuestas las acciones no se transfieren.
+								<span class="close" data-dismiss="alert">&times;</span>
+								</small>
+							</div>
+
+					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/unificar-propuestas">Unificar Propuestas</a>
+					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/ver-propuestas-unificadas">Ver Propuestas Unificadas</a>
+
+			</div>
 			<!-- begin row -->
 			<div class="row">
 				<!-- begin col-8 -->

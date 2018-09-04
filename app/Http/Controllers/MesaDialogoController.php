@@ -46,8 +46,21 @@ class MesaDialogoController extends Controller
      */
     public function index(Request $request)
     {
-        $mesas_dialogo = MesaDialogo::search($request->parametro)->orderBy('id','DESC')->paginate(15);
-        
+        //dd($request->parametro);
+
+
+        $usuario_consejo = DB::table('users')
+                        ->select('*')
+                        ->join('institucion_usuarios', 'institucion_usuarios.usuario_id', '=', 'users.id')
+                        ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
+                        ->where('institucions.id', '=', $request->institucion_id)
+                        ->get();
+
+        //
+        $mesas_dialogo = MesaDialogo::search($request->parametro)
+                                        ->where('', $solucionAux['responsable_solucion'])
+                                        ->orderBy('id','DESC')->paginate(15);
+        //dd('uno');
         return view('admin.mesadialogo.home')->with(["mesasdialogo"=>$mesas_dialogo]);  
     }
 

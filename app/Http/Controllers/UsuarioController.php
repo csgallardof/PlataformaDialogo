@@ -7,6 +7,7 @@ use App\ActorSolucion;
 use App\Solucion;
 use App\User;
 use App\Pajustada;
+use App\InstitucionUsuario;
 use DB;
 use Laracasts\Flash\Flash;
 use Mail;
@@ -23,7 +24,7 @@ class UsuarioController extends Controller {
 
         $instituciones = Institucion::where('nombre_institucion', 'like', '%' . $request->input('search') . '%')
                         ->orwhere('siglas_institucion', 'like', '%' . $request->input('search') . '%')->paginate(10);
-         $usuarios = User::where('name', 'like', '%' . $request->input('search') . '%')
+        $usuarios = User::where('name', 'like', '%' . $request->input('search') . '%')
                         ->orwhere('apellidos', 'like', '%' . $request->input('search') . '%')->paginate(10);
     
         return view('admin.usuario.home')->with(["instituciones" => $instituciones
@@ -35,7 +36,9 @@ class UsuarioController extends Controller {
     }
 
     public function store(Request $request) {
-         $usuario = new User;
+        
+
+        $usuario = new User;
         $this->validate($request, [
             'nombre_usuario' => 'required',
             'apellidos_usuario' => 'required',
@@ -63,9 +66,61 @@ class UsuarioController extends Controller {
         $usuario->telefono = $request->telefono;
         $usuario->celular = $request->celular;
         $usuario->institucion_id = 0;//por verificar si debe ser ingresada informacion o no en este campo
-        $usuario->save();
 
-          return redirect('admin/listar-usuario');
+        //$usuario->save();
+      
+        if($request->crear_usuario_consejo =1 ){
+
+           //dd('institucion_id'.$request->institucion_id);
+
+           // $usuario_consejo= DB::select('SELECT *
+             //          from users
+           //          inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+           //          inner join institucions on institucions.id = institucion_usuarios.institucion_id
+           //          where institucions.id ='.$request->institucion_id)->get();
+
+           $usuario_consejo = DB::table('users')
+                        ->select('*')
+                        ->join('institucion_usuarios', 'institucion_usuarios.usuario_id', '=', 'users.id')
+                        ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
+                        ->where('institucions.id', '=', $request->institucion_id)
+                        ->get();
+
+
+            if ($usuario_consejo->isEmpty()){
+
+                //dd('uno');
+                $usuario->save();
+
+
+                // insert en la tabla institucion usuario
+
+                $institucion_usuario_sql= DB::select('SELECT MAX(users.id) as UltimoUsuario from users');
+                //dd($usuario_institucion_sql[0]->UltimoUsuario);
+
+                $institucion_usuario = new InstitucionUsuario;
+                $institucion_usuario->institucion_id = $request->institucion_id;
+                $institucion_usuario->usuario_id = $institucion_usuario_sql[0]->UltimoUsuario;
+                $institucion_usuario->save();
+
+                Flash::success("El usuario se registró exitosamente");
+                return redirect('consejo-sectorial/listar-usuario');
+
+           }else{
+
+                Flash::success("La institucion ya cuenta con un usuaria asigando");
+                return redirect('consejo-sectorial/listar-usuario');
+           }
+
+
+
+          // $usuario->save();
+
+
+        }
+
+
+        return redirect('admin/listar-usuario');
     }
 
     /**
@@ -166,37 +221,9 @@ class UsuarioController extends Controller {
     }
 
     public function cambiarClave($id) {
-     // dd($id);
-
-     /*    $rolUsuario = RoleUser::find($id);
-
-         $usuario = User::find( $rolUsuario -> user_id);
-
-        $rol = Role::find($rolUsuario -> role_id);
-
-        $roles = Role::all();
-         return view('admin.rolusuario.edit')->with(['rolUsuario' => $rolUsuario, "usuario" => $usuario, "rol" => $rol,
-            "roles" => $roles]);
-
-*/
         $usuario = User::find($id);
-      // dd($usuario);
-       /* $this->validate($request, [
-            'clave' => 'required'
-                  ]
-                , [
-            'clave.required' => 'Debe ingresar la contraseña'
-        ]);
-
-
-        $usuario->name = $request->clave;*/
         $usuario->save();
-
-    //  return redirect('admin/listar-usuario');
-
-
         return view('admin.usuario.clave', compact('usuario'));
-
      }
 
 
@@ -213,27 +240,54 @@ class UsuarioController extends Controller {
         ]);
 
          if( $request->clave1 !=  $request->clave2){
-          // dd( "diferentes");
-           // $this-> 'La clave debe ser la misma';
-            //Flash::success("Mensaje de prueba1");
-            //flash('Message1')->error()->important();
-
-            //flash('mensaje', 'Este es el mensaje');
-
-
-             flash('mensaje')->important;
-             dd(flash('mensaje')->important);
+              Flash::error("Debe ingresar la misma clave");
+              return redirect('admin/cambiar-clave/'.$id);
         }else{
-            Flash::success("Mensaje de prueba2");
+             $usuario->password = bcrypt($request->clave1);
+             $usuario->save();
+             Flash::success("Clave actualizada correctamente");
+               return redirect('admin/listar-usuario');
         }
-
-//dd( $request->clave1);
-        $usuario->password = bcrypt($request->clave1);
-
-         $usuario->save();
-
-        return redirect('admin/listar-usuario');
+    
     }
 
+    public function usuarios_cs() {
+        
+        $usuarios= DB::select('SELECT *, institucions.siglas_institucion        
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where consejo_sectorials.id=(select consejo_sectorials.id
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where users.id ='.Auth::user()->id.') order by users.id desc');
+
+
+        return view('admin.usuario.home-cs')->with(["usuarios"=>$usuarios]);
+    }
+
+
+    public function nuevo_usuario_institucion() {
+
+        $usuario_consejo= DB::select('SELECT institucions.id , institucions.nombre_institucion, institucions.siglas_institucion        
+        from institucions
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where consejo_sectorials.id=(select consejo_sectorials.id
+        from users
+        inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+        inner join institucions on institucions.id = institucion_usuarios.institucion_id
+        inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+        inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+        where users.id ='.Auth::user()->id.') order by institucions.id desc');
+
+
+        return view('admin.usuario.create-cs')->with(["usuario_consejo" => $usuario_consejo]);
+    }
 
 }

@@ -587,7 +587,7 @@
                         <?php session_start();
                         unset($_SESSION['ciudadano_evalua']);?>
 
-				@if(!Auth::user())
+				
 					<?php if(!isset($_SESSION['ciudadano_evalua'])){ ?>
 						@if(!Session::has('ciudadano_evalua'))
 						<div class="panel panel-inverse overflow-hidden">
@@ -678,7 +678,7 @@
 						</div>
 					    @endif
 					<?php } ?>
-				@endif
+				
 						<!-- fin de panel de evaluacion de ciudadanos-->
 
 					</div>
