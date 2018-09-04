@@ -40,142 +40,87 @@
         </script>
     @yield('start_css2')
 </head>
+<body data-spy="scroll" data-target="#header-navbar" data-offset="51">
 
-<body>
-	<!-- begin #page-loader -->
-	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
-	<!-- end #page-loader -->
+    <div id="page-container" class="fade">
+            @include ('layouts.menu_institucion')
+            <br><br><br><br><br><br>
+            @yield ('content')
+            @include ('layouts.common_modals')
+            @include ('layouts.footer')
+    </div>
 
-	<!-- begin #page-container -->
-	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
-		<!-- begin #header -->
-		<div id="header" class="header navbar navbar-default navbar-fixed-top">
-			<!-- begin container-fluid -->
-			<div class="container-fluid">
-				<!-- begin mobile sidebar expand / collapse button -->
-				<div class="navbar-header">
-					<a href="{{ url('institucion/home') }}" class="navbar-brand">
-								<img src="{{ asset('imagenes/logo_mipro_white.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="130px" height="46px">
-					</a>
-					<img src="{{ asset('imagenes/inteligencia_productiva_home_white.png') }}" class="center-block img-responsive m-t-20" alt="Cinque Terre" width="250px" height="65px">
-					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<!-- end mobile sidebar expand / collapse button -->
+    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-				<!-- begin header navigation right -->
-				<ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
- 
+    @section('end_js')
+            <!-- ================== BEGIN BASE JS ================== -->
+            <script src="{{ asset('plugins/jquery/jquery-1.9.1.min.js') }}"></script>
+            <script src="{{ asset('plugins/jquery/jquery-migrate-1.1.0.min.js') }}"></script>
+            <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+            <!--[if lt IE 9]>
+              <script src="{{ asset('crossbrowserjs/html5shiv.js') }}"></script>
+              <script src="{{ asset('crossbrowserjs/respond.min.js') }}"></script>
+              <script src="{{ asset('crossbrowserjs/excanvas.min.js') }}"></script>
+            <![endif]-->
+            <script src="{{ asset('plugins/jquery-cookie/jquery.cookie.js') }}"></script>
+            <script src="{{ asset('plugins/scrollMonitor/scrollMonitor.js') }}"></script>
+            <!-- ================== END BASE JS ================== -->
+            <script src="{{ asset('plugins/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+            <script src="{{ asset('plugins/DataTables/js/jquery.dataTables.js') }}"></script>
+            <script src="{{ asset('plugins/DataTables/js/dataTables.responsive.js') }}"></script>
+            <script src="{{ asset('js/table-manage-responsive.demo.min.js') }}"></script>
+            <script src="{{ asset('js/custom-mipro.js') }}"></script>
+            <script src="{{ asset('js/apps.js') }}"></script>
+            <script src="{{ asset('js/dashboard.js') }}"></script>
+            <script src="{{ asset('js/dropdown.js') }}"></script>
+            
 
-					
-					<li class="dropdown navbar-user">
-						<a href="javascript:;" class="dropdown-toggle" style="color: #FFF" data-toggle="dropdown">
-							<span class="hidden-xs">
-							@auth 
-								{{ Auth::user()->name }} 
-							@endauth </span>2 <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu animated fadeInLeft">
-							<!-- <li class="arrow"></li>
-							<li><a href="javascript:;">Editar Perfil</a></li>
-							<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span>Mensajes</a></li>
-							<li><a href="javascript:;">Ajustes</a></li>
-							<li class="divider"></li> -->
-							 <li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
-											
-							<li>
-								<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        	                		Salir
-                        		</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-						</ul>
-					</li>
-				</ul>
-				<!-- end header navigation right -->
-
-				
-			</div>
-			<!-- end container-fluid -->
-		</div>
-		<!-- end #header -->
-
-		<!-- begin #sidebar -->
+    @show
 
 
+    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/masked-input/masked-input.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/password-indicator/js/password-indicator.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-combobox/js/bootstrap-combobox.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-tag-it/js/tag-it.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-daterangepicker/moment.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/form-plugins.demo.min.js') }}"></script>
+    <script src="{{ asset('js/apps.min.js') }}"></script>
+    <script src="{{ asset('js/Solucion/comboSolucion.js') }}"></script>
+    
+    <script src="{{ asset('plugins/DataTables/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('plugins/DataTables/js/dataTables.colReorder.js') }}"></script>
+    <script src="{{ asset('plugins/gritter/js/jquery.gritter.js') }}"></script>
+    <script src="{{asset ('plugins/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset ('plugins/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js')}}"></script>
+    <script src="{{asset ('plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js')}}"></script>
+    <script src="{{asset ('js/form-wysiwyg.demo.min.js')}}"></script>
 
-		<!-- html comment -->
+    <script src="{{ asset('plugins/DataTablesv2/datatables.js') }}"></script>
+    <script src="{{ asset('js/table-manage-responsive.demo.js') }}"></script>
+    <!-- ================== END PAGE LEVEL JS ================== -->
 
+    
 
-
-
-
-		<!-- end #sidebar -->
-
-
-
-		@yield('content')
-
-		<!-- begin scroll to top btn -->
-		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
-		<!-- end scroll to top btn -->
-	</div>
-		 
-	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="{{ asset('plugins/jquery/jquery-1.9.1.min.js') }}"></script>
-	<script src="{{ asset('plugins/jquery/jquery-migrate-1.1.0.min.js') }}"></script>
-	<script src="{{ asset('plugins/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
-	<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-	<!--[if lt IE 9]>
-		<script src="assets/crossbrowserjs/html5shiv.js"></script>
-		<script src="assets/crossbrowserjs/respond.min.js"></script>
-		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
-	<![endif]-->
-	<script src="{{ asset('plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-	<script src="{{ asset('plugins/jquery-cookie/jquery.cookie.js') }}"></script>
-	<!-- ================== END BASE JS ================== -->
-
-	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="{{ asset('plugins/gritter/js/jquery.gritter.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.min.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.time.min.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.resize.min.js') }}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.pie.min.js') }}"></script>
-	<script src="{{ asset('plugins/sparkline/jquery.sparkline.js') }}"></script>
-	<script src="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-	<script src="{{ asset('plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-	<script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-	<script src="{{ asset('js/dashboard.js') }}"></script>
-	<script src="{{asset ('plugins/ckeditor/ckeditor.js')}}"></script>
-	<script src="{{asset ('plugins/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js')}}"></script>
-	<script src="{{asset ('plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js')}}"></script>
-	<script src="{{asset ('js/form-wysiwyg.demo.min.js')}}"></script>
-	<script src="{{ asset('js/apps.min.js') }}"></script>
-
-	<!-- ================== END PAGE LEVEL JS ================== -->
-
-	<script>
-		$(document).ready(function() {
-			
-			App.init();
-			FormWysihtml5.init();
-			Dashboard.init();
-			
-			 
-		});
-	</script>
-	
-	<script>
-	function cuenta(){
-    	document.getElementById('nunCaracteres').innerHTML= document.getElementById('exampleTextarea').value.length + '/280 caracteres';
-	}
-
-</script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            FormWysihtml5.init();
+            FormPlugins.init();
+            TableManageResponsive.init();
+        });
+    </script>
+    @yield('init_scripts')
 
 
 </body>
