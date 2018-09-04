@@ -43,7 +43,7 @@ class NotificacionQuincenalController extends Controller
 
             if($email_origen==$email_next)
             {
-                $usuarioArray[$contador] =array($notificacion_responsable->problema_solucion,$notificacion_responsable->estado_solucion,$notificacion_responsable->solucion_id);
+                $usuarioArray[$contador] =array($notificacion_responsable->problema_solucion,$notificacion_responsable->estado_solucion,$notificacion_responsable->solucion_id, $notificacion_responsable->atendida_quince);
                 $email_origen = $email_next;
                 $contador++;
             }else{
@@ -79,7 +79,7 @@ class NotificacionQuincenalController extends Controller
                 $contador=0;
                 unset($usuarioArray);
                 $usuarioArray = array();
-                $usuarioArray[$contador] =array($notificacion_responsable->problema_solucion,$notificacion_responsable->estado_solucion,$notificacion_responsable->solucion_id);
+                $usuarioArray[$contador] =array($notificacion_responsable->problema_solucion,$notificacion_responsable->estado_solucion,$notificacion_responsable->solucion_id, $notificacion_responsable->atendida_quince);
                 $email_origen = $email_next;
 
 
