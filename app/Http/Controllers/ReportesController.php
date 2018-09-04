@@ -46,6 +46,7 @@ $nombreusuario = $usuario[0]->name;
 
 $institucion = Institucion::where('id','=',$institucionUsuario[0]->intitucion_id)
                             ->get();
+                            
 $nombreinstitucion = $institucion[0]->nombre_institucion;
 //dd($institucionUsuario[0]->intitucion_id);
 //dd($nombre_institucion);
@@ -631,7 +632,7 @@ $numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo) {
             $sheet->row(1, [
                 'REPORTE DE MINISTERIO DE LA PLATAFORMA DEL DIALOGO NACIONAL'
             ]);
-            
+
             $sheet->row(2, [
                 'DATOS INFORMATIVOS'
             ]);
