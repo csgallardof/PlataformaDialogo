@@ -476,5 +476,39 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
     }
 
+
+ public function cambiarClave($id) {
+   // dd("cambiarClave");
+        $usuario = User::find($id);
+        $usuario->save();
+        return view('institucion.clave', compact('usuario'));
+     }
+
+
+     public function updateClave(Request $request, $id) {
+     //    dd("updateClave");
+        $usuario = User::find($id);
+       
+        $this->validate($request, [
+            'clave1' => 'required',
+            'clave2' => 'required'
+                  ]
+                , [
+            'clave1.required' => 'Debe ingresar la clave',
+            'clave2.required' => 'Debe ingresar la clave'
+        ]);
+
+         if( $request->clave1 !=  $request->clave2){
+              Flash::error("Debe ingresar la misma clave");
+              return redirect('institucion/cambiar-clave/'.$id);
+        }else{
+             $usuario->password = bcrypt($request->clave1);
+             $usuario->save();
+             Flash::success("Clave actualizada correctamente");
+             return redirect('institucion/cambiar-clave/'.$id);
+        }
+    
+    }
+
 }
 

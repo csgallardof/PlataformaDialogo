@@ -166,37 +166,9 @@ class UsuarioController extends Controller {
     }
 
     public function cambiarClave($id) {
-     // dd($id);
-
-     /*    $rolUsuario = RoleUser::find($id);
-
-         $usuario = User::find( $rolUsuario -> user_id);
-
-        $rol = Role::find($rolUsuario -> role_id);
-
-        $roles = Role::all();
-         return view('admin.rolusuario.edit')->with(['rolUsuario' => $rolUsuario, "usuario" => $usuario, "rol" => $rol,
-            "roles" => $roles]);
-
-*/
         $usuario = User::find($id);
-      // dd($usuario);
-       /* $this->validate($request, [
-            'clave' => 'required'
-                  ]
-                , [
-            'clave.required' => 'Debe ingresar la contraseña'
-        ]);
-
-
-        $usuario->name = $request->clave;*/
         $usuario->save();
-
-    //  return redirect('admin/listar-usuario');
-
-
         return view('admin.usuario.clave', compact('usuario'));
-
      }
 
 
@@ -213,26 +185,15 @@ class UsuarioController extends Controller {
         ]);
 
          if( $request->clave1 !=  $request->clave2){
-          // dd( "diferentes");
-           // $this-> 'La clave debe ser la misma';
-            //Flash::success("Mensaje de prueba1");
-            //flash('Message1')->error()->important();
-
-            //flash('mensaje', 'Este es el mensaje');
-
-
-             flash('mensaje')->important;
-             dd(flash('mensaje')->important);
+              Flash::error("Debe ingresar la misma clave");
+              return redirect('admin/cambiar-clave/'.$id);
         }else{
-            Flash::success("Mensaje de prueba2");
+             $usuario->password = bcrypt($request->clave1);
+             $usuario->save();
+             Flash::success("Clave actualizada correctamente");
+               return redirect('admin/listar-usuario');
         }
-
-//dd( $request->clave1);
-        $usuario->password = bcrypt($request->clave1);
-
-         $usuario->save();
-
-        return redirect('admin/listar-usuario');
+    
     }
 
 

@@ -499,6 +499,17 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
    // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
+
+   //Cambio de contraseña
+   Route::get('/cambiar-clave/{id}', 'InstitucionController@cambiarClave');
+   Route::post('/cambiar-clave/{id}', 'InstitucionController@updateClave');
+
+
+//REPORTES
+ Route::get('/reportes','ReportesController@listaMinisterio');
+ Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
+ Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
+
 });
 
  
@@ -506,11 +517,13 @@ Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
 
 
+
+
 // Consejo Sectorial
 
 Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
-     
-     Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
+
+ Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
 
 });
 

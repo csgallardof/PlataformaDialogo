@@ -86,7 +86,7 @@
 							<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span>Mensajes</a></li>
 							<li><a href="javascript:;">Ajustes</a></li>
 							<li class="divider"></li> -->
-							<li><a href="#">Cambiar Contrase&ntilde;a</a></li>
+							 <li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
 											
 							<li>
 								<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

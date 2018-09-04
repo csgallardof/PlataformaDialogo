@@ -60,7 +60,6 @@
 										<ul class="dropdown-menu animated fadeInLeft">
 											<li class="arrow"></li>
 											 <li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
-
 											<li>
 												<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             		Salir

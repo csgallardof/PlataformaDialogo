@@ -9,7 +9,7 @@
                 <div class="panel-body">
 
                    
-<form class="form-horizontal" method="POST" action="/admin/cambiar-clave/{{$usuario->id}}"   >
+<form class="form-horizontal" method="POST" action="/institucion/cambiar-clave/{{$usuario->id}}"   >
                            {{ csrf_field() }}
                         @section('edit_Method')
                         @show
