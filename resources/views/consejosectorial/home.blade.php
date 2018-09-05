@@ -106,7 +106,7 @@
                                                     <span class="label label-success f-s-12"  style="background-color: #28B463">                
                                                             {{$resultados_propuesta->nombre_estado}}
                                                     </span>
-                                                        
+                                                            
                                                 @endif
 
                                                 @if($resultados_propuesta->nombre_estado=="En Desarrollo")

@@ -264,6 +264,154 @@ class ActividadesController extends Controller
         }
     }
 
+
+    //Inicio Aperturar propuestas
+
+        public function vistaAperturarPropuesta($idSolucion){
+
+         Flash::success("Registre la Actividad para finalizar la Propuesta");
+
+         //dd('hola');
+        $solucion = Solucion::find($idSolucion);
+
+        $tipo_fuente = Auth::user()->tipo_fuente;
+
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                ->orderBy('created_at','ASC')->get();
+
+        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('tipo_actor','ASC')->get();
+        
+        return view('institucion.actividades.createAccionFinalizarPropuesta')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
+    }
+
+    public function AperturarPropuestaSolucion(Request $request, $tipo_fuente, $idSolucion){
+
+        $Solucion = Solucion::find($idSolucion);
+        $Solucion-> estado_id = 4;
+        $Solucion-> save();
+
+        $actividad = new Actividad;
+        $actividad-> comentario = $request-> comentario;
+        $actividad-> solucion_id = $idSolucion;
+        $actividad-> ejecutor_id = $request-> institucion_id;
+        $actividad-> tipo_fuente = $tipo_fuente;
+        if( isset($request-> fecha) ){
+            $actividad-> fecha_inicio = $request-> fecha. " 00:00:00";
+            if($request->tipo_fuente_id ==1){
+                    $solucion = Solucion::find($idSolucion);
+                    $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
+                    $solucion->save();
+                }
+                if($request->tipo_fuente_id ==2){
+                    $pajustada = Pajustada::find($idSolucion);
+
+                    $solucionesOriginales = Solucion::where('pajustada_id','=',$idSolucion)->get();
+                    foreach ($solucionesOriginales as $solucion) {
+                        $solucionCCPT= Solucion::find($solucion-> id);
+                        $solucionCCPT-> estado_id = 3;  // 3 = Propuesta en desarrollo
+                        $solucionCCPT->save();
+                    }
+                }
+        }
+
+        $actividad-> save();
+
+        $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
+            $solucionAsignada = Solucion::find($idSolucion);
+            
+            //dd($actividadcreada->fecha_inicio,$solucionAsignada->pajustada_id,$SolucionesUnificadas);
+            
+            if($solucionAsignada->pajustada_id>0){
+                
+            $SolucionesUnificadas = DB::table('solucions')->where('pajustada_id', $solucionAsignada->pajustada_id)->get();
+            //dd($SolucionesUnificadas);
+            foreach($SolucionesUnificadas as $SolucionesUnificadas){
+
+                //var_dump($SolucionesUnificadas->id);
+                    if($SolucionesUnificadas->id!=$idSolucion){
+
+                        $SolucionUnificadaFinalizado = Solucion::find($SolucionesUnificadas->id);
+                        $SolucionUnificadaFinalizado-> estado_id = 4;
+                        $SolucionUnificadaFinalizado-> save();
+                        //dd('entre al if');
+                        $actividadUnificada=new Actividad;
+                        $actividadUnificada-> fecha_inicio = $actividadcreada->fecha_inicio;
+                        $actividadUnificada-> comentario   = $actividadcreada->comentario;
+                        $actividadUnificada-> solucion_id = $SolucionesUnificadas->id;
+                        $actividadUnificada-> tipo_fuente = $actividadcreada->tipo_fuente;
+                        $actividadUnificada-> ejecutor_id = $actividadcreada->ejecutor_id;
+                        $actividadUnificada-> save();
+
+                        
+                    }
+                    //dd("no entre en el if");
+            }
+            }
+
+
+         $nombreArchivos="";   
+
+        $files = $request->file('files');
+
+        if($request->hasFile('files'))
+        {
+            foreach ($files as $file) {
+
+                $nombreArchivo = $file->getClientOriginalName();
+                $nombreArchivo = strtotime("now")."_despliegue_".$idSolucion."_-_".$nombreArchivo;     // agregamos la fecha
+
+                $archivo = new Archivo;
+                $archivo-> nombre_archivo= $nombreArchivo;
+                $archivo-> actividad_id= $actividad->id;
+                $archivo->save();
+                $nombreArchivos.=$nombreArchivo.",";
+                /*$file = $request->file('imagen');*/
+                \Storage::disk('local3')->put($nombreArchivo,  \File::get($file) );
+            }
+        }
+
+        $nombreArchivos=substr($nombreArchivos,0,-1);
+        //dd($nombreArchivos);
+        
+
+                $actividadesUnificadas = DB::table('actividades')->where('comentario', $request-> comentario)->get();
+                //dd($actividadesUnificadas,$nombreArchivos,$actividad->id);
+
+            foreach($actividadesUnificadas as $actividadesUnificadas){
+                $array = explode(",", $nombreArchivos);
+                        
+                    if($actividadesUnificadas->id!=$actividad->id){
+                        
+                        
+                        foreach ($array as $array) {
+                           //dd('entre al 2 '); 
+                            $archivoUnificado = new Archivo;
+                            //dd('estoy 1');
+                            $archivoUnificado-> nombre_archivo= $array;
+                            //dd('estoy 2', $array);
+                            $archivoUnificado-> actividad_id= $actividadesUnificadas->id;
+                            //dd('estoy 3', $actividadesUnificadas->id);
+                            $archivoUnificado->save();
+                            //dd('Guardado 2');
+                        }
+
+                    }
+                    //dd("no entre en el if");
+            }
+
+
+        Flash::success("Se ha creado la actividad exitosamente y ha finalizado la Propuesta");
+        if($tipo_fuente == 1){
+            return redirect()->route('verSolucion.despliegue',[1,$idSolucion]);
+        }else{
+            return redirect()->route('verSolucion.consejo',[1, $idSolucion]);
+        }
+    }
+
+    //Fin Aperturar propuestas
+
+
     public function verActividadesConsejo($tipo_actor, $idSolucion){
 
         if( $tipo_actor != 1 && $tipo_actor != 2 ){
@@ -684,8 +832,9 @@ class ActividadesController extends Controller
       // dd('uno');
 
 
-        $solucion = DB::select("SELECT solucions.* FROM solucions
+        $solucion = DB::select("SELECT solucions.*, estado_solucion.nombre_estado FROM solucions
                                 INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
+                                INNER JOIN estado_solucion on estado_solucion.id = solucions.estado_id
                                 INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
                                 WHERE asl.solucion_id = ".$idSolucion." ;");
 
@@ -705,12 +854,27 @@ class ActividadesController extends Controller
 
         $tipo_fuente = Auth::user()->tipo_fuente; 
 
-        return view('institucion.actividades.solucionDesp')->with(["actoresSoluciones"=>$actoresSoluciones,
+        return view('institucion.actividades.solucionConsejo')->with(["actoresSoluciones"=>$actoresSoluciones,
                                                             "solucion"=>$solucion[0],
                                                             "actividades"=>$actividades,
                                                             "tipo_actor"=>$tipo_actor,
                                                             "tipo_fuente"=>$tipo_fuente
                                                         ]);
+    }
+
+    public function vistaEditParametrosCumplimiento($idSolucion){
+
+        $tipo_fuente = Auth::user()->tipo_fuente;
+        
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                ->where('tipo_fuente','=', 1)
+                                ->orderBy('created_at','DESC')->get();
+        $solucion = DB::table('solucions')->where('id', $idSolucion )->first();
+
+
+        //dd($solucion);
+        return view('institucion.actividades.editParametrosCumplimiento')->with(["idSolucion"=>$idSolucion,"tipo_fuente"=>$tipo_fuente,"actividades"=>$actividades,"solucion"=>$solucion]);
+
     }
 
 }

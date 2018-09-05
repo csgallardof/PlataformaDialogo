@@ -44,12 +44,14 @@ $nombreusuario = $usuario[0]->name;
 //dd($nombreusuario);
 
 
-$institucion = Institucion::where('id','=',$institucionUsuario[0]->intitucion_id)
+$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
                             ->get();
                             
+
 $nombreinstitucion = $institucion[0]->nombre_institucion;
-//dd($institucionUsuario[0]->intitucion_id);
+//dd($institucionUsuario[0]->institucion_id);
 //dd($nombre_institucion);
+
 
 //dd($institucion[0]->id);
 $consejo = DB::select("SELECT consejo_sectorials.nombre_consejo,institucions.id FROM consejo_sectorials 
@@ -352,10 +354,10 @@ $nombreusuario = $usuario[0]->name;
 //dd($nombreusuario);
 
 
-$institucion = Institucion::where('id','=',$institucionUsuario[0]->intitucion_id)
+$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
                             ->get();
 $nombreinstitucion = $institucion[0]->nombre_institucion;
-//dd($institucionUsuario[0]->intitucion_id);
+//dd($institucionUsuario[0]->institucion_id);
 //dd($nombre_institucion);
 
 //dd($institucion[0]->id);
@@ -747,10 +749,10 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 			//dd($nombreusuario);
 
 
-			$institucion = Institucion::where('id','=',$institucionUsuario[0]->intitucion_id)
+			$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
 			                            ->get();
 			$nombreinstitucion = $institucion[0]->nombre_institucion;
-			//dd($institucionUsuario[0]->intitucion_id);
+			//dd($institucionUsuario[0]->institucion_id);
 			//dd($nombre_institucion);
 
 			//dd($institucion[0]->id);
