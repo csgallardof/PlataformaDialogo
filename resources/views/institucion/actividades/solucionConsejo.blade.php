@@ -110,7 +110,7 @@
 															</div>
 															<div class="modal-footer">
 																<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cerrar</a>
-																<a href="{{ route('cierre.Propuesta',$solucion->id) }}" class="btn btn-sm btn-danger">Continuar</a>
+																<a href="{{ route('aperturar.Propuesta',$solucion->id) }}" class="btn btn-sm btn-danger">Continuar</a>
 															</div>
 														</div>
 													</div>

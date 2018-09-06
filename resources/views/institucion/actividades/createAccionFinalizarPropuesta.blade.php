@@ -1,4 +1,4 @@
-@extends('layouts.institucion') 
+@extends('layouts.consejo-sectorial') 
 
 @section('content')
 
@@ -33,6 +33,7 @@
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;">&nbsp;</a>
+							
 						</div>
 					</div>
 				</div>
@@ -62,7 +63,7 @@
 									<hr>
 									<br>
 									@include('flash::message')
-									<form  method="POST" action="{{ route('actividadCierre.saveActividad',[ 1,$solucion->id]) }}" enctype="multipart/form-data">
+									<form  method="POST" action="{{ route('actividadAperturar.saveActividad',[ 1,$solucion->id]) }}" enctype="multipart/form-data">
 										{{ csrf_field() }}
 										<input type="hidden" name="tipo_fuente_id" value="1">
 									 	
