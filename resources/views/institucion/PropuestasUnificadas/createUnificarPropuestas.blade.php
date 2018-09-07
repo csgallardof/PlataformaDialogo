@@ -50,7 +50,7 @@
 	                         <p>
 								@foreach($solucionesDespliegue as $solucionD)
 
-								{{$solucionD-> verbo_solucion." ".$solucionD-> sujeto_solucion." ".$solucionD-> complemento_solucion}} <br> <br>
+								{{$solucionD-> propuesta_solucion}} <br> <br>
 
 								@endforeach
 							</p>
