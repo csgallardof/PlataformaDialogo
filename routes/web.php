@@ -495,7 +495,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
     Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');  
-     Route::get('/detalle-propuestas-unificadas/{id}','PropuestasUnificadasController@detallePropuestasUnificadas');  
+    Route::get('/detalle-propuestas-unificadas/{id}','PropuestasUnificadasController@detallePropuestasUnificadas');  
    // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
@@ -568,6 +568,14 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::post('actividad-aperturar-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@AperturarPropuestaSolucion','as'=>'actividadAperturar.saveActividad']);
 
       Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+
+     //REPORTES
+     Route::get('/reportes','ReportesController@listaPorConsejo');
+     Route::post('/reportesPorInstitucion/{idInstitucion}',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
+
+
+ Route::post('/reporte-consejo/descargar-excel','ReportesController@exportarExcelReporteConsejo'); 
+ Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
 
 
 
