@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConflictoToSolucions extends Migration
+class AddPlanificadoInstrumentoToSolucions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddConflictoToSolucions extends Migration
      */
     public function up()
     {
-        //
-         Schema::table('solucions', function (Blueprint $table) {
-            $table->boolean('conflicto')->comment="propuesta en conflicto";
+        Schema::table('solucions', function (Blueprint $table) {
+            //
+            $table->string('planificado_instrumento')->comment="Instrumento de planificacion o justificacion";
         });
     }
 
@@ -26,10 +26,9 @@ class AddConflictoToSolucions extends Migration
      */
     public function down()
     {
-        //
         Schema::table('solucions', function (Blueprint $table) {
-            $table->dropColumn('conflicto');
             //
+            $table->dropColumn('planificado_instrumento');
         });
     }
 }

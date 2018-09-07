@@ -77,6 +77,7 @@
                                             <th>Soluci&oacute;n</th>
                                             <th>Institucion</th>
                                             <th>Responsabilidad</th>
+                                            <th>Calificación</th>
                                             <th>Estado</th>
                                             <th>Acci&oacute;n</th>
                                         </tr>
@@ -100,6 +101,9 @@
                                                 @else
                                                 	Co-responsable
                                                 @endif
+                                            </td>
+                                            <td class="text-justify">
+                                                
                                             </td>
                                             <td class="text-justify">
                                                @if($resultados_propuesta->nombre_estado=="Finalizado")

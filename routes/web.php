@@ -261,23 +261,23 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
      //Route::get('/editar-reporte-alerta/{id}','CspReportesController@vistaEditarReporteAlerta');
 
 
-     Route::get('actores/asignar-responsable/{idSolucion}',[
-          'uses'=>'InstitucionController@createAsignar',
-          'as'=>'actorSolucion.create' 
-     ]);
+     // Route::get('actores/asignar-responsable/{idSolucion}',[
+     //      'uses'=>'InstitucionController@createAsignar',
+     //      'as'=>'actorSolucion.create' 
+     // ]);
 
 
-      Route::get('/mesadialogo/matrizCarga',[
-          'uses'    =>   'MesaDialogoController@matrizCarga',
-          'as'      =>   'mesadialogo.matrizCarga'
-     ]);
+     //  Route::get('/mesadialogo/matrizCarga',[
+     //      'uses'    =>   'MesaDialogoController@matrizCarga',
+     //      'as'      =>   'mesadialogo.matrizCarga'
+     // ]);
 
-     Route::post('/mesadialogo/vistaPreviaMesas',[ 
-          'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
-          'as'      =>   'mesadialogo.vistaPreviaMesas'
-     ]);
+     // Route::post('/mesadialogo/vistaPreviaMesas',[ 
+     //      'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
+     //      'as'      =>   'mesadialogo.vistaPreviaMesas'
+     // ]);
      
-     Route::resource('mesadialogo','MesaDialogoController');
+     // Route::resource('mesadialogo','MesaDialogoController');
 
 //Administrar Consejo Sectorial
 Route::get('/crear-consejo-sectorial', 'ConsejoSectorialController@create');
@@ -563,7 +563,11 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      Route::get('parametros-cumplimiento/edit/{idSolucion}',['uses'=>'ActividadesController@vistaEditParametrosCumplimiento','as'=>'solucion.EditparametrosCumplimiento']);
 
-     Route::get('finalizar/actividad/create/{idSolucion}',['uses'=>'ActividadesController@vistaFinalizarPropuesta','as'=>'cierre.Propuesta']);
+     Route::get('aperturar/actividad/update/{idSolucion}',['uses'=>'ActividadesController@vistaAperturarPropuesta','as'=>'aperturar.Propuesta']);
+
+     Route::post('actividad-aperturar-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@AperturarPropuestaSolucion','as'=>'actividadAperturar.saveActividad']);
+
+      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
      //REPORTES
      Route::get('/reportes','ReportesController@listaPorConsejo');

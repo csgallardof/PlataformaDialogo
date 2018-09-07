@@ -20,6 +20,8 @@
 			                    <ul class="nav navbar-nav">
 			                        <li><a href="/consejo-sectorial/listar-usuario">Usuarios</a></li>
 			                        <li><a href="/consejo-sectorial/reportes">Reportes</a></li>
+			                        <li><a href="#">Propuestas Desestimadas</a></li>
+			                        <li><a href="#">Propuestas en Conflicto</a></li>
 			                    </ul>
 			                    
 

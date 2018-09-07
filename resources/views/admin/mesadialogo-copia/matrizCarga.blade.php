@@ -1,4 +1,4 @@
-@extends('layouts.institucion')
+@extends('layouts.app')
 
 @section('start_css')
   @parent
@@ -36,7 +36,7 @@
                                     <li>Haga click en <b>"Vista Previa"</b> para visualizar posibles errores o confirmar datos.</li>
                                 </ol>
                             </blockquote>
-                            <form id="fileupload" action="{{ url('/institucion/mesadialogo/vistaPreviaMesas') }}" method="POST" files="true" enctype="multipart/form-data">
+                            <form id="fileupload" action="{{ url('/admin/mesadialogo/vistaPreviaMesas') }}" method="POST" files="true" enctype="multipart/form-data">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="row fileupload-buttonbar">
                                     <div class="col-md-8 col-md-offset-4">

@@ -269,10 +269,18 @@ class ActividadesController extends Controller
 
         public function vistaAperturarPropuesta($idSolucion){
 
-         Flash::success("Registre la Actividad para finalizar la Propuesta");
+        Flash::success("Registre la Actividad para APERTURAR la Propuesta");
 
          //dd('hola');
         $solucion = Solucion::find($idSolucion);
+
+        $solucion_estado = DB::select("SELECT estado_solucion.* FROM solucions
+                                INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
+                                INNER JOIN estado_solucion on estado_solucion.id = solucions.estado_id
+                                INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
+                                WHERE asl.solucion_id = ".$idSolucion." ;");
+
+
 
         $tipo_fuente = Auth::user()->tipo_fuente;
 
@@ -280,19 +288,27 @@ class ActividadesController extends Controller
                                 ->orderBy('created_at','ASC')->get();
 
         $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
-                                            ->orderBy('tipo_actor','ASC')->get();
+                                            ->where('tipo_actor','=',1)
+                                            ->get();
+                                            //->orderBy('tipo_actor','ASC')->get();
         
-        return view('institucion.actividades.createAccionFinalizarPropuesta')->with(["solucion"=>$solucion,"actividades"=>$actividades,"actoresSoluciones"=>$actoresSoluciones,"tipo_fuente"=>$tipo_fuente]);
+        return view('institucion.actividades.createAccionAperturarPropuesta')->with(["solucion"=>$solucion,
+            "actividades"=>$actividades,
+            "actoresSoluciones"=>$actoresSoluciones,
+            "tipo_fuente"=>$tipo_fuente,
+            "solucion_estado"=>$solucion_estado]);
     }
 
     public function AperturarPropuestaSolucion(Request $request, $tipo_fuente, $idSolucion){
 
+        //dd('uno');
+
         $Solucion = Solucion::find($idSolucion);
-        $Solucion-> estado_id = 4;
+        $Solucion-> estado_id = 3;
         $Solucion-> save();
 
         $actividad = new Actividad;
-        $actividad-> comentario = $request-> comentario;
+        $actividad-> comentario = "Reapertura por motivo".$request-> comentario;
         $actividad-> solucion_id = $idSolucion;
         $actividad-> ejecutor_id = $request-> institucion_id;
         $actividad-> tipo_fuente = $tipo_fuente;
@@ -303,16 +319,7 @@ class ActividadesController extends Controller
                     $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
                     $solucion->save();
                 }
-                if($request->tipo_fuente_id ==2){
-                    $pajustada = Pajustada::find($idSolucion);
-
-                    $solucionesOriginales = Solucion::where('pajustada_id','=',$idSolucion)->get();
-                    foreach ($solucionesOriginales as $solucion) {
-                        $solucionCCPT= Solucion::find($solucion-> id);
-                        $solucionCCPT-> estado_id = 3;  // 3 = Propuesta en desarrollo
-                        $solucionCCPT->save();
-                    }
-                }
+                
         }
 
         $actividad-> save();
@@ -332,7 +339,7 @@ class ActividadesController extends Controller
                     if($SolucionesUnificadas->id!=$idSolucion){
 
                         $SolucionUnificadaFinalizado = Solucion::find($SolucionesUnificadas->id);
-                        $SolucionUnificadaFinalizado-> estado_id = 4;
+                        $SolucionUnificadaFinalizado-> estado_id = 3;
                         $SolucionUnificadaFinalizado-> save();
                         //dd('entre al if');
                         $actividadUnificada=new Actividad;
@@ -401,12 +408,10 @@ class ActividadesController extends Controller
             }
 
 
-        Flash::success("Se ha creado la actividad exitosamente y ha finalizado la Propuesta");
-        if($tipo_fuente == 1){
-            return redirect()->route('verSolucion.despliegue',[1,$idSolucion]);
-        }else{
-            return redirect()->route('verSolucion.consejo',[1, $idSolucion]);
-        }
+        Flash::success("La apertura de ha realizado exitosamente");
+        
+        return redirect('/consejo-sectorial/home');
+        
     }
 
     //Fin Aperturar propuestas

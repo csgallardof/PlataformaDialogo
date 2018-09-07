@@ -32,7 +32,14 @@
 							</p>
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">&nbsp;</a>
+							<br>
+							
+							@if($solucion_estado[0]->nombre_estado =="Finalizado")
+                                <span class="label label-success f-s-12"  style="background-color: #28B463">                
+                                        {{$solucion_estado[0]->nombre_estado}}
+                                </span>
+                                        
+                            @endif
 						</div>
 					</div>
 				</div>
@@ -62,7 +69,7 @@
 									<hr>
 									<br>
 									@include('flash::message')
-									<form  method="POST" action="{{ route('actividadCierre.saveActividad',[ 1,$solucion->id]) }}" enctype="multipart/form-data">
+									<form  method="POST" action="{{ route('actividadAperturar.saveActividad',[ 1,$solucion->id]) }}" enctype="multipart/form-data">
 										{{ csrf_field() }}
 										<input type="hidden" name="tipo_fuente_id" value="1">
 									 	
@@ -97,7 +104,7 @@
 									                    
 									                        
 									                            
-									                        <label for="exampleTextarea">Comentario</label>
+									                        <label for="exampleTextarea">Motivo de la Apertura de la propuesta de solución</label>
 									                        
 									                        <div class="panel-body panel-form">
 									                            

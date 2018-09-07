@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEsCsToUserTable extends Migration
+class AddPlanificadoToSolucions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class AddEsCsToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('solucions', function (Blueprint $table) {
             //
-            $table->boolean('es_cs')->comment="si el usuario es consejo sectorial";
+            $table->string('planificado')->comment="SI / NO";
         });
-
-
     }
 
     /**
@@ -28,9 +26,9 @@ class AddEsCsToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('solucions', function (Blueprint $table) {
             //
-             $table->dropColumn('es_cs');
+            $table->dropColumn('planificado');
         });
     }
 }

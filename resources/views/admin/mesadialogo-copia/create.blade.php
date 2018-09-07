@@ -1,4 +1,4 @@
-@extends('layouts.institucion')
+@extends('layouts.app')
 
 @section('start_css')
   @parent
