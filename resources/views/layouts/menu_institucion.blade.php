@@ -20,8 +20,8 @@
 			                    <ul class="nav navbar-nav">
 			                    	<li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a>
 			                        <li><a href="#">Propuestas Ajustadas</a></li>
-			                        <li><a href="#">Responsables</a></li>
-			                    </ul>
+			                        <li><a href="/institucion/reportes">Reportes</a></li>
+   </ul>
 			                    
 
 			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">

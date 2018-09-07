@@ -45,7 +45,12 @@
                             <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
                         </tr>
 
-                        <tr>
+                         <tr>
+                           <td colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></td>
+                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
+                        </tr>
+
+                          <tr>
                            <td colspan="2" ><div align="left">Consejo Sectorial</div></td>
                             <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
                         </tr>
