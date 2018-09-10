@@ -13,6 +13,7 @@ use Laracasts\Flash\Flash;
 use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuditoriaController;
 
 class UsuarioController extends Controller {
  /**
@@ -73,12 +74,7 @@ class UsuarioController extends Controller {
 
            //dd('institucion_id'.$request->institucion_id);
 
-           // $usuario_consejo= DB::select('SELECT *
-             //          from users
-           //          inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
-           //          inner join institucions on institucions.id = institucion_usuarios.institucion_id
-           //          where institucions.id ='.$request->institucion_id)->get();
-
+         
            $usuario_consejo = DB::table('users')
                         ->select('*')
                         ->join('institucion_usuarios', 'institucion_usuarios.usuario_id', '=', 'users.id')
@@ -92,14 +88,24 @@ class UsuarioController extends Controller {
                 //dd('uno');
                 $usuario->save();
 
+   $usuarioGuardado = DB::select('SELECT * from users where name ="'.$request->nombre_usuario.'" and cedula = "'.$request->cedula.'"');
+   $idTabla = $usuarioGuardado[0] ->id;  
+   $nombreTabla = "users";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Ninguna";
+   $errores = "Ninguno";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
 
-                // insert en la tabla institucion usuario
+
+             // insert en la tabla institucion usuario
 
                 $institucion_usuario_sql= DB::select('SELECT MAX(users.id) as UltimoUsuario from users');
                 //dd($usuario_institucion_sql[0]->UltimoUsuario);
 
-                $institucion_usuario = new InstitucionUsuario;
-                $institucion_usuario->institucion_id = $request->institucion_id;
+                $institucion_usuario = new InstitucionUsuario;dd($request->institucion_id);
+                $institucion_usuario->institucion_id = $request->institucion_id; 
                 $institucion_usuario->usuario_id = $institucion_usuario_sql[0]->UltimoUsuario;
                 $institucion_usuario->save();
 
@@ -114,10 +120,7 @@ class UsuarioController extends Controller {
 
 
 
-          // $usuario->save();
-
-
-        }
+           }
 
 
         return redirect('admin/listar-usuario');
@@ -177,7 +180,18 @@ class UsuarioController extends Controller {
         $usuario->celular = $request->celular;
       //  $usuario->institucion_id = 0;//por verificar si debe ser ingresada informacion o no en este campo
 
+
          $usuario->save();
+
+   $usuarioGuardado = DB::select('SELECT * from users where name ="'.$request->nombre_usuario.'" and cedula = "'.$request->cedula.'"');
+   $idTabla = $usuarioGuardado[0] ->id;  
+   $nombreTabla = "users";
+   $proceso = "update";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Ninguna";
+   $errores = "Ninguno";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
 
         return redirect('admin/listar-usuario');
     }
