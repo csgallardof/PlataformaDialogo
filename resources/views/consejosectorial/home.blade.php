@@ -77,6 +77,7 @@
                                             <th>Soluci&oacute;n</th>
                                             <th>Institucion</th>
                                             <th>Responsabilidad</th>
+                                            <th>Calificación</th>
                                             <th>Estado</th>
                                             <th>Acci&oacute;n</th>
                                         </tr>
@@ -102,11 +103,14 @@
                                                 @endif
                                             </td>
                                             <td class="text-justify">
+                                                
+                                            </td>
+                                            <td class="text-justify">
                                                @if($resultados_propuesta->nombre_estado=="Finalizado")
                                                     <span class="label label-success f-s-12"  style="background-color: #28B463">                
                                                             {{$resultados_propuesta->nombre_estado}}
                                                     </span>
-                                                        
+                                                            
                                                 @endif
 
                                                 @if($resultados_propuesta->nombre_estado=="En Desarrollo")

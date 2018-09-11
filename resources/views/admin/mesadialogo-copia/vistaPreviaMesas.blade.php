@@ -1,4 +1,4 @@
-@extends('layouts.institucion')
+@extends('layouts.app')
 
 @section('content')
 			
@@ -12,7 +12,7 @@
 				</div>
 				
 				@if (count($errores) === 0 && count($errores_participante) === 0 && count($errores_solucion) === 0)					
-					<form action="{{ url('/institucion/mesadialogo') }}" method="POST" id="formGuardarDatos">
+					<form action="{{ url('/admin/mesadialogo') }}" method="POST" id="formGuardarDatos">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="mesa_dialogo" value="{{ $mesa_dialogo }}">
 						<input type="hidden" name="datos_participante" value="{{ $datos_participante }}">
@@ -216,8 +216,6 @@
 				                <th class="text-center">Indice de competitividad</th>
 				                <th class="text-center">Politica</th>
 				                <th class="text-center">Plan Nacional</th>
-				                <th class="text-center">Planificado</th>
-				                <th class="text-center">Planificado Instrumento</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -260,9 +258,6 @@
 										<td class="text-left">{{ $solucion->indice_competitividad->nombre_indice_competitividad }}</td>
 										<td class="text-left">{{ $solucion->politica->nombre_politica }}</td>
 										<td class="text-left">{{ $solucion->plan_nacional->nombre_plan_nacional }}</td>
-										<td class="text-left">{{ $solucion->planificado }}</td>
-										<td class="text-left">{{ $solucion->planificado_instrumento }}</td>
-
 						            </tr>
 					            @endforeach	
 					        @endif	            

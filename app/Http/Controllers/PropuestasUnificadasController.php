@@ -19,6 +19,15 @@ class PropuestasUnificadasController extends Controller
     public function mostrarPropuestas(){
     	$usuario_id = Auth::user()->id;
         $tipo_fuente = Auth::user()->tipo_fuente;
+
+        $usuario_consejo = DB::table('institucions')
+                        ->select('institucions.id')
+                        ->join('institucion_usuarios', 'institucion_usuarios.institucion_id', '=', 'institucions.id')
+                        ->join('users', 'users.id', '=', 'institucion_usuarios.usuario_id')
+                        ->where('users.id', '=', $usuario_id)
+                        ->get();
+        $institucion_id = $usuario_consejo[0]->id;
+        //dd( $usuario_consejo[0]->id);
        
 
         $totalDespliegue = Solucion::where('tipo_fuente','=',1)->count();
@@ -34,30 +43,20 @@ class PropuestasUnificadasController extends Controller
                                         INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
                                         LEFT JOIN pajustadas ON solucions.pajustada_id = pajustadas.id
                                         WHERE 
-                                        ( actor_solucion.tipo_fuente = 1 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 1 ) OR
-                                        ( actor_solucion.tipo_fuente = 1 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 2 ); 
+                                        ( actor_solucion.institucion_id = ".$institucion_id." AND tipo_actor = 1 ) OR
+                                        ( actor_solucion.institucion_id = ".$institucion_id." AND tipo_actor = 2 ); 
                                         ");
-        //dd($solucionesDespliegue);
-        $solucionesCCPT = DB::select("SELECT DISTINCT pajustadas.*, actor_solucion.tipo_actor, solucions.tipo_fuente 
-                                    FROM pajustadas 
-                                    INNER JOIN actor_solucion ON actor_solucion.solucion_id = pajustadas.id
-                                    INNER JOIN solucions ON solucions.pajustada_id = pajustadas.id
-
-                                    WHERE 
-                                    ( actor_solucion.tipo_fuente = 2 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 1 ) OR
-                                    ( actor_solucion.tipo_fuente = 2 AND actor_solucion.user_id = ".$usuario_id." AND tipo_actor = 2 ); 
-                                    ");
+        
 
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
-                                                    WHERE actor_solucion.user_id = ".$usuario_id." 
-                                                    AND actividades.ejecutor_id = ".$usuario_id."
+                                                    WHERE actor_solucion.user_id = ".$institucion_id." 
+                                                    AND actividades.ejecutor_id = ".$institucion_id."
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
         return view('institucion.PropuestasUnificadas.home')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
-                                                "solucionesCCPT"=>$solucionesCCPT,
                                                 "totalDespliegue"=>$totalDespliegue,
                                                 "totalConsejo"=>$totalConsejo,
                                                 "totalResponsable"=>$totalResponsable,
@@ -69,7 +68,7 @@ class PropuestasUnificadasController extends Controller
 
     public function obtenerPropuestasUnificadas(Request $request){
 
-
+        
         if( is_null($request['check'])){
             Flash::error("No a seleccionado ninguna propuesta. Seleccione 2 o mas Propuestas");
             return redirect('/institucion/unificar-propuestas');
@@ -80,10 +79,12 @@ class PropuestasUnificadasController extends Controller
         
     	for ($i=0; $i <count($checks) ; $i++) { 
             $check .= $checks[$i].",";
+            
         }
         $consulta=substr($check,0,-1);
-    	 $tipo_fuente = Auth::user()->tipo_fuente;
+    	$tipo_fuente = Auth::user()->tipo_fuente;
 
+         
 
     	
     	$solucionesDespliegue= DB::select("SELECT * FROM solucions WHERE id in($consulta)");
@@ -148,6 +149,8 @@ class PropuestasUnificadasController extends Controller
     }
 
     public function guardarPajustadaUnificar(Request $request){
+
+        Flash::error("Se ha guardo correctamente la propuesta ajustado");
 
 		$propuestas = $request['idPropuestas'];
 		$pAjusta = $request['palabraAjustada'];

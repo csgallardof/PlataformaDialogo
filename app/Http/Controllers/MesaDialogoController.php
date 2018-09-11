@@ -27,6 +27,7 @@ use App\ActorSolucion;
 use App\EstadoPublicacion;
 use App\IndiceCompetitividad;
 use App\PlanNacional;
+use App\InstitucionUsuario;
 
 use File;
 use DB;
@@ -46,21 +47,19 @@ class MesaDialogoController extends Controller
      */
     public function index(Request $request)
     {
+        //dd(Auth::user()->id);
+
+       // $institucion_usuario = InstitucionUsuario::select('usuario_id', Auth::user()->id);
+
+        $institucion_usuario = DB::table('institucion_usuarios')
+                                          ->where('usuario_id', Auth::user()->id)
+                                          ->select('*')
+                                          ->first();
+        //dd($institucion_usuario->institucion_id);
+
+        $mesas_dialogo = MesaDialogo::where('organizador_id',$institucion_usuario->institucion_id)
+                                    ->orderBy('id','DESC')->paginate(15);
         //dd($request->parametro);
-
-
-        $usuario_consejo = DB::table('users')
-                        ->select('*')
-                        ->join('institucion_usuarios', 'institucion_usuarios.usuario_id', '=', 'users.id')
-                        ->join('institucions', 'institucions.id', '=', 'institucion_usuarios.institucion_id')
-                        ->where('institucions.id', '=', $request->institucion_id)
-                        ->get();
-
-        //
-        $mesas_dialogo = MesaDialogo::search($request->parametro)
-                                        ->where('', $solucionAux['responsable_solucion'])
-                                        ->orderBy('id','DESC')->paginate(15);
-        //dd('uno');
         return view('admin.mesadialogo.home')->with(["mesasdialogo"=>$mesas_dialogo]);  
     }
 
@@ -226,7 +225,7 @@ class MesaDialogoController extends Controller
 
             Flash::success("La mesa de dialogo ha sido creada exitosamente.");
 
-            return redirect('/admin/mesadialogo');
+            return redirect('/institucion/mesadialogo');
         }// Guarda la información de la matriz Excel
         else{
             try{
@@ -376,6 +375,8 @@ class MesaDialogoController extends Controller
                         $solucion->indice_competitividad_id = $solucionAux['indice_competitividad_id'];
                         $solucion->politica_id = $solucionAux['politica_id'];
                         $solucion->plan_nacional_id = $solucionAux['plan_nacional_id'];
+                        $solucion->planificado = $solucionAux['planificado'];
+                        $solucion->planificado_instrumento = $solucionAux['planificado_instrumento'];
                         //dd($aux['organizador_id']);
                         
                         $InstitucionResponsableSiglas = DB::table('institucions')
@@ -465,7 +466,8 @@ class MesaDialogoController extends Controller
                 Flash::success("La información de la matriz ha sido guardada exitosamente.");
                 //Consulta las mesas de dialogo y presenta la lista
                 $mesas_dialogo = MesaDialogo::search($request->parametro)->orderBy('id','DESC')->paginate(15);
-                return view('admin.mesadialogo.home')->with(["mesasdialogo"=>$mesas_dialogo]);
+                //return view('admin.mesadialogo.home')->with(["mesasdialogo"=>$mesas_dialogo]);
+                return redirect('/institucion/mesadialogo');
 
             } catch(\Exception $e){
                 DB::rollBack();
@@ -777,13 +779,15 @@ class MesaDialogoController extends Controller
                         'indice_competitividad' => trim($objPHPExcel->getActiveSheet()->getCell('R'.$i)->getCalculatedValue()),
                         'politica' => trim($objPHPExcel->getActiveSheet()->getCell('S'.$i)->getCalculatedValue()),
                         'plan_nacional' => trim($objPHPExcel->getActiveSheet()->getCell('T'.$i)->getCalculatedValue()),
+                        'planificado' => trim($objPHPExcel->getActiveSheet()->getCell('U'.$i)->getCalculatedValue()),
+                        'planificado_instrumento' => trim($objPHPExcel->getActiveSheet()->getCell('V'.$i)->getCalculatedValue()),
                     );
                     //dd($informacion_propuestas);
                 }        
      
                 //recorremos todos los registros recogidos de propuestas (soluciones)
                 foreach ($informacion_propuestas as $fila) {   
-                    if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["indice_competitividad"] != "" && $fila["politica"] != "" && $fila["plan_nacional"] != "" ) 
+                    if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["indice_competitividad"] != "" && $fila["politica"] != "" && $fila["plan_nacional"] != "" && $fila["planificado_instrumento"]) 
                     {    //validamos que todos los campos de cada registro no se encuentren vacios
                         $valido = true;
                         $solucion = new Solucion;
@@ -939,6 +943,42 @@ class MesaDialogoController extends Controller
                                 $valido = false;
                             }
                         }
+
+                        //Validacion PLANIFICADO SI/NO
+                        if(!is_null($fila["planificado"])){
+                            //dd($fila["planificado"]);
+
+                            if($fila["planificado"]=='NO' or $fila["planificado"]=='SI'){
+
+                                $solucion->planificado = $fila["planificado"];
+                            }else{
+
+                                $error = "Celda U". $fila['numFila'].": no encuentra la palabra SI / NO.";
+                                array_push($errores_solucion, $error);
+                                $solucion->planificado = 0;
+                                $valido = false;
+
+                            }
+                        }
+
+                        //Validacion PLANIFICADO INSTRUMENTO
+                        if(!is_null($fila["planificado_instrumento"])){
+                            //dd($fila["planificado"]);
+
+                            if($fila["planificado_instrumento"]!=''){
+
+                                $solucion->planificado_instrumento = $fila["planificado_instrumento"];
+                            }else{
+
+                                $error = "Celda U". $fila['numFila'].": Se encuentra vacio";
+                                array_push($errores_solucion, $error);
+                                $solucion->planificado = 0;
+                                $valido = false;
+
+                            }
+                        }
+
+
                         
 
                         if($valido === true){

@@ -1,0 +1,16 @@
+/**
+Autor:Ximena Celi
+Fecha:2018-09-10
+**/
+
+
+create table auditoria_cambio(
+    id_tabla int,
+	nombre_tabla varchar(50),
+    proceso varchar(50),
+    usuario varchar(100),
+	cedula varchar(191),
+	observacion varchar(150),
+	errores varchar(150),
+    fecha_cambio date	
+);

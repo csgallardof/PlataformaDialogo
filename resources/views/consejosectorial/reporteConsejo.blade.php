@@ -1,16 +1,74 @@
-@extends('layouts.institucion')
+@extends('layouts.consejo-sectorial')
+
+@section('title','Propuestas-Consejo Sectorial')
+
 
 @section('content')
 
+<!-- NOTAS ESTA ES LA PANTALLA PARA CONSEJO SECTORIAL  / SEBE PROBAR Y MODIFICAR LAS COSAS PARA MEJORAR +++ NOTA +++++  -->
+		<!-- begin #content -->
+		<!-- begin #content -->
+        <div id="content" class="content" width="10%">
+            <!-- begin row -->
+            <div class="row">
+				<!-- begin col-3 -->
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats" style="background-color:#214974; color:white;">
+						<div class="stats-info">
+							
+						</div>
+					</div>
+				</div>
+				<!-- end col-3 -->
+				<!-- begin col-3 -->
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats" style="background-color:#214974; color:white;">
+						<div class="stats-info">
+							
+						</div>
+					</div>
+				</div>
+				<!-- end col-3 -->
+				<!-- begin col-3 -->
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats" style="background-color:#214974; color:white;">
+						<div class="stats-info">
+							
+						</div>
+					</div>
+				</div>
+				<!-- end col-3 -->
+				<!-- begin col-3 -->
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats" style="background-color:#214974; color:white;">
+						<div class="stats-info">
+							<h4>
+						</div>
+					</div>
+				</div>
+				<!-- end col-3 -->
+			</div>
 
-<div class="container">
+            @include('flash::message')
 
-    <div class="row">
-        <div class="col-md-9 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="row">
+                <!-- begin col-8 -->
+                
+                <div class="col-md-12">
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                              
+                            </div>
+                            <h3 align="left" class="panel-title">Reporte del Consejo de la Plataforma del Di&aacute;logo Nacional</h3>
+                        </div>
 
-                <div class="panel-heading col-md-2">
-                   <form target="_blank" method="POST" action="/institucion/reporte-institucional/descargar-excel" enctype="multipart/form-data">
+
+<div class="row"> 
+<div class="col-md-5"></div>           
+ <div class="col-md-2">
+                   <form target="_blank" method="POST" action="/consejo-sectorial/reporte-consejo/descargar-excel" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -35,7 +93,7 @@
                         </table>
                         </form>
                       
-                         <form target="_blank" method="POST" action="/institucion/reporte-institucional/descargar-pdf/1" enctype="multipart/form-data">
+                         <form target="_blank" method="POST" action="/consejo-sectorial/reporte-consejo/descargar-pdf/1" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                                     <div class="col-md-3 ">
@@ -64,8 +122,49 @@
                         <br /><br />
 
                  </div>
-                <div class="panel-body">
-                    <table class="table table-hover">
+        </div>
+
+
+
+                        <div class="panel-body">
+
+                         
+                    <!-- <div class="row">
+                     <div class="col-md-3">
+                         Instituci&oacute;n
+                     </div>
+                    <div class="col-md-3">
+
+                     <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
+                         <option value="">Todos</option>
+                        @foreach($listaMinisterioPorConsejo as $lista)
+                        <option value="{{$lista->idInstitucion}}">{{$lista->nombre_institucion}}</option>
+                        @endforeach
+                         <option value="">Todos</option>
+                    </select>
+               
+                    <script>
+                        $(function(){
+                          $('#selInstituciones').on('change', function () {
+                              var id = $(this).val(); // get selected value
+                              if (id) { 
+                                  window.location = "{{ url('/') }}reportesPorInstitucion/"+id; 
+                              }
+                              return false;
+                          });
+                        });
+                    </script>
+
+                    </div>
+                    <div class="col-md-6">
+                        
+                     </div>
+                    </div>
+                     -->
+
+
+                    <div  class="col-md-9 col-md-offset-2">
+                         <table class="table table-hover">
                         <thead>
                         <tr>
                            <th colspan="3" ><div align="center">  REPORTE DE MINISTERIO DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
@@ -76,6 +175,8 @@
                         <tbody>
 
                      
+                         
+
                        <tr>
                            <th colspan="3" ><div align="center">Datos Informativos</div></th>
                         </tr>
@@ -91,15 +192,11 @@
                         </tr>
 
                          <tr>
-                           <th colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
-                        </tr>
-
-                          <tr>
                            <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
                             <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
                         </tr>
 
+                      
 
                        <tr>
                            <th colspan="3" ><div align="center">Tipo Propuesta</div></th>
@@ -175,15 +272,24 @@
                            <th colspan="2" ><div align="left">N° de Propuestas Largo Plazo</div></th>
                             <td colspan="1" ><div align="left">{{$numPropuestasPlazoLargo}}</div></td>
                         </tr>
-                         
+
 
                         </tbody>
                     </table>
-                   
+                    </div>
+
+                        </div>
+                    </div>
+                    <!-- end panel -->
                 </div>
+                <!-- end col-10 -->
+
+                
             </div>
+            <!-- end row -->
         </div>
-    </div>
-</div>
-</div>
-@endsection
+        <!-- end #content -->
+		
+
+		@stop
+                                                                                                                                                                               

@@ -74,6 +74,16 @@ public function create() {
         //dd($rolusuario->user_id);
                   $rolusuario->save();
 
+ $rolUsuarioGuardado = DB::select('SELECT * from role_user where user_id ="'.$request->usuario_id.'" and role_id = "'.$request->rol_id.'"');
+   $idTabla = $rolUsuarioGuardado[0] ->id;  
+   $nombreTabla = "role_user";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Ninguna";
+   $errores = "Ninguno";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
+
          
         return redirect("/admin/listar-rol-usuarios");
     }
@@ -96,6 +106,17 @@ public function edit($id) {
         $rolusuario = RoleUser::find($id);
         $rolusuario->role_id = $request->rol_id;
         $rolusuario->save();
+
+   $rolUsuarioGuardado = DB::select('SELECT * from role_user where user_id ="'.$rolusuario->user_id.'" and role_id = "'.$request->rol_id.'"');
+   $idTabla = $rolUsuarioGuardado[0] ->id;  
+   $nombreTabla = "role_user";
+   $proceso = "update";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Ninguna";
+   $errores = "Ninguno";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
+
         return redirect("admin/rolUsuario" );
     }
 

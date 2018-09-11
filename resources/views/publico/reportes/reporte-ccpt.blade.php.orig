@@ -19,13 +19,10 @@
 
         <div class="toolbar title_ip_breadcrumb fit-m-b-10">
           <ol class="breadcrumb">
-<<<<<<< HEAD
-            <li class="home"><a href="#"><i class="fa fa-home fa-lg"></i><span></span></a></li>
-            <li class="active"><a href="#">Resultados de la B&uacute;squeda</a></li>
-=======
+
             <li class="home"><a href="{{ url('/') }}"><i class="fa fa-home fa-lg"></i><span></span></a></li>
             <li class="active"><a href="{{ url('/busqueda?parametro=Consejo_consultivo') }}">Resultados de la B&uacute;squeda</a></li>
->>>>>>> a5f92d50b3c5640f4daed3b360ef93210bf40f97
+
           </ol>
         </div>
 

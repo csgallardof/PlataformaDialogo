@@ -32,8 +32,14 @@
 							</p>
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">&nbsp;</a>
+							<br>
 							
+							@if($solucion_estado[0]->nombre_estado =="Finalizado")
+                                <span class="label label-success f-s-12"  style="background-color: #28B463">                
+                                        {{$solucion_estado[0]->nombre_estado}}
+                                </span>
+                                        
+                            @endif
 						</div>
 					</div>
 				</div>
@@ -98,7 +104,7 @@
 									                    
 									                        
 									                            
-									                        <label for="exampleTextarea">Comentario</label>
+									                        <label for="exampleTextarea">Motivo de la Apertura de la propuesta de solución</label>
 									                        
 									                        <div class="panel-body panel-form">
 									                            
