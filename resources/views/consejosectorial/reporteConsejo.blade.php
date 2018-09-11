@@ -118,7 +118,6 @@
                         </tbody>
                         </table>
                         </form>
-
                         <br /><br />
 
                  </div>
@@ -126,15 +125,16 @@
 
 
 
-                        <div class="panel-body">
+                    <div class="panel-body">
 
                          
-                    <!-- <div class="row">
-                     <div class="col-md-3">
+                    <div class="row">
+                       <form target="_blank" method="GET" action="/consejo-sectorial/reportes">
+                      <div class="col-md-2"></div>
+                     <div class="col-md-1">
                          Instituci&oacute;n
                      </div>
                     <div class="col-md-3">
-
                      <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
                          <option value="">Todos</option>
                         @foreach($listaMinisterioPorConsejo as $lista)
@@ -142,7 +142,6 @@
                         @endforeach
                          <option value="">Todos</option>
                     </select>
-               
                     <script>
                         $(function(){
                           $('#selInstituciones').on('change', function () {
@@ -157,10 +156,11 @@
 
                     </div>
                     <div class="col-md-6">
-                        
+                         <button type="submit"  >Obtener</button>
                      </div>
-                    </div>
-                     -->
+                     </form>
+                      </div>
+                     
 
 
                     <div  class="col-md-9 col-md-offset-2">

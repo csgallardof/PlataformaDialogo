@@ -571,7 +571,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      //REPORTES
      Route::get('/reportes','ReportesController@listaPorConsejo');
-     Route::post('/reportesPorInstitucion/{idInstitucion}',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
+   //  Route::post('/reportesPorInstitucion/{idInstitucion}',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
 
 
  Route::post('/reporte-consejo/descargar-excel','ReportesController@exportarExcelReporteConsejo'); 

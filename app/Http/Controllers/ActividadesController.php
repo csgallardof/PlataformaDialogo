@@ -16,6 +16,7 @@ use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuditoriaController;
 
 class ActividadesController extends Controller
 {
@@ -543,7 +544,7 @@ class ActividadesController extends Controller
                     $solucion->save();
                 }
             if($request->tipo_fuente_id ==2){
-                dd($tipo_fuente_id);
+                //dd($tipo_fuente_id);
                 
                 $solucion = Solucion::find($idSolucion);
                 $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
@@ -552,6 +553,16 @@ class ActividadesController extends Controller
         }
         
         $actividad-> save();
+$actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.$idSolucion.' and tipo_fuente = "'.$tipo_actor.'"');
+   $idTabla = $actividadGuardada[0] ->id;  
+   $nombreTabla = "actividades";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Agregar actividad en la propuesta";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+
+
         //dd('uno');
          $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
             $solucionAsignada = Solucion::find($idSolucion);
@@ -651,7 +662,7 @@ class ActividadesController extends Controller
 
     }
      public function saveActividadAdmin(Request $request, $tipo_actor, $idSolucion) 
-    {
+    { 
         $tipo_fuente = Auth::user()->tipo_fuente;
         $actividad = new Actividad;
         $actividad-> comentario = $request-> comentario;
@@ -669,12 +680,21 @@ class ActividadesController extends Controller
                     $solucion->save();
                 }
             if($request->tipo_fuente_id ==2){
-                dd($tipo_fuente_id);
                 
                 $solucion = Solucion::find($idSolucion);
                 $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
                 $solucion->save();
             }
+
+            $solucionGuardada = DB::select('SELECT * from solucions where id ='.$idSolucion.'');
+   $idTabla = $solucionGuardada[0] ->id;  
+   $nombreTabla = "solucions";
+   $proceso = "update";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Se agregan actividades";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+
         }
         
 

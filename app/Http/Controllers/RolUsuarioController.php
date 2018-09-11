@@ -81,8 +81,7 @@ public function create() {
    $usuario = Auth::user()->name;
    $cedula = Auth::user()->cedula;
    $observacion = "Ninguna";
-   $errores = "Ninguno";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
 
          
         return redirect("/admin/listar-rol-usuarios");
@@ -114,8 +113,7 @@ public function edit($id) {
    $usuario = Auth::user()->name;
    $cedula = Auth::user()->cedula;
    $observacion = "Ninguna";
-   $errores = "Ninguno";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion );
 
         return redirect("admin/rolUsuario" );
     }

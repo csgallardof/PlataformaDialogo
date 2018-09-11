@@ -28,6 +28,7 @@ use App\EstadoPublicacion;
 use App\IndiceCompetitividad;
 use App\PlanNacional;
 use App\InstitucionUsuario;
+use App\Http\Controllers\AuditoriaController;
 
 use File;
 use DB;
@@ -195,12 +196,11 @@ class MesaDialogoController extends Controller
      */
     public function store(Request $request)
     {
-       
-        //dd($request->nuevo);
+         //dd($request->nuevo);
         //Obtenemos el usuario autenticado
         $user = Auth::user();
         //Guarda la información de la nueva mesa de dialogo
-        if($request->nuevo == true ){
+        if($request->nuevo == true ){ 
             
             $mesa_dialogo = new MesaDialogo;            
             $mesa_dialogo->nombre = $request->nombre;        
@@ -222,12 +222,23 @@ class MesaDialogoController extends Controller
             $mesa_dialogo->user_id = $user->id;
           
             $mesa_dialogo->save();
+             
+  $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$request->nombre.'" and descripcion = "'.$request->descripcion.'"');
+   $idTabla = $mesaDialogoGuardado[0] ->id;  
+   $nombreTabla = "mesa_dialogo";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Ninguna";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+
+
 
             Flash::success("La mesa de dialogo ha sido creada exitosamente.");
 
             return redirect('/institucion/mesadialogo');
         }// Guarda la información de la matriz Excel
-        else{
+        else{ //dd("Diferente a Nuevo");
             try{
                 DB::beginTransaction();
 
@@ -278,6 +289,16 @@ class MesaDialogoController extends Controller
                 $mesa_dialogo->user_id = $user->id;
                 
                 $mesa_dialogo->save();
+  
+   $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$mesa_dialogo->nombre.'" and user_id = "'.$mesa_dialogo->user_id.'"');
+   $idTabla = $mesaDialogoGuardado[0] ->id;  
+   $nombreTabla = "mesa_dialogo";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Insertado desde carga masiva";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+           
                 
                 //Toma la lista de objetos de participates y guarda en la bdd 
                 $datos_participante = $request->datos_participante;
@@ -311,6 +332,17 @@ class MesaDialogoController extends Controller
                             $participante->cargo = $participanteAux['cargo'];
                         }
                         $participante->save();
+
+                         $participanteGuardado = DB::select('SELECT * from participante where mesa_dialogo_id ='.$participante->mesa_dialogo_id.' and nombres = "'.$participante->nombres.'"');
+   $idTabla = $mesaDialogoGuardado[0] ->id;  
+   $nombreTabla = "participante";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Insertado desde carga masiva";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+           
+
                     }
                 }
 
@@ -319,6 +351,7 @@ class MesaDialogoController extends Controller
                 if(isset($datos_solucion)){
                     $datos_solucion = Collection::make(json_decode($datos_solucion, true));
                    // dd($datos_solucion);
+                    $cont = 0;
                     foreach ($datos_solucion as $solucionAux) {
                         $solucion = new Solucion;
                         $solucion->mesa_id = $mesa_dialogo->id;
@@ -394,7 +427,15 @@ class MesaDialogoController extends Controller
 
                         $solucion->save();
 
-                       
+                          $solucionGuardada = DB::select('SELECT * from solucions where mesa_id ='.$solucion->mesa_id.' and instrumento_id = '. $solucion->instrumento_id.'');
+   $idTabla = $solucionGuardada[$cont] ->id;  
+   $nombreTabla = "solucions";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Insertado desde carga masiva";
+   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+    $cont++;
 
                         //dd($codigo_solucions);
                         
@@ -412,6 +453,14 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> tipo_actor = 1;
                                     $institucionSolucion-> tipo_fuente = 0;
                                     $institucionSolucion-> save();
+
+                    $actorSolucionGuardada = DB::select('SELECT * from actor_solucion where institucion_id ='.$InstitucionResponsableID->id.' and solucion_id = '. $solucion->id.'');
+   $idTabla = $actorSolucionGuardada[0] ->id;  
+   $nombreTabla = "actor_solucion";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Insertado desde carga masiva";
 
                         /*CORRESPONSABLES*/
                         if(isset($solucionAux['corresponsable_solucion'])){
@@ -436,6 +485,14 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> tipo_fuente = 0;
                                     $institucionSolucion-> save();
 
+                                           $actorSolucionGuardada = DB::select('SELECT * from actor_solucion where institucion_id ='.$InstitucionResponsableID->id.' and solucion_id = '. $solucion->id.'');
+   $idTabla = $actorSolucionGuardada[0] ->id;  
+   $nombreTabla = "actor_solucion";
+   $proceso = "insert";
+   $usuario = Auth::user()->name;
+   $cedula = Auth::user()->cedula;
+   $observacion = "Insertado desde carga masiva";
+
                                 }
                             }
 
@@ -450,6 +507,7 @@ class MesaDialogoController extends Controller
                                 $solucionPalabraClave-> nombre = $arrayPalabras;
                                 $solucionPalabraClave-> solucion_id = $solucion->id;
                                 $solucionPalabraClave-> save();
+
 
                                 }
 
