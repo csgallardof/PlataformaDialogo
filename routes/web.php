@@ -21,6 +21,8 @@ Route::post('/enviaCorreoCiudadano/{idSolucion}', ['uses'=>'NotificacionCiudadan
 
 
 
+
+
 Route::post('/registrarCorreoNotificacion/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEmail','as'=>'notificacion.saveCiudadano']);
 
 Route::post('/registrarEvaluacionC/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEval','as'=>'ciudadano.saveCiudadanoEval']);
