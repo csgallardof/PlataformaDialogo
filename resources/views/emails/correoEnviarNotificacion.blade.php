@@ -14,5 +14,13 @@
 
     <button type='submit'>Enviar Notificacion Ciudadano</button>
 </form>
+
+
+
+<form method='POST' action="{{ url('/enviaCorreoSECOM/') }}">
+    {{ csrf_field() }}
+
+    <button type='submit'>Enviar Notificacion SECOM</button>
+</form>
 </body>
 </html>

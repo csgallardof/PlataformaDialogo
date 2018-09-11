@@ -158,6 +158,12 @@ class NotificacionCiudadanoController extends Controller
 
     }
 
+
+
+
+
+
+
     public function detalleSolucion($idSolucion,$mensaje_cd){
 
         $solucion = Solucion::where('solucions.id','=',$idSolucion)
