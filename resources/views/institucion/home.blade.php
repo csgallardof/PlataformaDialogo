@@ -176,11 +176,12 @@
 					</ul>
 					<div class="tab-content" data-sortable-id="index-3">
 
-						<!--SOLUCIONES RESPONSABLE-->
+
 						<div class="tab-pane fade active in" id="responsable">
-							<div class="" data-scrollbar="false">
-								<table class="table table-bordered table-striped">
-									<thead>
+
+                            <div class="table-responsive">
+                                <table id="data-table" class="table table-striped table-bordered" width="100%">
+                                    <thead>
 										<tr>
 											<th>Codigo</th>
 											<th>Propuesta</th>
@@ -189,7 +190,7 @@
 											<th>Acción</th>
 										</tr>
 									</thead>
-									<tbody>
+                                    <tbody>
 										@if( isset($solucionesDespliegue) )
 
 											@foreach($solucionesDespliegue as $solucionD)
@@ -237,10 +238,11 @@
 										
 
 									</tbody>
-								</table>
-							</div>
-						</div>
-						<!--FIN SOLUCIONES RESPONSABLE-->
+                                </table>
+                            </div>
+                        </div>
+
+						
 
 						
 						<!--SOLUCIONES CORRESPONSABLE-->
