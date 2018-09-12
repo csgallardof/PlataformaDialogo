@@ -112,20 +112,20 @@
 <!-- ////// -->
 
 
-<!--<div id="sidebar" class="sidebar toggled" >-->
+<div id="sidebar" class="sidebar toggled" >
 	<!-- begin sidebar scrollbar -->
-	<!--<div data-scrollbar="true" data-height="100%">-->
+	<div data-scrollbar="true" data-height="100%">
 		<!-- begin sidebar user -->
-		<!--<ul class="nav">
+		<ul class="nav">
 			<li class="nav-profile">
 				<div class="info">
 					Menú
 				</div>
 			</li>
-		</ul>-->
+		</ul>
 		<!-- end sidebar user -->
 		<!-- begin sidebar nav -->
-		<!--<ul class="nav">
+		<ul class="nav">
 			<li class="has-sub">
 				<a href="javascript:;">
 						<b class="caret pull-right"></b>
@@ -154,10 +154,10 @@
 			</li>
 			<li><a href="index.html">Próximas Mesas</a></li>
 			<li><a href="index.html">Noticias</a></li>
-		</ul>-->
+		</ul>
 		<!-- end sidebar nav -->
-	<!--</div>-->
+	</div>
 	<!-- end sidebar scrollbar -->
-<!--</div>-->
+</div>
 <div class="sidebar-bg"></div>
 <!-- end #sidebar -->
