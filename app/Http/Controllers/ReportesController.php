@@ -1024,6 +1024,11 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 /********************************************************************/
 public function listaConsejoPorCodigo(Request $request){
   
+
+  dd($request->selInstituciones);
+
+
+
 $hoy = date("d/m/Y"); 
 
 $institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
