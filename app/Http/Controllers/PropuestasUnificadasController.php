@@ -194,6 +194,18 @@ class PropuestasUnificadasController extends Controller
 				        $Solucion-> pajustada_id = $pAjusta;
 				        
 				        $Solucion-> save();
+
+
+                        $solucionGuardada = DB::select('SELECT * from solucions where pajustada_id ='.$soluciones->pajustada_id); dd($solucionGuardada);
+                       $idTabla = $solucionGuardada[0] ->id;  
+                       $nombreTabla = "solucions";
+                       $proceso = "insert";
+                       $usuario = Auth::user()->name;
+                       $cedula = Auth::user()->cedula;
+                       $observacion = "Ninguna";
+                       $errores = "Ninguno";
+                       AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
+
     		}
 
 
@@ -243,10 +255,9 @@ public function detallePropuestasUnificadas(){
   //  $pAjusta = Post::where('idAjusta',$idAjusta); 
       //dd($pAjusta);    
  
-    $uniDetalle1 = DB::select("select solucions.id, solucions.pajustada, solucions.propuesta_solucion
+    $uniDetalle = DB::select("select solucions.id, solucions.pajustada, propuesta_solucion, ponderacion, lugar_solucion
                             from solucions ");
                            // where solucions.pajustada_id = "$idAjusta"; ");
-  
   //$urlResultados = '?idAjusta='.$request->$uniDetalle1->id;
     //dd($urlResultados);
   //return view('institucion.PropuestasUnificadas.verPropuestasUnificadas.post',compact('post'));

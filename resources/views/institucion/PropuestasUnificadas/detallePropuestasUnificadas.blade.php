@@ -137,7 +137,7 @@
 									<thead>
 										<tr>
 											<th>Propuesta</th>
-											<th>Ponderaci&oacute;n</th>
+											<th>Ponderaci&oacute;n</th> 
 											<th>Lugar de soluci&oacute;n</th>
 										</tr>
 									</thead>
@@ -145,7 +145,7 @@
                                     @foreach($uniDetalle as $detalle)
 										<tr>
 											<td class="text-justify">{{$detalle->propuesta_solucion}}</td>
-											<td class="text-justify">{{$detalle->ponderacion}}</td>
+											 <td class="text-justify">{{$detalle->ponderacion}}</td> 
 											<td class="text-justify">{{$detalle->lugar_solucion}}</td>
  										</tr>
 								    @endforeach									
