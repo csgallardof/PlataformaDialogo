@@ -1022,9 +1022,11 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 /**********************************************************************/
 /*******************REPORTES CONSEJO SECTORIAL************************/
 /********************************************************************/
-public function listaConsejoPorCodigo(){
+public function listaConsejoPorCodigo(Request $request){
   
-  dd("listaConsejoPorCodigo");
+  //dd("listaConsejoPorCodigo");
+
+  dd($request->selInstituciones);
 
 
 $hoy = date("d/m/Y"); 

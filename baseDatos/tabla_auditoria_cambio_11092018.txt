@@ -11,6 +11,5 @@ create table auditoria_cambio(
     usuario varchar(100),
 	cedula varchar(191),
 	observacion varchar(150),
-	errores varchar(150),
     fecha_cambio date	
 );
