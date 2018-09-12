@@ -54,7 +54,7 @@
 							
 								<div class="col-md-12">
 				                	<ul class="nav nav-tabs">
-										<li class="active"><a href="#default-tab-1" data-toggle="tab">Costa</a></li>
+										<li class="active"><a href="#default-tab-1" data-toggle="tab">COSTA</a></li>
 										<li class=""><a href="#default-tab-2" data-toggle="tab">Sierra</a></li>
 										<li class=""><a href="#default-tab-3" data-toggle="tab">Oriente</a></li>
 										<li class=""><a href="#default-tab-4" data-toggle="tab">Insular</a></li>
@@ -311,7 +311,7 @@
             if(num == 24){
                 valor =  'zamorachinchipe';
             }
-            $('#imagenvp').prop("src", "imagenes/vocaciones_productivas_ecuador/vocaciones_productivas_" + valor + ".jpg");
+            $('#imagenvp').prop("src", "imagenes/vocaciones_productivas_ecuador/vp_" + valor + ".png");
         	$("#dw_pdf").attr("href", "imagenes/vocaciones_productivas_ecuador/vocaciones_pdf/pdf_por_provincia/vocaciones_productivas_" + valor + ".pdf");
         	$("#nombreProvincia").html("<i class='fa fa-2x fa-map-marker'><strong class='f-s-19'>&nbsp;&nbsp;"+ nombreProvincia +"</strong></i>");
         } 
