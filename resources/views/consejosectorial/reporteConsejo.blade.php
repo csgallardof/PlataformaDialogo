@@ -129,7 +129,7 @@
 
                          
                     <div class="row">
-                       <form target="_blank" method="GET" action="/consejo-sectorial/reportes">
+                       <form target="_blank" method="POST" action="/consejo-sectorial/reportes">
                       <div class="col-md-2"></div>
                      <div class="col-md-1">
                          Instituci&oacute;n
