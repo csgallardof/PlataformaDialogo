@@ -28,6 +28,7 @@
                                       <div class="col-xs-8 col-xs-offset-2">
                                           <form method="GET" action="{{ route('nuevaBusquedaDialogo') }}" id="searchForm" class="search-home input-group">
                                               <div class="input-group-btn search-panel hidden-xs">
+                                                <label for="tipo_dialogo" style="display:none;">Buscar por tipo de dialogo</label>
                                                   <select name="selectBusqueda" id="tipo_dialogo" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                       <option value="no">Filtrar por tipo de diálogo</option>
 
@@ -37,6 +38,7 @@
 
                                                   </select>
                                               </div>
+                                              <label for="buscar_general" style="display:none;">Parametro de busqueda</label>
                                               <input id="buscar_general" type="text" class="form-control" name="parametro" placeholder="Buscar información sobre propuestas y pedidos del diálogo nacional">
                                               <span class="input-group-btn">
                                                   <button id="btn_buscar" class="btn btn-default" type="submit">
@@ -54,7 +56,7 @@
                       <div class="col-md-2 col-xs-2">
                       </div>
                       <div class="col-md-2 col-xs-2 text-center ">
-                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_1.png') }}">
+                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_1.png') }}" alt="logo de dialogos presidenciales">
                         <div class="text-center">
                           <div class="home_main_icon_line1">DIÁLOGOS</div>
                           <div class="home_main_icon_line2">PRESIDENCIALES</div>
@@ -62,21 +64,21 @@
 
                       </div>
                       <div class="col-md-2 col-xs-2 text-center ">
-                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_2.png') }}" >
+                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_2.png') }}"  alt="logo de dialogos sectoriales">
                         <div class="text-center">
                           <div class="home_main_icon_line1 ">DIÁLOGOS</div>
                           <div class="home_main_icon_line2">SECTORIALES</div>
                         </div>
                       </div>
                       <div class="col-md-2 col-xs-2 text-center ">
-                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_3.png') }}" >
+                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_3.png') }}"  alt="logo de dialogos productivos">
                         <div class="text-center">
                           <div class="home_main_icon_line1">DIÁLOGOS</div>
                           <div class="home_main_icon_line2">PRODUCTIVOS</div>
                         </div>
                       </div>
                       <div class="col-md-2 col-xs-2 text-center ">
-                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_4.png') }}" >
+                        <img class="home_part1_size_images" src="{{ asset('imagenes/dialogo_nacional/dialogo_4.png') }}"  alt="logo de logros alcanzados">
                         <div class="text-center">
                           <div class="home_main_icon_line1">LOGROS</div>
                           <div class="home_main_icon_line2">ALCANZADOS</div>
@@ -100,8 +102,8 @@
                   <li class="media media-sm">
                     <div class="media-body text-right">
                             <div class="media">
-                          <a class="media-left" href="javascript:;">
-                                      <img src="{{ asset('imagenes/dialogo_nacional/noticia-2-dialogo.png') }}" alt="" class="" />
+                          <a tabindex="15" class="media-left" href="javascript:;" title="vinculo para noticia de dialogo 1">
+                                      <img src="{{ asset('imagenes/dialogo_nacional/noticia-2-dialogo.png') }}" alt="logo noticia 1" class="" />
                           </a>
                           <div class="media-body">
                             <h4 class="media-heading"><strong>MINISTERIO DE EDUCACIÓN Y SENECYT ABREN DIÁLOGO NACIONAL PARA APORTAR AL TEMA EDUCATIVO</strong></h4>
@@ -116,8 +118,8 @@
                         <li class="media media-sm">
                     <div class="media-body text-right">
                             <div class="media">
-                          <a class="media-left" href="javascript:;">
-                                      <img src="{{ asset('imagenes/dialogo_nacional/noticia-1-dialogo.png') }}" alt="" class="" />
+                          <a  tabindex="16" class="media-left" href="javascript:;"  title="vinculo para noticia de dialogo 2">
+                                      <img src="{{ asset('imagenes/dialogo_nacional/noticia-1-dialogo.png') }}" alt="logo noticia 2" class="" />
                           </a>
                           <div class="media-body">
                             <h4 class="media-heading"><strong>LOJA RECIBIRÁ LA PRÓXIMA ‘MESA DE DIÁLOGO’ DE COMUNICACIÓN</strong></h4>
@@ -138,7 +140,7 @@
                 <div class="panel panel-inverse overflow-hidden">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                      <a tabindex="17" class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                           <i class="fa fa-plus-circle pull-right"></i>
                         Consejo Sectorial de la Política
                       </a>
@@ -157,7 +159,7 @@
                 <div class="panel panel-inverse overflow-hidden">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                      <a tabindex="18" class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                           <i class="fa fa-plus-circle pull-right"></i>
                         Consejo Sectorial de la Producción
                       </a>
@@ -179,7 +181,7 @@
                 <div class="panel panel-inverse overflow-hidden">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                      <a tabindex="19" class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                           <i class="fa fa-plus-circle pull-right"></i>
                        Consejo Sectorial de la Politica
                       </a>
@@ -196,7 +198,7 @@
                  <div class="panel panel-inverse overflow-hidden">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                      <a tabindex="20" class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                           <i class="fa fa-plus-circle pull-right"></i>
                        Media
                       </a>

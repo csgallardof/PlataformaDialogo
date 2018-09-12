@@ -8,7 +8,7 @@ use App\AuditoriaCambio;
 class AuditoriaController extends Controller
 {
 
-public static function guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores ){
+public static function guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion){
 	//dd("guardarAuditoria");
 	   $hoy = date('Y-m-d H:m'); 
 	 //  dd($hoy);
@@ -19,8 +19,7 @@ public static function guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuar
         $auditoria->usuario = $usuario;
         $auditoria->cedula = $cedula;
         $auditoria->observacion = $observacion;
-        $auditoria->errores = $errores;
         $auditoria->fecha_cambio =  $hoy;
-	   $auditoria->save();
+	    $auditoria->save();
     }
 }

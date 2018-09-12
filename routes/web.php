@@ -21,6 +21,8 @@ Route::post('/enviaCorreoCiudadano/{idSolucion}', ['uses'=>'NotificacionCiudadan
 
 
 
+
+
 Route::post('/registrarCorreoNotificacion/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEmail','as'=>'notificacion.saveCiudadano']);
 
 Route::post('/registrarEvaluacionC/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEval','as'=>'ciudadano.saveCiudadanoEval']);
@@ -571,7 +573,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      //REPORTES
      Route::get('/reportes','ReportesController@listaPorConsejo');
-     Route::post('/reportesPorInstitucion/{idInstitucion}',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
+   //  Route::post('/reportesPorInstitucion/{idInstitucion}',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
 
 
  Route::post('/reporte-consejo/descargar-excel','ReportesController@exportarExcelReporteConsejo'); 
