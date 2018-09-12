@@ -129,37 +129,28 @@
 
                          
                     <div class="row">
-                       <form target="_blank" method="GET" action="/consejo-sectorial/reportes">
-                      <div class="col-md-2"></div>
-                     <div class="col-md-1">
-                         Instituci&oacute;n
-                     </div>
-                    <div class="col-md-3">
-                     <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
-                         <option value="">Todos</option>
-                        @foreach($listaMinisterioPorConsejo as $lista)
-                        <option value="{{$lista->idInstitucion}}">{{$lista->nombre_institucion}}</option>
-                        @endforeach
-                         <option value="">Todos</option>
-                    </select>
-                    <script>
-                        $(function(){
-                          $('#selInstituciones').on('change', function () {
-                              var id = $(this).val(); // get selected value
-                              if (id) { 
-                                  window.location = "{{ url('/') }}reportesPorInstitucion/"+id; 
-                              }
-                              return false;
-                          });
-                        });
-                    </script>
+
+                       <form target="_blank" method="GET" action="{{ route('reporteConsejo.institucion') }}">
+                     
+                            <div class="col-md-1">
+                                 Instituci&oacute;n
+                            </div>
+                            <div class="col-md-3">
+                                <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
+                                     <option value="">Todos</option>
+                                    @foreach($listaMinisterioPorConsejo as $lista)
+                                    <option value="{{$lista->idInstitucion}}">{{$lista->nombre_institucion}}</option>
+                                    @endforeach
+                                     <option value="">Todos</option>
+                                </select>
+                            
+                            </div>
+                            <div class="col-md-6">
+                                 <button type="submit"  >Obtener</button>
+                            </div>
+                        </form>
 
                     </div>
-                    <div class="col-md-6">
-                         <button type="submit"  >Obtener</button>
-                     </div>
-                     </form>
-                      </div>
                      
 
 

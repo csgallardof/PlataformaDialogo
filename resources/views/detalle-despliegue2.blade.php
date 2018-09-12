@@ -108,7 +108,7 @@
 
         <div class="toolbar title_ip_breadcrumb fit-m-b-10">
           <ol class="breadcrumb">
-            <li class="home"><a href="{{ url('/') }}"><i class="fa fa-home fa-lg"></i><span></span></a></li>
+            <li class="home"><a href="{{ url('/') }}" title="vinculo a pagina principal"><span style="position: float -9999;">vinculo a pagina principal</span><i class="fa fa-home fa-lg"></i><span></span></a></li>
             <li class="active"><a href="/busquedaAvanzada">Resultados de la B&uacute;squeda</a></li>
             <li class="active"><a href="#">Detalle de la propuesta</a></li>
             <label class='text-success pull-right'>

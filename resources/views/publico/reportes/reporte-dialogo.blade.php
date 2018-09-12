@@ -21,7 +21,7 @@
         <div class="toolbar title_ip_breadcrumb fit-m-b-10">
           <ol class="breadcrumb">
 
-            <li class="home"><a href="{{ url('/') }}"><i class="fa fa-home fa-lg"></i><span></span></a></li>
+            <li class="home"><a href="{{ url('/') }}" title="Busqueda dialogo"><span style="text-indent: -9999px; display: block; float: left;">Búsqueda</span><i class="fa fa-home fa-lg"></i><span></span></a></li>
             <li class="active"><a href="#">Resultados de la B&uacute;squeda </a></li>
 
           </ol>
@@ -81,6 +81,7 @@
                                     <div class="input-group custom-search-form">
 
                                        <!--  <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo " name="parametro" value="" required style="font-size: 16px" > -->
+                                       <label for="buscar_general" style="display: none;">Ingrese texto de busqueda</label>
                                        <input id="buscar_general" type="text" class="form-control input-lg" name="parametro" placeholder="Buscar información sobre propuestas y pedidos del diálogo nacional" required>
                                         <span class="input-group-btn">
                                            	<button id="btn_buscar" class="btn btn-default" type="submit">
@@ -203,7 +204,9 @@
 								<tbody>
 									@foreach( $resultadosreporte as $excel)
 									<tr>
-									<td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
+									<td>
+                                    <label for="{{$excel->id}}">Variable oculta del sistema para descargar el archivo</label>
+									<input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
 									<td>{{$excel->id}}</td>
 									</tr>
 									@endforeach

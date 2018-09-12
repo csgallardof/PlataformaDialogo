@@ -1022,9 +1022,11 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 /**********************************************************************/
 /*******************REPORTES CONSEJO SECTORIAL************************/
 /********************************************************************/
-public function listaConsejoPorCodigo(){
+public function listaConsejoPorCodigo(Request $request){
   
-  dd("listaConsejoPorCodigo");
+
+  dd($request->selInstituciones);
+
 
 
 $hoy = date("d/m/Y"); 
@@ -1606,7 +1608,7 @@ return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
 
 
 
-public function exportarExcelReporteConsejo(Request $request){
+public function exportarExcelReporteConsejo(){
       //   dd("exportarExcelReporteMinisterio".$request);
          
         \Excel::create('Reporte Consejo', function($excel) use($request) {
