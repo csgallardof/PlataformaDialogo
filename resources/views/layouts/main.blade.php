@@ -62,8 +62,8 @@
 	</head>
 
 	<body>
-
-    <div id="page-container" class="fade">
+     <h1 style="position:float -9999; color:white; ">Menu Principal Comun</h1>
+    <div id="page-container" class="fade" >
 			@include ('layouts.menu')
 			@yield ('contenido')
 			
