@@ -1,5 +1,5 @@
 <!-- begin #header -->
-<div style="background-color: black;">
+
 <div id="header" class="header navbar navbar-default navbar-fixed-top">
 	<!-- begin container-fluid -->
 	<div class="header_main_properties container-fluid">
@@ -9,11 +9,11 @@
 			<a href="{{ url('/') }}" class="navbar-brand" tabindex="1">
 					<img src="{{ asset('imagenes/dialogo_nacional/logo_dialogo_nacional.png') }}" class="center-block img-responsive" alt="logo de plataforma de dialogo nacional" width="115px" height="50px">
 			</a>
-			<!--<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+			<button type="button" class="navbar-toggle" data-click="sidebar-toggled"><span style="text-indent: -9999px; width: 0px; float: left;">Menu para celulares</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
-			</button>-->
+			</button>
 		</div>
 		<!-- end mobile sidebar expand / collapse button -->
 
@@ -104,7 +104,7 @@
 	</div>
 	<!-- end container-fluid -->
 </div>
-</div>
+
 <!-- end #header -->
 
 <!-- ////// -->
@@ -112,20 +112,20 @@
 <!-- ////// -->
 
 
-<!--<div id="sidebar" class="sidebar toggled" >-->
+<div id="sidebar" class="sidebar toggled" >
 	<!-- begin sidebar scrollbar -->
-	<!--<div data-scrollbar="true" data-height="100%">-->
+	<div data-scrollbar="true" data-height="100%">
 		<!-- begin sidebar user -->
-		<!--<ul class="nav">
+		<ul class="nav">
 			<li class="nav-profile">
 				<div class="info">
 					Menú
 				</div>
 			</li>
-		</ul>-->
+		</ul>
 		<!-- end sidebar user -->
 		<!-- begin sidebar nav -->
-		<!--<ul class="nav">
+		<ul class="nav">
 			<li class="has-sub">
 				<a href="javascript:;">
 						<b class="caret pull-right"></b>
@@ -154,10 +154,10 @@
 			</li>
 			<li><a href="index.html">Próximas Mesas</a></li>
 			<li><a href="index.html">Noticias</a></li>
-		</ul>-->
+		</ul>
 		<!-- end sidebar nav -->
-	<!--</div>-->
+	</div>
 	<!-- end sidebar scrollbar -->
-<!--</div>-->
+</div>
 <div class="sidebar-bg"></div>
 <!-- end #sidebar -->
