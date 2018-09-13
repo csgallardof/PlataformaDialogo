@@ -70,9 +70,7 @@
                         <tr>
                            <th colspan="3" ><div align="center">  REPORTE DE MINISTERIO DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
                         </tr>
-                       
-
-                      </thead>
+                       </thead>
                         <tbody>
 
                      
