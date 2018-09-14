@@ -5,6 +5,9 @@
 
 @section('content')
 
+
+  <!-- Jquery -->
+
 <!-- NOTAS ESTA ES LA PANTALLA PARA CONSEJO SECTORIAL  / SEBE PROBAR Y MODIFICAR LAS COSAS PARA MEJORAR +++ NOTA +++++  -->
 		<!-- begin #content -->
 		<!-- begin #content -->
@@ -120,37 +123,65 @@
                         </form>
                         <br /><br />
 
+                     
+
                  </div>
         </div>
-
-
 
                     <div class="panel-body">
 
                          
-                    <div class="row">
-
-                       <form target="_blank" method="GET" action="{{ route('reporteConsejo.institucion') }}">
-                     
-                            <div class="col-md-1">
+                   
+                       <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
+                       
+                       <div class="row">
+                       <div class="col-md-2"></div>
+                       <div class="col-md-1">
                                  Instituci&oacute;n
-                            </div>
-                            <div class="col-md-3">
-                                <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
-                                     <option value="">Todos</option>
+                       </div>
+                            <div class="col-md-4">
+                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
+                                   <option value="">Seleccione</option>
+                                    @if( isset($listaMinisterioPorConsejo) )
                                     @foreach($listaMinisterioPorConsejo as $lista)
-                                    <option value="{{$lista->idInstitucion}}">{{$lista->nombre_institucion}}</option>
+                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected"' : '' }}>{{$lista->nombre_institucion}}</option>
                                     @endforeach
-                                     <option value="">Todos</option>
+                                    @endif
+                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected"' : '' }}>Todos</option>
                                 </select>
                             
                             </div>
-                            <div class="col-md-6">
-                                 <button type="submit"  >Obtener</button>
+                               </div>
+                        <br />
+                       <div class="row">
+                                  <div class="col-md-2"></div>
+                                   <div class="col-md-1">
+                                             Periodo
+                                   </div>
+                                   <div class="col-md-4">
+                                 <select name="selPeriodo" class="form-control"  id="selPeriodo" required="" >
+                                    <option value="">Seleccione</option>
+                                    <option value="Mensual" >Mensual</option>
+                                    <option value="Trimestral" >Trimestral</option>
+                                    <option value="Requerido" >Requerido</option>
+                                </select>
                             </div>
+                        </div>
+                        <br />
+
+                       
+                            <br />
+                            <div class="row">
+                             <div class="col-md-4"></div>
+                             <div class="col-md-4">
+                                <button type="submit"  >Obtener</button>
+                             </div>
+                             <div class="col-md-2"></div>
+                            </div>
+
                         </form>
 
-                    </div>
+                   
                      
 
 
@@ -187,7 +218,13 @@
                             <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
                         </tr>
 
-                      
+                      @if($idBusqueda!="Todos")
+                         <tr>
+                           <th colspan="2" ><div align="left">Institución</div></th>
+                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
+                        </tr>
+                      @endif
+                       
 
                        <tr>
                            <th colspan="3" ><div align="center">Tipo Propuesta</div></th>
@@ -263,6 +300,7 @@
                            <th colspan="2" ><div align="left">N° de Propuestas Largo Plazo</div></th>
                             <td colspan="1" ><div align="left">{{$numPropuestasPlazoLargo}}</div></td>
                         </tr>
+
 
 
                         </tbody>
