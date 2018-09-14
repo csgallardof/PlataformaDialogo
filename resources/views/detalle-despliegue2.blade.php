@@ -456,7 +456,7 @@
 						</div>
 						<div class="panel panel-inverse overflow-hidden">
 							<div class="panel-heading" style="background-color:#214974" >
-								<h3 class="panel-title" style="color:#17202A">
+								<!--<h3 class="panel-title" style="color:#17202A">-->
 									<h3 class="panel-title" style="color:#ffffff">
 									<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
 									    <i class="fa fa-plus-circle pull-right"></i>
@@ -621,19 +621,19 @@
 									<table>
 										<tr>
 
-											<td>
-												<input type="radio" name="rd_evaluac" value="BUENA" onclick="ocultarComentario();" />
+											<td><span style="text-indent:-9999px; float: left"><label for="rd_evaluac">Seleccione la opcion para evaluar</label></span>
+												<input type="radio" name="rd_evaluac" id="rd_evaluac" value="BUENA" onclick="ocultarComentario();" />
 												<a href="#" class="myButton3"  title="OPCION COLOR VERDE PARA BUENA ">BUENA</a>
 											</td>
 
 											<td style="padding-left: 5px">
-												<input type="radio" name="rd_evaluac" value="NORMAL" onclick="ocultarComentario();"  />
-												<a href="#" class="myButton2"  title="OPCION COLOR AMARILLO PARA NORMAL ">NORMAL</a>
+												<input type="radio" name="rd_evaluac" id="rd_evaluac" value="REGULAR" onclick="ocultarComentario();"  />
+												<a href="#" class="myButton2"  title="OPCION COLOR AMARILLO PARA REGULAR ">REGULAR</a>
 											</td>
 
 
 											<td style="padding-left: 5px">
-												<input type="radio" name="rd_evaluac" value="MALA" onclick="mostrarComentario();" />
+												<input type="radio" name="rd_evaluac" id="rd_evaluac" value="MALA" onclick="mostrarComentario();" />
 												<a href="#" class="myButton" title="OPCION COLOR ROJO PARA MALA " >MALA</a>
 
 											</td>
@@ -651,7 +651,7 @@
 								<section id="seccionComentarioC" style="visibility: hidden;">
 									<form name="frmComentarioCd" action="{{ url('/enviaCorreoCiudadano',[$solucion->id])}}" id="frmComentarioCd" method="POST">
 										{{ csrf_field() }}
-										<lable for="email_cd_alerta" ><b>Email:</b></lable>
+										<label for="email_cd_alerta" ><b>Email:</b></label>
 										<input type="text" name="email_cd_alerta" id="email_cd_alerta" />
 										<br>
 

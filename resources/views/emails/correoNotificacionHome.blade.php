@@ -56,12 +56,32 @@
 
 
  </style>
-
+<title>Plataforma de Dialogo Nacional, Correo de Notificacion</title>
 </head>
 <body >
+<center>
+    <div align="center"  >
+       <br>
+       <img src="{{ $message->embed(public_path() . '/img/logo_dialogo_nacional.jpg') }}"  class="img-responsive center-block"  width="15%" alt="logo plataforma dialogo" />
+       <!--<img  src="img/logo_dialogo_nacional.jpg"  class="img-responsive center-block"  width="15%" alt="logo plataforma dialogo">-->
+       <br>
+    </div>
+
 <h1>{{$title}}</h1>
+</center>
 
 
+<footer>
+<center>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+                                <img title="Secretaría Nacional de Gestión de la Política" alt="Secretaría Nacional de Gestión de la Política" src="https://www.politica.gob.ec/wp-content/themes/Sitio-32/images/logo_presidencia.png" longdesc="longdesc/logdesc.html">
+                            </div>
+     <div class="col-md-8 col-sm-8 col-xs-12 text">
+                                
+                                Venezuela N3-66 entre Sucre y Espejo <br> Quito - Ecuador                                <br>Teléfono: 593-2 228-8367
+    </div>
+</center>    
+</footer>
 </body>
 </html>
 

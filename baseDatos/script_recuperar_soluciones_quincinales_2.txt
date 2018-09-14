@@ -6,8 +6,8 @@
 
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `forge`.`pr_notificaciones_quincenales` $$
-CREATE PROCEDURE `forge`.`pr_notificaciones_quincenales` ()
+DROP PROCEDURE IF EXISTS pr_notificaciones_quincenales $$
+CREATE PROCEDURE pr_notificaciones_quincenales ()
 BEGIN
 
 create temporary table propuestas_pendientes(
@@ -44,7 +44,7 @@ set atendida_quince= 1
 where a.created_at<=@curdt and a.created_at> (@curdt -interval '1' day*15);
 
 insert into notificacion_quincenal
-select pp.*, u.email, u.id,0,@curdt, ''
+select pp.*, u.email, u.id,0,@curdt, null
 from propuestas_pendientes pp, users u, institucion_usuarios ui
 where pp.institucion_id = ui.institucion_id
 and u.id = ui.usuario_id;
