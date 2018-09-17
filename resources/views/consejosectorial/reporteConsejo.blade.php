@@ -4,9 +4,15 @@
 
 
 @section('content')
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 
-  <!-- Jquery -->
 
 <!-- NOTAS ESTA ES LA PANTALLA PARA CONSEJO SECTORIAL  / SEBE PROBAR Y MODIFICAR LAS COSAS PARA MEJORAR +++ NOTA +++++  -->
 		<!-- begin #content -->
@@ -68,18 +74,104 @@
                         </div>
 
 
+
+                    <div class="panel-body">
+                     <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
+                       <div class="row">
+                       <div class="col-md-3"></div>
+                       <div class="col-md-1">
+                                 Instituci&oacute;n
+                       </div>
+                            <div class="col-md-4">
+                           
+                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
+                                   <option value="">Seleccione</option>
+                                    @if( isset($listaMinisterioPorConsejo) )
+                                    @foreach($listaMinisterioPorConsejo as $lista)
+                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected" '  : '' }}>{{$lista->nombre_institucion}}</option>
+                                    @endforeach
+                                    @endif
+                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected" ' : '' }}>Todos</option>
+                                </select>
+                            
+                            </div>
+                               </div>
+                        <br />
+                       <div class="row">
+                                  <div class="col-md-3"></div>
+                                   <div class="col-md-1">
+                                             Periodo
+                                   </div>
+                                   <div class="col-md-4">
+                                 <select name="selPeriodo" class="form-control"  id="selPeriodo" required="" >
+                                    <option value="">Seleccione</option>
+                                    <option value="Mensual"  {{ $periodo == 'Mensual' ? 'selected="selected"' : '' }}>Mensual</option>
+                                    <option value="Trimestral" {{ $periodo == 'Trimestral' ? 'selected="selected"' : '' }}>Trimestral</option>
+                                    <option value="Requerido" {{ $periodo == 'Requerido' ? 'selected="selected"' : '' }}>Requerido</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+     
+
+                       <div class="row">
+                                  <div class="col-md-3"></div>
+                                   <div class="col-md-1">
+                                             Fecha Inicial
+                                   </div>
+                                   <div class="col-md-1">
+                                       
+                                       <input id="fechaInicial" name="fechaInicial" class="date form-control" type="text" value="{{$fechaInicial}}">
+                                   </div>
+                                   <div class="col-md-1">
+                                             Fecha Final
+                                   </div>
+                                   <div class="col-md-1">
+                                       
+                                       <input id="fechaFinal" name="fechaFinal" class="date form-control" type="text" value="{{$fechaFinal}}">
+                                   </div>
+                                   <div class="col-md-4">
+                                        
+                             <button type="submit"  class="btn btn-primary">Consultar</button>
+                         
+                                   </div>
+
+
+
+<script type="text/javascript">
+
+    $('.date').datepicker({  
+
+       format: 'dd-mm-yyyy'
+
+     });  
+
+</script>  </div>
+
+<div class="form-group">
+                            <div class="col-md-9">
+                            <a class="link" href="{{ route('exportarExcel.ReporteConsejo', $idBusqueda ) }}">
+                                 <button  type="button"  class="btn btn-primary">Descargar Excel</button>
+                             </a>    
+                            </div>
+                              
+                        </div>
+           
+</form>
+
+       
+
+<br />
+
 <div class="row"> 
 <div class="col-md-5"></div>           
  <div class="col-md-2">
                    <form target="_blank" method="POST" action="/consejo-sectorial/reporte-consejo/descargar-excel" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
-                        <div class="form-group">
-                            <div class="col-md-9">
-                                 <button type="submit"  class="btn btn-primary">Descargar Excel</button>
-                            </div>
-                              
-                        </div>
+                        
+
+
                         <table hidden>
                         <thead>
                         <th class="text-left f-s-18">Seleccionar</th>
@@ -128,62 +220,8 @@
                  </div>
         </div>
 
-                    <div class="panel-body">
 
-                         
-                   
-                       <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
-                       
-                       <div class="row">
-                       <div class="col-md-2"></div>
-                       <div class="col-md-1">
-                                 Instituci&oacute;n
-                       </div>
-                            <div class="col-md-4">
-                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
-                                   <option value="">Seleccione</option>
-                                    @if( isset($listaMinisterioPorConsejo) )
-                                    @foreach($listaMinisterioPorConsejo as $lista)
-                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected"' : '' }}>{{$lista->nombre_institucion}}</option>
-                                    @endforeach
-                                    @endif
-                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected"' : '' }}>Todos</option>
-                                </select>
-                            
-                            </div>
-                               </div>
-                        <br />
-                       <div class="row">
-                                  <div class="col-md-2"></div>
-                                   <div class="col-md-1">
-                                             Periodo
-                                   </div>
-                                   <div class="col-md-4">
-                                 <select name="selPeriodo" class="form-control"  id="selPeriodo" required="" >
-                                    <option value="">Seleccione</option>
-                                    <option value="Mensual" >Mensual</option>
-                                    <option value="Trimestral" >Trimestral</option>
-                                    <option value="Requerido" >Requerido</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br />
-
-                       
-                            <br />
-                            <div class="row">
-                             <div class="col-md-4"></div>
-                             <div class="col-md-4">
-                                <button type="submit"  >Obtener</button>
-                             </div>
-                             <div class="col-md-2"></div>
-                            </div>
-
-                        </form>
-
-                   
-                     
-
+                    <br />
 
                     <div  class="col-md-9 col-md-offset-2">
                          <table class="table table-hover">
@@ -225,6 +263,18 @@
                         </tr>
                       @endif
                        
+                        <tr>
+                           <th colspan="2" ><div align="left">Periodo</div></th>
+                            <td colspan="1" ><div align="left">{{$periodo}}</div></td>
+                        </tr>
+                          <tr>
+                           <th colspan="2" ><div align="left">Fecha Desde</div>
+                            <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
+                           </tr>
+                            <tr>
+                             <th colspan="2" ><div align="left">Fecha Hasta</div></th>
+                            <td colspan="1" ><div align="left">{{$fechaFinal}}</div></td>
+                        </tr>
 
                        <tr>
                            <th colspan="3" ><div align="center">Tipo Propuesta</div></th>

@@ -575,7 +575,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
 
 
-      Route::post('/reporte-consejo/descargar-excel','ReportesController@exportarExcelReporteConsejo'); 
+    //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo'); 
+     //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo'); 
+      Route::get('/reporte-consejo/descargar-excel/{codInstitucion}',['uses'=>'ReportesController@exportarExcelReporteConsejo','as'=>'exportarExcel.ReporteConsejo']);
+      
       Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
 
 
@@ -583,4 +586,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 });
 
  
+ //Seleccionar fecha
+Route::post('/test/save', ['as' => 'save-date',
+                           'uses' => 'DateController@showDate', 
+                            function () {
+                                return '';
+                            }]);
 

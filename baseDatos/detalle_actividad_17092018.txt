@@ -1,0 +1,16 @@
+/**
+Autor:Ximena Celi
+Fecha:2018-09-17
+**/
+
+
+create table detalle_actividad(
+    id int NOT NULL AUTO_INCREMENT,
+	id_actividad int,
+	id_solucion int,
+	fecha_inicio timestamp,
+    fecha_fin timestamp,
+    usuario varchar(100),
+	cedula varchar(191),
+	 PRIMARY KEY (id)
+);
