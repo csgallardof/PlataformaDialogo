@@ -203,8 +203,7 @@ class PropuestasUnificadasController extends Controller
                        $usuario = Auth::user()->name;
                        $cedula = Auth::user()->cedula;
                        $observacion = "Ninguna";
-                       $errores = "Ninguno";
-                       AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion, $errores );
+                        AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion );
 
     		}
 

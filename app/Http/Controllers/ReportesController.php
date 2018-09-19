@@ -1014,8 +1014,7 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
         	                                                      ] );
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        
-        if($tipo==1){return $pdf->stream('DialogoNacional.pdf');}
+       if($tipo==1){return $pdf->stream('DialogoNacional.pdf');}
         if($tipo==2){return $pdf->download('DialogoNacional.pdf'); }
     }
 
@@ -1112,7 +1111,7 @@ $propuestasRecibidas = DB::select(" SELECT i.id, i.nombre_institucion
 									join estado_solucion e
 									on s.estado_id = e.id
 									where i.id in ( ".$idInstituciones." )
-									and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 									group by i.id,i.nombre_institucion
 									order by i.id, e.id");
 return $propuestasRecibidas;
@@ -1137,7 +1136,7 @@ $propuestasDesestimadas = DB::select(" SELECT i.id, i.nombre_institucion
 									join estado_solucion e
 									on s.estado_id = e.id
 									where i.id in ( ".$idInstituciones." )
-									and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 									and e.nombre_estado = 'Desestimadas'
 									group by i.id,i.nombre_institucion
 									order by i.id, e.id");
@@ -1163,7 +1162,7 @@ public function obtenerPropuestasAnalisadas($idInstitucion,$fechaInicial,$fechaF
 										on s.estado_id = e.id
 										where  e.nombre_estado = 'En Analisis'
 										and i.id  in ( ".$idInstituciones." )
-										and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+										and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 										group by i.nombre_institucion, e.nombre_estado
 										order by i.id, e.id");
 	return $propuestasAnalisadas;
@@ -1181,7 +1180,7 @@ public function obtenerPropuestasPolitica($idInstitucion,$fechaInicial,$fechaFin
 									join actor_solucion on  solucions.id = actor_solucion.solucion_id
 									join institucions on actor_solucion.institucion_id  = institucions.id
 									where institucions.id  in ( ".$idInstituciones." ) 
-									and solucions.created_at between '".$fechaInicial."' and '".$fechaFinal."'");
+									and (solucions.created_at > '".$fechaInicial."' or solucions.created_at <'".$fechaFinal."')");
 return $propuestasPolitica;
 }
 
@@ -1197,7 +1196,7 @@ public function obtenerPropuestasLeyes($idInstitucion,$fechaInicial,$fechaFinal)
 									join actor_solucion on  solucions.id = actor_solucion.solucion_id
 									join institucions on actor_solucion.institucion_id  = institucions.id
 									where institucions.id  in ( ".$idInstituciones." ) 
-									and solucions.created_at between '".$fechaInicial."' and '".$fechaFinal."'"); 
+									and (solucions.created_at > '".$fechaInicial."' or solucions.created_at <'".$fechaFinal."')"); 
  return $propuestasLeyes;
 }
 
@@ -1220,7 +1219,7 @@ public function obtenerPropuestasDesarrolladas($idInstitucion,$fechaInicial,$fec
 										on s.estado_id = e.id
 										where e.nombre_estado = 'En Desarrollo'
 										and i.id  in ( ".$idInstituciones." )
-										and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+										and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 										group by i.nombre_institucion, e.nombre_estado
 										order by i.id, e.id");
 	return $propuestasDesarrolladas;
@@ -1245,7 +1244,7 @@ public function obtenerPropuestasFinalisadas($idInstitucion,$fechaInicial,$fecha
 										on s.estado_id = e.id
 										where e.nombre_estado = 'Finalizado'
 										and i.id  in ( ".$idInstituciones." )
-										and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+										and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 										group by i.nombre_institucion, e.nombre_estado
 										order by i.id, e.id");
 	return $propuestasFinalisadas;
@@ -1266,7 +1265,7 @@ public function obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaF
 									join politicas p
 									on s.politica_id = p.id
 									where i.id  in ( ".$idInstituciones." )
-									and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 									and s.plazo_cumplimiento = 'Largo'");
 return $propuestasPlazoLargo;
 }
@@ -1287,7 +1286,7 @@ $propuestasPlazoMediano = DB::select("SELECT   count(plazo_cumplimiento) as medi
 									join politicas p
 									on s.politica_id = p.id
 									where i.id  in ( ".$idInstituciones." )
-									and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 									and s.plazo_cumplimiento = 'Mediano'");
 return $propuestasPlazoMediano;
 }
@@ -1307,25 +1306,39 @@ public function obtenerPropuestasPlazoCorto($idInstitucion,$fechaInicial,$fechaF
 									join politicas p
 									on s.politica_id = p.id
 									where i.id  in ( ".$idInstituciones." )
-									and s.created_at between '".$fechaInicial."' and '".$fechaFinal."'
+									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 									and s.plazo_cumplimiento = 'Mediano'");
 	return $propuestasPlazoCorto;
 }
 
+
 public function listaConsejoPorCodigo(Request $request){
-  
-//dd($request);
+   if($request->consulto == 'no'){
+      $this -> exportarExcelReporteConsejo($request);
+}
+
  // dd($request->selInstituciones);
+	//dd($request->consulto);
 
 $idBusqueda = $request->selInstituciones;
 
 $periodo = $request->selPeriodo;
 
-$fechaInicial = $request->fechaInicial;
 
-$fechaFinal = $request->fechaFinal;
+$hoy = date("d-m-Y"); 
+$year = date('Y'); 
+$primerDiaAnio = "01-01-".$year;
 
-$hoy = date("d/m/Y"); 
+if($request->selInstituciones == "Todos"){
+  $fechaInicial = $primerDiaAnio; 
+  $fechaFinal = $hoy;
+  $selPeriodo ="Requerido";
+}else{
+  $fechaInicial = $request->fechaInicial;
+  $fechaFinal = $request->fechaFinal;
+}
+//dd($primerDiaAnio);
+
 $institucionUsuario = $this->obtenerInstitucionUsuario($request->selInstituciones);
 
 $institucion = new Institucion();
@@ -1336,9 +1349,9 @@ $institucion = $this-> obtenerInstitucion($request->selInstituciones);
 
 $nombreinstitucion = $institucion[0]->nombre_institucion;
 
-	$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
 			                            ->get();
-			$nombreusuario = $usuario[0]->name;
+$nombreusuario = $usuario[0]->name;
 			//dd($nombreusuario);
 $idInstituciones = $this->obtenerInstitucionesConsejo($request->selInstituciones);
 
@@ -1348,7 +1361,9 @@ $nombreConsejo = $consejo[0]->nombre_consejo;
 
 $listaMinisterioPorConsejo = $this->obtenerMinisteriosPorConsejo($request->selInstituciones);
 
-$propuestasRecibidas =  $this->obtenerPropuestasRecibidas($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+
+
+$propuestasRecibidas =  $this->obtenerPropuestasRecibidas($request->selInstituciones,$fechaInicial,$fechaFinal);
 //dd($propuestasRecibidas);
 //dd($propuestasRecibidas[0]->propuestasRecibidas);
 if($propuestasRecibidas){
@@ -1358,7 +1373,7 @@ if($propuestasRecibidas){
 }
 
 
-$propuestasDesestimadas = $this->obtenerPropuestasDesestimadas($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasDesestimadas = $this->obtenerPropuestasDesestimadas($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 if($propuestasDesestimadas){
 	$numPropuestasDesestimadas = $propuestasDesestimadas[0]->propuestasDesestimadas;
@@ -1373,7 +1388,7 @@ $numPropuestasValidadas = $numPropuestasRecibidas - $numPropuestasDesestimadas;
 //dd($numPropuestasValidadas);
 
 
-$propuestasAnalisadas = $this -> obtenerPropuestasAnalisadas($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasAnalisadas = $this -> obtenerPropuestasAnalisadas($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 //dd($propuestasAnalisadas);
 if($propuestasAnalisadas){
@@ -1384,7 +1399,7 @@ if($propuestasAnalisadas){
 
 //dd($numPropuestasAnalisadas);
 
-$propuestasPolitica = $this -> obtenerPropuestasPolitica($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasPolitica = $this -> obtenerPropuestasPolitica($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 if($propuestasPolitica){
 	$numPropuestasPolitica = $propuestasPolitica[0]->propuestasPolitica;
@@ -1394,7 +1409,7 @@ if($propuestasPolitica){
 
 //dd($numPropuestasPolitica);
 
-$propuestasLeyes = $this -> obtenerPropuestasLeyes($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasLeyes = $this -> obtenerPropuestasLeyes($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 if($propuestasLeyes){
 	$numPropuestasLeyes = $propuestasLeyes[0]->propuestasLeyes;
@@ -1403,7 +1418,7 @@ if($propuestasLeyes){
 }
 //dd($numPropuestasLeyes);
 
-$propuestasDesarrolladas = $this -> obtenerPropuestasDesarrolladas($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasDesarrolladas = $this -> obtenerPropuestasDesarrolladas($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 if($propuestasDesarrolladas){
 	$numPropuestasDesarrolladas = $propuestasDesarrolladas[0]->propuestasDesarrolladas;
@@ -1413,7 +1428,7 @@ if($propuestasDesarrolladas){
 //dd($numPropuestasDesarrolladas);
 
 
-$propuestasFinalisadas = $this -> obtenerPropuestasFinalisadas($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasFinalisadas = $this -> obtenerPropuestasFinalisadas($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 
 if($propuestasFinalisadas){
@@ -1424,7 +1439,7 @@ if($propuestasFinalisadas){
 //dd($numPropuestasAnalisadas);
 
 
-$propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 
 
@@ -1436,7 +1451,7 @@ if($propuestasPlazoLargo){
 //dd($numPropuestasPlazoLargo);
 
 
-$propuestasPlazoMediano = $this -> obtenerPropuestasPlazoMediano($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasPlazoMediano = $this -> obtenerPropuestasPlazoMediano($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 if($propuestasPlazoMediano){
 	$numPropuestasPlazoMediano = $propuestasPlazoMediano[0]->mediano;
@@ -1446,7 +1461,7 @@ if($propuestasPlazoMediano){
 //dd($numPropuestasPlazoMediano);
 
 
-$propuestasPlazoCorto = $this -> obtenerPropuestasPlazoCorto($request->selInstituciones,$request->fechaInicial,$request->fechaFinal);
+$propuestasPlazoCorto = $this -> obtenerPropuestasPlazoCorto($request->selInstituciones,$fechaInicial,$fechaFinal);
 
 if($propuestasPlazoCorto){
 	$numPropuestasPlazoCorto = $propuestasPlazoCorto[0]->corto;
@@ -1462,12 +1477,13 @@ if($propuestasPlazoCorto){
                                  ->join('institucions', 'institucions.id', '=', 'actor_solucion.institucion_id')
                                  ->join('politicas', 'politicas.id', '=', 'solucions.politica_id'); 
 //dd($resultadosreporte);
-
+$consulto=$request->consulto;
 return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
                           	                           "idBusqueda" => $idBusqueda,
                           	                           "periodo"=>$periodo,
                           	                           "fechaInicial"=>$fechaInicial,
                           	                           "fechaFinal"=>$fechaFinal,
+                          	                           "consulto"=>$consulto,
 	                                                       "nombreusuario" => $nombreusuario,
 	                                                       "nombreinstitucion" => $nombreinstitucion,
 	                                                       "nombreConsejo" => $nombreConsejo,
@@ -1491,63 +1507,81 @@ return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
 
 }
 
-public function exportarExcelReporteConsejo($id){
- dd("exportarExcelReporteConsejo"+$id);
-}
-//public function exportarExcelReporteConsejo(Request $request){
-public function exportarExcelReporteConsejo1(Request $request){
- dd("exportarExcelReporteConsejo");
-        //dd("exportarExcelReporteMinisterio".$request);
-         
+public function exportarExcelReporteConsejo(Request $request){
+          //dd("DESCARGAR EXCEL"); 
         // \Excel::create('Reporte Consejo', function($excel) use($request) {
 
-\Excel::create('Reporte Consejo', function($excel) {
 
- $hoy = date("d/m/Y"); 
-
-$institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
-WHERE usuario_id=".Auth::user()->id." ;");
-// dd($institucionUsuario[0]->id);
-
-     
-$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
-                            ->get();
-$nombreusuario = $usuario[0]->name;
-//dd($nombreusuario);
+\Excel::create('Reporte Consejo', function($excel) use($request){
 
 
-$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
-                            ->get();
-$nombreinstitucion = $institucion[0]->nombre_institucion;
-//dd($institucionUsuario[0]->institucion_id);
-//dd($nombre_institucion);
+$idBusqueda = $request->selInstituciones;
+
+$periodo = $request->selPeriodo;
+
+$idInstitucion=$request->codInstitucion;
+
+$hoy = date("d-m-Y"); 
+$year = date('Y'); 
+$primerDiaAnio = "01-01-".$year;
+
+if($request->selInstituciones == "Todos"){
+  $fechaInicial = $primerDiaAnio; 
+  $fechaFinal = $hoy;
+  $selPeriodo ="Requerido";
+}else{
+  $fechaInicial = $request->fechaInicial;
+  $fechaFinal = $request->fechaFinal;
+}
+
+
+
+if(empty($request->codInstitucion)){
+	//dd("No hay cod institucion");
+	 Flash::success("No seleccionó una institución");
+}
+//dd($request->consulto);
+if($request->consulto == 'no'){
+Flash::success("Debe dar click en consultar para poder exportar la información");
+}
+
+$institucion = new Institucion();
+
+$institucion = $this-> obtenerInstitucion($idInstitucion);
 
 //dd($institucion[0]->id);
-$consejo = obtenerConsejo($institucion[0]->id);
+
+$nombreinstitucion = $institucion[0]->nombre_institucion;
+
+$institucionUsuario = $this->obtenerInstitucionUsuario($idInstitucion);
+
+$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+			                            ->get();
+$nombreusuario = $usuario[0]->name;
+
+/*$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
+                            ->get();
+                            */
+$institucion = Institucion::where('id','=',$idInstitucion)
+                            ->get();
+  
+$nombreinstitucion = $institucion[0]->nombre_institucion;
+//dd($institucionUsuario[0]->institucion_id);
+//dd($nombreinstitucion);
+
+//dd($institucion[0]->id);
+//$consejo = obtenerConsejo($institucion[0]->id);
+$consejo =  $this->obtenerConsejo($idInstitucion);
 //dd($consejo); 
 
 
 $nombreConsejo = $consejo[0]->nombre_consejo; 
 //dd($nombreConsejo); 
 
-$listaMinisterioPorConsejo = DB::select("SELECT consejo_sectorials.id as idConsejo,consejo_sectorials.nombre_consejo,institucions.id as idInstitucion, institucions.nombre_institucion
-FROM institucions  
-JOIN  consejo_institucions  
-ON institucions.id =consejo_institucions.institucion_id 
-join consejo_sectorials
-ON  consejo_institucions.consejo_id = consejo_sectorials.id
-WHERE consejo_sectorials.id = ".$consejo[0]->idConsejo."
-order by consejo_sectorials.nombre_consejo,institucions.nombre_institucion;");
+$listaMinisterioPorConsejo = $this -> obtenerConsejo($idInstitucion);
 
 //dd($listaMinisterioPorConsejo);
-$idInstituciones =  0;
-foreach($listaMinisterioPorConsejo as $lista){
-	$idInstituciones1 =  $lista->idInstitucion;
-    $idInstituciones =  $idInstituciones1.",".$idInstituciones;
-}
-
-
-    $resultadosreporte = ActorSolucion::select('solucions.*','institucions.id', 'institucions.nombre_institucion', 'politicas.nombre_politica')
+$resultadosreporte = ActorSolucion::select('solucions.*','institucions.id', 'institucions.nombre_institucion', 'politicas.nombre_politica')
                       //Solucion::select('solucions.*','i.id', 'i.nombre_institucion', 'p.nombre_politica')
                                  ->join('solucions', 'solucions.id', '=', 'actor_solucion.solucion_id')
                                  ->join('institucions', 'institucions.id', '=', 'actor_solucion.institucion_id')
@@ -1559,18 +1593,8 @@ foreach($listaMinisterioPorConsejo as $lista){
                                  ; 
 
 
- $propuestasRecibidas = DB::select(" SELECT i.id, i.nombre_institucion
-									,count(e.nombre_estado) as propuestasRecibidas
-									from actor_solucion acs
-									join institucions i
-									on acs.institucion_id = i.id
-									join solucions s
-									on acs.solucion_id = s.id
-									join estado_solucion e
-									on s.estado_id = e.id
-									where i.id in (".$idInstituciones.")
-									group by i.id,i.nombre_institucion
-									order by i.id, e.id");
+ $propuestasRecibidas = $this -> obtenerPropuestasRecibidas($idInstitucion,$fechaInicial,$fechaFinal);
+ 
 
 //dd($propuestasRecibidas);
 //dd($propuestasRecibidas[0]->propuestasRecibidas);
@@ -1582,19 +1606,7 @@ if($propuestasRecibidas){
 //dd($numPropuestasRecibidas);
 
 
-$propuestasDesestimadas = DB::select(" SELECT i.id, i.nombre_institucion
-									,count(e.nombre_estado) as propuestasDesestimadas
-									from actor_solucion acs
-									join institucions i
-									on acs.institucion_id = i.id
-									join solucions s
-									on acs.solucion_id = s.id
-									join estado_solucion e
-									on s.estado_id = e.id
-									where i.id in (".$idInstituciones.")
-									and e.nombre_estado = 'Desestimadas'
-									group by i.id,i.nombre_institucion
-									order by i.id, e.id");
+$propuestasDesestimadas = $this -> obtenerPropuestasDesestimadas($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasDesestimadas){
 	$numPropuestasDesestimadas = $propuestasDesestimadas[0]->propuestasDesestimadas;
@@ -1609,21 +1621,7 @@ $numPropuestasValidadas = $numPropuestasRecibidas - $numPropuestasDesestimadas;
 //dd($numPropuestasValidadas);
 
 
-$propuestasAnalisadas = DB::select("SELECT 
-										i.nombre_institucion
-										,e.nombre_estado
-										,count(e.nombre_estado) as propuestasAnalisadas
-										from actor_solucion acs
-										join institucions i
-										on acs.institucion_id = i.id
-										join solucions s
-										on acs.solucion_id = s.id
-										join estado_solucion e
-										on s.estado_id = e.id
-										where  e.nombre_estado = 'En Analisis'
-										and i.id in ( ".$idInstituciones." )
-										group by i.nombre_institucion, e.nombre_estado
-										order by i.id, e.id");
+$propuestasAnalisadas = $this -> obtenerPropuestasAnalisadas($idInstitucion,$fechaInicial,$fechaFinal);
 
 //dd($propuestasAnalisadas);
 if($propuestasAnalisadas){
@@ -1634,12 +1632,7 @@ if($propuestasAnalisadas){
 
 //dd($numPropuestasAnalisadas);
 
-$propuestasPolitica = DB::select("SELECT count(politica_id) as propuestasPolitica
-									from solucions
-									join politicas on solucions.politica_id = politicas.id
-									join actor_solucion on  solucions.id = actor_solucion.solucion_id
-									join institucions on actor_solucion.institucion_id  = institucions.id
-									where institucions.id in ( ".$idInstituciones.") ");
+$propuestasPolitica = $this -> obtenerPropuestasPolitica($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasPolitica){
 	$numPropuestasPolitica = $propuestasPolitica[0]->propuestasPolitica;
@@ -1649,12 +1642,7 @@ if($propuestasPolitica){
 
 //dd($numPropuestasPolitica);
 
-$propuestasLeyes = DB::select("SELECT count(instrumento_id) as propuestasLeyes
-									from solucions
-									join instrumentos on solucions.instrumento_id = instrumentos.id
-									join actor_solucion on  solucions.id = actor_solucion.solucion_id
-									join institucions on actor_solucion.institucion_id  = institucions.id
-									where institucions.id in (".$idInstituciones.") "); 
+$propuestasLeyes = $this -> obtenerPropuestasLeyes($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasLeyes){
 	$numPropuestasLeyes = $propuestasLeyes[0]->propuestasLeyes;
@@ -1663,22 +1651,7 @@ if($propuestasLeyes){
 }
 //dd($numPropuestasLeyes);
 
-$propuestasDesarrolladas = DB::select("SELECT 
-										i.nombre_institucion
-										,e.nombre_estado
-										,count(e.nombre_estado) as propuestasDesarrolladas
-										from actor_solucion acs
-										join institucions i
-										on acs.institucion_id = i.id
-										join solucions s
-										on acs.solucion_id = s.id
-										join estado_solucion e
-										on s.estado_id = e.id
-										where e.nombre_estado = 'En Desarrollo'
-										and i.id in (".$idInstituciones." )
-										group by i.nombre_institucion, e.nombre_estado
-										order by i.id, e.id");
-
+$propuestasDesarrolladas = $this -> obtenerPropuestasDesarrolladas($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasDesarrolladas){
 	$numPropuestasDesarrolladas = $propuestasDesarrolladas[0]->propuestasDesarrolladas;
@@ -1688,22 +1661,7 @@ if($propuestasDesarrolladas){
 //dd($numPropuestasDesarrolladas);
 
 
-$propuestasFinalisadas = DB::select("SELECT 
-										i.nombre_institucion
-										,e.nombre_estado
-										,count(e.nombre_estado) as propuestasFinalisadas
-										from actor_solucion acs
-										join institucions i
-										on acs.institucion_id = i.id
-										join solucions s
-										on acs.solucion_id = s.id
-										join estado_solucion e
-										on s.estado_id = e.id
-										where e.nombre_estado = 'Finalizado'
-										and i.id in ( ".$idInstituciones." )
-										group by i.nombre_institucion, e.nombre_estado
-										order by i.id, e.id");
-
+$propuestasFinalisadas = $this -> obtenerPropuestasFinalisadas($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasFinalisadas){
 	$numPropuestasFinalisadas = $propuestasFinalisadas[0]->propuestasFinalisadas;
@@ -1713,18 +1671,7 @@ if($propuestasFinalisadas){
 //dd($numPropuestasAnalisadas);
 
 
-$propuestasPlazoLargo = DB::select("SELECT   count(plazo_cumplimiento) as largo
-									from actor_solucion acs
-									join institucions i
-									on acs.institucion_id = i.id
-									join solucions s
-									on acs.solucion_id = s.id
-									join politicas p
-									on s.politica_id = p.id
-									where i.id  in  (".$idInstituciones.")
-									and s.plazo_cumplimiento = 'Largo'");
-
-
+$propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasPlazoLargo){
 	$numPropuestasPlazoLargo = $propuestasPlazoLargo[0]->largo;
@@ -1734,16 +1681,7 @@ if($propuestasPlazoLargo){
 //dd($numPropuestasPlazoLargo);
 
 
-$propuestasPlazoMediano = DB::select("SELECT   count(plazo_cumplimiento) as mediano
-									from actor_solucion acs
-									join institucions i
-									on acs.institucion_id = i.id
-									join solucions s
-									on acs.solucion_id = s.id
-									join politicas p
-									on s.politica_id = p.id
-									where i.id in ( ".$idInstituciones." )
-									and s.plazo_cumplimiento = 'Mediano'");
+$propuestasPlazoMediano = $this -> obtenerPropuestasPlazoMediano($idInstitucion,$fechaInicial,$fechaFinal);
 
 if($propuestasPlazoMediano){
 	$numPropuestasPlazoMediano = $propuestasPlazoMediano[0]->mediano;
@@ -1753,16 +1691,8 @@ if($propuestasPlazoMediano){
 //dd($numPropuestasPlazoMediano);
 
 
-$propuestasPlazoCorto = DB::select("SELECT   count(plazo_cumplimiento) as corto
-									from actor_solucion acs
-									join institucions i
-									on acs.institucion_id = i.id
-									join solucions s
-									on acs.solucion_id = s.id
-									join politicas p
-									on s.politica_id = p.id
-									where i.id in ( ".$idInstituciones." )
-									and s.plazo_cumplimiento = 'Mediano'");
+$propuestasPlazoCorto = $this -> obtenerPropuestasPlazoCorto($idInstitucion,$fechaInicial,$fechaFinal);
+
 
 if($propuestasPlazoCorto){
 	$numPropuestasPlazoCorto = $propuestasPlazoCorto[0]->corto;
@@ -1872,57 +1802,61 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
          
         })->export('xlsx');
         
+
+
+
     }
  
 
- public function exportarPdfReporteConsejo(Request $request,$tipo){
-         $vistaurl="publico.reportes.reporteConsejoPdf";
+ //public function exportarPdfReporteConsejo(Request $request,$tipo){
+
+public function exportarPdfReporteConsejo(Request $request){
+ 	 	
+//dd($idBusqueda);
+	//dd($request->idBusqueda);
+	//dd($request->selInstituciones);
+//	dd($request->codInstitucion);
+	
+ 	$vistaurl="publico.reportes.reporteConsejoPdf";
+ 	//dd($request->idBusqueda);
+ 	$idInstitucion = $request->codInstitucion;
+
 
     $hoy = date("d/m/Y"); 
-    $periodo = $request->selPeriodo;
+    $periodo = $request->periodo;
 
 $fechaInicial = $request->fechaInicial;
 
 $fechaFinal = $request->fechaFinal;
-
-		$institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
-			WHERE usuario_id=".Auth::user()->id." ;");
+//dd("periodo".$periodo."_finicio_".$fechaInicial."_ffin".$fechaFinal);
+		
+		/*$institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
+			WHERE usuario_id=".Auth::user()->id." ;");*/
 			// dd($institucionUsuario[0]->id);
-
+ 
+ $institucion = $this->obtenerInstitucion($idInstitucion);
 			     
-			$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+			/*$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+			                            ->get();*/
+			$usuario = User::where('id','=',$institucion[0]->id)
 			                            ->get();
+			                                                        
 			$nombreusuario = $usuario[0]->name;
-			//dd($nombreusuario);
-
-
-			$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
-			                            ->get();
+			
 			$nombreinstitucion = $institucion[0]->nombre_institucion;
 			//dd($institucionUsuario[0]->institucion_id);
 			//dd($nombre_institucion);
 
 			//dd($institucion[0]->id);
-			$consejo = DB::select("SELECT consejo_sectorials.nombre_consejo,institucions.id, consejo_sectorials.id as idConsejo FROM consejo_sectorials 
-								JOIN consejo_institucions 
-								ON consejo_sectorials.id = consejo_institucions.consejo_id
-								JOIN institucions
-								ON consejo_institucions.institucion_id = institucions.id
-								WHERE institucions.id = ".$institucion[0]->id.";");
+			$consejo = $this -> obtenerConsejo($idInstitucion);
+
 			//dd($consejo); 
 
 
 			$nombreConsejo = $consejo[0]->nombre_consejo; 
 			//dd($nombreConsejo); }
 
-$listaMinisterioPorConsejo = DB::select("SELECT consejo_sectorials.id as idConsejo,consejo_sectorials.nombre_consejo,institucions.id as idInstitucion, institucions.nombre_institucion
-FROM institucions  
-JOIN  consejo_institucions  
-ON institucions.id =consejo_institucions.institucion_id 
-join consejo_sectorials
-ON  consejo_institucions.consejo_id = consejo_sectorials.id
-WHERE consejo_sectorials.id = ".$consejo[0]->idConsejo."
-order by consejo_sectorials.nombre_consejo,institucions.nombre_institucion;");
+$listaMinisterioPorConsejo = $this -> obtenerMinisteriosPorConsejo($idInstitucion);
 
 //dd($listaMinisterioPorConsejo);
 $idInstituciones =  0;
@@ -1930,7 +1864,7 @@ foreach($listaMinisterioPorConsejo as $lista){
 	$idInstituciones1 =  $lista->idInstitucion;
     $idInstituciones =  $idInstituciones1.",".$idInstituciones;
 }
-//d
+
 			    $resultadosreporte = ActorSolucion::select('solucions.*','institucions.id', 'institucions.nombre_institucion', 'politicas.nombre_politica')
 			                      //Solucion::select('solucions.*','i.id', 'i.nombre_institucion', 'p.nombre_politica')
 			                                 ->join('solucions', 'solucions.id', '=', 'actor_solucion.solucion_id')
@@ -1943,19 +1877,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 			                                 ; 
 
 
-			 $propuestasRecibidas = DB::select(" SELECT i.id, i.nombre_institucion
-												,count(e.nombre_estado) as propuestasRecibidas
-												from actor_solucion acs
-												join institucions i
-												on acs.institucion_id = i.id
-												join solucions s
-												on acs.solucion_id = s.id
-												join estado_solucion e
-												on s.estado_id = e.id
-												where i.id=".$institucion[0]->id."
-												group by i.id,i.nombre_institucion
-												order by i.id, e.id");
+			 $propuestasRecibidas = $this -> obtenerPropuestasRecibidas($idInstitucion,$fechaInicial,$fechaFinal);
 
+			 
 			//dd($propuestasRecibidas);
 			//dd($propuestasRecibidas[0]->propuestasRecibidas);
 			if($propuestasRecibidas){
@@ -1966,19 +1890,7 @@ foreach($listaMinisterioPorConsejo as $lista){
 			//dd($numPropuestasRecibidas);
 
 
-			$propuestasDesestimadas = DB::select(" SELECT i.id, i.nombre_institucion
-												,count(e.nombre_estado) as propuestasDesestimadas
-												from actor_solucion acs
-												join institucions i
-												on acs.institucion_id = i.id
-												join solucions s
-												on acs.solucion_id = s.id
-												join estado_solucion e
-												on s.estado_id = e.id
-												where i.id in (".$idInstituciones.")
-												and e.nombre_estado = 'Desestimadas'
-												group by i.id,i.nombre_institucion
-												order by i.id, e.id");
+			$propuestasDesestimadas = $this -> obtenerPropuestasDesestimadas($idInstitucion,$fechaInicial,$fechaFinal);
 
 			if($propuestasDesestimadas){
 				$numPropuestasDesestimadas = $propuestasDesestimadas[0]->propuestasDesestimadas;
@@ -1993,21 +1905,7 @@ foreach($listaMinisterioPorConsejo as $lista){
 			//dd($numPropuestasValidadas);
 
 
-			$propuestasAnalisadas = DB::select("SELECT 
-													i.nombre_institucion
-													,e.nombre_estado
-													,count(e.nombre_estado) as propuestasAnalisadas
-													from actor_solucion acs
-													join institucions i
-													on acs.institucion_id = i.id
-													join solucions s
-													on acs.solucion_id = s.id
-													join estado_solucion e
-													on s.estado_id = e.id
-													where  e.nombre_estado = 'En Analisis'
-													and i.id in ( ".$idInstituciones.")
-													group by i.nombre_institucion, e.nombre_estado
-													order by i.id, e.id");
+			$propuestasAnalisadas = $this -> obtenerPropuestasAnalisadas($idInstitucion,$fechaInicial,$fechaFinal);
 
 			//dd($propuestasAnalisadas);
 			if($propuestasAnalisadas){
@@ -2018,12 +1916,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 
 			//dd($numPropuestasAnalisadas);
 
-			$propuestasPolitica = DB::select("SELECT count(politica_id) as propuestasPolitica
-									from solucions
-									join politicas on solucions.politica_id = politicas.id
-									join actor_solucion on  solucions.id = actor_solucion.solucion_id
-									join institucions on actor_solucion.institucion_id  = institucions.id
-									where institucions.id in (".$idInstituciones.") ");
+			$propuestasPolitica = $this -> obtenerPropuestasPolitica($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
 			if($propuestasPolitica){
 				$numPropuestasPolitica = $propuestasPolitica[0]->propuestasPolitica;
 			}else{
@@ -2032,12 +1927,7 @@ foreach($listaMinisterioPorConsejo as $lista){
 
 			//dd($numPropuestasPolitica);
 
-			$propuestasLeyes = DB::select("SELECT count(instrumento_id) as propuestasLeyes
-									from solucions
-									join instrumentos on solucions.instrumento_id = instrumentos.id
-									join actor_solucion on  solucions.id = actor_solucion.solucion_id
-									join institucions on actor_solucion.institucion_id  = institucions.id
-									where institucions.id in (".$idInstituciones.") "); 
+			$propuestasLeyes = $this -> obtenerPropuestasLeyes($idInstitucion,$fechaInicial,$fechaFinal);
 
 			if($propuestasLeyes){
 				$numPropuestasLeyes = $propuestasLeyes[0]->propuestasLeyes;
@@ -2046,23 +1936,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 			}
 
 
-			$propuestasDesarrolladas = DB::select("SELECT 
-													i.nombre_institucion
-													,e.nombre_estado
-													,count(e.nombre_estado) as propuestasDesarrolladas
-													from actor_solucion acs
-													join institucions i
-													on acs.institucion_id = i.id
-													join solucions s
-													on acs.solucion_id = s.id
-													join estado_solucion e
-													on s.estado_id = e.id
-													where e.nombre_estado = 'En Desarrollo'
-													and i.id in ( ".$idInstituciones." )
-													group by i.nombre_institucion, e.nombre_estado
-													order by i.id, e.id");
+			$propuestasDesarrolladas = $this -> obtenerPropuestasDesarrolladas($idInstitucion,$fechaInicial,$fechaFinal);
 
-
+			
 			if($propuestasDesarrolladas){
 				$numPropuestasDesarrolladas = $propuestasDesarrolladas[0]->propuestasDesarrolladas;
 			}else{
@@ -2071,23 +1947,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 			//dd($numPropuestasDesarrolladas);
 
 
-			$propuestasFinalisadas = DB::select("SELECT 
-													i.nombre_institucion
-													,e.nombre_estado
-													,count(e.nombre_estado) as propuestasFinalisadas
-													from actor_solucion acs
-													join institucions i
-													on acs.institucion_id = i.id
-													join solucions s
-													on acs.solucion_id = s.id
-													join estado_solucion e
-													on s.estado_id = e.id
-													where e.nombre_estado = 'Finalizado'
-													and i.id in ( ".$idInstituciones.")
-													group by i.nombre_institucion, e.nombre_estado
-													order by i.id, e.id");
+			$propuestasFinalisadas = $this -> obtenerPropuestasFinalisadas($idInstitucion,$fechaInicial,$fechaFinal);
 
-
+			
 			if($propuestasFinalisadas){
 				$numPropuestasFinalisadas = $propuestasFinalisadas[0]->propuestasFinalisadas;
 			}else{
@@ -2096,19 +1958,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 			//dd($numPropuestasAnalisadas);
 
 
-			$propuestasPlazoLargo = DB::select("SELECT   count(plazo_cumplimiento) as largo
-												from actor_solucion acs
-												join institucions i
-												on acs.institucion_id = i.id
-												join solucions s
-												on acs.solucion_id = s.id
-												join politicas p
-												on s.politica_id = p.id
-												where i.id in ( ".$idInstituciones.")
-												and s.plazo_cumplimiento = 'Largo'");
+			$propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaFinal);
 
-
-
+			
 			if($propuestasPlazoLargo){
 				$numPropuestasPlazoLargo = $propuestasPlazoLargo[0]->largo;
 			}else{
@@ -2117,17 +1969,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 			//dd($numPropuestasPlazoLargo);
 
 
-			$propuestasPlazoMediano = DB::select("SELECT   count(plazo_cumplimiento) as mediano
-												from actor_solucion acs
-												join institucions i
-												on acs.institucion_id = i.id
-												join solucions s
-												on acs.solucion_id = s.id
-												join politicas p
-												on s.politica_id = p.id
-												where i.id in ( ".$idInstituciones." )
-												and s.plazo_cumplimiento = 'Mediano'");
+			$propuestasPlazoMediano = $this -> obtenerPropuestasPlazoMediano($idInstitucion,$fechaInicial,$fechaFinal);
 
+			
 			if($propuestasPlazoMediano){
 				$numPropuestasPlazoMediano = $propuestasPlazoMediano[0]->mediano;
 			}else{
@@ -2136,17 +1980,9 @@ foreach($listaMinisterioPorConsejo as $lista){
 			//dd($numPropuestasPlazoMediano);
 
 
-			$propuestasPlazoCorto = DB::select("SELECT   count(plazo_cumplimiento) as corto
-												from actor_solucion acs
-												join institucions i
-												on acs.institucion_id = i.id
-												join solucions s
-												on acs.solucion_id = s.id
-												join politicas p
-												on s.politica_id = p.id
-												where i.id in ( ".$idInstituciones." )
-												and s.plazo_cumplimiento = 'Mediano'");
+			$propuestasPlazoCorto = $this -> obtenerPropuestasPlazoCorto($idInstitucion,$fechaInicial,$fechaFinal);
 
+			
 			if($propuestasPlazoCorto){
 				$numPropuestasPlazoCorto = $propuestasPlazoCorto[0]->corto;
 			}else{
@@ -2158,6 +1994,24 @@ foreach($listaMinisterioPorConsejo as $lista){
         //$elementos= sizeof($data1);
         //dd($data1);
         $date = date('Y-m-d');
+      /*  dd( "hoy".$hoy."_nombreusuario".$nombreusuario."_periodo".$periodo.        	                                                      "_fechaInicial".$fechaInicial.
+                                                                  "_fechaFinal".$fechaFinal. 
+        	                                                      "_nombreinstitucion".$nombreinstitucion.
+        	                                                      "_nombreConsejo".$nombreConsejo.
+        	                                                      "_numPropuestasRecibidas".$numPropuestasRecibidas.
+        	                                                      "_numPropuestasDesestimadas".$numPropuestasDesestimadas.
+        	                                                      "_numPropuestasValidadas".$numPropuestasValidadas.
+        	                                                      "_numPropuestasAnalisadas".$numPropuestasAnalisadas.
+        	                                                      "_numPropuestasDesarrolladas".$numPropuestasDesarrolladas.
+        	                                                      "_numPropuestasFinalisadas".$numPropuestasFinalisadas.
+        	                                                      "_numPropuestasPolitica".$numPropuestasPolitica.
+        	                                                      "_numPropuestasLeyes".$numPropuestasLeyes.
+        	                                                      "_numPropuestasPlazoLargo".$numPropuestasPlazoLargo.
+        	                                                      "_numPropuestasPlazoMediano".$numPropuestasPlazoMediano.
+        	                                                      "_numPropuestasPlazoCorto".$numPropuestasPlazoCorto);
+        	                                                      //"_resultadosreporte".$resultadosreporte);
+*/
+
         $view = \View::make($vistaurl, compact('date'))->with( [ "hoy" => $hoy,"nombreusuario" => $nombreusuario,
         	                                                     "periodo" => $periodo,
         	                                                      "fechaInicial" =>$fechaInicial,
@@ -2174,14 +2028,16 @@ foreach($listaMinisterioPorConsejo as $lista){
         	                                                      "numPropuestasLeyes" => $numPropuestasLeyes,
         	                                                      "numPropuestasPlazoLargo" => $numPropuestasPlazoLargo,
         	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
-        	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto,
-        	                                                      "resultadosreporte" => $resultadosreporte
+        	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto
         	                                                      ] );
+       //   dd($view);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        
-        if($tipo==1){return $pdf->stream('ReporteConsejo.pdf');}
-        if($tipo==2){return $pdf->download('ReporteConsejo.pdf'); }
+       
+        //if($tipo==1){return $pdf->stream('ReporteConsejo.pdf');}
+        //if($tipo==2){return $pdf->download('ReporteConsejo.pdf'); }
+        return $pdf->download('ReporteConsejo.pdf');
+
     }
 
 
