@@ -7,6 +7,7 @@ use App\Pajustada;
 use App\Actividad;
 use App\ActorSolucion;
 use App\Archivo;
+use App\DetalleActividad;
 use Mail;
 use App\Politica;
 use App\PlanNacional;
@@ -567,7 +568,18 @@ class ActividadesController extends Controller
                 $solucion = Solucion::find($idSolucion);
                 $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
                 $solucion->save();
+
             }
+            
+
+            $actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.$idSolucion.' and ejecutor_id = '.$actividad->ejecutor_id.' ');
+            $id_actividad = $actividadGuardada[0]->id;  
+            $id_solucion = $idSolucion;
+            $fecha_inicio =  date('Y-m-d H:m'); 
+            $fecha_fin =  date('Y-m-d H:m'); //esto seria inicialmente posteriormente se debería actualizar con la fecha de inicio de la siguiente actividad
+            $usuario = Auth::user()->name;
+            $cedula = Auth::user()->cedula;
+            DetalleActividadController::guardarDetalleActividad( $id_actividad, $id_solucion,$fecha_inicio,$fecha_fin, $usuario, $cedula);
         }
         
         $actividad-> save();

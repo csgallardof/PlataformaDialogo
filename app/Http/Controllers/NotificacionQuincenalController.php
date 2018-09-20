@@ -26,7 +26,8 @@ class NotificacionQuincenalController extends Controller
 
         $notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
         $notfUsed =  $notificacionesq[0];
-        $title = 'Propuestas Pendientes';
+        $title = 'Plataforma de Dialogo Nacional, Correo de Notificacion';
+        $title_reporte = 'Report Quincenal de Propuestas Pendientes';
         $content = $notfUsed->problema_solucion;
 
         $usuarioArray = array();
@@ -54,7 +55,7 @@ class NotificacionQuincenalController extends Controller
 
                 $date = date('Y-m-d');
 
-                $view = \View::make("emails.correoNotificacion", compact('date'))->with(['title' => $title,  'notificacionesq'=> $usuarioArray]);
+                $view = \View::make("emails.correoNotificacion", compact('date'))->with(['title' => $title_reporte,  'notificacionesq'=> $usuarioArray]);
                 $pdf = \App::make('dompdf.wrapper');
                 $pdf->loadHTML($view);
 
@@ -65,17 +66,19 @@ class NotificacionQuincenalController extends Controller
 
                 //$pdf = PDF::loadView('emails.correoNotificacion', ['title' => $title,  'notificacionesq'=> $usuarioArray]);
                 //return $pdf->stream('reporteQuincenal.pdf');
-
-                Mail::send('emails.correoNotificacionHome', ['title' => $title,  'notificacionesq'=> $usuarioArray], function ($message) use ($email_origen,$pdf)
+                $email_origen_prueba=array('alex.dominguez@secom.gob.ec','alexpatde@gmail.com');
+                $email_origen_f=$email_origen_prueba;
+                Mail::send('emails.correoNotificacionHome', ['title' => $title,  'notificacionesq'=> $usuarioArray], function ($message) use ($email_origen_f,$pdf)
                 {
 
                     $message->from('inteligencia.contacto@gmail.com', 'Secretaria de Gestión de la Política');
 
                     //$message->to('alexpatde@gmail.com')->subject('Reporte Quincenal de Propuestas Pendientes');
-                    $message->to($email_origen)->subject('Reporte Quincenal de Propuestas Pendientes');
+                    $message->to($email_origen_f)->subject('Reporte Quincenal de Propuestas Pendientes');
                     $message->attachData($pdf->output(), 'reporteQuincenal.pdf');
 
                 });
+                //return;
                 $contador=0;
                 unset($usuarioArray);
                 $usuarioArray = array();
@@ -97,13 +100,15 @@ class NotificacionQuincenalController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
 
-        Mail::send('emails.correoNotificacionHome', ['title' => $title,  'notificacionesq'=> $usuarioArray], function ($message) use ($email_origen,$pdf)
+        $email_origen_prueba=array('alex.dominguez@secom.gob.ec','alexpatde@gmail.com');
+        $email_origen_f=$email_origen_prueba;
+        Mail::send('emails.correoNotificacionHome', ['title' => $title,  'notificacionesq'=> $usuarioArray], function ($message) use ($email_origen_f,$pdf)
         {
 
             $message->from('inteligencia.contacto@gmail.com', 'Secretaria de Gestión de la Política');
 
             //$message->to('alexpatde@gmail.com')->subject('Reporte Quincenal de Propuestas Pendientes');
-            $message->to($email_origen)->subject('Reporte Quincenal de Propuestas Pendientes');
+            $message->to($email_origen_f)->subject('Reporte Quincenal de Propuestas Pendientes');
             $message->attachData($pdf->output(), 'reporteQuincenal.pdf');
 
         });
