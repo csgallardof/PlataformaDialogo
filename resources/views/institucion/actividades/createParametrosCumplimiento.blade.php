@@ -34,7 +34,7 @@
                             <h4>Soluci&oacute;n</h4>
 								<p class="f-s-20">
 								@if (isset($solucion) )
-									{{ $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion }}
+									{{ $solucion->propuesta_solucion }}
 								@endif
 							</p>
                               
@@ -63,7 +63,7 @@
                             <h4 class="panel-title"><i class="fa fa-file-text-o" aria-hidden="true"></i>  Definir Parametros de Cumplimiento</h4>
                         </div>
                         <div class="panel-body">
-                            <div class="height-lg" data-scrollbar="true">
+                            <div class="height-lg">
                                 <div class="media-body">
                                     <div class="col-md-12">
                                         
@@ -78,29 +78,79 @@
               
                                         
                                         <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-2"></div>
-                                                    <div class="col-md-5">
-                                                       <label for="plazo_cumplimiento">Plazo de Porpuesta</label>   
-                                                        <select name="plazo_cumplimiento" class="form-control"  required="">
-                                                     <option value="" >------Escoja un opcion----</option>
-                                                     <option value="Corto" >Corto</option>
-                                                     <option value="Mediano" >Mediano</option>
-                                                     <option value="Largo" >Largo</option>
-                                                            
-                                                       
-                                                        </select>  
-                                                    </div>
-                                                    
-                                                    
+                                            <div class="row">
+                                                <div class="col-md-2"><label for="politica" class="pull-right" >Política:</label>  </div>
+                                                <div class="col-md-5">
+                                                    <select name="politica" class="form-control"  required="">
+                                                        <option value="" >Selecciones una opción de política</option>
+                                                        @if( isset($politica) )
+                                                            @foreach( $politica as $politica )
+                                                                <option value="{{ $politica->id}}">
+                                                                    {{ $politica->nombre_politica }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>  
                                                 </div>
-                                                
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2"><label for="plan_nacional" class="pull-right">Plan Nacional:</label>   </div>
+                                                <div class="col-md-5">
+                                                    <select name="plan_nacional" class="form-control"  required="">
+                                                        <option value="" >Selecciones una opción del plan</option>
+                                                        @if( isset($plan_nacional) )
+                                                            @foreach( $plan_nacional as $plan_nacional )
+                                                                <option value="{{ $plan_nacional->id}}">
+                                                                    {{ $plan_nacional->nombre_plan_nacional }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2"><label for="planificado" class="pull-right">Planificado ( SI / NO )</label>  </div>
+                                                <div class="col-md-5">
+                                                    <select name="planificado" class="form-control"  required="">
+                                                         <option value="" >Selecciones una opción</option>
+                                                         <option value="SI" >SI</option>
+                                                         <option value="NO" >NO</option>
+                                                    </select>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2"><label for="riesgos_cumplimiento" class="pull-right">Instrumento de Planificación / Descripción</label></div>
+                                                <div class="col-md-8">
+                                                    <textarea  required class="form-control" id="acciones" name="riesgos_cumplimiento" placeholder="Describa el instrumento de planificación o describa el motivo de no planificación" rows="2" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2"><label for="plazo_cumplimiento" class="pull-right">Plazo de Propuesta</label> </div>
+                                                <div class="col-md-5">
+                                                     
+                                                    <select name="plazo_cumplimiento" class="form-control"  required="">
+                                                         <option value="" >Selecciones una opción</option>
+                                                         <option value="Corto" >Corto</option>
+                                                         <option value="Mediano" >Mediano</option>
+                                                         <option value="Largo" >Largo</option>
+                                                    </select>  
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-2"><label for="fecha_cumplimimento" class="pull-right">Fecha de Cumplimiento (Opcional)</label></div>
                                                     <div class="col-md-5">
-                                                        <label for="fecha_cumplimimento">Fecha de Cumplimiento (Opcional)</label>	
+                                                        	
 									 					<div class="input-group date" id="datepicker-disabled-past"  data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
 		                                            <input type="text" readonly name="fecha_cumplimimento" class="form-control" value="" placeholder="Seleccione Fecha" />
 		                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -115,10 +165,10 @@
 
                                         <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-2"><label for="riesgos_cumplimiento" class="pull-right">Riesgos</label></div>
                                                     <div class="col-md-8">
-                                                       <label for="riesgos_cumplimiento">Riesgos</label> 	
-									 					<textarea  required class="form-control" id="acciones" name="riesgos_cumplimiento" rows="6" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
+                                                       
+									 					<textarea  required class="form-control" id="acciones" name="riesgos_cumplimiento" rows="2" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
                                                     </div>
                                                     
                                                     
@@ -128,27 +178,15 @@
 
                                         <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-2"><label for="supuestos_cumplimientos" class="pull-right">Supestos</label></div>
                                                     <div class="col-md-8">
-                                                       <label for="supuestos_cumplimientos">Supestos</label> 	
-									 					<textarea  required class="form-control" id="acciones" name="supuestos_cumplimientos" rows="6" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
+                                                       
+									 					<textarea  required class="form-control" id="acciones" name="supuestos_cumplimientos" rows="2" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
                                                     </div>
-                                                    
-                                                    
-                                                </div>
+                                            </div>
                                                 
                                         </div>
                                         
-                                        <div class="form-group">
-                                                
-                                                
-                                        
-                                        
-                                        
-                                                <div class="from-group">
-                                            <div class="row"></div>
-                                            
-                                        </div>
                                         <hr>
                                         <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary pull-right">Registrar</button>
@@ -164,61 +202,7 @@
                 <!-- end col-8 -->
                 
             </div>
-            <div class="col-md-12" >
-                    <div class="panel panel-inverse" data-sortable-id="index-6">
-                        <div class="panel-heading">
-                            <div class="panel-heading-btn">
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h4 class="panel-title">Actividades</h4>
-                        </div>
-                        
-                        <div class="panel-body">
-                            @if( isset( $actividades ) && count($actividades) > 0)
-										<?php $count=1; ?>
-										@foreach( $actividades as $actividad)
-											<h4>
-												<label class="label label-danger label-lg"><i class="fa fa-file-text-o" aria-hidden="true"></i> Actividad {{ $count }}</label><br><br>
-											</h4>
-											<p class="text-justify">
-												{!! $actividad-> comentario !!}
-												<br><br>
-
-												@if( $actividad-> ejecutor_id > 0 )
-													<b> Ejecutor: </b> {{ $actividad-> usuario-> name }}<br>
-												@endif
-												
-											</p>
-											<hr>
-											<?php $count++; ?>
-										@endforeach
-									@else
-										@if( count($actividades) == 0)
-											{{ "No hay actividades registradas"}}
-										@endif
-									@endif
-                        </div>
-                    </div>
-                    <!-- <div class="panel panel-inverse" data-sortable-id="index-7">
-                        <div class="panel-heading">
-                            <div class="panel-heading-btn">
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h4 class="panel-title">&Uacute;ltimas actividades</h4>
-                        </div>
-                        <div class="panel-body">
-                            
-                        </div>
-                    </div> -->
-                    
-                </div>
-            <!-- end row -->
+            
         </div>
         <!-- end #content -->
 

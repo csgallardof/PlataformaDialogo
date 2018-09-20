@@ -58,7 +58,7 @@
 														</div>
 												</div>
 										</li>
-										<li>
+										<!-- <li>
 												<a tabindex="6" href="/calendario-dialogo-nacional">
 														<i class="fa fa-calendar fa-fw"></i>&nbsp;Próximas Mesas
 												</a>
@@ -73,14 +73,14 @@
 														<li><a tabindex="10" href="#">Alertas Ciudadanas</a></li>
 														<li><a tabindex="11" href="#">Reportar un hecho relevante</a></li>
 														<li><a tabindex="12" href="#">Quiero ser veedor</a></li>
-														<!-- <li class="divider"></li> -->
+														
 												</ul>
 										</li>
 										<li>
 												<a tabindex="13" href="#">
 														<i class="fa fa-newspaper-o fa-fw"></i>&nbsp;Noticias
 												</a>
-										</li>
+										</li> -->
 
 								</ul>
 						</div>
