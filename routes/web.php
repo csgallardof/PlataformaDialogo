@@ -570,6 +570,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
       Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
      //REPORTES
+
      Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
 
     //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo'); 
@@ -578,6 +579,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
       
      // Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
       Route::get('/reporte-consejo/descargar-pdf/{codInstitucion}/{periodo}/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteConsejo','as'=>'exportarPdf.ReporteConsejo']);
+
 
 
 

@@ -9,6 +9,10 @@ use App\ActorSolucion;
 use App\Archivo;
 use App\DetalleActividad;
 use Mail;
+use App\Politica;
+use App\PlanNacional;
+use App\IndiceCompetitividad;
+
 
 
 use DB;
@@ -18,6 +22,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuditoriaController;
+
 
 class ActividadesController extends Controller
 {
@@ -76,8 +81,21 @@ class ActividadesController extends Controller
                                 ->where('tipo_fuente','=', 1)
                                 ->orderBy('created_at','DESC')->get();
         $solucion = DB::table('solucions')->where('id', $idSolucion )->first();
-        //dd($solucion);
-        return view('institucion.actividades.createParametrosCumplimiento')->with(["idSolucion"=>$idSolucion,"tipo_fuente"=>$tipo_fuente,"actividades"=>$actividades,"solucion"=>$solucion]);
+
+        $politica = Politica::all();
+        $plan_nacional = PlanNacional::all();
+        $indice_competitividad = IndiceCompetitividad::all();
+
+        //dd($politica);
+        return view('institucion.actividades.createParametrosCumplimiento')->with([
+                            "idSolucion"=>$idSolucion,
+                            "tipo_fuente"=>$tipo_fuente,
+                            "actividades"=>$actividades,
+                            "solucion"=>$solucion,
+                            "politica"=>$politica,
+                            "plan_nacional"=>$plan_nacional,
+                            "indice_competitividad" => $indice_competitividad,
+                        ]);
 
     }
 
