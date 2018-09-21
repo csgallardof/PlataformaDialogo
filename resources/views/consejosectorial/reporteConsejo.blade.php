@@ -4,9 +4,15 @@
 
 
 @section('content')
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 
-  <!-- Jquery -->
 
 <!-- NOTAS ESTA ES LA PANTALLA PARA CONSEJO SECTORIAL  / SEBE PROBAR Y MODIFICAR LAS COSAS PARA MEJORAR +++ NOTA +++++  -->
 		<!-- begin #content -->
@@ -67,123 +73,107 @@
                             <h3 align="left" class="panel-title">Reporte del Consejo de la Plataforma del Di&aacute;logo Nacional</h3>
                         </div>
 
-
-<div class="row"> 
-<div class="col-md-5"></div>           
- <div class="col-md-2">
-                   <form target="_blank" method="POST" action="/consejo-sectorial/reporte-consejo/descargar-excel" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-
-                        <div class="form-group">
-                            <div class="col-md-9">
-                                 <button type="submit"  class="btn btn-primary">Descargar Excel</button>
-                            </div>
-                              
-                        </div>
-                        <table hidden>
-                        <thead>
-                        <th class="text-left f-s-18">Seleccionar</th>
-                        <th class="text-left f-s-18">id</th>
-                        </thead>
-                        <tbody>
-                        @foreach( $resultadosreporte as $excel)
-                        <tr>
-                        <td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
-                        <td>{{$excel->id}}</td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                        </table>
-                        </form>
-                      
-                         <form target="_blank" method="POST" action="/consejo-sectorial/reporte-consejo/descargar-pdf/1" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                                    <div class="col-md-3 ">
-                                        
-                                        <button type="submit"  class="btn btn-success">Descargar PDF</button>
-
-                                    </div>
-                                      
-                                </div>
-                        <table hidden>
-                        <thead>
-                        <th class="text-left f-s-18">Seleccionar</th>
-                        <th class="text-left f-s-18">id</th>
-                        </thead>
-                        <tbody>
-                        @foreach( $resultadosreporte as $excel)
-                        <tr>
-                        <td><input type="checkbox" name="check[]" checked id="{{$excel->id}}" value='{{$excel->id}}'> </td>
-                        <td>{{$excel->id}}</td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                        </table>
-                        </form>
-                        <br /><br />
-
-                     
-
-                 </div>
-        </div>
-
                     <div class="panel-body">
-
-                         
-                   
-                       <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
-                       
+                     <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
+                     <?php $consulto='no';?>
                        <div class="row">
-                       <div class="col-md-2"></div>
+                       <div class="col-md-3"></div>
                        <div class="col-md-1">
                                  Instituci&oacute;n
                        </div>
                             <div class="col-md-4">
-                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" >
+                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" 
+                                 onchange="">
                                    <option value="">Seleccione</option>
                                     @if( isset($listaMinisterioPorConsejo) )
                                     @foreach($listaMinisterioPorConsejo as $lista)
-                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected"' : '' }}>{{$lista->nombre_institucion}}</option>
+                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected" ' : '' }} > {{$lista->nombre_institucion}}</option>
                                     @endforeach
                                     @endif
-                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected"' : '' }}>Todos</option>
+                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected" '  : '' }}>Todos</option>
                                 </select>
-                            
                             </div>
                                </div>
                         <br />
                        <div class="row">
-                                  <div class="col-md-2"></div>
+                                  <div class="col-md-3"></div>
                                    <div class="col-md-1">
                                              Periodo
                                    </div>
                                    <div class="col-md-4">
-                                 <select name="selPeriodo" class="form-control"  id="selPeriodo" required="" >
+                                 <select name="selPeriodo" class="form-control"  id="selPeriodo" required="" change="{{$consulto='no'}}" >
                                     <option value="">Seleccione</option>
-                                    <option value="Mensual" >Mensual</option>
-                                    <option value="Trimestral" >Trimestral</option>
-                                    <option value="Requerido" >Requerido</option>
+                                    <option value="Mensual"  {{ $periodo == 'Mensual' ? 'selected="selected"' : '' }}>Mensual</option>
+                                    <option value="Trimestral" {{ $periodo == 'Trimestral' ? 'selected="selected"' : '' }}>Trimestral</option>
+                                    <option value="Requerido" {{ $periodo == 'Requerido' ? 'selected="selected"' : '' }}>Requerido</option>
                                 </select>
                             </div>
                         </div>
                         <br />
+     
 
-                       
-                            <br />
-                            <div class="row">
-                             <div class="col-md-4"></div>
-                             <div class="col-md-4">
-                                <button type="submit"  >Obtener</button>
-                             </div>
-                             <div class="col-md-2"></div>
-                            </div>
+                       <div class="row">
+                                  <div class="col-md-3"></div>
+                                   <div class="col-md-1">
+                                             Fecha Inicial
+                                   </div>
+                                   <div class="col-md-1">
+                                       
+                                       <input id="fechaInicial" name="fechaInicial" class="date form-control" type="text" value="{{$fechaInicial}}" required="" >
+                                   </div>
+                                   <div class="col-md-1">
+                                             Fecha Final
+                                   </div>
+                                   <div class="col-md-1">
+                                       
+                                       <input id="fechaFinal" name="fechaFinal" class="date form-control" type="text" value="{{$fechaFinal}}" required="" >
+                                   </div>
+                                   <div class="col-md-4">
+                                        
+                             <button type="submit"   class="btn btn-primary" name="consulto" value="{{$consulto='si'}}">Consultar</button>
+                         
+                                   </div>
 
-                        </form>
 
-                   
-                     
 
+<script type="text/javascript">
+
+    $('.date').datepicker({  
+
+       format: 'dd-mm-yyyy'
+
+     });  
+
+</script>  </div>
+<br/>
+<div class="col-md-5"></div>
+ <div class="col-md-1">
+    @if($idBusqueda != null &&  $periodo != null && $fechaInicial != null && $fechaFinal != null )
+    <a class="link" href=" {{ route('exportarPdf.ReporteConsejo', [ $idBusqueda , $periodo, $fechaInicial, $fechaFinal] ) }} " target="_self">
+         <button  type="button"  class="btn btn-primary" id="pdf" name="pdf" >Descargar PDF </button>
+     </a>  
+     @endif
+    </div>    
+        
+   <div class="col-md-1">
+    @if($idBusqueda != null &&  $periodo != null && $fechaInicial != null && $fechaFinal != null && $consulto=='si')
+    <a class="link" href=" {{ route('exportarExcel.ReporteConsejo', [ $idBusqueda , $periodo, $fechaInicial, $fechaFinal, $consulto] ) }} " target="_self">
+         <button  type="button"  class="btn btn-primary" id="consulto" name="consulto" value="{{$consulto='no'}}">Descargar Excel </button>
+     </a>  
+     @endif
+    </div>
+
+</form>
+
+       
+
+<br />
+
+<div class="row"> 
+<div class="col-md-4"></div>   
+
+        </div>
+                    <br />
 
                     <div  class="col-md-9 col-md-offset-2">
                          <table class="table table-hover">
@@ -192,12 +182,10 @@
                            <th colspan="3" ><div align="center">  REPORTE DE MINISTERIO DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
                         </tr>
                        
-
                       </thead>
                         <tbody>
 
-                     
-                         
+                                       
 
                        <tr>
                            <th colspan="3" ><div align="center">Datos Informativos</div></th>
@@ -225,6 +213,20 @@
                         </tr>
                       @endif
                        
+                        <tr>
+                           <th colspan="2" ><div align="left">Periodo</div></th>
+                            <td colspan="1" ><div align="left">Requerido</div></td>
+                        </tr>
+                       
+
+                          <tr>
+                           <th colspan="2" ><div align="left">Fecha Desde</div>
+                            <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
+                           </tr>
+                            <tr>
+                             <th colspan="2" ><div align="left">Fecha Hasta</div></th>
+                            <td colspan="1" ><div align="left">{{$fechaFinal}}</div></td>
+                        </tr>
 
                        <tr>
                            <th colspan="3" ><div align="center">Tipo Propuesta</div></th>
@@ -283,7 +285,7 @@
 
                
                         <tr>
-                           <th colspan="3" ><div align="center">Propuestas por Plazo</div></th>
+                           <th colspan="3" ><div align="center">Propuestas Tiempo por Consejo Sectorial</div></th>
                         </tr>
                        
                          <tr>
@@ -300,8 +302,62 @@
                            <th colspan="2" ><div align="left">N° de Propuestas Largo Plazo</div></th>
                             <td colspan="1" ><div align="left">{{$numPropuestasPlazoLargo}}</div></td>
                         </tr>
+                        
 
 
+                        <tr>
+                           <th colspan="3" ><div align="center">Propuestas Planificadas por Consejo Sectorial</div></th>
+                        </tr>
+                        <tr>
+                             <th colspan="1" ><div align="left">N° de Propuestas Planificadas</div></th>
+                              @foreach($propuestasPlanificadas as $propuestasPlanificadas)
+                             <td colspan="1" ><div align="left">{{$propuestasPlanificadas->numPlanificadas}}</div></td>
+                              @endforeach
+                         </tr>
+                        <tr>
+                             <th colspan="1" ><div align="left">N° de Propuestas No planificadas</div></th>
+                              @foreach($propuestasNoPlanificadas as $propuestasNoPlanificadas)
+                             <td colspan="1" ><div align="left">{{$propuestasNoPlanificadas->numNoPlanificadas}}</div></td>
+                              @endforeach
+                          </tr>  
+
+
+
+                         <tr>
+                           <th colspan="3" ><div align="center">Estadística de Propuestas por Mesa</div></th>
+                        </tr>
+                        <tr>
+                             <th colspan="1" ><div align="left">Nombre de la mesa</div></th>
+                             <th colspan="1" ><div align="left">Propuestas en proceso</div></th>
+                             <th colspan="1" ><div align="left">Propestas finalizadas</div></th>
+                         </tr>       
+                            @foreach($propuestasPorMesa as $propuestasPorMesa)
+                              <tr>
+                                 <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->nombreMesa }}</div></td>
+                                  <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->porTerminar}}</div></td>
+                                  @if(!empty($propuestasPorMesaFinalizadas))
+                                   @if($propuestasPorMesaFinalizadas ->idMesa ==  $propuestasPorMesa ->idMesa)
+                                   @foreach($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas)
+                                         <td colspan="1" ><div align="left"> {{ $propuestasPorMesaFinalizadas -> porTerminar}}</div></td>
+                                   @endforeach
+                                   @endif
+                                   @else
+                               <td colspan="1" ><div align="left">0</div></td>
+                                   
+                                    @endif
+
+                           </tr>
+                           @endforeach
+            
+                         <tr>
+                           <th colspan="3" ><div align="center">Estadística de Propuestas por Temática o Ámbito</div></th>
+                        </tr>
+                        <tr>
+                             @foreach($propuestasPorAmbito as $propuestasPorAmbito)
+                             <td colspan="1" ><div align="left">{{$propuestasPorAmbito ->ambito}}</div></td>
+                               <td colspan="1" ><div align="left">{{$propuestasPorAmbito->numPorAmbito}}</div></td>
+                              @endforeach
+                         </tr>
 
                         </tbody>
                     </table>

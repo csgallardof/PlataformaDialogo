@@ -7,7 +7,12 @@ use App\Pajustada;
 use App\Actividad;
 use App\ActorSolucion;
 use App\Archivo;
+use App\DetalleActividad;
 use Mail;
+use App\Politica;
+use App\PlanNacional;
+use App\IndiceCompetitividad;
+
 
 
 use DB;
@@ -17,6 +22,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuditoriaController;
+
 
 class ActividadesController extends Controller
 {
@@ -75,8 +81,21 @@ class ActividadesController extends Controller
                                 ->where('tipo_fuente','=', 1)
                                 ->orderBy('created_at','DESC')->get();
         $solucion = DB::table('solucions')->where('id', $idSolucion )->first();
-        //dd($solucion);
-        return view('institucion.actividades.createParametrosCumplimiento')->with(["idSolucion"=>$idSolucion,"tipo_fuente"=>$tipo_fuente,"actividades"=>$actividades,"solucion"=>$solucion]);
+
+        $politica = Politica::all();
+        $plan_nacional = PlanNacional::all();
+        $indice_competitividad = IndiceCompetitividad::all();
+
+        //dd($politica);
+        return view('institucion.actividades.createParametrosCumplimiento')->with([
+                            "idSolucion"=>$idSolucion,
+                            "tipo_fuente"=>$tipo_fuente,
+                            "actividades"=>$actividades,
+                            "solucion"=>$solucion,
+                            "politica"=>$politica,
+                            "plan_nacional"=>$plan_nacional,
+                            "indice_competitividad" => $indice_competitividad,
+                        ]);
 
     }
 
@@ -549,7 +568,18 @@ class ActividadesController extends Controller
                 $solucion = Solucion::find($idSolucion);
                 $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
                 $solucion->save();
+
             }
+            
+
+            $actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.$idSolucion.' and ejecutor_id = '.$actividad->ejecutor_id.' ');
+            $id_actividad = $actividadGuardada[0]->id;  
+            $id_solucion = $idSolucion;
+            $fecha_inicio =  date('Y-m-d H:m'); 
+            $fecha_fin =  date('Y-m-d H:m'); //esto seria inicialmente posteriormente se debería actualizar con la fecha de inicio de la siguiente actividad
+            $usuario = Auth::user()->name;
+            $cedula = Auth::user()->cedula;
+            DetalleActividadController::guardarDetalleActividad( $id_actividad, $id_solucion,$fecha_inicio,$fecha_fin, $usuario, $cedula);
         }
         
         $actividad-> save();

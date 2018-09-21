@@ -124,7 +124,7 @@
 
 			</div> -->
 			<div>
-				<div class="alert alert-success fade in m-b-15" >
+				<!-- <div class="alert alert-success fade in m-b-15" >
 							<small>
 								En caso de que una propuesta no pertenezca a su institución, contactarse a inteligencia@mipro.gob.ec con su respectiva justificación. <br>
 								Si desea actualizar su usuario contactarse inteligencia@mipro.gob.ec
@@ -137,7 +137,7 @@
 								Al momento de unificar Propuestas las acciones no se transfieren.
 								<span class="close" data-dismiss="alert">&times;</span>
 								</small>
-							</div>
+							</div> -->
 
 					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/unificar-propuestas">Unificar Propuestas</a>
 					<a   class="btn btn-primary pull-left m-b-30 m-l-30" href="/institucion/ver-propuestas-unificadas">Ver Propuestas Unificadas</a>
@@ -206,24 +206,19 @@
 														<td>
 															@if($solucionD->nombre_estado=="Finalizado")
 															<span class="label label-success f-s-12" style="background-color: #28B463">{{$solucionD->nombre_estado}}</span>
-																<span class="label label-info">
+																
 																	
-																</span>
 															@endif
 
 															@if($solucionD->nombre_estado=="En Desarrollo")
 															<span class="label label-default f-s-12" style="background-color: #CA6F1E">{{$solucionD->nombre_estado}}</span>
-																<span class="label label-info">
 																
-																</span>
+																
 															@endif
 
 															@if($solucionD->nombre_estado=="En Análisis")
 															<span class="label label-default f-s-12" style="background-color: #A6ACAF">{{$solucionD->nombre_estado}}</span>
-																<span class="label label-info">
-																	
-																</span>
-
+																
 															@endif
 														</td>
 														<td>

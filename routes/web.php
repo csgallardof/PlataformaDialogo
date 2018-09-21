@@ -508,9 +508,11 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
 //REPORTES
- Route::get('/reportes','ReportesController@listaMinisterio');
+ //Route::get('/reportes','ReportesController@listaMinisterio');
  Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
  Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
+ Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+        
    //Mesas de Dialogo
 
 
@@ -533,9 +535,6 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
 
-
-
-
 // Consejo Sectorial
 
 Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
@@ -556,12 +555,11 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
 
-
      Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
      Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
 
-     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliaegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
      Route::get('parametros-cumplimiento/edit/{idSolucion}',['uses'=>'ActividadesController@vistaEditParametrosCumplimiento','as'=>'solucion.EditparametrosCumplimiento']);
 
@@ -572,15 +570,26 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
       Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
      //REPORTES
+
      Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
 
+    //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo'); 
+     //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo'); 
+      Route::get('/reporte-consejo/descargar-excel/{codInstitucion}/{periodo}/{fechaInicial}/{fechaFinal}/{consulto}',['uses'=>'ReportesController@exportarExcelReporteConsejo','as'=>'exportarExcel.ReporteConsejo']);
+      
+     // Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
+      Route::get('/reporte-consejo/descargar-pdf/{codInstitucion}/{periodo}/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteConsejo','as'=>'exportarPdf.ReporteConsejo']);
 
-      Route::post('/reporte-consejo/descargar-excel','ReportesController@exportarExcelReporteConsejo'); 
-      Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
 
 
 
 });
 
  
+ //Seleccionar fecha
+Route::post('/test/save', ['as' => 'save-date',
+                           'uses' => 'DateController@showDate', 
+                            function () {
+                                return '';
+                            }]);
 
