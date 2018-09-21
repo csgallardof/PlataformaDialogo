@@ -172,7 +172,8 @@ class InstitucionController extends Controller
                                     inner join user_institucions on user_institucions.institucion_id = institucions.id
                                     inner join users on user_institucions.user_id = users.id
                                     INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
-                                    where users.id ='.$usuario_id);
+                                    where estado_solucion.id < 5
+                                    and users.id ='.$usuario_id);
        
        
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
@@ -508,6 +509,54 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
              return redirect('institucion/cambiar-clave/'.$id);
         }
     
+    }
+
+    // Propuestas conflicto
+
+    public function conflicto(Request $request)
+    {
+        $usuario_id = Auth::user()->id;
+        //dd($usuario_id);
+        $tipo_fuente = Auth::user()->tipo_fuente;
+       
+
+        $totalDespliegue = Solucion::where('tipo_fuente','=',1)->count();
+        $totalConsejo = Solucion::where('tipo_fuente','=',2)->count();
+
+        $totalResponsable = ActorSolucion::where('user_id','=',$usuario_id)
+                                         ->where('tipo_actor','=','1')->count();
+        $totalCorresponsable = ActorSolucion::where('user_id','=',$usuario_id)
+                                         ->where('tipo_actor','=','2')->count();
+
+        $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join user_institucions on user_institucions.institucion_id = institucions.id
+                                    inner join users on user_institucions.user_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 6
+                                    and users.id ='.$usuario_id);
+       
+       
+        $notificaciones = DB::select("SELECT actividades.* FROM actividades
+                                                    INNER JOIN solucions ON solucions.id = actividades.solucion_id
+                                                    INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
+                                                    WHERE actor_solucion.user_id = ".$usuario_id." 
+                                                    AND actividades.ejecutor_id = ".$usuario_id."
+                                                    AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+                                                    ORDER BY actividades.fecha_inicio DESC; ");
+
+        //dd($tipo_fuente);
+        return view('institucion.propuestas-conflicto')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
+                                                "totalDespliegue"=>$totalDespliegue,
+                                                "totalConsejo"=>$totalConsejo,
+                                                "totalResponsable"=>$totalResponsable,
+                                                "totalCorresponsable"=>$totalCorresponsable,
+                                                "notificaciones"=>$notificaciones,
+                                                "tipo_fuente"=>$tipo_fuente     
+                                                 ]);   
+        
     }
 
 }

@@ -76,7 +76,23 @@
                                     <form  method="POST" action="{{route('crear.ParametrosCumplimiento',$solucion->id)}}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
               
-                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2"><label for="indice_competitividad" class="pull-right" >Indice de Competitividad:</label>  </div>
+                                                <div class="col-md-5">
+                                                    <select name="indice_competitividad" class="form-control"  required="">
+                                                        <option value="" >Selecciones una opción de indice</option>
+                                                        @if( isset($politica) )
+                                                            @foreach( $indice_competitividad as $indice_competitividad )
+                                                                <option value="{{ $indice_competitividad->id}}">
+                                                                    {{ $indice_competitividad->nombre_indice_competitividad }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>  
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-2"><label for="politica" class="pull-right" >Política:</label>  </div>
@@ -125,9 +141,9 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-2"><label for="riesgos_cumplimiento" class="pull-right">Instrumento de Planificación / Descripción</label></div>
+                                                <div class="col-md-2"><label for="instrumento" class="pull-right">Instrumento de Planificación / Descripción</label></div>
                                                 <div class="col-md-8">
-                                                    <textarea  required class="form-control" id="acciones" name="riesgos_cumplimiento" placeholder="Describa el instrumento de planificación o describa el motivo de no planificación" rows="2" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
+                                                    <textarea  required class="form-control" id="acciones" name="instrumento" placeholder="Describa el instrumento de planificación o describa el motivo de no planificación" rows="2" onKeyDown="cuenta()" onKeyUp="cuenta()"></textarea>  
                                                 </div>
                                             </div>
                                         </div>

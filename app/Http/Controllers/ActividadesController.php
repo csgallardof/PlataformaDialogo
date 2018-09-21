@@ -100,12 +100,19 @@ class ActividadesController extends Controller
     }
 
     public function crearParametrosCumplimiento(Request $request, $id){
-
+        //dd('uno');
 
         $fecha_cumplimiento = $request['fecha_cumplimimento'];
         $plazo_cumplimiento = $request['plazo_cumplimiento'];
         $riesgos_cumplimiento = $request['riesgos_cumplimiento'];
         $supuestos_cumplimientos = $request['supuestos_cumplimientos'];
+        $politica = $request['politica'];
+        $plan_nacional = $request['plan_nacional'];
+        $indice_competitividad = $request['indice_competitividad'];
+        $planificado = $request['planificado'];
+        $riesgos_cumplimiento = $request['riesgos_cumplimiento'];
+        $instrumento = $request['instrumento'];
+
         //dd($fecha_cumplimimento,$plazo_cumplimiento,$riesgos_cumplimiento,$supuestos_cumplimientos);
         
         $Solucion = Solucion::find($id); 
@@ -114,7 +121,13 @@ class ActividadesController extends Controller
         $Solucion-> fecha_cumplimiento = $fecha_cumplimiento;
         $Solucion-> plazo_cumplimiento = $plazo_cumplimiento;
         $Solucion-> riesgos_cumplimiento = $riesgos_cumplimiento;
-        $Solucion-> supuestos_cumplimientos = $supuestos_cumplimientos;
+        $Solucion-> politica_id = $politica;
+        $Solucion-> plan_nacional_id = $plan_nacional;
+        $Solucion-> indice_competitividad_id = $indice_competitividad;
+        $Solucion-> planificado = $planificado;
+        $Solucion-> riesgos_cumplimiento = $riesgos_cumplimiento;
+        $Solucion-> planificado_instrumento = $instrumento;
+        
         $Solucion-> save();
         if($Solucion->pajustada_id>0){
             //dd('Si estoy en el if');
@@ -137,8 +150,8 @@ class ActividadesController extends Controller
             
             }
 
-
-        return redirect('/institucion/home');        
+        //dd($id);
+        return redirect()->route('verSolucion.despliegue',[1,$id]);        
 
     }
 
@@ -167,7 +180,7 @@ class ActividadesController extends Controller
         $Solucion-> save();
 
         $actividad = new Actividad;
-        $actividad-> comentario = $request-> comentario;
+        $actividad-> comentario = 'Finalizado por: '.$request-> comentario;
         $actividad-> solucion_id = $idSolucion;
         $actividad-> ejecutor_id = $request-> institucion_id;
         $actividad-> tipo_fuente = $tipo_fuente;
@@ -178,16 +191,7 @@ class ActividadesController extends Controller
                     $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
                     $solucion->save();
                 }
-                if($request->tipo_fuente_id ==2){
-                    $pajustada = Pajustada::find($idSolucion);
-
-                    $solucionesOriginales = Solucion::where('pajustada_id','=',$idSolucion)->get();
-                    foreach ($solucionesOriginales as $solucion) {
-                        $solucionCCPT= Solucion::find($solucion-> id);
-                        $solucionCCPT-> estado_id = 3;  // 3 = Propuesta en desarrollo
-                        $solucionCCPT->save();
-                    }
-                }
+                
         }
 
         $actividad-> save();
@@ -197,32 +201,32 @@ class ActividadesController extends Controller
             
             //dd($actividadcreada->fecha_inicio,$solucionAsignada->pajustada_id,$SolucionesUnificadas);
             
-            if($solucionAsignada->pajustada_id>0){
+            // if($solucionAsignada->pajustada_id>0){
                 
-            $SolucionesUnificadas = DB::table('solucions')->where('pajustada_id', $solucionAsignada->pajustada_id)->get();
-            //dd($SolucionesUnificadas);
-            foreach($SolucionesUnificadas as $SolucionesUnificadas){
+            // $SolucionesUnificadas = DB::table('solucions')->where('pajustada_id', $solucionAsignada->pajustada_id)->get();
+            // //dd($SolucionesUnificadas);
+            // foreach($SolucionesUnificadas as $SolucionesUnificadas){
 
-                //var_dump($SolucionesUnificadas->id);
-                    if($SolucionesUnificadas->id!=$idSolucion){
+            //     //var_dump($SolucionesUnificadas->id);
+            //         if($SolucionesUnificadas->id!=$idSolucion){
 
-                        $SolucionUnificadaFinalizado = Solucion::find($SolucionesUnificadas->id);
-                        $SolucionUnificadaFinalizado-> estado_id = 4;
-                        $SolucionUnificadaFinalizado-> save();
-                        //dd('entre al if');
-                        $actividadUnificada=new Actividad;
-                        $actividadUnificada-> fecha_inicio = $actividadcreada->fecha_inicio;
-                        $actividadUnificada-> comentario   = $actividadcreada->comentario;
-                        $actividadUnificada-> solucion_id = $SolucionesUnificadas->id;
-                        $actividadUnificada-> tipo_fuente = $actividadcreada->tipo_fuente;
-                        $actividadUnificada-> ejecutor_id = $actividadcreada->ejecutor_id;
-                        $actividadUnificada-> save();
+            //             $SolucionUnificadaFinalizado = Solucion::find($SolucionesUnificadas->id);
+            //             $SolucionUnificadaFinalizado-> estado_id = 4;
+            //             $SolucionUnificadaFinalizado-> save();
+            //             //dd('entre al if');
+            //             $actividadUnificada=new Actividad;
+            //             $actividadUnificada-> fecha_inicio = $actividadcreada->fecha_inicio;
+            //             $actividadUnificada-> comentario   = $actividadcreada->comentario;
+            //             $actividadUnificada-> solucion_id = $SolucionesUnificadas->id;
+            //             $actividadUnificada-> tipo_fuente = $actividadcreada->tipo_fuente;
+            //             $actividadUnificada-> ejecutor_id = $actividadcreada->ejecutor_id;
+            //             $actividadUnificada-> save();
 
                         
-                    }
-                    //dd("no entre en el if");
-            }
-            }
+            //         }
+            //         //dd("no entre en el if");
+            // }
+            // }
 
 
          $nombreArchivos="";   
@@ -545,8 +549,10 @@ class ActividadesController extends Controller
      */
     public function saveActividad(Request $request, $tipo_actor, $idSolucion)
     {
-       // dd($request->institucion_id);
+       //dd($request->institucion_id);
+
         $tipo_fuente = Auth::user()->tipo_fuente;
+        //dd($tipo_actor);
         $actividad = new Actividad;
         $actividad-> comentario = $request->comentario;
         $actividad-> solucion_id = $idSolucion;
@@ -554,7 +560,7 @@ class ActividadesController extends Controller
         $actividad-> tipo_fuente = $tipo_actor; 
         
 
-       // dd($request->tipo_fuente_id);
+        //dd($request->fecha);
         if( isset($request-> fecha) ){
             $actividad-> fecha_inicio = $request-> fecha. " 00:00:00";
             if($request->tipo_fuente_id ==1){
@@ -562,35 +568,20 @@ class ActividadesController extends Controller
                     $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
                     $solucion->save();
                 }
-            if($request->tipo_fuente_id ==2){
-                //dd($tipo_fuente_id);
-                
-                $solucion = Solucion::find($idSolucion);
-                $solucion-> estado_id = 3; // 3 = Propuesta en desarrollo
-                $solucion->save();
-
-            }
-            
-
-            $actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.$idSolucion.' and ejecutor_id = '.$actividad->ejecutor_id.' ');
-            $id_actividad = $actividadGuardada[0]->id;  
-            $id_solucion = $idSolucion;
-            $fecha_inicio =  date('Y-m-d H:m'); 
-            $fecha_fin =  date('Y-m-d H:m'); //esto seria inicialmente posteriormente se debería actualizar con la fecha de inicio de la siguiente actividad
-            $usuario = Auth::user()->name;
-            $cedula = Auth::user()->cedula;
-            DetalleActividadController::guardarDetalleActividad( $id_actividad, $id_solucion,$fecha_inicio,$fecha_fin, $usuario, $cedula);
         }
         
         $actividad-> save();
-$actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.$idSolucion.' and tipo_fuente = "'.$tipo_actor.'"');
-   $idTabla = $actividadGuardada[0] ->id;  
-   $nombreTabla = "actividades";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Agregar actividad en la propuesta";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+        //dd('guardo');
+        $actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.$idSolucion.' and tipo_fuente = "'.$tipo_actor.'"');
+        //dd($actividadGuardada[0] ->id);
+
+        $idTabla = $actividadGuardada[0] ->id;  
+        $nombreTabla = "actividades";
+        $proceso = "insert";
+        $usuario = Auth::user()->id;
+        $cedula = Auth::user()->cedula;
+        $observacion = "Agregar actividad en la propuesta";
+        AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
 
 
         //dd('uno');
@@ -931,5 +922,270 @@ $actividadGuardada = DB::select('SELECT * from actividades where solucion_id ='.
         return view('institucion.actividades.editParametrosCumplimiento')->with(["idSolucion"=>$idSolucion,"tipo_fuente"=>$tipo_fuente,"actividades"=>$actividades,"solucion"=>$solucion]);
 
     }
+
+    public function vistaDesestimarPropuesta($idSolucion){
+
+         Flash::success("Registre la el motivo para dar por desestimada la Propuesta");
+
+         //dd('hola');
+        $solucion = Solucion::find($idSolucion);
+
+        $tipo_fuente = Auth::user()->tipo_fuente;
+
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                ->orderBy('created_at','ASC')->get();
+
+        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('tipo_actor','ASC')->get();
+        
+        return view('institucion.actividades.createAccionDesestimarPropuesta')->with(["solucion"=>$solucion,
+                                                            "actividades"=>$actividades,
+                                                            "actoresSoluciones"=>$actoresSoluciones,
+                                                            "tipo_fuente"=>$tipo_fuente]);
+    }
+
+    public function desestimarPropuestaSolucion(Request $request, $tipo_fuente, $idSolucion){
+
+        $Solucion = Solucion::find($idSolucion);
+        $Solucion-> estado_id = 5;
+        $Solucion-> save();
+
+        $actividad = new Actividad;
+        $actividad-> comentario = 'Propuesta desestimada por: '.$request-> comentario;
+        $actividad-> solucion_id = $idSolucion;
+        $actividad-> ejecutor_id = $request-> institucion_id;
+        $actividad-> tipo_fuente = $tipo_fuente;
+        if( isset($request-> fecha) ){
+            $actividad-> fecha_inicio = $request-> fecha. " 00:00:00";
+        }
+
+        $actividad-> save();
+
+        $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
+        $solucionAsignada = Solucion::find($idSolucion);
+            
+        //dd($actividadcreada->fecha_inicio,$solucionAsignada->pajustada_id,$SolucionesUnificadas);
+            
+        // if($solucionAsignada->pajustada_id>0){
+                
+        //     $SolucionesUnificadas = DB::table('solucions')->where('pajustada_id', $solucionAsignada->pajustada_id)->get();
+        //     //dd($SolucionesUnificadas);
+        //     foreach($SolucionesUnificadas as $SolucionesUnificadas){
+
+        //         //var_dump($SolucionesUnificadas->id);
+        //             if($SolucionesUnificadas->id!=$idSolucion){
+
+        //                 $SolucionUnificadaFinalizado = Solucion::find($SolucionesUnificadas->id);
+        //                 $SolucionUnificadaFinalizado-> estado_id = 4;
+        //                 $SolucionUnificadaFinalizado-> save();
+        //                 //dd('entre al if');
+        //                 $actividadUnificada=new Actividad;
+        //                 $actividadUnificada-> fecha_inicio = $actividadcreada->fecha_inicio;
+        //                 $actividadUnificada-> comentario   = $actividadcreada->comentario;
+        //                 $actividadUnificada-> solucion_id = $SolucionesUnificadas->id;
+        //                 $actividadUnificada-> tipo_fuente = $actividadcreada->tipo_fuente;
+        //                 $actividadUnificada-> ejecutor_id = $actividadcreada->ejecutor_id;
+        //                 $actividadUnificada-> save();
+
+                        
+        //             }
+        //             //dd("no entre en el if");
+        //     }
+        // }
+
+
+        $nombreArchivos="";   
+
+        $files = $request->file('files');
+
+        if($request->hasFile('files'))
+        {
+            foreach ($files as $file) {
+
+                $nombreArchivo = $file->getClientOriginalName();
+                $nombreArchivo = strtotime("now")."_despliegue_".$idSolucion."_-_".$nombreArchivo;     // agregamos la fecha
+
+                $archivo = new Archivo;
+                $archivo-> nombre_archivo= $nombreArchivo;
+                $archivo-> actividad_id= $actividad->id;
+                $archivo->save();
+                $nombreArchivos.=$nombreArchivo.",";
+                /*$file = $request->file('imagen');*/
+                \Storage::disk('local3')->put($nombreArchivo,  \File::get($file) );
+            }
+        }
+
+        $nombreArchivos=substr($nombreArchivos,0,-1);
+        //dd($nombreArchivos);
+        
+
+                $actividadesUnificadas = DB::table('actividades')->where('comentario', $request-> comentario)->get();
+                //dd($actividadesUnificadas,$nombreArchivos,$actividad->id);
+
+            foreach($actividadesUnificadas as $actividadesUnificadas){
+                $array = explode(",", $nombreArchivos);
+                        
+                    if($actividadesUnificadas->id!=$actividad->id){
+                        
+                        
+                        foreach ($array as $array) {
+                           //dd('entre al 2 '); 
+                            $archivoUnificado = new Archivo;
+                            //dd('estoy 1');
+                            $archivoUnificado-> nombre_archivo= $array;
+                            //dd('estoy 2', $array);
+                            $archivoUnificado-> actividad_id= $actividadesUnificadas->id;
+                            //dd('estoy 3', $actividadesUnificadas->id);
+                            $archivoUnificado->save();
+                            //dd('Guardado 2');
+                        }
+
+                    }
+                    //dd("no entre en el if");
+            }
+
+
+        Flash::success("Se ha creado la actividad exitosamente y ha finalizado la Propuesta");
+        if($tipo_fuente == 1){
+            return redirect()->route('verSolucion.despliegue',[1,$idSolucion]);
+        }else{
+            return redirect()->route('verSolucion.consejo',[1, $idSolucion]);
+        }
+    }
+
+    public function vistaConflictoPropuesta($idSolucion){
+
+         Flash::success("Registre el motivo del conflicto la Propuesta");
+
+         //dd('hola');
+        $solucion = Solucion::find($idSolucion);
+
+        $tipo_fuente = Auth::user()->tipo_fuente;
+
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                ->orderBy('created_at','ASC')->get();
+
+        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('tipo_actor','ASC')->get();
+        
+        return view('institucion.actividades.createAccionConflictoPropuesta')->with(["solucion"=>$solucion,
+                                                            "actividades"=>$actividades,
+                                                            "actoresSoluciones"=>$actoresSoluciones,
+                                                            "tipo_fuente"=>$tipo_fuente]);
+    }
+
+
+    public function conflictoPropuestaSolucion(Request $request, $tipo_fuente, $idSolucion){
+
+        $Solucion = Solucion::find($idSolucion);
+        $Solucion-> estado_id = 6;
+        $Solucion-> save();
+
+        $actividad = new Actividad;
+        $actividad-> comentario = 'Propuesta en conflicto por: '.$request-> comentario;
+        $actividad-> solucion_id = $idSolucion;
+        $actividad-> ejecutor_id = $request-> institucion_id;
+        $actividad-> tipo_fuente = $tipo_fuente;
+        if( isset($request-> fecha) ){
+            $actividad-> fecha_inicio = $request-> fecha. " 00:00:00";
+        }
+
+        $actividad-> save();
+
+        $actividadcreada = DB::table('actividades')->where('comentario', $request-> comentario)->first();
+        $solucionAsignada = Solucion::find($idSolucion);
+            
+        //dd($actividadcreada->fecha_inicio,$solucionAsignada->pajustada_id,$SolucionesUnificadas);
+            
+        // if($solucionAsignada->pajustada_id>0){
+                
+        //     $SolucionesUnificadas = DB::table('solucions')->where('pajustada_id', $solucionAsignada->pajustada_id)->get();
+        //     //dd($SolucionesUnificadas);
+        //     foreach($SolucionesUnificadas as $SolucionesUnificadas){
+
+        //         //var_dump($SolucionesUnificadas->id);
+        //             if($SolucionesUnificadas->id!=$idSolucion){
+
+        //                 $SolucionUnificadaFinalizado = Solucion::find($SolucionesUnificadas->id);
+        //                 $SolucionUnificadaFinalizado-> estado_id = 4;
+        //                 $SolucionUnificadaFinalizado-> save();
+        //                 //dd('entre al if');
+        //                 $actividadUnificada=new Actividad;
+        //                 $actividadUnificada-> fecha_inicio = $actividadcreada->fecha_inicio;
+        //                 $actividadUnificada-> comentario   = $actividadcreada->comentario;
+        //                 $actividadUnificada-> solucion_id = $SolucionesUnificadas->id;
+        //                 $actividadUnificada-> tipo_fuente = $actividadcreada->tipo_fuente;
+        //                 $actividadUnificada-> ejecutor_id = $actividadcreada->ejecutor_id;
+        //                 $actividadUnificada-> save();
+
+                        
+        //             }
+        //             //dd("no entre en el if");
+        //     }
+        // }
+
+
+        $nombreArchivos="";   
+
+        $files = $request->file('files');
+
+        if($request->hasFile('files'))
+        {
+            foreach ($files as $file) {
+
+                $nombreArchivo = $file->getClientOriginalName();
+                $nombreArchivo = strtotime("now")."_despliegue_".$idSolucion."_-_".$nombreArchivo;     // agregamos la fecha
+
+                $archivo = new Archivo;
+                $archivo-> nombre_archivo= $nombreArchivo;
+                $archivo-> actividad_id= $actividad->id;
+                $archivo->save();
+                $nombreArchivos.=$nombreArchivo.",";
+                /*$file = $request->file('imagen');*/
+                \Storage::disk('local3')->put($nombreArchivo,  \File::get($file) );
+            }
+        }
+
+        $nombreArchivos=substr($nombreArchivos,0,-1);
+        //dd($nombreArchivos);
+        
+
+                $actividadesUnificadas = DB::table('actividades')->where('comentario', $request-> comentario)->get();
+                //dd($actividadesUnificadas,$nombreArchivos,$actividad->id);
+
+            foreach($actividadesUnificadas as $actividadesUnificadas){
+                $array = explode(",", $nombreArchivos);
+                        
+                    if($actividadesUnificadas->id!=$actividad->id){
+                        
+                        
+                        foreach ($array as $array) {
+                           //dd('entre al 2 '); 
+                            $archivoUnificado = new Archivo;
+                            //dd('estoy 1');
+                            $archivoUnificado-> nombre_archivo= $array;
+                            //dd('estoy 2', $array);
+                            $archivoUnificado-> actividad_id= $actividadesUnificadas->id;
+                            //dd('estoy 3', $actividadesUnificadas->id);
+                            $archivoUnificado->save();
+                            //dd('Guardado 2');
+                        }
+
+                    }
+                    //dd("no entre en el if");
+            }
+
+
+        Flash::success("Se ha creado exitosamente y a cambiado a estado CONFLICTO la Propuesta");
+        if($tipo_fuente == 1){
+            return redirect()->route('verSolucion.despliegue',[1,$idSolucion]);
+        }else{
+            return redirect()->route('verSolucion.consejo',[1, $idSolucion]);
+        }
+    }
+
+
+
+
 
 }
