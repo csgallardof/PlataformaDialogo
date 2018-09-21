@@ -508,9 +508,11 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
 //REPORTES
- Route::get('/reportes','ReportesController@listaMinisterio');
+ //Route::get('/reportes','ReportesController@listaMinisterio');
  Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
  Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
+ Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+        
    //Mesas de Dialogo
 
 
@@ -533,9 +535,6 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
 
-
-
-
 // Consejo Sectorial
 
 Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
@@ -556,7 +555,6 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
 
-
      Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
      Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
@@ -573,7 +571,6 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      //REPORTES
      Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
-
 
     //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo'); 
      //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo'); 
