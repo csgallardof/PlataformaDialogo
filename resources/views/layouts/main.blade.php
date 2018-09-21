@@ -62,7 +62,7 @@
 	</head>
 
 	<body>
-     <h1 style="position:float -9999; color:white; ">Menu Principal Comun</h1>
+     <h1 style="text-indent:-9999px; float: left; color:white; ">Plataforma de Dialogo Nacional</h1>
     <div id="page-container" class="fade" >
 			@include ('layouts.menu')
 			@yield ('contenido')

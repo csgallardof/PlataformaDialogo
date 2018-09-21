@@ -42,7 +42,8 @@ class NotificacionCiudadanoController extends Controller
         $ciudadanoEmail->not_cd_fecha = date("Y-m-d");
         $mensaje_cd='';
         $Solucion = Solucion::find($solucion_id);
-        $validacorreo = DB::table('notificacion_ciudadano')->where('not_cd_email', $request-> emailciudadano)->first();
+        $validacorreo = DB::table('notificacion_ciudadano')->where('not_cd_email', $request-> emailciudadano)
+                                                           ->where('not_cd_solucion_id', $solucion_id)->first();
         if($validacorreo)
         {
             $mensaje_cd='Su email ya se encuentra registrado';

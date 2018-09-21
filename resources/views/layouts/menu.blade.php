@@ -22,13 +22,13 @@
 								<ul class="nav navbar-nav" role="menu principal">
 
 										<li class="dropdown dropdown-lg">
-												<a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="2"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;Informes<b class="caret"></b></a>
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="2"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;<span style="size: 11px;"><h2>Informes</h2></span><b class="caret"></b></a>
 												<div class="dropdown-menu dropdown-menu-lg">
 														<div class="row">
 
 																<div class="col-md-2 col-sm-2">
 																		<a tabindex="3" class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf" >
-																			<h4 class="dropdown-header">Informe del Diálogo Nacional</h4>
+																			<h3 class="dropdown-header">Informe del Diálogo Nacional</h3>
 																			<div class="row">
 																					<div class="col-md-12 col-xs-12">
 																								<img src="{{ asset('imagenes/dialogo_nacional/portada_informe_dialogo.png') }}" class="img-rounded" alt="imagen de portada de informe de dialogo nacional" width="125px" height="125px">
@@ -38,7 +38,7 @@
 																</div>
 
 																<div class="col-md-2 col-sm-2">
-																		<h4 class="dropdown-header">Reportes en línea</h4>
+																		<h3 class="dropdown-header">Reportes en línea</h3>
 																		<div class="row">
 																				<div class="col-md-12 col-xs-12">
 																						<ul class="nav">
@@ -50,7 +50,7 @@
 																</div>
 
 																<div class="col-md-4 col-sm-4">
-																		<h4 class="dropdown-header">Acerca del Diálogo Nacional</h4>
+																		<h3 class="dropdown-header">Acerca del Diálogo Nacional</h3>
 																		<p style="text-align: justify;">
 																				El presidente Lenín Moreno ha convocado a un gran Diálogo Nacional con el objetivo de escuchar las propuestas de diferentes actores de la sociedad, recibir sus aportes, encontrar y sistematizar la diversidad de “posiciones comunes”, identificar posibles convergencias y visualizar acciones concurrentes, sin distanciarse de los principios y las bases fundacionales del proyecto político ganador en las pasadas elecciones.
 																		</p>
