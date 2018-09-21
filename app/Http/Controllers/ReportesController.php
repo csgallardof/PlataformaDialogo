@@ -1314,7 +1314,7 @@ public function obtenerPropuestasPlazoCorto($idInstitucion,$fechaInicial,$fechaF
 }
 
 public function obtenerPropuestasPorMesa($idConsejo,$fechaInicial,$fechaFinal){
-	$propuestasPorMesa = DB::select("SELECT  count(s.mesa_id) as porTerminar, md.nombre as nombreMesa, md.id as idMes
+	$propuestasPorMesa = DB::select("SELECT  count(s.mesa_id) as porTerminar, md.nombre as nombreMesa, md.id as idMesa
 	from plataforma_dialogo.mesa_dialogo md  
 	inner join solucions s
 	on md.id = s.mesa_id
@@ -1326,7 +1326,7 @@ return $propuestasPorMesa;
 }
 
 public function obtenerPropuestasPorMesaFinalizadas($idConsejo,$fechaInicial,$fechaFinal){
-	$propuestasPorMesa = DB::select("SELECT  count(s.mesa_id) as porTerminar, md.nombre as nombreMesa, md.id as idMes
+	$propuestasPorMesa = DB::select("SELECT  count(s.mesa_id) as finalizadas, md.nombre as nombreMesa, md.id as idMesa
 	from plataforma_dialogo.mesa_dialogo md  
 	inner join solucions s
 	on md.id = s.mesa_id
@@ -1924,21 +1924,31 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 		            ]);
 
 
-            $cont = 28;
-
             
-            $sheet->row(25, ['']);
+            
+            $sheet->row(29, ['']);
 
-		    $sheet->row(26, [
+		    $sheet->row(30, [
 		                'ESTADISTICA DE PROPUESTAS POR MESA'
 		            ]);
-		    $sheet->row(27, [
-		                'N° de Propuestas Planificadas', strtoupper($numPropuestasPlanificadas)
+		    $cont = 30;
+		   /* foreach ($propuestasPorMesa as $propuestasPorMesa) {
+		    	 $sheet->row($cont+1, [ strtoupper($propuestasPorMesa),if($propuestasPorMesa->idMesa == $propuestasPorMesaFinalizadas->idMesa){strtoupper($propuestasPorMesaFinalizadas)}
 		            ]);
-		    $sheet->row(28, [
-		                'N° de Propuestas No planificadas', strtoupper($numPropuestasNoPlanificadas)
-		            ]);
-         
+		          $cont++;
+		    }
+		   
+        
+        });*/
+
+        
+           foreach ($propuestasPorMesa as $propuestasPorMesa) {
+		    	 $sheet->row($cont+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar
+		    	 	]);
+		          $cont++;
+		    }
+		   
+        
         });
          
         })->export('xlsx');
