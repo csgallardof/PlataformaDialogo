@@ -23,7 +23,9 @@ public function listaMinisterio(Request $request) {
 
 $hoy = date("d/m/Y"); 
 
-  
+  $periodo = $request->selPeriodo;
+
+//  dd($periodo);
 
         $soluciones =  DB::table('solucions')
         //Solucion::all() 
@@ -292,7 +294,6 @@ if($propuestasPlazoCorto){
 //dd($numPropuestasPlazoMediano);
 
 
-
 //dd($resultadosreporte);
 
 return view('publico.reportes.reporteMinisterio')->with( ["hoy" => $hoy,
@@ -318,7 +319,7 @@ return view('publico.reportes.reporteMinisterio')->with( ["hoy" => $hoy,
 
 
 
-    public function exportarExcelReporteMinisterio(Request $request){
+public function exportarExcelReporteMinisterio(Request $request){
       //   dd("exportarExcelReporteMinisterio".$request);
 
          
@@ -1267,6 +1268,7 @@ public function obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaF
 									where i.id  in ( ".$idInstituciones." )
 									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
 									and s.plazo_cumplimiento = 'Largo'");
+
 return $propuestasPlazoLargo;
 }
 
@@ -1307,10 +1309,71 @@ public function obtenerPropuestasPlazoCorto($idInstitucion,$fechaInicial,$fechaF
 									on s.politica_id = p.id
 									where i.id  in ( ".$idInstituciones." )
 									and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
-									and s.plazo_cumplimiento = 'Mediano'");
+									and s.plazo_cumplimiento = 'Corto'");
 	return $propuestasPlazoCorto;
 }
 
+public function obtenerPropuestasPorMesa($idConsejo,$fechaInicial,$fechaFinal){
+	$propuestasPorMesa = DB::select("SELECT  count(s.mesa_id) as porTerminar, md.nombre as nombreMesa, md.id as idMesa
+	from plataforma_dialogo.mesa_dialogo md  
+	inner join solucions s
+	on md.id = s.mesa_id
+	where  md.consejo_sectorial_id = ".$idConsejo."
+	and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
+	and s.estado_id in ( 1,2,3 )
+	group by s.mesa_id");
+return $propuestasPorMesa;
+}
+
+public function obtenerPropuestasPorMesaFinalizadas($idConsejo,$fechaInicial,$fechaFinal){
+	$propuestasPorMesa = DB::select("SELECT  count(s.mesa_id) as finalizadas, md.nombre as nombreMesa, md.id as idMesa
+	from plataforma_dialogo.mesa_dialogo md  
+	inner join solucions s
+	on md.id = s.mesa_id
+	where  md.consejo_sectorial_id = ".$idConsejo."
+	and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
+	and s.estado_id in ( 4 )
+	group by s.mesa_id");
+return $propuestasPorMesa;
+}
+
+public function obtenerPropuestasPlanificadas($idConsejo,$fechaInicial,$fechaFinal){
+		$propuestasPlanificadas = DB::select("SELECT count(s.planificado) as numPlanificadas
+		from plataforma_dialogo.mesa_dialogo md  
+		inner join solucions s
+		on md.id = s.mesa_id
+		where  md.consejo_sectorial_id = ".$idConsejo."
+		and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
+		and ( s.planificado = 'SI' or s.planificado = 'si' or s.planificado = 'Si' or s.planificado = 'sI')
+		group by s.planificado");
+return $propuestasPlanificadas;
+}
+
+public function obtenerPropuestasNoPlanificadas($idConsejo,$fechaInicial,$fechaFinal){
+		$propuestasNoPlanificadas = DB::select("SELECT count(s.planificado) as numNoPlanificadas
+		from plataforma_dialogo.mesa_dialogo md  
+		inner join solucions s
+		on md.id = s.mesa_id
+		where  md.consejo_sectorial_id = ".$idConsejo."
+		and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
+		and ( s.planificado = 'NO' or s.planificado = 'no' or s.planificado = 'No' or s.planificado = 'nO')
+		group by s.planificado");
+return $propuestasNoPlanificadas;
+}
+
+public function obtenerPropuestasPorAmbito($idConsejo,$fechaInicial,$fechaFinal){
+	$propuestasPorAmbito = DB::select("SELECT a.nombre_ambit as ambito, count(a.nombre_ambit) AS numPorAmbito
+	FROM solucions s
+	INNER JOIN ambits a
+	ON s.ambit_id = a.id
+	inner join mesa_dialogo md
+	on s.mesa_id = md.id
+	where md.consejo_sectorial_id = ".$idConsejo."
+	and (s.created_at > '".$fechaInicial."' or s.created_at <'".$fechaFinal."')
+	GROUP BY a.nombre_ambit 
+	ORDER BY count(a.nombre_ambit) desc");
+return $propuestasPorAmbito;
+}
 
 public function listaConsejoPorCodigo(Request $request){
    if($request->consulto == 'no'){
@@ -1477,6 +1540,28 @@ if($propuestasPlazoCorto){
                                  ->join('institucions', 'institucions.id', '=', 'actor_solucion.institucion_id')
                                  ->join('politicas', 'politicas.id', '=', 'solucions.politica_id'); 
 //dd($resultadosreporte);
+
+//dd($consejo);
+
+//dd($consejo[0]->idConsejo);
+
+
+$propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+//dd($propuestasPorMesa);
+
+$propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+$propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+
+$propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+
+$propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+if($idBusqueda=="Todos"){
+ $periodo="Requerido";
+}
 $consulto=$request->consulto;
 return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
                           	                           "idBusqueda" => $idBusqueda,
@@ -1499,7 +1584,12 @@ return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
         	                                                      "numPropuestasPlazoLargo" => $numPropuestasPlazoLargo,
         	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
         	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto,
-        	                                                      "resultadosreporte" =>  $resultadosreporte 
+        	                                                      "resultadosreporte" =>  $resultadosreporte,
+        	                                                      "propuestasPorMesa" => $propuestasPorMesa,
+        	                                                      "propuestasPorMesaFinalizadas" => $propuestasPorMesaFinalizadas,
+        	                                                      "propuestasPlanificadas" => $propuestasPlanificadas,
+        	                                                       "propuestasNoPlanificadas" => $propuestasNoPlanificadas,
+        	                                                       "propuestasPorAmbito" => $propuestasPorAmbito
         	                                                      ] );
 
 
@@ -1562,9 +1652,11 @@ $nombreusuario = $usuario[0]->name;
 /*$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
                             ->get();
                             */
-$institucion = Institucion::where('id','=',$idInstitucion)
-                            ->get();
-  
+//dd($idInstitucion);
+/* $institucion = Institucion::where('id','=',$idInstitucion)
+                            ->get(); */
+$institucion = $this -> obtenerInstitucion($idInstitucion);
+
 $nombreinstitucion = $institucion[0]->nombre_institucion;
 //dd($institucionUsuario[0]->institucion_id);
 //dd($nombreinstitucion);
@@ -1701,11 +1793,32 @@ if($propuestasPlazoCorto){
 }
 //dd($numPropuestasPlazoMediano);
 
+$propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+//dd($propuestasPorMesa);
+
+$propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+$propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+if($propuestasPlanificadas){
+	$numPropuestasPlanificadas = $propuestasPlanificadas[0]->numPlanificadas;
+}else{
+	$numPropuestasPlanificadas = 0;
+}
+
+$propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+if($propuestasNoPlanificadas){
+	$numPropuestasNoPlanificadas = $propuestasNoPlanificadas[0]->numNoPlanificadas;
+}else{
+	$numPropuestasNoPlanificadas = 0;
+}
+
+$propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
 
             $excel->sheet('Datos por Consejo', function($sheet) use($hoy,$nombreusuario,$nombreinstitucion,$nombreConsejo,$numPropuestasRecibidas,$numPropuestasDesestimadas,$numPropuestasValidadas,
 $numPropuestasFinalisadas,$numPropuestasDesarrolladas,$numPropuestasAnalisadas,
 $numPropuestasPolitica,$numPropuestasLeyes,
-$numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo) {
+$numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo,
+$propuestasPorMesa,$propuestasPorMesaFinalizadas,$numPropuestasPlanificadas,$numPropuestasNoPlanificadas,$propuestasPorAmbito ) {
          
             $sheet->row(1, [
                 'REPORTE DE MINISTERIO DE LA PLATAFORMA DEL DIALOGO NACIONAL'
@@ -1778,12 +1891,11 @@ $numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo) {
 		                'N° de Propuestas leyes', strtoupper($numPropuestasLeyes)
 		            ]);
 		  
-
-
+               
 
  			$sheet->row(20, ['']);
 		    $sheet->row(21, [
-		                'PROPUESTAS POR PLAZO'
+		                'PROPUESTAS TIEMPO POR CONSEJO SECTORIAL'
 		            ]);
 		    $sheet->row(22, [
 		                '
@@ -1796,8 +1908,47 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 		                'N° de Propuestas Largo Plazo', strtoupper($numPropuestasPlazoLargo)
 		            ]);
 
+           
+           
 
-         
+		    $sheet->row(25, ['']);
+
+		    $sheet->row(26, [
+		                'PROPUESTAS PLANIFICADAS POR CONSEJO SECTORIAL'
+		            ]);
+		    $sheet->row(27, [
+		                'N° de Propuestas Planificadas', strtoupper($numPropuestasPlanificadas)
+		            ]);
+		    $sheet->row(28, [
+		                'N° de Propuestas No planificadas', strtoupper($numPropuestasNoPlanificadas)
+		            ]);
+
+
+            
+            
+            $sheet->row(29, ['']);
+
+		    $sheet->row(30, [
+		                'ESTADISTICA DE PROPUESTAS POR MESA'
+		            ]);
+		    $cont = 30;
+		   /* foreach ($propuestasPorMesa as $propuestasPorMesa) {
+		    	 $sheet->row($cont+1, [ strtoupper($propuestasPorMesa),if($propuestasPorMesa->idMesa == $propuestasPorMesaFinalizadas->idMesa){strtoupper($propuestasPorMesaFinalizadas)}
+		            ]);
+		          $cont++;
+		    }
+		   
+        
+        });*/
+
+        
+           foreach ($propuestasPorMesa as $propuestasPorMesa) {
+		    	 $sheet->row($cont+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar
+		    	 	]);
+		          $cont++;
+		    }
+		   
+        
         });
          
         })->export('xlsx');
