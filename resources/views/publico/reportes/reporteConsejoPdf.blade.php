@@ -22,124 +22,197 @@
                        
                  
              <div class="panel-body">
-                
+                    <table  >
+                         <tr>
+                           <th colspan="3" ><div align="center">  REPORTE DE MINISTERIO DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
+                        </tr>
+                       
+
+                        <tr>
+                           <th colspan="3" ><br /></th>
+                        </tr>                                
                        <tr>
                            <th colspan="3" ><div align="center">Datos Informativos</div></th>
                         </tr>
                        
-                         <tr>
-                           <th colspan="2" ><div align="left">Fecha</div></th>
+                         <tr >
+                           <td colspan="2" ><div align="left">Fecha</div></td>
                             <td colspan="1" ><div align="left">{{$hoy}}</div></td>
                         </tr>
 
                         <tr>
-                           <th colspan="2" ><div align="left">Responsable</div></th>
+                           <td colspan="2" ><div align="left">Responsable</div></td>
                             <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
                         </tr>
 
                          <tr>
-                           <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
+                           <td colspan="2" ><div align="left">Nombre de Instituci&oacute;n</div></td>
+                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
+                        </tr>
+
+                          <tr>
+                           <td colspan="2" ><div align="left">Consejo Sectorial</div></td>
                             <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
                         </tr>
 
-                      @if($idBusqueda!="Todos")
-                         <tr>
-                           <th colspan="2" ><div align="left">Institución</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
-                        </tr>
-                      @endif
-                       
+
                         <tr>
-                           <th colspan="2" ><div align="left">Periodo</div></th>
+                           <td colspan="2" ><div align="left">Periodo</div></td>
                             <td colspan="1" ><div align="left">{{$periodo}}</div></td>
                         </tr>
-                          <tr>
-                           <th colspan="2" ><div align="left">Fecha Desde</div>
-                            <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
-                           </tr>
-                            <tr>
-                             <th colspan="2" ><div align="left">Fecha Hasta</div></th>
-                            <td colspan="1" ><div align="left">{{$fechaFinal}}</div></td>
-                        </tr>
 
+                        <tr>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
                        <tr>
                            <th colspan="3" ><div align="center">Tipo Propuesta</div></th>
                         </tr>
                        
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Recibidas</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas Recibidas</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasRecibidas}}</div></td>
                         </tr>
 
                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Desestimadas</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas Desestimadas</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasDesestimadas}}</div></td>
                         </tr>
 
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Validadas</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas Validadas</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasValidadas}}</div></td>
                         </tr>
 
 
                         <tr>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
+                        <tr>
                            <th colspan="3" ><div align="center">Estado de Propuesta</div></th>
                         </tr>
                        
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Cumplidas o Finalizadas</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas Cumplidas o Finalizadas</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasFinalisadas}}</div></td>
                         </tr>
 
                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en Desarrollo</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas en Desarrollo</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasDesarrolladas}}</div></td>
                         </tr>
 
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en An&aacute;lisis</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas en An&aacute;lisis</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasAnalisadas}}</div></td>
                         </tr>
 
 
-
+                         <tr>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
                        <tr>
                            <th colspan="3" ><div align="center">Forma de Cumplimiento</div></th>
                         </tr>
                        
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en PP</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas en PP</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasPolitica}}</div></td>
                         </tr>
 
                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas leyes</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas leyes</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasLeyes}}</div></td>
                         </tr>
 
-               
+                  
                         <tr>
-                           <th colspan="3" ><div align="center">Propuestas por Plazo</div></th>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
+                        <tr>
+                           <th colspan="3" ><div align="center">Prioridad de Propuestas</div></th>
                         </tr>
                        
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas a Corto</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas a Corto</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasPlazoCorto}}</div></td>
                         </tr>
 
                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Mediano</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas Mediano</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasPlazoMediano}}</div></td>
                         </tr>
 
                          <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Largo Plazo</div></th>
+                           <td colspan="2" ><div align="left">N° de Propuestas Largo Plazo</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasPlazoLargo}}</div></td>
                         </tr>
 
+                         <tr>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
+                         
+                           <tr>
+                           <th colspan="3" ><div align="center">Propuestas Planificadas por Consejo Sectorial</div></th>
+                        </tr>
+                        <tr>
+                             <th colspan="1" ><div align="left">N° de Propuestas Planificadas</div></th>
+                              @foreach($propuestasPlanificadas as $propuestasPlanificadas)
+                             <td colspan="1" ><div align="left">{{$propuestasPlanificadas->numPlanificadas}}</div></td>
+                              @endforeach
+                         </tr>
+                        <tr>
+                             <th colspan="1" ><div align="left">N° de Propuestas No planificadas</div></th>
+                              @foreach($propuestasNoPlanificadas as $propuestasNoPlanificadas)
+                             <td colspan="1" ><div align="left">{{$propuestasNoPlanificadas->numNoPlanificadas}}</div></td>
+                              @endforeach
+                          </tr>  
+
+                        <tr>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
+
+                         <tr>
+                           <th colspan="3" ><div align="center">Estadística de Propuestas por Mesa</div></th>
+                        </tr>
+                        <tr>
+                             <th colspan="1" ><div align="left">Nombre de la mesa</div></th>
+                             <th colspan="1" ><div align="left">Propuestas en proceso</div></th>
+                             <th colspan="1" ><div align="left">Propuestas finalizadas</div></th>
+                         </tr>       
+                            @foreach($propuestasPorMesa as $propuestasPorMesa)
+                              <tr>
+                                 <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->nombreMesa }}</div></td>
+                                  <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->porTerminar}}</div></td>
+                                  @if(!empty($propuestasPorMesaFinalizadas))
+                                   @if($propuestasPorMesaFinalizadas ->idMesa ==  $propuestasPorMesa ->idMesa)
+                                   @foreach($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas)
+                                         <td colspan="1" ><div align="left"> {{ $propuestasPorMesaFinalizadas -> porTerminar}}</div></td>
+                                   @endforeach
+                                   @endif
+                                   @else
+                               <td colspan="1" ><div align="left">0</div></td>
+                                   
+                                    @endif
+
+                           </tr>
+                           @endforeach
+            
+                        <tr>
+                           <th colspan="3" ><br /><br /></th>
+                        </tr>
+
+                         <tr>
+                           <th colspan="3" ><div align="center">Estadística de Propuestas por Temática o Ámbito</div></th>
+                        </tr>
+                        <tr>
+                             @foreach($propuestasPorAmbito as $propuestasPorAmbito)
+                             <td colspan="1" ><div align="left">{{$propuestasPorAmbito ->ambito}}</div></td>
+                               <td colspan="1" ><div align="right">{{$propuestasPorAmbito->numPorAmbito}}</div></td>
+                              @endforeach
+                         </tr>
 
 
-                        
+                     </table>
                    
                 </div>
 

@@ -23,7 +23,7 @@
 			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
 			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
 			                        <li><a href="/institucion/reportes">Reportes</a></li>
-   </ul>
+                                </ul>
 			                    
 
 			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
