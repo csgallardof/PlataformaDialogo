@@ -1982,7 +1982,7 @@ $fechaFinal = $request->fechaFinal;
 //dd("periodo".$periodo."_finicio_".$fechaInicial."_ffin".$fechaFinal);
 		
 		/*$institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
-			WHERE usuario_id=".Auth::user()->id." ;");*/
+			WHERE us°uario_id=".Auth::user()->id." ;");*/
 			// dd($institucionUsuario[0]->id);
  
  $institucion = $this->obtenerInstitucion($idInstitucion);
@@ -1995,8 +1995,8 @@ $fechaFinal = $request->fechaFinal;
 			$nombreusuario = $usuario[0]->name;
 			
 			$nombreinstitucion = $institucion[0]->nombre_institucion;
-			//dd($institucionUsuario[0]->institucion_id);
-			//dd($nombre_institucion);
+			//dd($institucion[0]->id);
+			//dd($nombreinstitucion);
 
 			//dd($institucion[0]->id);
 			$consejo = $this -> obtenerConsejo($idInstitucion);
@@ -2015,7 +2015,7 @@ foreach($listaMinisterioPorConsejo as $lista){
 	$idInstituciones1 =  $lista->idInstitucion;
     $idInstituciones =  $idInstituciones1.",".$idInstituciones;
 }
-
+//dd($idInstituciones);
 			    $resultadosreporte = ActorSolucion::select('solucions.*','institucions.id', 'institucions.nombre_institucion', 'politicas.nombre_politica')
 			                      //Solucion::select('solucions.*','i.id', 'i.nombre_institucion', 'p.nombre_politica')
 			                                 ->join('solucions', 'solucions.id', '=', 'actor_solucion.solucion_id')
@@ -2145,7 +2145,7 @@ foreach($listaMinisterioPorConsejo as $lista){
         //$elementos= sizeof($data1);
         //dd($data1);
         $date = date('Y-m-d');
-      /*  dd( "hoy".$hoy."_nombreusuario".$nombreusuario."_periodo".$periodo.        	                                                      "_fechaInicial".$fechaInicial.
+      /* dd( "hoy".$hoy."_nombreusuario".$nombreusuario."_periodo".$periodo.        	                                                      "_fechaInicial".$fechaInicial.
                                                                   "_fechaFinal".$fechaFinal. 
         	                                                      "_nombreinstitucion".$nombreinstitucion.
         	                                                      "_nombreConsejo".$nombreConsejo.
@@ -2161,8 +2161,8 @@ foreach($listaMinisterioPorConsejo as $lista){
         	                                                      "_numPropuestasPlazoMediano".$numPropuestasPlazoMediano.
         	                                                      "_numPropuestasPlazoCorto".$numPropuestasPlazoCorto);
         	                                                      //"_resultadosreporte".$resultadosreporte);
-*/
 
+*/
         $view = \View::make($vistaurl, compact('date'))->with( [ "hoy" => $hoy,"nombreusuario" => $nombreusuario,
         	                                                     "periodo" => $periodo,
         	                                                      "fechaInicial" =>$fechaInicial,
@@ -2181,10 +2181,11 @@ foreach($listaMinisterioPorConsejo as $lista){
         	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
         	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto
         	                                                      ] );
-       //   dd($view);
+       //  dd($view);
         $pdf = \App::make('dompdf.wrapper');
+        // dd($pdf);
         $pdf->loadHTML($view);
-       
+       //dd($pdf);
         //if($tipo==1){return $pdf->stream('ReporteConsejo.pdf');}
         //if($tipo==2){return $pdf->download('ReporteConsejo.pdf'); }
         return $pdf->download('ReporteConsejo.pdf');
