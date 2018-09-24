@@ -343,6 +343,10 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
      Route::get('home','InstitucionController@home');  //página dashboard para las instituciones
+
+     Route::get('propuestas-en-conflicto','InstitucionController@conflicto');  //página dashboard para las instituciones
+
+     Route::get('propuestas-desestimadas','InstitucionController@desestimadas');  //página dashboard para las instituciones
  
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegue','as'=>'verSolucion.despliegue']);
 
@@ -356,11 +360,21 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      Route::get('finalizar/actividad/create/{idSolucion}',['uses'=>'ActividadesController@vistaFinalizarPropuesta','as'=>'cierre.Propuesta']);
 
+     Route::get('desestimada/actividad/create/{idSolucion}',['uses'=>'ActividadesController@vistaDesestimarPropuesta','as'=>'desestimar.Propuesta']);
+
+     Route::get('conflico/actividad/create/{idSolucion}',['uses'=>'ActividadesController@vistaConflictoPropuesta','as'=>'conflicto.Propuesta']);
+
+     Route::post('actividad-conflicto-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@conflictoPropuestaSolucion','as'=>'actividadConflicto.saveActividad']);
+
+     Route::post('actividad-desestimada-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@desestimarPropuestaSolucion','as'=>'actividadDesestimar.saveActividad']);
+
      Route::post('actividad-Finalizado-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@finalizarPropuestaSolucion','as'=>'actividadCierre.saveActividad']);
 
      Route::get('consejo/actividad/create/{idSolucion}',['uses'=>'ActividadesController@createConsejo','as'=>'actividades.createConsejo']);
 
      Route::post('actividad/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@saveActividad','as'=>'actividades.saveActividad']);
+
+
 
 
 //VISTA DE LOS REPORTES DEL CSP
@@ -540,8 +554,11 @@ Route::post('/reporte','ReportePublicoController@listaReportes');
 Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function(){
 
 
- Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
+     Route::get('/consejo-sectorial-propuestas','ConsejoSectorialController@cs_propuestas');
      Route::get('/home','ConsejoSectorialController@RolConsejoSectorialindex');
+     Route::get('/propuestas-desestimadas','ConsejoSectorialController@RolConsejoSectorialDesestimadas');
+     Route::get('/propuestas-finalizadas','ConsejoSectorialController@RolConsejoSectorialFinalizadas');
+     Route::get('/propuestas-en-conflicto','ConsejoSectorialController@RolConsejoSectorialConflicto');
 
      Route::post('actores/porasignar',[
           'uses'=>'InstitucionController@asignarActorSolucion',
@@ -584,6 +601,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
       
      // Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
       Route::get('/reporte-consejo/descargar-pdf/{codInstitucion}/{periodo}/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteConsejo','as'=>'exportarPdf.ReporteConsejo']);
+
+     //Propuestas finalizadas
+
+
 
 
 

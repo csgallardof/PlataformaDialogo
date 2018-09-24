@@ -64,24 +64,27 @@
 								<div class="media-body">
 
 									@if (isset($solucion) && isset($tipo_actor) )
-										@if($tipo_actor == 1 or $tipo_actor == 2 )
+										@if($tipo_actor == 1)
 											<!-- <a href="#" class="btn	btn-warning pull-right">Finalizar</a> -->
 											<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>&nbsp;&nbsp;
 
-											@if($solucion->supuestos_cumplimientos=="")
-											<a href="{{ route('solucion.parametrosCumplimiento',$solucion->id) }}" class="btn btn-success "> Definir Parametros de Cumplimiento</a>
+											
+											@if($solucion->estado_id==1)
+												<a href="#modal-desestimada" data-toggle="modal" class="btn btn-warning"><i class="fa fa-warning" aria-hidden="true"></i> Desestimada</a>&nbsp;&nbsp;
 											@endif
-											@if($solucion->estado_id<=3)
-												<a href="{{ route('actividades.createDespliegue',$solucion->id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Nueva</a>&nbsp;&nbsp;
-												@if(count($actividades) > 0)
-													<a href="#modal-alert" class="btn btn-primary" data-toggle="modal">Finalizar Propuesta</a>
-												@endif
+											@if($solucion->estado_id==1)
+												<a href="#modal-conflicto" data-toggle="modal" class="btn btn-warning"><i class="fa fa-legal" aria-hidden="true"></i> En Conflicto</a>&nbsp;&nbsp;
 											@endif
 										@endif
 										@if($solucion->estado_id<=3)
+
 												<a href="{{ route('actividades.createDespliegue',$solucion->id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Nueva</a>&nbsp;&nbsp;
 												@if(count($actividades) > 0)
+													
+													<a href="{{ route('solucion.parametrosCumplimiento',$solucion->id) }}" class="btn btn-warning "> Definir Parametros de Cumplimiento</a>
+												
 													<a href="#modal-alert" class="btn btn-primary" data-toggle="modal">Finalizar Propuesta</a>
+
 												@endif
 											@endif
 									@endif
@@ -226,8 +229,8 @@
 		</div>
 
 
-		<!-- MODAL EN CONFLICTO -->
-		<div class="modal fade" id="modal-alert">
+		<!-- MODAL POR  DEFINIR-->
+		<div class="modal fade" id="modal-conflicto">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -243,12 +246,41 @@
 								</p>
 						</div>
 						<p>
-							<strong>Propuesta</strong>:{{ $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion }}
+							<strong>Propuesta</strong>:{{ $solucion->propuesta_solucion }}
 						</p>
 					</div>
 					<div class="modal-footer">
 						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cerrar</a>
-						<a href="{{ route('cierre.Propuesta',$solucion->id) }}" class="btn btn-sm btn-danger">Continuar</a>
+						<a href="{{ route('conflicto.Propuesta',$solucion->id) }}" class="btn btn-sm btn-danger">Continuar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- MODAL POR DESESTIMADA-->
+		<div class="modal fade" id="modal-desestimada">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"><br>ALERTA DE PROPUESTA EN DESESTIMADA</h4>
+					
+					</div>
+					<div class="modal-body">
+						<div class="alert alert-info m-b-0">
+							<h4><i class="fa fa-info-circle"></i><strong>Esta propuesta cambiará de estado como DESESTIMADA</strong></h4>
+							<p> <strong> Al momento cambiar de estado, se crea una alerta para el Consejo Sectorial que preside a su institución.</strong> <br> <br>Clic en <strong>Continuar</strong>
+								<strong>Recuerde</strong> una vez que cambie de estado la propuesta no podra registrar más actividades. <br><br>
+								</p>
+						</div>
+						<p>
+							<strong>Propuesta</strong>:{{ $solucion->propuesta_solucion }}
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cerrar</a>
+						<a href="{{ route('desestimar.Propuesta',$solucion->id) }}" class="btn btn-sm btn-danger">Continuar</a>
 					</div>
 				</div>
 			</div>

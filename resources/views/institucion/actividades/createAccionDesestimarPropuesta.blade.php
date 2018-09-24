@@ -8,7 +8,7 @@
 			<ol class="breadcrumb pull-right">
 				<li><a href="{{ url('institucion/home') }}">Inicio</a></li>
 				<li><a href="javascript:window.history.back()">Propuesta</a></li>
-				<li class="active">Nueva Actividad</li>
+				<li class="active">Desestimar Propuesta</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
@@ -63,7 +63,7 @@
 									<hr>
 									<br>
 									@include('flash::message')
-									<form  method="POST" action="{{ route('actividadCierre.saveActividad',[ 1,$solucion->id]) }}" enctype="multipart/form-data">
+									<form  method="POST" action="{{ route('actividadDesestimar.saveActividad',[ 1,$solucion->id]) }}" enctype="multipart/form-data">
 										{{ csrf_field() }}
 										<input type="hidden" name="tipo_fuente_id" value="1">
 									 	
@@ -128,6 +128,9 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div style="height: 200px;">
+						
 					</div>
 
 				</div>

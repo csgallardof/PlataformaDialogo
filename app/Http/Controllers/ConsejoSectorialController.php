@@ -87,6 +87,86 @@ class ConsejoSectorialController extends Controller {
                                             ]);
     }
 
+    public function RolConsejoSectorialDesestimadas(){
+
+       // dd(Auth::user()->id);
+        $resultados_propuestas= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where estado_solucion.id = 5
+                                and consejo_sectorials.id = ( select consejo_sectorials.id
+                                from users
+                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+
+        //dd($resultados_propuestas);
+        
+        return view('consejosectorial.propuestas-desestimadas')
+                                ->with(["resultados_propuestas"=>$resultados_propuestas
+                                ]);
+    }
+
+
+    public function RolConsejoSectorialFinalizadas(){
+
+       // dd(Auth::user()->id);
+        $resultados_propuestas= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where estado_solucion.id = 4
+                                and consejo_sectorials.id = ( select consejo_sectorials.id
+                                from users
+                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+
+        //dd($resultados_propuestas);
+        
+        return view('consejosectorial.propuestas-finalizadas')
+                                ->with(["resultados_propuestas"=>$resultados_propuestas
+                                ]);
+    }
+
+
+    public function RolConsejoSectorialConflicto(){
+
+       // dd(Auth::user()->id);
+        $resultados_propuestas= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where estado_solucion.id = 6
+                                and consejo_sectorials.id = ( select consejo_sectorials.id
+                                from users
+                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
+                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+
+        //dd($resultados_propuestas);
+        
+        return view('consejosectorial.propuestas-finalizadas')
+                                ->with(["resultados_propuestas"=>$resultados_propuestas
+                                ]);
+    }
+
 
 
 
