@@ -1,0 +1,24 @@
+/***
+
+Autor:Alex Dominguez
+Tabla: parametros generales
+
+***/
+
+
+DROP TABLE IF EXISTS parametros_generales;
+
+create table parametros_generales(
+
+    param_cod varchar(50),
+    param_detalle varchar(255),
+    param_valor varchar(255),
+    param_estado int,
+    created_at timestamp,
+    updated_at timestamp,
+    PRIMARY KEY (param_cod)
+
+);
+
+
+insert into parametros_generales values('max_react','maximo numero de reactivaciones para una propuesta', '2',1,null,null);

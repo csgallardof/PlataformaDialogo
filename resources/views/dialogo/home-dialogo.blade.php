@@ -17,8 +17,8 @@
                 <div class="col-md-12 p-t-25">
                     <div class="panel-body home_main_web_title">
                         <h2 class="text-center text-white"><strong>DIALOGO NACIONAL PÚBLICO-PRIVADO</strong></h2>
-                        <h5 class="text-center text-white home_sentence">“Dialogar no es muestra de debilidad, es una muestra de sabiduría. Nada sobre los ciudadanos, sin los ciudadanos”</h5>
-                        <h6 class="text-center text-white home_author_sentence">Lenín Moreno Garcés<br />Presidente Constitucional de la República del Ecuador</h6>
+                        <h3 class="text-center text-white home_sentence">“Dialogar no es muestra de debilidad, es una muestra de sabiduría. Nada sobre los ciudadanos, sin los ciudadanos”</h3>
+                        <h4 class="text-center text-white home_author_sentence">Lenín Moreno Garcés<br />Presidente Constitucional de la República del Ecuador</h4>
                     </div>
                 </div>
 

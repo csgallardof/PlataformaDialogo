@@ -626,10 +626,10 @@
 												<a href="#" class="myButton3"  title="OPCION COLOR VERDE PARA BUENA ">BUENA</a>
 											</td>
 
-											<td style="padding-left: 5px">
+											<!--<td style="padding-left: 5px">
 												<input type="radio" name="rd_evaluac" id="rd_evaluac" value="REGULAR" onclick="ocultarComentario();"  />
 												<a href="#" class="myButton2"  title="OPCION COLOR AMARILLO PARA REGULAR ">REGULAR</a>
-											</td>
+											</td>-->
 
 
 											<td style="padding-left: 5px">
