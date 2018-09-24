@@ -169,6 +169,48 @@ class ConsejoSectorialController extends Controller {
 
 
 
+
+
+    public function activarSolucion(Request $request, $solucion_id) {
+
+         $intentos = DB::select("select * from solucions_reactivacion where solucion_id=".$solucion_id);
+         $max_intentos = DB::select("select * from parametros_generales where param_cod='max_react'");
+
+         if(!$intentos){
+
+            $res= DB::select("insert into solucions_reactivacion values(".$solucion_id.",1);");
+
+            //$intentos[0]->solucion_id=$solucion_id;
+            //$intentos[0]->intentos_react =1;
+            //$intentos[0]->save();
+         }else{
+
+            if($intentos[0]->intentos_react==(int)$max_intentos[0]->param_valor){
+                Flash::error("Número de reactivaciones excedido");
+                return redirect('consejo-sectorial/home');
+
+            }else{
+                $res= DB::select("update solucions_reactivacion set intentos_react= ".($intentos[0]->intentos_react+1)." where solucion_id=".$solucion_id.";");
+                //$intentos->solucion_id=$solucion_id;
+                //$intentos->intentos_react =$intentos->intentos_react+1;
+                //$intentos->save();
+
+            }
+         }
+
+        $soluciones = Solucion::where('id','=',$solucion_id)
+                                 ->first();
+
+
+        $soluciones->estado_id=1;
+
+        $soluciones->save();
+
+        Flash::success("Propuesta actualizada correctamente");
+        return redirect('consejo-sectorial/home');
+    }
+
+
     
 
 }

@@ -82,8 +82,12 @@
                                           
 										
 											<!-- <a href="#" class="btn	btn-warning pull-right">Finalizar</a> -->
-											<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>&nbsp;&nbsp; 
-											
+											<!--<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>-->
+											<a href="{{ url('consejo-sectorial/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>
+											&nbsp;&nbsp; 
+											@if($solucion->estado_id == 6)
+											   <a href="{{ route('consejo.activarSolucion',$solucion->id) }}" class="btn btn-default pull-left">Activar</a>
+											@endif
 
 											@if($solucion->estado_id == 4 )
 											

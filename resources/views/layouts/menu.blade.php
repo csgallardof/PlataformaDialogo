@@ -1,4 +1,69 @@
 <!-- begin #header -->
+<script src="{{asset('js/jquery.min.js')}}"></script>
+<script> // script for expand/collapse
+    var expandCollapse = function(){
+        if ( $(window).width() < 768 ) {
+            $(function(){
+            	
+            	 var x = document.getElementById("sidebar");
+            	 var ht = '';
+            	 x.style.display = "block";
+
+
+                 var div = document.createElement('div');
+
+                 div.className = 'row';
+
+                 ht = '<div data-scrollbar="true" data-height="100%"><ul class="nav">';
+                 ht += '<li class="nav-profile">';
+				 ht += '<div class="info">Menú</div></li></ul><ul class="nav"><li class="has-sub"><a href="javascript:;">';
+				 ht += '<b class="caret pull-right"></b><i class="fa fa-laptop"></i><span><h3>Informes</h3></span>';
+				 ht += '</a><ul class="sub-menu"><li><a href="index.html"><h3>Informe del Diálogo Nacional</h3></a></li>';
+				 ht += '<li><a href="index_v2.html"><h3>Reporte General</h3></a></li>';
+				ht +=  '<li><a href="index_v2.html"><h3>Reporte Productivo</h3></a></li>';
+				ht += '</ul></li><li><a href="index.html"><h2>Próximas Mesas</h2></a></li>';
+			    ht += '<li><a href="index.html"><h3>Noticias</h3></a></li></ul></div>';
+
+                div.innerHTML=ht;
+                //document.getElementById('sidebar').appendChild(div);
+                document.getElementById('sidebar').innerHTML=ht;
+
+               var menutop1 = document.getElementById("top-navbar");
+                menutop1.style.display = "none";
+
+                // add a class .collapse to a div .showHide
+                //$('.showHide').addClass('collapse');
+                // set display: "" in css for the toggle button .btn.btn-primary
+                //$('button.btn.btn-primary').css('display', '');// removes display property to make it visible
+            });
+        }
+        else {
+            $(function(){
+            	 var x = document.getElementById("sidebar");
+            	x.style.display = "none";
+            	var menutop1 = document.getElementById("top-navbar");
+                menutop1.style.display = "block";
+                // remove a class .collapse from a div .showHide
+                //$('.showHide').removeClass('collapse');
+                // set display: none in css for the toggle button .btn.btn-primary  
+                //$('button.btn.btn-primary').css('display', 'none');// hides button display on bigger screen
+            });
+        }
+    }
+    $(window).resize(expandCollapse); // calls the function when the window first loads
+</script>
+<style type="text/css">
+	
+    h2{
+      font-size: 14px;
+
+    }
+
+	h3{
+        font-size: 13px;
+
+	}
+</style>
 
 <div id="header" class="header navbar navbar-default navbar-fixed-top">
 	<!-- begin container-fluid -->
@@ -9,7 +74,8 @@
 			<a href="{{ url('/') }}" class="navbar-brand" tabindex="1">
 					<img src="{{ asset('imagenes/dialogo_nacional/logo_dialogo_nacional.png') }}" class="center-block img-responsive" alt="logo de plataforma de dialogo nacional" width="115px" height="50px">
 			</a>
-			<button type="button" class="navbar-toggle" data-click="sidebar-toggled"><span style="text-indent: -9999px; width: 0px; float: left;">Menu para celulares</span>
+			<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+				<span style="text-indent: -9999px; width: 0px; float: left;">Menu para celulares</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -22,13 +88,13 @@
 								<ul class="nav navbar-nav" role="menu principal">
 
 										<li class="dropdown dropdown-lg">
-												<a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="2"><i class="fa fa-file-text-o fa-fw"></i>&nbsp;<span style="size: 11px;"><h2>Informes</h2></span><b class="caret"></b></a>
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="2"><h2 ><i class="fa fa-file-text-o fa-fw"></i>&nbsp;Informes</h2><b class="caret"></b></a>
 												<div class="dropdown-menu dropdown-menu-lg">
 														<div class="row">
 
 																<div class="col-md-2 col-sm-2">
 																		<a tabindex="3" class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf" >
-																			<h3 class="dropdown-header">Informe del Diálogo Nacional</h3>
+																			<h3 class="dropdown-header" >Informe del Diálogo Nacional</h3>
 																			<div class="row">
 																					<div class="col-md-12 col-xs-12">
 																								<img src="{{ asset('imagenes/dialogo_nacional/portada_informe_dialogo.png') }}" class="img-rounded" alt="imagen de portada de informe de dialogo nacional" width="125px" height="125px">
@@ -58,12 +124,12 @@
 														</div>
 												</div>
 										</li>
-										<!-- <li>
+										 <li>
 												<a tabindex="6" href="/calendario-dialogo-nacional">
-														<i class="fa fa-calendar fa-fw"></i>&nbsp;Próximas Mesas
+														<h2><i class="fa fa-calendar fa-fw"></i>&nbsp;Próximas Mesas</h2>
 												</a>
 										</li>
-										<li class="dropdown">
+										<!--<li class="dropdown">
 												<a tabindex="7" href="#" class="dropdown-toggle" data-toggle="dropdown">
 														<i class="fa fa-comments-o fa-fw"></i>&nbsp;Participar<b class="caret"></b>
 												</a>
@@ -75,8 +141,8 @@
 														<li><a tabindex="12" href="#">Quiero ser veedor</a></li>
 															
 												</ul>
-										</li>
-										<li>
+										</li>-->
+										<!--<li>
 												<a tabindex="13" href="#">
 														<i class="fa fa-newspaper-o fa-fw"></i>&nbsp;Noticias
 												</a>
@@ -91,7 +157,7 @@
 
 					<li>
 							<a tabindex="14" href="login">
-									<i class="fa fa-user fa-fw"></i> Ingresar
+									 <h2><i class="fa fa-user fa-fw"></i>Ingresar</h2>
 							</a>
 					</li>
 
@@ -113,51 +179,7 @@
 
 
 <div id="sidebar" class="sidebar toggled" >
-	<!-- begin sidebar scrollbar -->
-	<div data-scrollbar="true" data-height="100%">
-		<!-- begin sidebar user -->
-		<ul class="nav">
-			<li class="nav-profile">
-				<div class="info">
-					Menú
-				</div>
-			</li>
-		</ul>
-		<!-- end sidebar user -->
-		<!-- begin sidebar nav -->
-		<ul class="nav">
-			<li class="has-sub">
-				<a href="javascript:;">
-						<b class="caret pull-right"></b>
-						<i class="fa fa-laptop"></i>
-						<span>Informes 222</span>
-					</a>
-				<ul class="sub-menu">
-						<li><a href="index.html">Informe del Diálogo Nacional</a></li>
-						<li><a href="index_v2.html">Reporte General</a></li>
-						<li><a href="index_v2.html">Reporte Productivo</a></li>
-				</ul>
-			</li>
-			<li class="has-sub">
-				<a href="javascript:;">
-						<b class="caret pull-right"></b>
-						<i class="fa fa-laptop"></i>
-						<span>Participar</span>
-					</a>
-				<ul class="sub-menu">
-						<li><a href="index.html">Enviar mi propuesta</a></li>
-						<li><a href="index_v2.html">Alertas Productivas</a></li>
-						<li><a href="index_v2.html">Alertas Ciudadanas</a></li>
-						<li><a href="index_v2.html">Reportar un hecho relevante</a></li>
-						<li><a href="index_v2.html">Quiero ser veedor</a></li>
-				</ul>
-			</li>
-			<li><a href="index.html">Próximas Mesas</a></li>
-			<li><a href="index.html">Noticias</a></li>
-		</ul>
-		<!-- end sidebar nav -->
-	</div>
-	<!-- end sidebar scrollbar -->
+	
 </div>
 <div class="sidebar-bg"></div>
 <!-- end #sidebar -->

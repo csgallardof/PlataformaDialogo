@@ -1,0 +1,15 @@
+/***
+
+Autor:Alex Dominguez
+Tabla: reactivacion de propuestas
+
+***/
+
+
+DROP TABLE IF EXISTS solucions_reactivacion;
+
+create table solucions_reactivacion(
+
+    solucion_id int,
+    intentos_react int
+);

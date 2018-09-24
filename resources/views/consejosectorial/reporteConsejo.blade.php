@@ -267,7 +267,16 @@
                             <td colspan="1" ><div align="left">{{$numPropuestasAnalisadas}}</div></td>
                         </tr>
 
+                      
+                       <tr>
+                           <th colspan="2" ><div align="left">N° de Propuestas Desestimadas</div></th>
+                            <td colspan="1" ><div align="left">{{$numPropuestasDesestimadas}}</div></td>
+                        </tr>
 
+                        <tr>
+                           <th colspan="2" ><div align="left">N° de Propuestas en Conflicto</div></th>
+                            <td colspan="1" ><div align="left">{{$numPropuestasConflicto}}</div></td>
+                        </tr>
 
                        <tr>
                            <th colspan="3" ><div align="center">Forma de Cumplimiento</div></th>
@@ -329,7 +338,7 @@
                         <tr>
                              <th colspan="1" ><div align="left">Nombre de la mesa</div></th>
                              <th colspan="1" ><div align="left">Propuestas en proceso</div></th>
-                             <th colspan="1" ><div align="left">Propestas finalizadas</div></th>
+                             <th colspan="1" ><div align="left">Propuestas finalizadas</div></th>
                          </tr>       
                             @foreach($propuestasPorMesa as $propuestasPorMesa)
                               <tr>
