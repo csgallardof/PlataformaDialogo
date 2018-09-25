@@ -318,16 +318,12 @@
                            <th colspan="3" ><div align="center">Propuestas Planificadas por Consejo Sectorial</div></th>
                         </tr>
                         <tr>
-                             <th colspan="1" ><div align="left">N° de Propuestas Planificadas</div></th>
-                              @foreach($propuestasPlanificadas as $propuestasPlanificadas)
-                             <td colspan="1" ><div align="left">{{$propuestasPlanificadas->numPlanificadas}}</div></td>
-                              @endforeach
+                             <th colspan="2" ><div align="left">N° de Propuestas Planificadas</div></th>
+                             <td colspan="1" ><div align="left">{{$numPropuestasNoPlanificadas}}</div></td>
                          </tr>
                         <tr>
-                             <th colspan="1" ><div align="left">N° de Propuestas No planificadas</div></th>
-                              @foreach($propuestasNoPlanificadas as $propuestasNoPlanificadas)
-                             <td colspan="1" ><div align="left">{{$propuestasNoPlanificadas->numNoPlanificadas}}</div></td>
-                              @endforeach
+                             <th colspan="2" ><div align="left">N° de Propuestas No planificadas</div></th>
+                            <td colspan="1" ><div align="left">{{$numPropuestasNoPlanificadas}}</div></td>
                           </tr>  
 
 
