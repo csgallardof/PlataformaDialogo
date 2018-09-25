@@ -8,18 +8,18 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">@yield('edit_titulo') <a href="{{ route('usuario.index') }}" class="btn btn-primary pull-right">Regresar</a>
+                <div class="panel-heading"> <a href="/listar-usuario" class="btn btn-primary pull-right">Regresar</a>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('guardarUsuarioConsejo')}}"
+                    <form class="form-horizontal" method="POST" action=""
                     >
                         {{ csrf_field() }}
                         @section('edit_Method')
 
-
+                         {{ $usuario->id}}   
                         @show
-
-                        <input type="hidden" name="crear_usuario_consejo" value="1">
+                        
+                        <input type="hidden" name="usuario_id" value="1">
 
                         <div class="form-group">
                             <label for="cedula" class="col-md-4 control-label">Institucion</label>
@@ -43,7 +43,7 @@
                             <label for="nombre_usuario" class="col-md-4 control-label">Nombre</label>
 
                             <div class="col-md-6">
-                                <input id="nombre_usuario" type="text" class="form-control" name="nombre_usuario" placeholder="Ingrese su Nombre" required required value="@if(isset($item))@yield('edit_nombre_usuario')@endif"   autofocus>
+                                <input id="nombre_usuario" type="text" class="form-control" name="nombre_usuario" placeholder="Ingrese su Nombre" required required value="{{ $usuario->name }}"   autofocus>
 
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <label for="apellidos_usuario" class="col-md-4 control-label">Apellidos</label>
 
                             <div class="col-md-6">
-                                <input id="apellidos_usuario" type="text" class="form-control" name="apellidos_usuario" placeholder="Ingrese sus Apellidos" required value="@if(isset($item))@yield('edit_apellidos_usuario')@endif"  autofocus>
+                                <input id="apellidos_usuario" type="text" class="form-control" name="apellidos_usuario" placeholder="Ingrese sus Apellidos" required value="{{ $usuario->apellidos }}"  autofocus>
 
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             <label for="cedula" class="col-md-4 control-label">C&eacute;dula</label>
 
                             <div class="col-md-6">
-                                <input id="cedula" type="text" class="form-control" name="cedula" placeholder="Ingrese su C&eacute;dula" required value="@if(isset($item))@yield('edit_cedula_usuario')@endif"  autofocus>
+                                <input id="cedula" type="text" class="form-control" name="cedula" placeholder="Ingrese su C&eacute;dula" required value="{{ $usuario->cedula }}"  autofocus>
 
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <label for="telefono" class="col-md-4 control-label">Tel&eacute;fono Convencional</label>
 
                             <div class="col-md-6">
-                                <input id="telefono" type="text" class="form-control" name="telefono" placeholder="Ingrese su tel&eacute;fono convencional" required value="@if(isset($item))@yield('edit_telefono_usuario')@endif"  autofocus>
+                                <input id="telefono" type="text" class="form-control" name="telefono" placeholder="Ingrese su tel&eacute;fono convencional" required required value="{{ $usuario->telefono }}"  autofocus>
 
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                             <label for="celular" class="col-md-4 control-label">Tel&eacute;fono Celular</label>
 
                             <div class="col-md-6">
-                                <input id="celular" type="text" class="form-control" name="celular" placeholder="Ingrese su tel&eacute;fono celular" required value="@if(isset($item))@yield('edit_celular_usuario')@endif"  autofocus>
+                                <input id="celular" type="text" class="form-control" name="celular" placeholder="Ingrese su tel&eacute;fono celular" required required value="{{ $usuario->celular }}" autofocus>
 
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                             <label for="email" class="col-md-4 control-label">Email</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="email" placeholder="Ingrese su email" required value="@if(isset($item))@yield('edit_email_usuario')@endif"  autofocus>
+                                <input id="email" type="text" class="form-control" name="email" placeholder="Ingrese su email" required required value="{{ $usuario->email }}"  autofocus>
 
                             </div>
                         </div>
