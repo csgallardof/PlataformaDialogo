@@ -78,7 +78,8 @@ class ConsejoSectorialController extends Controller {
                                 inner join institucions on institucions.id = institucion_usuarios.institucion_id
                                 inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
                                 inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
-                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+                                where estado_solucion.id <= 4
+                                and users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
 
         //dd($resultados_propuestas);
         
