@@ -302,7 +302,7 @@
                         </tr>
                         <tr>
                              <th colspan="2" ><div align="left">N° de Propuestas Planificadas</div></th>
-                             <td colspan="1" ><div align="left">{{$numPropuestasNoPlanificadas}}</div></td>
+                             <td colspan="1" ><div align="left">{{$numPropuestasPlanificadas}}</div></td>
                          </tr>
                         <tr>
                              <th colspan="2" ><div align="left">N° de Propuestas No planificadas</div></th>

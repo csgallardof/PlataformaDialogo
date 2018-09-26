@@ -56,12 +56,7 @@
                         </tr>
 
 
-                        <!-- <tr>
-                           <td colspan="2" ><div align="left">Periodo</div></td>
-                            <td colspan="1" ><div align="left">{{$periodo}}</div></td>
-                        </tr> -->
-
-                         <tr>
+                        <tr>
                            <td colspan="2" ><div align="left">Fecha Inicial</div></td>
                             <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
                         </tr>
