@@ -95,20 +95,7 @@
                             </div>
                                </div>
                         <br />
-                       <div class="row">
-                                  <div class="col-md-3"></div>
-                                   <div class="col-md-1">
-                                             Periodo
-                                   </div>
-                                   <div class="col-md-4">
-                                 <select name="selPeriodo" class="form-control"  id="selPeriodo" required="" change="{{$consulto='no'}}" >
-                                    <option value="">Seleccione</option>
-                                    <option value="Mensual"  {{ $periodo == 'Mensual' ? 'selected="selected"' : '' }}>Mensual</option>
-                                    <option value="Trimestral" {{ $periodo == 'Trimestral' ? 'selected="selected"' : '' }}>Trimestral</option>
-                                    <option value="Requerido" {{ $periodo == 'Requerido' ? 'selected="selected"' : '' }}>Requerido</option>
-                                </select>
-                            </div>
-                        </div>
+                      
                         <br />
      
 
@@ -148,16 +135,16 @@
 <br/>
 <div class="col-md-5"></div>
  <div class="col-md-1">
-    @if($idBusqueda != null &&  $periodo != null && $fechaInicial != null && $fechaFinal != null )
-    <a class="link" href=" {{ route('exportarPdf.ReporteConsejo', [ $idBusqueda , $periodo, $fechaInicial, $fechaFinal] ) }} " target="_self">
+    @if( $idBusqueda != null &&  $fechaInicial != null && $fechaFinal != null )
+    <a class="link" href=" {{ route('exportarPdf.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal] ) }} " target="_self">
          <button  type="button"  class="btn btn-primary" id="pdf" name="pdf" >Descargar PDF </button>
      </a>  
      @endif
     </div>    
         
    <div class="col-md-1">
-    @if($idBusqueda != null &&  $periodo != null && $fechaInicial != null && $fechaFinal != null && $consulto=='si')
-    <a class="link" href=" {{ route('exportarExcel.ReporteConsejo', [ $idBusqueda , $periodo, $fechaInicial, $fechaFinal, $consulto] ) }} " target="_self">
+    @if($idBusqueda != null && $fechaInicial != null && $fechaFinal != null && $consulto=='si')
+    <a class="link" href=" {{ route('exportarExcel.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal, $consulto] ) }} " target="_self">
          <button  type="button"  class="btn btn-primary" id="consulto" name="consulto" value="{{$consulto='no'}}">Descargar Excel </button>
      </a>  
      @endif
@@ -213,11 +200,7 @@
                         </tr>
                       @endif
                        
-                        <tr>
-                           <th colspan="2" ><div align="left">Periodo</div></th>
-                            <td colspan="1" ><div align="left">Requerido</div></td>
-                        </tr>
-                       
+                     
 
                           <tr>
                            <th colspan="2" ><div align="left">Fecha Desde</div>
