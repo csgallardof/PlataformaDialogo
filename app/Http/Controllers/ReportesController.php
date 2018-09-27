@@ -2320,7 +2320,6 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
  //public function exportarPdfReporteConsejo(Request $request,$tipo){
 
 public function exportarPdfReporteConsejo(Request $request){
- 		dd($request);
 //dd($idBusqueda);
 		//dd($request->selInstituciones);
 	//dd($request->codInstitucion);
@@ -2342,18 +2341,13 @@ $fechaFinal = $request->fechaFinal;
 			WHERE us°uario_id=".Auth::user()->id." ;");*/
 			// dd($institucionUsuario[0]->id);
  
- $institucion = $this->obtenerInstitucion($idInstitucion);
+ /* $institucion = $this->obtenerInstitucion($idInstitucion);
 			     
-			/*$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
-			                            ->get();*/
-		//dd($institucion[0]->id);	
+			//dd($institucion[0]->id);	
 			$usuarioInstitucion = DB::select("SELECT  * from institucion_usuarios
                       where institucion_id = ".$institucion[0]->id." and activo=1");
-           
-          /* if(!$usuarioInstitucion){
-              	Flash::error("El usuario no se encuentra activo para la institución");
-           } */
-			$usuario = User::where('id','=',$usuarioInstitucion[0]->usuario_id)
+          
+        		$usuario = User::where('id','=',$usuarioInstitucion[0]->usuario_id)
 			                            ->get(); 
 			$nombreusuario = $usuario[0]->name;
 		
@@ -2361,6 +2355,24 @@ $fechaFinal = $request->fechaFinal;
 			$nombreinstitucion = $institucion[0]->nombre_institucion;
 			//dd($institucion[0]->id);
 			//dd($nombreinstitucion);
+
+*/
+
+$institucionUsuario = $this->obtenerInstitucionUsuario($idInstitucion);
+
+$institucion = new Institucion();
+
+$institucion = $this-> obtenerInstitucion($idInstitucion);
+
+//dd($institucion[0]->id);
+
+$nombreinstitucion = $institucion[0]->nombre_institucion;
+
+$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+			                            ->get();
+$nombreusuario = $usuario[0]->name;
+			//dd($nombreusuario);
+$idInstituciones = $this->obtenerInstitucionesConsejo($idInstitucion);
 
 
 			$consejo = $this -> obtenerConsejo($idInstitucion);
