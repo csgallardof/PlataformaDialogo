@@ -9,6 +9,7 @@ use App\Role;
 
 use App\Evento;
 use App\Solucion;
+use App\Institucion;
 use App\Pajustada;
 use App\ActorSolucion;
 use App\Actividad;
@@ -17,6 +18,8 @@ use App\EstadoSolucion;
 use App\TipoDialogo;
 use DB;
 use Illuminate\Support\Collection as Collection;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
     
 
 use App\Provincia;
@@ -32,7 +35,7 @@ class PaginasController extends Controller
     public function busquedaAvanzadaDialogo(Request $request){ 
         //dd("hola");
 
-       $buscar = $request-> parametro;
+       $buscar = $request->parametro;
        
        //dd($buscar); 
 
@@ -65,9 +68,14 @@ class PaginasController extends Controller
                                 ->get();
             //dd($resultados);
 
+
+            
+            $provincias = Provincia::all();
+
+
             $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
 
-            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte,"urlResultados"=>$urlResultados]);
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte,"urlResultados"=>$urlResultados,"provincias"=>$provincias]);
         }
 
         // // Busqueda tipo Dialogo sin parametro
@@ -210,6 +218,91 @@ class PaginasController extends Controller
        
 
     }
+
+
+
+
+    public function arrayPaginator($array, $request)
+   {
+        $page = Input::get('page', 1);
+        $perPage = 20;
+        $offset = ($page * $perPage) - $perPage;
+
+        return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+            ['path' => $request->url(), 'query' => $request->query()]);
+   }
+
+    /***
+    Funcion para presentar propuestas en base a filtros como palabras clave
+
+    ***/
+    public function busquedaAvanzadaDialogoFiltro(Request $request){ 
+        // dd('ENTRO');
+       //$buscar = $request-> parametro;
+        if($request->selectBusqueda=='si'){
+            $provincias = $request->provincias;
+            $palabra_clave = $request->palabra_clave;
+             
+
+             $sql ='';
+             $sql_where = 'where 1=1';     
+             //$provincias=8;
+             if($provincias and $provincias!=0){
+                   // $sql_where.=' and s.provincia_id='.$provincias;
+                 $sql_where.=' and s.provincia_id= ?';
+            }
+            if($palabra_clave and !empty($palabra_clave)){
+                    $sql_where.=" and s.palabras_clave LIKE '%".$palabra_clave."%'";
+            }
+              
+
+            $sql ='select s.*, mesa_dialogo.nombre 
+                   from solucions s
+                   join estado_solucion ON estado_solucion.id=s.estado_id
+                   join mesa_dialogo ON mesa_dialogo.id = s.mesa_id
+                   join tipo_dialogo ON tipo_dialogo.id = mesa_dialogo.tipo_dialogo_id ';
+            $sql .= $sql_where.' ';    
+            $sql .=' order by s.estado_id DESC ';
+
+            //dd($sql);
+           // $res = DB::select(DB::raw($sql), [ $provincias]);
+             $res = DB::select($sql, [ $provincias]);
+            //dd($res);
+            $resultados = $this->arrayPaginator($res, $request);
+
+
+            /*$resultadosreporte = Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id');
+
+            if($provincias and $provincias!=0){
+                    $resultadosreporte->where('solucions.provincia_id','=', $provincias);
+
+            }
+            if($palabra_clave){
+                    $resultadosreporte->where('solucions.palabras_clave','lIKE','%'.$palabra_clave.'%');
+
+            }
+
+            $resultadosreporte->orderBy('solucions.estado_id','DESC')->get();  */                              
+     
+            $resultadosreporte=$res;
+
+            $provincias = Provincia::all();       
+            $institucion = DB::select('select * from institucions');       
+                    
+            // dd($institucion);
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro=';
+             //dd($resultadosreporte);
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))->with(["resultadosreporte"=>$resultadosreporte,"urlResultados"=>$urlResultados,"provincias"=>$provincias,"institucion"=>$institucion ]);
+        }
+
+    
+
+
+    }//end of function
+
 
     public function busquedaAvanzada(Request $request){
         $datosFiltroSector="";

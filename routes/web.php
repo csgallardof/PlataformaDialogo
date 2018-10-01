@@ -58,6 +58,9 @@ Route::get('/busquedaAvanzadaDialogo',[
 ]);
 
 
+Route::get('/busquedaAvanzadaDialogoFiltro/',['uses'=>'PaginasController@busquedaAvanzadaDialogoFiltro','as'=>'reportePropuestasFiltro']); 
+
+
 
 Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']); 
 
