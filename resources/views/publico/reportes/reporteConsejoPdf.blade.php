@@ -57,8 +57,13 @@
 
 
                         <tr>
-                           <td colspan="2" ><div align="left">Periodo</div></td>
-                            <td colspan="1" ><div align="left">{{$periodo}}</div></td>
+                           <td colspan="2" ><div align="left">Fecha Inicial</div></td>
+                            <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
+                        </tr>
+
+                         <tr>
+                           <td colspan="2" ><div align="left">Fecha Final</div></td>
+                            <td colspan="1" ><div align="left">{{$fechaFinal}}</div></td>
                         </tr>
 
                         <tr>
@@ -104,6 +109,16 @@
                          <tr>
                            <td colspan="2" ><div align="left">N° de Propuestas en An&aacute;lisis</div></td>
                             <td colspan="1" ><div align="left">{{$numPropuestasAnalisadas}}</div></td>
+                        </tr>
+
+                        <tr>
+                           <td colspan="2" ><div align="left">N° de Propuestas Desestimadas</div></td>
+                            <td colspan="1" ><div align="left">{{$numPropuestasDesestimadas}}</div></td>
+                        </tr>
+
+                        <tr>
+                           <td colspan="2" ><div align="left">N° de Propuestas en Conflicto</div></td>
+                            <td colspan="1" ><div align="left">{{$numPropuestasConflicto}}</div></td>
                         </tr>
 
 
@@ -155,16 +170,13 @@
                            <th colspan="3" ><div align="center">Propuestas Planificadas por Consejo Sectorial</div></th>
                         </tr>
                         <tr>
-                             <th colspan="1" ><div align="left">N° de Propuestas Planificadas</div></th>
-                              @foreach($propuestasPlanificadas as $propuestasPlanificadas)
-                             <td colspan="1" ><div align="left">{{$propuestasPlanificadas->numPlanificadas}}</div></td>
-                              @endforeach
+                             <td colspan="2" ><div align="left">N° de Propuestas Planificadas</div></td>
+                             <td colspan="1" ><div align="left">{{$numPropuestasPlanificadas}}</div></td>
                          </tr>
                         <tr>
-                             <th colspan="1" ><div align="left">N° de Propuestas No planificadas</div></th>
-                              @foreach($propuestasNoPlanificadas as $propuestasNoPlanificadas)
-                             <td colspan="1" ><div align="left">{{$propuestasNoPlanificadas->numNoPlanificadas}}</div></td>
-                              @endforeach
+                             <td colspan="2" ><div align="left">N° de Propuestas No planificadas</div></td>
+                            <td colspan="1" ><div align="left">{{$numPropuestasNoPlanificadas}}</div></td>
+                            
                           </tr>  
 
                         <tr>

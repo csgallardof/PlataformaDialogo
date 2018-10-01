@@ -10,6 +10,7 @@ use App\User;
 use App\Institucion;
 use App\Solucion;
 use App\ActorSolucion;
+use App\InstitucionUsuario;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,10 @@ public function listaMinisterio(Request $request) {
 $hoy = date("d/m/Y"); 
 
   $periodo = $request->selPeriodo;
+
+   $fechaInicial = $request->fechaInicial;
+    // dd($fechaInicial);
+  $fechaFinal = $request->fechaFinal;
 
 //  dd($periodo);
 
@@ -210,6 +215,24 @@ if($propuestasDesarrolladas){
 //dd($numPropuestasDesarrolladas);
 
 
+$propuestasDesestimadas = $this -> obtenerPropuestasDesestimadas($institucion[0]->id,$fechaInicial,$fechaFinal);
+
+if($propuestasDesestimadas){
+	$numPropuestasDesestimadas = $propuestasDesestimadas[0]->propuestasDesestimadas;
+}else{
+	$numPropuestasDesestimadas = 0;
+}
+
+
+$propuestasEnConflicto = $this -> obtenerPropuestasEnConflicto($institucion[0]->id,$fechaInicial,$fechaFinal);
+
+
+if($propuestasEnConflicto){
+	$numPropuestasEnConflicto = $propuestasEnConflicto[0]->propuestasEnConflicto;
+}else{
+	$numPropuestasEnConflicto = 0;
+}
+
 $propuestasFinalisadas = DB::select("SELECT 
 										i.nombre_institucion
 										,e.nombre_estado
@@ -293,10 +316,31 @@ if($propuestasPlazoCorto){
 }
 //dd($numPropuestasPlazoMediano);
 
+$propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+if($propuestasPlanificadas){
+	$numPropuestasPlanificadas = $propuestasPlanificadas[0]->numPlanificadas;
+}else{
+	$numPropuestasPlanificadas = 0;
+}
 
+$propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+if($propuestasNoPlanificadas){
+	$numPropuestasNoPlanificadas = $propuestasNoPlanificadas[0]->numNoPlanificadas;
+}else{
+	$numPropuestasNoPlanificadas = 0;
+}
+
+$propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->id,$fechaInicial,$fechaFinal);
+//dd($propuestasPorMesa);
+
+$propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+
+$propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->id,$fechaInicial,$fechaFinal);
 //dd($resultadosreporte);
 
 return view('publico.reportes.reporteMinisterio')->with( ["hoy" => $hoy,
+	                                                      "fechaInicial" => $fechaInicial,
+	                                                      "fechaFinal" => $fechaFinal,
 															"soluciones" => $soluciones,
         	                                                      "nombreusuario" => $nombreusuario,
         	                                                      "nombreinstitucion"=> $nombreinstitucion,
@@ -306,12 +350,18 @@ return view('publico.reportes.reporteMinisterio')->with( ["hoy" => $hoy,
         	                                                      "numPropuestasValidadas" => $numPropuestasValidadas,
         	                                                      "numPropuestasAnalisadas" => $numPropuestasAnalisadas,
         	                                                      "numPropuestasDesarrolladas" => $numPropuestasDesarrolladas,
+        	                                                      "numPropuestasEnConflicto" => $numPropuestasEnConflicto,
         	                                                      "numPropuestasFinalisadas" => $numPropuestasFinalisadas,
         	                                                      "numPropuestasPolitica" => $numPropuestasPolitica,
         	                                                      "numPropuestasLeyes" => $numPropuestasLeyes,
         	                                                      "numPropuestasPlazoLargo" => $numPropuestasPlazoLargo,
         	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
         	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto,
+        	                                                      "numPropuestasPlanificadas" => $numPropuestasPlanificadas,
+        	                                                      "numPropuestasNoPlanificadas" => $numPropuestasNoPlanificadas,
+        	                                                      "propuestasPorMesa" => $propuestasPorMesa,
+        	                                                      "propuestasPorMesaFinalizadas" => $propuestasPorMesaFinalizadas,
+        	                                                      "propuestasPorAmbito" => $propuestasPorAmbito,
         	                                                      "resultadosreporte" => $resultadosreporte
         	                                                      ] );
 
@@ -343,6 +393,11 @@ public function exportarExcelReporteMinisterio(Request $request){
 */
 
  $hoy = date("d/m/Y"); 
+ $fechaInicial = $request->fechaInicial;
+
+$fechaFinal = $request->fechaFinal;
+
+
 
 $institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
 WHERE usuario_id=".Auth::user()->id." ;");
@@ -374,6 +429,8 @@ $consejo = DB::select("SELECT consejo_sectorials.nombre_consejo,institucions.id 
 
 $nombreConsejo = $consejo[0]->nombre_consejo; 
 //dd($nombreConsejo); 
+
+
 
     $resultadosreporte = ActorSolucion::select('solucions.*','institucions.id', 'institucions.nombre_institucion', 'politicas.nombre_politica')
                       //Solucion::select('solucions.*','i.id', 'i.nombre_institucion', 'p.nombre_politica')
@@ -599,6 +656,39 @@ if($propuestasPlazoCorto){
 }
 //dd($numPropuestasPlazoMediano);
 
+$idInstitucion = $institucion[0]->id;
+
+$propuestasEnConflicto = $this -> obtenerPropuestasEnConflicto($idInstitucion,$fechaInicial,$fechaFinal);
+
+
+			if($propuestasEnConflicto){
+				$numPropuestasEnConflicto = $propuestasEnConflicto[0]->propuestasEnConflicto;
+			}else{
+				$numPropuestasEnConflicto = 0;
+			}
+
+			
+$propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+if($propuestasPlanificadas){
+	$numPropuestasPlanificadas = $propuestasPlanificadas[0]->numPlanificadas;
+}else{
+	$numPropuestasPlanificadas = 0;
+}
+
+$propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+if($propuestasNoPlanificadas){
+	$numPropuestasNoPlanificadas = $propuestasNoPlanificadas[0]->numNoPlanificadas;
+}else{
+	$numPropuestasNoPlanificadas = 0;
+}
+
+$propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->id,$fechaInicial,$fechaFinal);
+//dd($propuestasPorMesa);
+
+$propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+
+$propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->id,$fechaInicial,$fechaFinal);
+
 
         //dd($solucion);
          /*   $excel->sheet('Propuestas Dialogo', function($sheet) use($solucion) {
@@ -627,10 +717,12 @@ if($propuestasPlazoCorto){
                 ]); 
             }
  */
-            $excel->sheet('Datos por institución', function($sheet) use($hoy,$nombreusuario,$nombreinstitucion,$nombreConsejo,$numPropuestasRecibidas,$numPropuestasDesestimadas,$numPropuestasValidadas,
+            $excel->sheet('Datos por institución', function($sheet) use($hoy,$fechaInicial,$fechaFinal,$nombreusuario,$nombreinstitucion,$nombreConsejo,$numPropuestasRecibidas,$numPropuestasDesestimadas,$numPropuestasValidadas,
 $numPropuestasFinalisadas,$numPropuestasDesarrolladas,$numPropuestasAnalisadas,
 $numPropuestasPolitica,$numPropuestasLeyes,
-$numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo) {
+$numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo,$numPropuestasEnConflicto,
+$numPropuestasPlanificadas,$numPropuestasNoPlanificadas,$propuestasPorMesa, $propuestasPorMesaFinalizadas,
+$propuestasPorAmbito) {
          
             $sheet->row(1, [
                 'REPORTE DE MINISTERIO DE LA PLATAFORMA DEL DIALOGO NACIONAL'
@@ -657,74 +749,147 @@ $numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo) {
                 'Consejo Sectorial', $nombreConsejo
             ]);
         
+            $sheet->row(7, [
+                'Fecha Desde', $fechaInicial
+            ]);
 
-		    $sheet->row(7, ['']);
+            $sheet->row(8, [
+                'Fecha Hasta', $fechaFinal
+            ]);
+        
+		    $sheet->row(9, ['']);
 
-		    $sheet->row(8, [
+		    $sheet->row(10, [
 		                'TIPO DE PROPUESTA'
 		            ]);
-		    $sheet->row(9, [
+		    $sheet->row(11, [
 		                'N° de Propuestas Recibidas', strtoupper($numPropuestasRecibidas)
 		            ]);
-		    $sheet->row(10, [
+		    $sheet->row(12, [
 		                'N° de Propuestas Desestimadas', strtoupper($numPropuestasDesestimadas)
 		            ]);
-		    $sheet->row(11, [
+		    $sheet->row(13, [
 		                'N° de Propuestas Validadas', strtoupper($numPropuestasValidadas)
 		            ]);
 
 
 
-			$sheet->row(12, ['']);
+			$sheet->row(14, ['']);
 
-		    $sheet->row(13, [
+		    $sheet->row(15, [
 		                'ESTADO DE PROPUESTA'
 		            ]);
-		    $sheet->row(14, [
+		    $sheet->row(16, [
 		                'N° de Propuestas Cumplidas o Finalizadas', strtoupper($numPropuestasFinalisadas)
 		            ]);
-		    $sheet->row(15, [
+		    $sheet->row(17, [
 		                'N° de Propuestas en Desarrollo', strtoupper($numPropuestasDesarrolladas)
 		            ]);
-		    $sheet->row(16, [
+		    $sheet->row(18, [
 		                'N° de Propuestas en Análisis', strtoupper($numPropuestasAnalisadas)
 		            ]);
 
+ $sheet->row(19, [
+		                'N° de Propuestas Desestimadas', strtoupper($numPropuestasDesestimadas)
+		            ]);
+
+ $sheet->row(20, [
+		                'N° de Propuestas en Conflicto', strtoupper($numPropuestasEnConflicto)
+		            ]);
 
 
 
 
-            $sheet->row(17, ['']);
 
-		    $sheet->row(18, [
+            $sheet->row(21, ['']);
+
+		    $sheet->row(22, [
 		                'FORMA DE CUMPLIMIENTO'
 		            ]);
-		    $sheet->row(19, [
+		    $sheet->row(23, [
 		                'N° de Propuestas en PP', strtoupper($numPropuestasPolitica)
 		            ]);
-		    $sheet->row(20, [
+		    $sheet->row(24, [
 		                'N° de Propuestas leyes', strtoupper($numPropuestasLeyes)
 		            ]);
 		  
 
 
 
- 			$sheet->row(21, ['']);
-		    $sheet->row(22, [
+ 			$sheet->row(25, ['']);
+		    $sheet->row(26, [
 		                'PROPUESTAS POR PLAZO'
 		            ]);
-		    $sheet->row(23, [
+		    $sheet->row(27, [
 		                '
 N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 		            ]);
-		    $sheet->row(24, [
+		    $sheet->row(28, [
 		                'N° de Propuestas Mediano', strtoupper($numPropuestasPlazoMediano)
 		            ]);
-		    $sheet->row(25, [
+		    $sheet->row(29, [
 		                'N° de Propuestas Largo Plazo', strtoupper($numPropuestasPlazoLargo)
 		            ]);
 
+ $sheet->row(30, ['']);
 
+		    $sheet->row(31, [
+		                'PROPUESTAS PLANIFICADAS POR CONSEJO SECTORIAL'
+		            ]);
+		    $sheet->row(32, [
+		                'N° de Propuestas Planificadas', strtoupper($numPropuestasPlanificadas)
+		            ]);
+		    $sheet->row(33, [
+		                'N° de Propuestas No planificadas', strtoupper($numPropuestasNoPlanificadas)
+		            ]);
+
+
+            
+            
+            $sheet->row(34, ['']);
+
+		    $sheet->row(35, [
+		                'ESTADISTICA DE PROPUESTAS POR MESA'
+		            ]);
+		     $sheet->row(36, [
+		                'Nombre de la mesa','Propuestas en proceso','Propuestas finalizadas'
+		            ]);
+
+		    $cont1 =36;
+		     $cont2 =36;
+		  
+        
+         foreach($propuestasPorMesa as $propuestasPorMesa){
+
+         	     
+            $sheet->row($cont1+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar,
+                      0                         
+		    	 	]);
+                            		 $cont1++;
+               
+              }
+           
+         	foreach ($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas) {
+               
+            $sheet->row($cont2+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar,
+                       $propuestasPorMesaFinalizadas->finalizadas                          
+		    	 	]);
+                            		 $cont2++;
+                    }
+              $sheet->row($cont2+1, ['']);
+       $sheet->row($cont2+2, ['Estadística de Propuestas por Temática o Ámbitos']);
+       
+       $cont2 = $cont1 + 1;
+       $cont3 = $cont1+2;
+       $cont4= $cont3+1;
+
+       foreach ($propuestasPorAmbito as $propuestasPorAmbito) {
+       	 $sheet->row($cont4,  [$propuestasPorAmbito ->ambito,
+                       $propuestasPorAmbito->numPorAmbito                  
+		    	 	]);
+       	 $cont4++;
+       }
+      
          
         });
          
@@ -738,6 +903,10 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
          $vistaurl="publico.reportes.reporteMinisterioPdf";
 
     $hoy = date("d/m/Y"); 
+
+$fechaInicial = $request->fechaInicial;
+
+$fechaFinal = $request->fechaFinal;
 
 		$institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
 			WHERE usuario_id=".Auth::user()->id." ;");
@@ -996,8 +1165,44 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 
         //$elementos= sizeof($data1);
         //dd($data1);
+
+	$idInstitucion = $institucion[0]->id;
+
+	$propuestasEnConflicto = $this -> obtenerPropuestasEnConflicto($idInstitucion,$fechaInicial,$fechaFinal);
+
+
+			if($propuestasEnConflicto){
+				$numPropuestasConflicto = $propuestasEnConflicto[0]->propuestasEnConflicto;
+			}else{
+				$numPropuestasConflicto = 0;
+			}
+
+			
+	$propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+	if($propuestasPlanificadas){
+		$numPropuestasPlanificadas = $propuestasPlanificadas[0]->numPlanificadas;
+	}else{
+		$numPropuestasPlanificadas = 0;
+	}
+
+	$propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+	if($propuestasNoPlanificadas){
+		$numPropuestasNoPlanificadas = $propuestasNoPlanificadas[0]->numNoPlanificadas;
+	}else{
+		$numPropuestasNoPlanificadas = 0;
+	}
+
+$propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->id,$fechaInicial,$fechaFinal);
+//dd($propuestasPorMesa);
+
+$propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->id,$fechaInicial,$fechaFinal);
+
+$propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->id,$fechaInicial,$fechaFinal);
+
         $date = date('Y-m-d');
         $view = \View::make($vistaurl, compact('date'))->with( [ "hoy" => $hoy,"nombreusuario" => $nombreusuario,
+        	                                                      "fechaInicial" => $fechaInicial,
+        	                                                      "fechaFinal" => $fechaFinal,
         	                                                      "nombreinstitucion"=> $nombreinstitucion,
         	                                                      "nombreConsejo" => $nombreConsejo,
         	                                                      "numPropuestasRecibidas" => $numPropuestasRecibidas,
@@ -1005,14 +1210,20 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
         	                                                      "numPropuestasValidadas" => $numPropuestasValidadas,
         	                                                      "numPropuestasAnalisadas" => $numPropuestasAnalisadas,
         	                                                      "numPropuestasDesarrolladas" => $numPropuestasDesarrolladas,
+        	                                                      "numPropuestasConflicto" => $numPropuestasConflicto,
         	                                                      "numPropuestasFinalisadas" => $numPropuestasFinalisadas,
         	                                                      "numPropuestasPolitica" => $numPropuestasPolitica,
         	                                                      "numPropuestasLeyes" => $numPropuestasLeyes,
         	                                                      "numPropuestasPlazoLargo" => $numPropuestasPlazoLargo,
         	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
         	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto,
+        	                                                      "numPropuestasPlanificadas" => $numPropuestasPlanificadas,
+        	                                                      "numPropuestasNoPlanificadas" => $numPropuestasNoPlanificadas,
+        	                                                      "propuestasPorMesa" => $propuestasPorMesa,
+        	                                                      "propuestasPorMesaFinalizadas" => $propuestasPorMesaFinalizadas,
+        	                                                      "propuestasPorAmbito" => $propuestasPorAmbito,
         	                                                      "resultadosreporte" => $resultadosreporte
-        	                                                      ] );
+        	                                                      ] )->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
        if($tipo==1){return $pdf->stream('DialogoNacional.pdf');}
@@ -1261,7 +1472,7 @@ public function obtenerPropuestasEnConflicto($idInstitucion,$fechaInicial,$fecha
 	$propuestasEnConflicto = DB::select("SELECT 
 										i.nombre_institucion
 										,e.nombre_estado
-										,count(e.nombre_estado) as propuestasDesarrolladas
+										,count(e.nombre_estado) as propuestasEnConflicto
 										from actor_solucion acs
 										join institucions i
 										on acs.institucion_id = i.id
@@ -1453,7 +1664,7 @@ public function listaConsejoPorCodigo(Request $request){
 
 $idBusqueda = $request->selInstituciones;
 
-$periodo = $request->selPeriodo;
+// $periodo = $request->selPeriodo;
 
 
 $hoy = date("d-m-Y"); 
@@ -1463,7 +1674,7 @@ $primerDiaAnio = "01-01-".$year;
 if($request->selInstituciones == "Todos"){
   $fechaInicial = $primerDiaAnio; 
   $fechaFinal = $hoy;
-  $selPeriodo ="Requerido";
+  //$selPeriodo ="Requerido";
 }else{
   $fechaInicial = $request->fechaInicial;
   $fechaFinal = $request->fechaFinal;
@@ -1629,22 +1840,30 @@ $propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->idConsejo,$f
 $propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
 
 $propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
-
+if($propuestasPlanificadas){
+	$numPropuestasPlanificadas = $propuestasPlanificadas[0]->numPlanificadas;
+}else{
+	$numPropuestasPlanificadas = 0;
+}
 
 $propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
-
+if($propuestasNoPlanificadas){
+	$numPropuestasNoPlanificadas = $propuestasNoPlanificadas[0]->numNoPlanificadas;
+}else{
+	$numPropuestasNoPlanificadas = 0;
+}
 
 $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
 
 $propuestasPorEstado = $this -> obtenerPropuestasPorEstado($request->selInstituciones,$fechaInicial,$fechaFinal);
 
-if($idBusqueda=="Todos"){
+/* if($idBusqueda=="Todos"){
  $periodo="Requerido";
-}
+} */
 $consulto=$request->consulto; 
 return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
                           	                           "idBusqueda" => $idBusqueda,
-                          	                           "periodo"=>$periodo,
+                          	                           //"periodo"=>$periodo,
                           	                           "fechaInicial"=>$fechaInicial,
                           	                           "fechaFinal"=>$fechaFinal,
                           	                           "consulto"=>$consulto,
@@ -1667,8 +1886,8 @@ return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
         	                                                      "resultadosreporte" =>  $resultadosreporte,
         	                                                      "propuestasPorMesa" => $propuestasPorMesa,
         	                                                      "propuestasPorMesaFinalizadas" => $propuestasPorMesaFinalizadas,
-        	                                                      "propuestasPlanificadas" => $propuestasPlanificadas,
-        	                                                       "propuestasNoPlanificadas" => $propuestasNoPlanificadas,
+        	                                                      "numPropuestasPlanificadas" => $numPropuestasPlanificadas,
+        	                                                       "numPropuestasNoPlanificadas" => $numPropuestasNoPlanificadas,
         	                                                       "propuestasPorAmbito" => $propuestasPorAmbito,
         	                                                       "propuestasPorEstado" => $propuestasPorEstado
         	                                                      ] );
@@ -1688,7 +1907,12 @@ public function exportarExcelReporteConsejo(Request $request){
 
 $idBusqueda = $request->selInstituciones;
 
-$periodo = $request->selPeriodo;
+ $hoy = date("d/m/Y"); 
+ // $periodo = $request->periodo;
+
+$fechaInicial = $request->fechaInicial;
+
+$fechaFinal = $request->fechaFinal;
 
 $idInstitucion=$request->codInstitucion;
 
@@ -1750,6 +1974,7 @@ $consejo =  $this->obtenerConsejo($idInstitucion);
 
 $nombreConsejo = $consejo[0]->nombre_consejo; 
 //dd($nombreConsejo); 
+
 
 $listaMinisterioPorConsejo = $this -> obtenerConsejo($idInstitucion);
 
@@ -1843,6 +2068,14 @@ if($propuestasFinalisadas){
 }
 //dd($numPropuestasAnalisadas);
 
+$propuestasEnConflicto = $this -> obtenerPropuestasEnConflicto($idInstitucion,$fechaInicial,$fechaFinal);
+
+
+if($propuestasEnConflicto){
+	$numPropuestasConflicto = $propuestasEnConflicto[0]->propuestasEnConflicto;
+}else{
+	$numPropuestasConflicto = 0;
+}
 
 $propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaFinal);
 
@@ -1895,11 +2128,17 @@ if($propuestasNoPlanificadas){
 
 $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
 
-            $excel->sheet('Datos por Consejo', function($sheet) use($hoy,$nombreusuario,$nombreinstitucion,$nombreConsejo,$numPropuestasRecibidas,$numPropuestasDesestimadas,$numPropuestasValidadas,
-$numPropuestasFinalisadas,$numPropuestasDesarrolladas,$numPropuestasAnalisadas,
+$propuestasPorEstado = $this -> obtenerPropuestasPorEstado($idInstitucion,$fechaInicial,$fechaFinal);
+
+if($idBusqueda=="Todos"){
+ $periodo="Requerido";
+}
+
+$excel->sheet('Datos por Consejo', function($sheet) use($hoy,$fechaInicial, $fechaFinal, $nombreusuario,$nombreinstitucion,$nombreConsejo,$numPropuestasRecibidas,$numPropuestasDesestimadas,$numPropuestasValidadas,
+$numPropuestasFinalisadas,$numPropuestasConflicto,$numPropuestasDesarrolladas,$numPropuestasAnalisadas,
 $numPropuestasPolitica,$numPropuestasLeyes,
 $numPropuestasPlazoCorto,$numPropuestasPlazoMediano,$numPropuestasPlazoLargo,
-$propuestasPorMesa,$propuestasPorMesaFinalizadas,$numPropuestasPlanificadas,$numPropuestasNoPlanificadas,$propuestasPorAmbito ) {
+$propuestasPorMesa,$propuestasPorMesaFinalizadas,$numPropuestasPlanificadas,$numPropuestasNoPlanificadas,$propuestasPorAmbito, $propuestasPorEstado) {
          
             $sheet->row(1, [
                 'REPORTE DE MINISTERIO DE LA PLATAFORMA DEL DIALOGO NACIONAL'
@@ -1923,119 +2162,157 @@ $propuestasPorMesa,$propuestasPorMesaFinalizadas,$numPropuestasPlanificadas,$num
                 'Consejo Sectorial', $nombreConsejo
             ]);
         
+            /* $sheet->row(6, [
+                'Periodo', $periodo
+            ]); */
 
-		    $sheet->row(6, ['']);
+            $sheet->row(6, [
+                'Fecha Desde', $fechaInicial
+            ]);
 
-		    $sheet->row(7, [
+            $sheet->row(7, [
+                'Fecha Hasta', $fechaFinal
+            ]);
+        
+
+		    $sheet->row(8, ['']);
+
+		    $sheet->row(9, [
 		                'TIPO DE PROPUESTA'
 		            ]);
-		    $sheet->row(8, [
+		    $sheet->row(10, [
 		                'N° de Propuestas Recibidas', strtoupper($numPropuestasRecibidas)
 		            ]);
-		    $sheet->row(9, [
+		    $sheet->row(11, [
 		                'N° de Propuestas Desestimadas', strtoupper($numPropuestasDesestimadas)
 		            ]);
-		    $sheet->row(10, [
+		    $sheet->row(12, [
 		                'N° de Propuestas Validadas', strtoupper($numPropuestasValidadas)
 		            ]);
 
 
 
-			$sheet->row(11, ['']);
+			$sheet->row(13, ['']);
 
-		    $sheet->row(12, [
+		    $sheet->row(14, [
 		                'ESTADO DE PROPUESTA'
 		            ]);
-		    $sheet->row(13, [
+		    $sheet->row(15, [
 		                'N° de Propuestas Cumplidas o Finalizadas', strtoupper($numPropuestasFinalisadas)
 		            ]);
-		    $sheet->row(14, [
+		    $sheet->row(16, [
 		                'N° de Propuestas en Desarrollo', strtoupper($numPropuestasDesarrolladas)
 		            ]);
-		    $sheet->row(15, [
+		    $sheet->row(17, [
 		                'N° de Propuestas en Análisis', strtoupper($numPropuestasAnalisadas)
 		            ]);
-
-
-
-
-
-            $sheet->row(16, ['']);
-
-		    $sheet->row(17, [
-		                'FORMA DE CUMPLIMIENTO'
-		            ]);
 		    $sheet->row(18, [
-		                'N° de Propuestas en PP', strtoupper($numPropuestasPolitica)
+		                'N° de Propuestas Desestimadas', strtoupper($numPropuestasDesestimadas)
 		            ]);
 		    $sheet->row(19, [
+		                'N° de Propuestas en Conflicto', strtoupper($numPropuestasConflicto)
+		            ]);
+
+
+
+
+
+            $sheet->row(20, ['']);
+
+		    $sheet->row(21, [
+		                'FORMA DE CUMPLIMIENTO'
+		            ]);
+		    $sheet->row(22, [
+		                'N° de Propuestas en PP', strtoupper($numPropuestasPolitica)
+		            ]);
+		    $sheet->row(23, [
 		                'N° de Propuestas leyes', strtoupper($numPropuestasLeyes)
 		            ]);
 		  
                
 
- 			$sheet->row(20, ['']);
-		    $sheet->row(21, [
+ 			$sheet->row(24, ['']);
+		    $sheet->row(25, [
 		                'PROPUESTAS TIEMPO POR CONSEJO SECTORIAL'
 		            ]);
-		    $sheet->row(22, [
+		    $sheet->row(26, [
 		                '
 N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
 		            ]);
-		    $sheet->row(23, [
+		    $sheet->row(27, [
 		                'N° de Propuestas Mediano', strtoupper($numPropuestasPlazoMediano)
 		            ]);
-		    $sheet->row(24, [
+		    $sheet->row(28, [
 		                'N° de Propuestas Largo Plazo', strtoupper($numPropuestasPlazoLargo)
 		            ]);
 
            
            
 
-		    $sheet->row(25, ['']);
+		    $sheet->row(29, ['']);
 
-		    $sheet->row(26, [
+		    $sheet->row(30, [
 		                'PROPUESTAS PLANIFICADAS POR CONSEJO SECTORIAL'
 		            ]);
-		    $sheet->row(27, [
+		    $sheet->row(31, [
 		                'N° de Propuestas Planificadas', strtoupper($numPropuestasPlanificadas)
 		            ]);
-		    $sheet->row(28, [
+		    $sheet->row(32, [
 		                'N° de Propuestas No planificadas', strtoupper($numPropuestasNoPlanificadas)
 		            ]);
 
 
             
             
-            $sheet->row(29, ['']);
+            $sheet->row(33, ['']);
 
-		    $sheet->row(30, [
+		    $sheet->row(34, [
 		                'ESTADISTICA DE PROPUESTAS POR MESA'
 		            ]);
-		    $cont = 30;
-		   /* foreach ($propuestasPorMesa as $propuestasPorMesa) {
-		    	 $sheet->row($cont+1, [ strtoupper($propuestasPorMesa),if($propuestasPorMesa->idMesa == $propuestasPorMesaFinalizadas->idMesa){strtoupper($propuestasPorMesaFinalizadas)}
+		     $sheet->row(35, [
+		                'Nombre de la mesa','Propuestas en proceso','Propuestas finalizadas'
 		            ]);
-		          $cont++;
-		    }
-		   
+		    $cont1 =35;
+		     $cont2 =35;
+		  
         
-        });*/
+         foreach($propuestasPorMesa as $propuestasPorMesa){
 
-        
-           foreach ($propuestasPorMesa as $propuestasPorMesa) {
-		    	 $sheet->row($cont+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar
+         	     
+            $sheet->row($cont1+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar,
+                      0                         
 		    	 	]);
-		          $cont++;
-		    }
-		   
-        
+                            		 $cont1++;
+               
+              }
+           
+         	foreach ($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas) {
+               
+            $sheet->row($cont2+1,  [strtoupper($propuestasPorMesa->nombreMesa) ,$propuestasPorMesa->porTerminar,
+                       $propuestasPorMesaFinalizadas->finalizadas                          
+		    	 	]);
+                            		 $cont2++;
+                    }
+              $sheet->row($cont2+1, ['']);
+       $sheet->row($cont2+2, ['Estadística de Propuestas por Temática o Ámbitos']);
+       
+       $cont2 = $cont1 + 1;
+       $cont3 = $cont1+2;
+       $cont4= $cont3+1;
+
+       foreach ($propuestasPorAmbito as $propuestasPorAmbito) {
+       	 $sheet->row($cont4,  [$propuestasPorAmbito ->ambito,
+                       $propuestasPorAmbito->numPorAmbito                  
+		    	 	]);
+       	 $cont4++;
+       }
+      
+
         });
-         
-        })->export('xlsx');
+
+   
+       })->export('xlsx');
         
-
-
 
     }
  
@@ -2043,7 +2320,7 @@ N° de Propuestas a Corto', strtoupper($numPropuestasPlazoCorto)
  //public function exportarPdfReporteConsejo(Request $request,$tipo){
 
 public function exportarPdfReporteConsejo(Request $request){
- 		
+ 		dd($request);
 //dd($idBusqueda);
 		//dd($request->selInstituciones);
 	//dd($request->codInstitucion);
@@ -2069,16 +2346,23 @@ $fechaFinal = $request->fechaFinal;
 			     
 			/*$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
 			                            ->get();*/
-			$usuario = User::where('id','=',$institucion[0]->id)
-			                            ->get();
-			                                                        
+		//dd($institucion[0]->id);	
+			$usuarioInstitucion = DB::select("SELECT  * from institucion_usuarios
+                      where institucion_id = ".$institucion[0]->id." and activo=1");
+           
+          /* if(!$usuarioInstitucion){
+              	Flash::error("El usuario no se encuentra activo para la institución");
+           } */
+			$usuario = User::where('id','=',$usuarioInstitucion[0]->usuario_id)
+			                            ->get(); 
 			$nombreusuario = $usuario[0]->name;
-			
+		
+ 
 			$nombreinstitucion = $institucion[0]->nombre_institucion;
 			//dd($institucion[0]->id);
 			//dd($nombreinstitucion);
 
-			//dd($institucion[0]->id);
+
 			$consejo = $this -> obtenerConsejo($idInstitucion);
 
 			//dd($consejo); 
@@ -2188,6 +2472,14 @@ foreach($listaMinisterioPorConsejo as $lista){
 			}
 			//dd($numPropuestasAnalisadas);
 
+			$propuestasEnConflicto = $this -> obtenerPropuestasEnConflicto($idInstitucion,$fechaInicial,$fechaFinal);
+
+
+			if($propuestasEnConflicto){
+				$numPropuestasConflicto = $propuestasEnConflicto[0]->propuestasEnConflicto;
+			}else{
+				$numPropuestasConflicto = 0;
+			}
 
 			$propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaFinal);
 
@@ -2246,27 +2538,9 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
         //$elementos= sizeof($data1);
         //dd($data1);
         $date = date('Y-m-d');
-      /* dd( "hoy".$hoy."_nombreusuario".$nombreusuario."_periodo".$periodo.        	                                                      "_fechaInicial".$fechaInicial.
-                                                                  "_fechaFinal".$fechaFinal. 
-        	                                                      "_nombreinstitucion".$nombreinstitucion.
-        	                                                      "_nombreConsejo".$nombreConsejo.
-        	                                                      "_numPropuestasRecibidas".$numPropuestasRecibidas.
-        	                                                      "_numPropuestasDesestimadas".$numPropuestasDesestimadas.
-        	                                                      "_numPropuestasValidadas".$numPropuestasValidadas.
-        	                                                      "_numPropuestasAnalisadas".$numPropuestasAnalisadas.
-        	                                                      "_numPropuestasDesarrolladas".$numPropuestasDesarrolladas.
-        	                                                      "_numPropuestasFinalisadas".$numPropuestasFinalisadas.
-        	                                                      "_numPropuestasPolitica".$numPropuestasPolitica.
-        	                                                      "_numPropuestasLeyes".$numPropuestasLeyes.
-        	                                                      "_numPropuestasPlazoLargo".$numPropuestasPlazoLargo.
-        	                                                      "_numPropuestasPlazoMediano".$numPropuestasPlazoMediano.
-        	                                                      "_numPropuestasPlazoCorto".$numPropuestasPlazoCorto);
-        	                                                      //"_resultadosreporte".$resultadosreporte);
-
-*/
+     
         $view = \View::make($vistaurl, compact('date'))->with( [ "hoy" => $hoy,"nombreusuario" => $nombreusuario,
         	                                                     "idBusqueda" => $idBusqueda,
-        	                                                     "periodo" => $periodo,
         	                                                      "fechaInicial" =>$fechaInicial,
                                                                   "fechaFinal" => $fechaFinal, 
         	                                                      "nombreinstitucion"=> $nombreinstitucion,
@@ -2277,13 +2551,14 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
         	                                                      "numPropuestasAnalisadas" => $numPropuestasAnalisadas,
         	                                                      "numPropuestasDesarrolladas" => $numPropuestasDesarrolladas,
         	                                                      "numPropuestasFinalisadas" => $numPropuestasFinalisadas,
+        	                                                      "numPropuestasConflicto" => $numPropuestasConflicto,
         	                                                      "numPropuestasPolitica" => $numPropuestasPolitica,
         	                                                      "numPropuestasLeyes" => $numPropuestasLeyes,
         	                                                      "numPropuestasPlazoLargo" => $numPropuestasPlazoLargo,
         	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
         	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto,
-        	                                                      "propuestasPlanificadas" => $propuestasPlanificadas,
-        	                                                      "propuestasNoPlanificadas" => $propuestasNoPlanificadas,
+        	                                                      "numPropuestasPlanificadas" => $numPropuestasPlanificadas,
+        	                                                      "numPropuestasNoPlanificadas" => $numPropuestasPlanificadas,
         	                                                      "propuestasPorMesa" => $propuestasPorMesa,
         	                                                      "propuestasPorAmbito" => $propuestasPorAmbito  
         	                                                      ] )->render();
