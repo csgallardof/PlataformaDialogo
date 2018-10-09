@@ -58,6 +58,9 @@ Route::get('/busquedaAvanzadaDialogo',[
 ]);
 
 
+Route::get('/busquedaAvanzadaDialogoFiltro/',['uses'=>'PaginasController@busquedaAvanzadaDialogoFiltro','as'=>'reportePropuestasFiltro']); 
+
+
 
 Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']); 
 
@@ -523,10 +526,14 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 //REPORTES
  //Route::get('/reportes','ReportesController@listaMinisterio');
- Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
- Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
+ //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
+ //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
  Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
-        
+       
+ Route::get('/reporte-institucional/descargar-excel/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarExcelReporteMinisterio','as'=>'exportarExcel.ReporteMinisterio']);
+ Route::get('/reporte-institucional/descargar-pdf/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteMinisterio','as'=>'exportarPdf.ReporteMinisterio']);
+
+
    //Mesas de Dialogo
 
 
@@ -597,10 +604,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
     //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo'); 
      //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo'); 
-      Route::get('/reporte-consejo/descargar-excel/{codInstitucion}/{periodo}/{fechaInicial}/{fechaFinal}/{consulto}',['uses'=>'ReportesController@exportarExcelReporteConsejo','as'=>'exportarExcel.ReporteConsejo']);
+      Route::get('/reporte-consejo/descargar-excel/{codInstitucion}/{fechaInicial}/{fechaFinal}/{consulto}',['uses'=>'ReportesController@exportarExcelReporteConsejo','as'=>'exportarExcel.ReporteConsejo']);
       
      // Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
-      Route::get('/reporte-consejo/descargar-pdf/{codInstitucion}/{periodo}/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteConsejo','as'=>'exportarPdf.ReporteConsejo']);
+      Route::get('/reporte-consejo/descargar-pdf/{codInstitucion}/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteConsejo','as'=>'exportarPdf.ReporteConsejo']);
 
      //Propuestas finalizadas
 
