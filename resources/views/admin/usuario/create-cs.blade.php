@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">@yield('edit_titulo') <a href="{{ route('usuario.index') }}" class="btn btn-primary pull-right">Regresar</a>
+                <div class="panel-heading">@yield('edit_titulo') <a href="listar-usuario" class="btn btn-primary pull-right">Regresar</a>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('guardarUsuarioConsejo')}}"

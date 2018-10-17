@@ -7,6 +7,7 @@ use App\ActorSolucion;
 use App\Solucion;
 use App\User;
 use App\Pajustada;
+use App\RoleUser;
 use App\InstitucionUsuario;
 use DB;
 use Laracasts\Flash\Flash;
@@ -38,7 +39,7 @@ class UsuarioController extends Controller {
 
     public function store(Request $request) {
         
-        //dd('uno-dos');
+        
         $usuario = new User;
         $this->validate($request, [
             'nombre_usuario' => 'required',
@@ -69,6 +70,7 @@ class UsuarioController extends Controller {
         $usuario->institucion_id = 0;//por verificar si debe ser ingresada informacion o no en este campo
 
         //$usuario->save();
+
       
         if($request->crear_usuario_consejo =1 ){
 
@@ -102,19 +104,28 @@ class UsuarioController extends Controller {
 
                 $institucion_usuario_sql= DB::select('SELECT MAX(users.id) as UltimoUsuario from users');
                 //dd($usuario_institucion_sql[0]->UltimoUsuario);
-                //dd('pasooo');
+                
 
                 $institucion_usuario = new InstitucionUsuario;
                 $institucion_usuario->institucion_id = $request->institucion_id; 
                 $institucion_usuario->usuario_id = $institucion_usuario_sql[0]->UltimoUsuario;
                 $institucion_usuario->save();
 
+                
+
+                $role = new RoleUser;
+                //dd('llego');
+                $role->user_id = $institucion_usuario_sql[0]->UltimoUsuario;
+                $role->role_id = 2;
+                $role->save();
+
+                
                 Flash::success("El usuario se registró exitosamente");
                 return redirect('consejo-sectorial/listar-usuario');
 
            }else{
 
-                Flash::success("La institucion ya cuenta con un usuaria asigando");
+                Flash::success("La institucion ya cuenta con un usuario asigando");
                 return redirect('consejo-sectorial/listar-usuario');
            }
 

@@ -5,6 +5,9 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <a href="nuevo-usuario-institucion" class="btn btn-primary pull-right">Nuevo Usuario</a>
+        </div>
         
         <div class="col-md-12">
                     <!-- begin panel -->
@@ -19,7 +22,10 @@
                             <h3 align="left" class="panel-title">Usuarios</h3>
                         </div>
 
+                      
+
                         <div class="panel-body">
+
 
                             <div class="table-responsive">
                                 <table id="data-table" class="table table-striped table-bordered" width="100%">

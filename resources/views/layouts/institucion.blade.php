@@ -31,13 +31,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109787903-1"></script>
+      <!--   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109787903-1"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'UA-109787903-1');
-        </script>
+        </script> -->
     @yield('start_css2')
 </head>
 <body data-spy="scroll" data-target="#header-navbar" data-offset="51">

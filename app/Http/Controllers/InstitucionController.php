@@ -154,6 +154,8 @@ class InstitucionController extends Controller
     {
         $usuario_id = Auth::user()->id;
         //dd($usuario_id);
+
+
         $tipo_fuente = Auth::user()->tipo_fuente;
        
 
@@ -166,14 +168,17 @@ class InstitucionController extends Controller
                                          ->where('tipo_actor','=','2')->count();
 
         $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
-                                    from solucions
-                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
-                                    inner join institucions on institucions.id = actor_solucion.institucion_id
-                                    inner join user_institucions on user_institucions.institucion_id = institucions.id
-                                    inner join users on user_institucions.user_id = users.id
-                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
-                                    where estado_solucion.id < 5
-                                    and users.id ='.$usuario_id);
+                            from solucions
+                            inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                            inner join institucions on institucions.id = actor_solucion.institucion_id
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on institucion_usuarios.usuario_id = users.id
+                            INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                            where estado_solucion.id < 5
+                            and institucions.id = ( SELECT institucions.id from institucions
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on users.id = institucion_usuarios.usuario_id
+                            and users.id ='.$usuario_id.')');
        
        
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
@@ -532,8 +537,8 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
                                     from solucions
                                     inner join actor_solucion on actor_solucion.solucion_id = solucions.id
                                     inner join institucions on institucions.id = actor_solucion.institucion_id
-                                    inner join user_institucions on user_institucions.institucion_id = institucions.id
-                                    inner join users on user_institucions.user_id = users.id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
                                     INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
                                     where estado_solucion.id = 6
                                     and users.id ='.$usuario_id);
