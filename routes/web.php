@@ -58,6 +58,9 @@ Route::get('/busquedaAvanzadaDialogo',[
 ]);
 
 
+Route::get('/busquedaAvanzadaDialogoFiltro/',['uses'=>'PaginasController@busquedaAvanzadaDialogoFiltro','as'=>'reportePropuestasFiltro']); 
+
+
 
 Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']); 
 
@@ -572,9 +575,9 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      //Administrar Usuarios
      //Route::resource('usuario','UsuarioController');
      
-     Route::get('/editar-usuario/{id}/edit', 'UsuarioController@edit');
-
+     Route::get('/editar-usuario/{id}/edit', 'UsuarioController@editarUsuarioConsejo');
      Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
+     Route::post('crear-usuario-institucion',['uses'=>'UsuarioController@store','as'=>'guardarUsuarioConsejo']);
 
      Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');

@@ -29,8 +29,9 @@
 		<div class="row p-20">
 			<div class="col-md-3" style="border: #D7DBDD 1px solid; padding: 1%">
 
-				<form role="form" method="GET" action="">
-				
+				<form role="form" method="GET"    action="/busquedaAvanzadaDialogoFiltro/"  >
+				{{ csrf_field() }}
+				<input type="hidden" name="selectBusqueda" id="selectBusqueda" value="si"/>
 				<div class="toolbar title_ip_breadcrumb fit-m-b-10">
 
 		          <ol class="breadcrumb">
@@ -49,17 +50,45 @@
 
 						 		<div >
 
+					
+
 							    <label for="sectorSelect">Fuentes</label>
 								 	<select class="form-group form-control" id="sectorSelect" name="sectorSelect" >
 								 		<option value="0">Seleccionar </option>
-								 		@foreach( $resultados as $fuentes)
-								 			<option value="{{ $fuentes->nombre_institucion}}">{{ $fuentes->nombre_institucion}}</option>
-								 			
-								 		@endforeach
-								 			}
+								 		@if(!isset($institucion) and  empty($data['institucion']))
+									 		@foreach($resultados as $fuentes)
+									 			<option value="{{ $fuentes->nombre_institucion}}">{{ $fuentes->nombre_institucion}}</option>
+									 			
+									 		@endforeach
+								 		@else
+									 		@foreach( $institucion as $fuentes)
+									 			<option value="{{ $fuentes->nombre_institucion}}">{{ $fuentes->nombre_institucion}}</option>
+									 		@endforeach
+
+								 		@endif	
 								 	</select>
                 				</div>
                 				
+
+
+                				<div >
+
+							    <label for="palabra_clave">Palabras Clave</label>
+								  <input type="text" name="palabra_clave" id="palabra_clave" class="form-group form-control">
+                				</div>
+
+
+                				<div>
+
+             					  <label for="provincias">Provincias</label>
+								 	<select class="form-group form-control" id="provincias" name="provincias" >
+								 		<option value="0">Seleccionar </option>
+								 		@foreach( $provincias as $prov)
+								 			<option value="{{ $prov->id}}">{{ $prov->nombre_provincia}}</option>
+								 			
+								 		@endforeach
+								 	</select>
+                				</div>
 
 						 		
 						 		
@@ -245,7 +274,7 @@
 				<div class="col-md-12">
 
 				@if(isset($resultados))
-
+                   <?php   //dd($resultados); ?>
 				<!-- Inicio tabla paginado -->
 					<table id="" class="table nowrap" width="100%">
 						<thead>
@@ -288,9 +317,9 @@
 						</tbody>
 					</table>
 					
-					{!! $resultados->setPath($urlResultados)!!}					
+					
 						@endif
-
+                      
 						<!-- Fin Contenido -->
 					</div>
 					<!-- end col-8 tabla -->

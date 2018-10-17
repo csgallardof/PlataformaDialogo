@@ -28,7 +28,7 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {   
-
+        //dd(Auth::user()->admin());
 
         if(Auth::user()->admin() == 1){
             //dd('admin');

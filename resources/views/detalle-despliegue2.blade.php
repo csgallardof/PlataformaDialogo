@@ -585,7 +585,7 @@
 
 						<!-- panel para evaluacion de ciudadanos-->
                         <?php session_start();
-                        unset($_SESSION['ciudadano_evalua']);?>
+                        //unset($_SESSION['ciudadano_evalua']);?>
 
 				
 					<?php if(!isset($_SESSION['ciudadano_evalua'])){ ?>

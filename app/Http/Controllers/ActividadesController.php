@@ -44,10 +44,12 @@ class ActividadesController extends Controller
         }
 
 
+        //dd('uno');
+
         $solucion = DB::select("SELECT solucions.* FROM solucions
                                 INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
-                                INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
-                                WHERE ui.user_id = ". Auth::user()->id." AND asl.solucion_id = ".$idSolucion." AND asl.tipo_actor = ". $tipo_actor." ;");
+                                INNER JOIN institucion_usuarios ui ON ui.institucion_id = asl.institucion_id
+                                WHERE ui.usuario_id = ". Auth::user()->id." AND asl.solucion_id = ".$idSolucion." AND asl.tipo_actor = ". $tipo_actor." ;");
 
         
         $this->notFound($solucion);  //REDIRECCIONA AL ERROR 404  SI EL OBJETO NO EXISTE
@@ -301,7 +303,7 @@ class ActividadesController extends Controller
         $solucion_estado = DB::select("SELECT estado_solucion.* FROM solucions
                                 INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
                                 INNER JOIN estado_solucion on estado_solucion.id = solucions.estado_id
-                                INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
+                                INNER JOIN institucion_usuarios ui ON ui.institucion_id = asl.institucion_id
                                 WHERE asl.solucion_id = ".$idSolucion." ;");
 
 
@@ -875,13 +877,13 @@ class ActividadesController extends Controller
 
     public function verActividadesDespliegueConsejo($tipo_actor, $idSolucion){
 
-      // dd('uno');
+       dd('uno');
 
 
-        $solucion = DB::select("SELECT solucions.*, estado_solucion.nombre_estado FROM solucions
+        $solucion = DB::select("SELECT solucions.*, estado_solucion.nombre_estado FROM solucion
                                 INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
                                 INNER JOIN estado_solucion on estado_solucion.id = solucions.estado_id
-                                INNER JOIN user_institucions ui ON ui.institucion_id = asl.institucion_id
+                                INNER JOIN institucion_usuarios ui ON ui.institucion_id = asl.institucion_id
                                 WHERE asl.solucion_id = ".$idSolucion." ;");
 
         

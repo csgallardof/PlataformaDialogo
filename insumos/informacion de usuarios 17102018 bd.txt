@@ -1,0 +1,15 @@
+
+
+perfil: administrador
+Usuario: csgallardof@gmail.com
+pass: 022676300
+
+
+Perfil: consejo sectorial
+usuario: liliana_paredes_consejo@trabajo.gob.ec
+pass: 022676300
+
+
+perfil: institucion
+usuario: csgallardoc12@hotmail.com
+pass: 022676300

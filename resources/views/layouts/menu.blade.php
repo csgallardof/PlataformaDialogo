@@ -88,7 +88,7 @@
 								<ul class="nav navbar-nav" role="menu principal">
 
 										<li class="dropdown dropdown-lg">
-												<a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="2"><h2 ><i class="fa fa-file-text-o fa-fw"></i>&nbsp;Informes</h2><b class="caret"></b></a>
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="2"><h2 ><i class="fa fa-file-text-o fa-fw"></i>&nbsp;Informes</h2></a>
 												<div class="dropdown-menu dropdown-menu-lg">
 														<div class="row">
 

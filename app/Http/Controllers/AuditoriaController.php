@@ -11,7 +11,7 @@ class AuditoriaController extends Controller
 public static function guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion){
 	//dd("guardarAuditoria");
 	   $hoy = date('Y-m-d H:m'); 
-	 //  dd($hoy);
+	   //dd($hoy);
 	   $auditoria = new AuditoriaCambio;
 	    $auditoria->id_tabla = $idTabla;
         $auditoria->nombre_tabla = $nombreTabla;

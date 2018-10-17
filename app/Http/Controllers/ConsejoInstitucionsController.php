@@ -71,7 +71,7 @@ class ConsejoInstitucionsController extends Controller {
         if ($consejosInstitucions->isEmpty()) {
             $consejoInstitucion->save();
 
-            //dd('llego');
+            dd('llego');
         }
          
         return redirect("/admin/listar-consejo-institucions");

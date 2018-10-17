@@ -77,7 +77,8 @@ class NotificacionCiudadanoController extends Controller
 
         //return view('detalle-despliegue2')->with(["solucion"=>$Solucion,"solucion_id"=>$solucion_id,"mensaje_cd"=>$mensaje_cd]);
         //return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
-        return redirect()->route('/detalle-despliegue-dialogo/',[$solucion_id]);
+        //return redirect()->route('/detalle-despliegue-dialogo/',[$solucion_id]);
+        return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
     }
 
     public function enviarCorreoEvCd(Request $request,$solucion_id){
