@@ -1,4 +1,4 @@
-<br /><br />
+<br />
 
 <div id="social_network" class="social_network">
     <div class="col-md-12">
@@ -14,7 +14,7 @@
 <div id="footer" class="footer p-0">
     <div class="col-md-12">
         <div class="ecuador_footer_img col-md-9 p-t-10">
-            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_3.png') }}" class="m-t-75 pull-left" width="115px" height="194px" alt="logo de pie de pagina, aves de colores" >
+            <img src="{{ asset('imagenes/dialogo_nacional/footer_logos_3.png') }}" class="m-t-75 pull-left" width="85px" height="104px" alt="logo de pie de pagina, aves de colores" >
             <div class="footer_title_gobierno">
                 <h3><span style="color: #fff;font-family: dolce_vita_light;">GOBIERNO DE&nbsp;</span><span style="color: white;font-family: dolce_vita_heavy_bold;";>LA REPUBLICA DEL ECUADOR</span></h3>
             </div>

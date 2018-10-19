@@ -58,16 +58,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/css_nueva_imagen.css') }}" rel="stylesheet">
 	</head>
 
-	<body>
+	<body style="background-color: lightgrey;">
      <h1 style="text-indent:-9999px; float: left; color:white; ">Plataforma de Dialogo Nacional</h1>
-    <div id="page-container" class="fade" >
+     <!-- class="fade"-->
+    <div id="page-container"  class="fade">
+      <div id="contenedor">	
 			@include ('layouts.menu')
 			@yield ('contenido')
 			
 			@include ('layouts.footer')
+	  </div>		
     </div>
 
 		@section('end_js')
