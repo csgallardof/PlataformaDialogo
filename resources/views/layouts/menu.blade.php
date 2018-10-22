@@ -29,7 +29,7 @@
                 //document.getElementById('sidebar').appendChild(div);
                 document.getElementById('sidebar').innerHTML=ht;
 
-               var menutop1 = document.getElementById("top-navbar");
+               var menutop1 = document.getElementById("top_table_menu");
                 menutop1.style.display = "none";
 
                 // add a class .collapse to a div .showHide
@@ -70,7 +70,7 @@
 	<!-- begin container-fluid -->
 
 <header>
-<div class="head_table_menu">
+<div class="head_table_menu" id="top_table_menu">
 <div id="top_menu">
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
@@ -107,8 +107,6 @@
                     INICIO
                 </a>
     &nbsp; &nbsp;
-                
-
                 <div class="dropdown">
 				  <div class="dropbtn">
 
@@ -147,7 +145,9 @@
                     NOTICIAS
                 </a>
       </div>
-      
+      <div  id="dv_ingreso2" >
+      	<div class="vl2"></div>
+      </div>
       <div  id="dv_ingreso2" >
 
               <a class="barra_menu" href="login" tabindex=7 >

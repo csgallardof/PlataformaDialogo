@@ -112,6 +112,16 @@ p{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00050303', endColorstr='#45050303',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
+.vl {
+    border-left: 5px solid ;
+    
+}
+
+.vl2 {
+    border-left: 50px solid ;
+    
+}
+
 .section_content2{
   /*float:left;*/
   width:70%;
@@ -147,6 +157,7 @@ header{
 #top_menu{
   /* z-index: 5;*/
   /* position:relative;*/
+
   background-color: #193b68; 
   width: 100%;
   display: table-row;
@@ -199,20 +210,22 @@ header{
  padding-right:10px; 
  display: table-cell;
  vertical-align: middle;
+
  
 }
 
 #dv_ingreso2{
-  
+ 
  padding-right:10px; 
  display: table-cell;
  vertical-align: middle;
- 
+
 }
 
 #links_top_menu_left{
  display: table-cell;
  vertical-align: middle;
+
 
 }
 
@@ -396,7 +409,7 @@ h2{
 .head_table_menu{
   margin-top: 0px;
   top: 0px;
-  
+
   /*display: table-cell;*/
   width: 100%;
   

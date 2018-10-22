@@ -132,9 +132,12 @@
 <!--   -->
  </section>
 
-<section class="section_cell">
+
+<div class="vl"></div>
+
+<!--<section class="section_cell">
   &nbsp;
-</section>
+</section>-->
 
 <section class="section_content">
    <div style="width: 80%; margin: 0 auto;">
