@@ -68,13 +68,14 @@
 
 <!--<div id="header" class="header navbar navbar-default navbar-fixed-top">-->
 	<!-- begin container-fluid -->
-	<header>
 
+<header>
+<div class="head_table_menu">
 <div id="top_menu">
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
        
-           <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> 
+          <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> 
       </div>
 
 
@@ -106,14 +107,33 @@
                     INICIO
                 </a>
     &nbsp; &nbsp;
-                <a class="barra_menu" href="#" tabindex=2>
+                
+
+                <div class="dropdown">
+				  <div class="dropbtn">
+
+				  	<a class="barra_menu" href="#" tabindex=2>
                    <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/megafono.png') }}" width="20px" height="20px" alt="Logo en forma de megafono" onmouseover="this.src='{{ asset($path_megafono_hover) }}'"
                     onmouseout="this.src='{{ asset($path_megafono) }}'"/>
                     INFORMACI&OacuteN
                 </a>
+				  </div>
+				  <div class="dropdown-content">
+				    <a tabindex="3" class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf" >
+																			<h3 class="dropdown-header" >Informe del Diálogo Nacional</h3>
+																			<div class="row">
+																					<div class="col-md-12 col-xs-12">
+																								<img src="{{ asset('imagenes/dialogo_nacional/portada_informe_dialogo.png') }}" class="img-rounded" alt="imagen de portada de informe de dialogo nacional" width="125px" height="125px">
+																					</div>
+																			</div>
+					</a>
+				    <a tabindex="4" href="{{ url('/reporte') }}" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte General</a>
+				    <a tabindex="5" href="http://www.inteligenciaproductiva.gob.ec/dialogo-nacional-estadisticas" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Productivo</a>
+				  </div>
+				</div>
 
             
-                <a class="barra_menu" href="#"  tabindex=3>
+                <a class="barra_menu" href="/calendario-dialogo-nacional"  tabindex=5>
                    <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mesas_ico.png') }}" width="20px" height="20px" alt="Logo en forma de mundo"   onmouseover="this.src='{{ asset($path_mesas_ico_hover) }}'"
                     onmouseout="this.src='{{ asset($path_mesas_ico) }}'"/>
                     MESAS
@@ -121,17 +141,16 @@
 
 
                
-                <a class="barra_menu" href="#" tabindex=4 >
+                <a class="barra_menu" href="#" tabindex=6 >
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
                     onmouseout="this.src='{{ asset($path_noticias) }}'" />
                     NOTICIAS
                 </a>
       </div>
+      
+      <div  id="dv_ingreso2" >
 
-
-      <div  id="dv_ingreso" >
-
-              <a class="barra_menu" href="login" tabindex=5 >
+              <a class="barra_menu" href="login" tabindex=7 >
           <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/login.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_login) }}'"   onmouseout="this.src='{{ asset($path_login_hover) }}'" />
                   INGRESO
               </a>
@@ -144,8 +163,7 @@
 </div><!-- end of row1-->
 
 
-
-
+</div>
 
 </header>
 	<!-- end container-fluid -->

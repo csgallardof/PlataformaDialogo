@@ -9,7 +9,7 @@
 @section('contenido')
 
         <!-- begin #about -->
-<section class="section_table">   
+<section class="section_table_hm">   
 <div id="backg">
    <div class="head_table">
        <div class="dvheader_logo"> 
@@ -66,7 +66,7 @@
                    ?>
 
       <div >
-          <a class="nav_button" href="#">
+          <a class="nav_button" href="/busqueda-ejes/1">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/ico_derechos.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_derechos_img) }}'"
               onmouseout="this.src='{{ asset($path_derechos_img_hover) }}'" />
@@ -76,7 +76,7 @@
           </a>
 
 
-          <a class="nav_button2" href="#">
+          <a class="nav_button2" href="/busqueda-ejes/2">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/economico.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_economico) }}'"
               onmouseout="this.src='{{ asset($path_economico_hover) }}'" />
@@ -85,7 +85,7 @@
             
           </a>
 
-          <a class="nav_button3" href="#">
+          <a class="nav_button3" href="/busqueda-ejes/3">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/transparencia.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_transparencia) }}'"
               onmouseout="this.src='{{ asset($path_transparencia_hover) }}'" />

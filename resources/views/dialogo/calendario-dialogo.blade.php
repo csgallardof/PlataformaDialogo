@@ -12,7 +12,7 @@
 @endsection
 
 @section('contenido')
-
+  
         <!-- begin #about -->
         <div id="about" class="content work row-m-t-3 p-t-40" data-scrollview="true">
 
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-      
+  
 
 @endsection
 

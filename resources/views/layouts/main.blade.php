@@ -9,6 +9,8 @@
 		<meta charset="utf-8" />
 		<title>Diálogo Nacional - @yield('title')</title>
 		<link rel="shortcut icon" href="{{ asset('imagenes/dialogo_nacional/favicon.ico') }}">
+		
+
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<meta content="Sistema de Inteligencia Productiva MIPRO" name="description" />
 		<meta content="Ministerio de Industrias y Productividad" name="author" />
@@ -61,11 +63,22 @@
     <link href="{{ asset('css/css_nueva_imagen.css') }}" rel="stylesheet">
 	</head>
 
-	<body style="background-color: lightgrey;">
+	<body style="background-color: grey;">
      <h1 style="text-indent:-9999px; float: left; color:white; ">Plataforma de Dialogo Nacional</h1>
      <!-- class="fade"-->
+
     <div id="page-container"  class="fade">
-      <div id="contenedor">	
+           <?php 
+
+      if(preg_match('/calendario-dialogo-nacional/',url()->current()) || preg_match('/busquedaAvanzadaDialogoFiltro/',url()->current()) || preg_match('/busqueda-ejes/',url()->current())) {
+          echo '<div id="contenedor2">	';
+
+       } else{
+  			echo '<div id="contenedor">	';
+
+       }
+
+     ?>
 			@include ('layouts.menu')
 			@yield ('contenido')
 			

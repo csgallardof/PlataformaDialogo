@@ -221,6 +221,52 @@ class PaginasController extends Controller
 
 
 
+   //Funcion para buscar propuestas por eje de accion
+
+    public function busquedaEjes(Request $request, $id_eje){ 
+        //dd("hola");
+
+       $buscar = $request->parametro;
+       
+        // Busqueda tipo Dialogo con parametro de busqueda
+        if( $id_eje!=''){
+            $resultados =Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
+                                ->join('institucions','institucions.id','=','actor_solucion.institucion_id')
+                                ->join('plan_nacionals','plan_nacionals.id','=','solucions.plan_nacional_id')
+                                ->where('plan_nacional_id','=',$id_eje)
+                                ->paginate(20);
+
+
+            $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro='.$buscar;
+
+            $resultadosreporte =Solucion::select('solucions.*','mesa_dialogo.nombre')
+                                ->join('estado_solucion', 'estado_solucion.id', '=', 'solucions.estado_id')
+                                ->join('mesa_dialogo', 'mesa_dialogo.id', '=', 'solucions.mesa_id')
+                                ->join('tipo_dialogo', 'tipo_dialogo.id', '=', 'mesa_dialogo.tipo_dialogo_id')
+                                ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
+                                ->join('institucions','institucions.id','=','actor_solucion.institucion_id')
+                                ->join('plan_nacionals','plan_nacionals.id','=','solucions.plan_nacional_id')
+                                ->where('plan_nacional_id','=',$id_eje)
+                                ->get();
+            $provincias = Provincia::all();
+
+            return view('publico.reportes.reporte-dialogo', compact('resultados'))
+                                                ->with(["resultadosreporte"=>$resultadosreporte,
+                                                        "urlResultados"=>$urlResultados,
+                                                        "provincias"=>$provincias
+                                                ]);
+
+        }
+
+       
+
+    }//fin de funcion
+
+
 
     public function arrayPaginator($array, $request)
    {

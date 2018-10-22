@@ -91,6 +91,13 @@ p{
   
 }
 
+.section_table_hm{
+
+  width: 100%;
+  display: table;
+  background-color:#193b68 ;
+}
+
 
 
 .section_content{
@@ -127,10 +134,12 @@ body{
 
 
 header{
+  height: 100%;
+  margin-top: 0px;
   top: 0px;
   width: 100%;
   background:#193b68; 
-  display: table;
+  /*display: table;*/
 
 }
 
@@ -138,6 +147,8 @@ header{
 #top_menu{
   /* z-index: 5;*/
   /* position:relative;*/
+  background-color: #193b68; 
+  width: 100%;
   display: table-row;
   vertical-align: middle;
 }
@@ -184,6 +195,15 @@ header{
 }
 
 #dv_ingreso{
+
+ padding-right:10px; 
+ display: table-cell;
+ vertical-align: middle;
+ 
+}
+
+#dv_ingreso2{
+  
  padding-right:10px; 
  display: table-cell;
  vertical-align: middle;
@@ -205,8 +225,16 @@ header{
 
 
 #contenedor{
+  vertical-align: top;
+  width:80%;
+  height:100%;
+  margin: 0 auto;
+  background-color: white;
+}
 
-  width:85%;
+#contenedor2{
+  vertical-align: top;
+  width:90%;
   height:100%;
   margin: 0 auto;
   background-color: white;
@@ -271,7 +299,7 @@ nav{
   font-weight: bold;
   
   display:inline-block;
-  width:28%;
+  width:33%;
   /*text-shadow:0px 1px 0px #ffffff;*/
 }
 
@@ -304,7 +332,7 @@ nav{
   font-size: 20px;
   font-weight: bold;
   display:inline-block;
-  width:29%;
+  width:33%;
   /*text-shadow:0px 1px 0px #ffffff;*/
 }
 
@@ -333,7 +361,7 @@ nav{
   font-size: 20px;
   font-weight: bold;
   display:inline-block;
-  width:28%;
+  width:33%;
   /*text-shadow:0px 1px 0px #ffffff;*/
 }
 
@@ -353,7 +381,7 @@ h2{
 }
 
 .head_table{
-
+  
   display: table;
   width: 100%;
 }
@@ -364,6 +392,16 @@ h2{
   width: 100%;
   
 }
+
+.head_table_menu{
+  margin-top: 0px;
+  top: 0px;
+  
+  /*display: table-cell;*/
+  width: 100%;
+  
+}
+
 
 .head_row{
 
@@ -422,3 +460,44 @@ width:32px;
 height:28px;
 }
 
+
+
+.dropbtn {
+    /*background-color: #4CAF50;*/
+    color: white;
+    padding: 16px;
+    /*font-size: 16px;*/
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {/*background-color: #f1f1f1*/}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+   /* background-color: #3e8e41;*/
+}

@@ -39,6 +39,10 @@ Route::get('/calendario-dialogo-nacional','PaginasController@calendarioDialogo')
 
 
 
+/************************************Rutas nueva imagen******************************/
+Route::get('/busqueda-ejes/{id}','PaginasController@busquedaEjes'); 
+/**************************************************************************************/
+
 Route::get('/inicio2', function () {
      return view('inicio2');
 });
