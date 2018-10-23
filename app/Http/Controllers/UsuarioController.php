@@ -69,7 +69,7 @@ class UsuarioController extends Controller {
         $usuario->celular = $request->celular;
         $usuario->institucion_id = 0;//por verificar si debe ser ingresada informacion o no en este campo
 
-        //$usuario->save();
+        $usuario->save();
 
       
         if($request->crear_usuario_consejo =1 ){
@@ -143,8 +143,61 @@ class UsuarioController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function guardarUsuarioConsejo(Request $request) {
-        dd('uno');
+    public function guardarUsuarioConsejo(Request $request) { 
+         $usuario = new User;
+         $institucionusuario = new InstitucionUsuario;
+
+         $this->validate($request, [
+            'nombre_usuario' => 'required',
+            'apellidos_usuario' => 'required',
+            'cedula' => 'required|unique:users',
+            'email' => 'required|unique:users'
+                  ]
+                , [
+            'nombre_usuario.required' => 'Debe ingresar el nombre',
+            'apellidos_usuario.required' => 'Debe ingresar los apellidos',
+            'cedula.unique' => 'Ya existe un usuario con esta cédula',
+            'email.unique' => 'Ya existe un usuario con ese email'
+        ]);
+
+
+        $usuario->name = $request->nombre_usuario;
+        $usuario->apellidos = $request->apellidos_usuario;
+        $usuario->cedula = $request->cedula;
+        $usuario->email = $request->email;
+        $usuario->institucion_id = $request->institucion_id;
+       
+        $password = str_split($request->nombre_usuario,3)[0].
+                    str_split($request->email,3)[0].
+                    substr($request->cedula, -4);  
+        $usuario->password = bcrypt($password);
+
+        $usuario->telefono = $request->telefono;
+        $usuario->celular = $request->celular;
+     
+        $usuario->save(); 
+
+
+     $usuarioGuardado = DB::select('SELECT * from users where email ="'.$request->email.'" and cedula = "'.$request->cedula.'" limit 1');
+ 
+       $institucionusuario->institucion_id = $request->institucion_id; 
+       $institucionusuario->usuario_id = $usuarioGuardado[0]->id;
+     
+ 
+     
+         $institucionUsuariosquery =  DB::select('SELECT * from institucion_usuarios where institucion_id ='.$request->institucion_id.' and usuario_id = '.$usuarioGuardado[0]->id.' limit 1');
+ 
+          if (empty($institucionUsuariosquery)){
+                $institucionusuario->save();
+                Flash::success("Usuario uardado exitosamente");
+                return redirect('consejo-sectorial/listar-usuario');
+              
+          }else{
+               Flash::error("El usuario ya se encuentra asignado a una institución");
+               return redirect('consejo-sectorial/listar-usuario');
+             
+        }
+  
     }
 
     /**
