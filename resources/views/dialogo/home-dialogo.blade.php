@@ -26,7 +26,9 @@
               <div class="head_cell"></div>
               <div class="head_cell">
                         <div id="searchwrapper">
-                            <form action="">
+                            <form role="form" method="GET"    action="/busquedaAvanzadaDialogoFiltro/"  >
+                             {{ csrf_field() }}
+                              <input type="hidden" name="selectBusqueda" id="selectBusqueda" value="si"/>
                                 <label for="s" style="text-indent: -9999px;size: 0px;">Ingrese su texto para buscar en el sistema</label>
                                 <input type="text" class="searchbox" name="s" id="s" value="" placeholder="Buscar" />
                                 <input type="image" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/lupa.png') }}" class="searchbox_submit" value="" alt="Boton de busqueda" />

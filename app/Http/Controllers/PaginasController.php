@@ -139,7 +139,7 @@ class PaginasController extends Controller
                                 ->orwhere('institucions.nombre_institucion','LIKE','%' . $buscar . '%')
                                 ->orwhere('institucions.siglas_institucion','LIKE','%' . $buscar . '%')
                                 ->orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
-                                ->where('tipo_dialogo.id','=', $request->selectBusqueda )
+                               // ->where('tipo_dialogo.id','=', $request->selectBusqueda )
                                 ->paginate(20);
 
 
@@ -154,13 +154,15 @@ class PaginasController extends Controller
                                 ->orwhere('institucions.nombre_institucion','LIKE','%' . $buscar . '%')
                                 ->orwhere('institucions.siglas_institucion','LIKE','%' . $buscar . '%')
                                 ->orwhere('solucions.propuesta_solucion','LIKE','%' . $buscar . '%')
-                                ->where('tipo_dialogo.id','=', $request->selectBusqueda )
+                                //->where('tipo_dialogo.id','=', $request->selectBusqueda )
                                 ->get();
 
+            $provincias = Provincia::all();
 
             return view('publico.reportes.reporte-dialogo', compact('resultados'))
                                                 ->with(["resultadosreporte"=>$resultadosreporte,
                                                         "urlResultados"=>$urlResultados,
+                                                         "provincias"=>$provincias
                                                 ]);
 
         }
