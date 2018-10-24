@@ -9,7 +9,7 @@
 		<meta charset="utf-8" />
 		<title>Diálogo Nacional - @yield('title')</title>
 		<link rel="shortcut icon" href="{{ asset('imagenes/dialogo_nacional/favicon.ico') }}">
-		
+
 
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<meta content="Sistema de Inteligencia Productiva MIPRO" name="description" />
@@ -35,7 +35,7 @@
 
 			<link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
 		  <link href="{{ asset('plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
-		<link href="{{ asset('css/inteligencia.css') }}" id="theme" rel="stylesheet" />
+			<link href="{{ asset('css/inteligencia.css') }}" id="theme" rel="stylesheet" />
 		  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 		  <!-- <link href="{{ asset('css/style-front.css') }}" rel="stylesheet" /> -->
 		  <!-- <link href="{{ asset('css/style-responsive-front.css') }}" rel="stylesheet" /> -->
@@ -68,7 +68,7 @@
      <!-- class="fade"-->
 
     <div id="page-container"  class="fade">
-           <?php 
+           <?php
 
 function endsWithStr($haystack, $needle)
 {
@@ -102,9 +102,9 @@ function endsWithStr($haystack, $needle)
      ?>
 			@include ('layouts.menu')
 			@yield ('contenido')
-			
+
 			@include ('layouts.footer')
-	  </div>		
+	  </div>
     </div>
 
 		@section('end_js')

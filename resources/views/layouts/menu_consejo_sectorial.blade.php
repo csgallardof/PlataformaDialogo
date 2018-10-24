@@ -24,11 +24,11 @@
 			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
 			                        <li><a href="/consejo-sectorial/reportes-consejo?selInstituciones=Todos">Reportes</a></li>
 			                    </ul>
-			                    
+
 
 			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
 									<li class="dropdown navbar-user">
-										<a href="javascript:;" class="dropdown-toggle" style="color: #000" data-toggle="dropdown">
+										<a href="javascript:;" class="dropdown-toggle"  data-toggle="dropdown">
 											<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
 										</a>
 										<ul class="dropdown-menu animated fadeInLeft">
@@ -54,6 +54,6 @@
 			        </nav>
 			    </div>
 			</div>
-			
+
 </div>
 <!-- end #header -->

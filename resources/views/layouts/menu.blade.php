@@ -5,7 +5,7 @@
     var expandCollapse = function(){
         if ( $(window).width() < 768 ) {
             $(function(){
-            	
+
             	 var x = document.getElementById("sidebar");
             	 var ht = '';
             	 x.style.display = "block";
@@ -51,7 +51,7 @@
 
                 // remove a class .collapse from a div .showHide
                 //$('.showHide').removeClass('collapse');
-                // set display: none in css for the toggle button .btn.btn-primary  
+                // set display: none in css for the toggle button .btn.btn-primary
                 //$('button.btn.btn-primary').css('display', 'none');// hides button display on bigger screen
             });
         }
@@ -59,7 +59,7 @@
     $(window).resize(expandCollapse); // calls the function when the window first loads
 </script>
 <style type="text/css">
-	
+
     h2{
       font-size: 14px;
 
@@ -79,8 +79,9 @@
 <div id="top_menu">
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
-       
-          <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> 
+
+          <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
+<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
       </div>
 
 
@@ -135,7 +136,7 @@
 				  </div>
 				</div>
 
-            
+
                 <a class="barra_menu" href="/calendario-dialogo-nacional"  tabindex=5>
                    <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mesas_ico.png') }}" width="20px" height="20px" alt="Logo en forma de mundo"   onmouseover="this.src='{{ asset($path_mesas_ico_hover) }}'"
                     onmouseout="this.src='{{ asset($path_mesas_ico) }}'"/>
@@ -143,7 +144,7 @@
                 </a>
 
 
-               
+
                 <a class="barra_menu" href="#" tabindex=6 >
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
                     onmouseout="this.src='{{ asset($path_noticias) }}'" />
@@ -185,7 +186,6 @@
 <!-- ////// -->
 <!-- SIDEBAR -->
 <!-- ////// -->
-
 
 
 <!-- end #sidebar -->

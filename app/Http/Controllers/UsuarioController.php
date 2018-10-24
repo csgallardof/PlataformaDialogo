@@ -218,8 +218,7 @@ class UsuarioController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function update(Request $request, $id) {
-    public function update($id) {
+    public function update(Request $request, $id) {
          $usuario = User::find($id);
        
         $this->validate($request, [
@@ -388,8 +387,8 @@ class UsuarioController extends Controller {
         return view('admin.usuario.create-cs')->with(["usuario_consejo" => $usuario_consejo]);
     }
 
-    public function updateUsuarioConsejo($id) {
-      dd($id);
+    public function updateUsuarioConsejo( $id) {
+      dd($request);
         $usuario = User::find($id);
        
         $this->validate($request, [

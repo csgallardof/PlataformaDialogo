@@ -40,13 +40,19 @@ Route::get('/calendario-dialogo-nacional','PaginasController@calendarioDialogo')
 
 
 /************************************Rutas nueva imagen******************************/
-Route::get('/busqueda-ejes/{id}','PaginasController@busquedaEjes'); 
+Route::get('/busqueda-ejes/{id}','PaginasController@busquedaEjes');
 /**************************************************************************************/
+
+Route::get('test','TestController@test');
 
 Route::get('/inicio2', function () {
      return view('inicio2');
 });
 
+
+Route::get('/inicio3', function () {
+     return 'Hello.Willo';
+});
 
 
  /*Route::get('/busquedaAvanzada',[
@@ -54,21 +60,21 @@ Route::get('/inicio2', function () {
       'as'=>'nuevaBusqueda2'
  ]);*/
 
-Route::get('/mail','PaginasController@enviarmail'); 
+Route::get('/mail','PaginasController@enviarmail');
 
 Route::get('/busquedaAvanzadaDialogo',[
-     'uses'=>'PaginasController@busquedaAvanzadaDialogo', 
-     'as'=>'nuevaBusquedaDialogo'
+     'uses'   =>'PaginasController@busquedaAvanzadaDialogo',
+     'as'     =>'nuevaBusquedaDialogo'
 ]);
 
 
-Route::get('/busquedaAvanzadaDialogoFiltro/',['uses'=>'PaginasController@busquedaAvanzadaDialogoFiltro','as'=>'reportePropuestasFiltro']); 
+Route::get('/busquedaAvanzadaDialogoFiltro/',['uses'=>'PaginasController@busquedaAvanzadaDialogoFiltro','as'=>'reportePropuestasFiltro']);
 
 
 
-Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']); 
+Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePropuestas','as'=>'reportePropuestas']);
 
-Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@crearReportePropuestasHome'); 
+Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@crearReportePropuestasHome');
 
 
 // Route::post('/reporte',[
@@ -82,17 +88,17 @@ Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
 /* Fin Reportes graficos */
 
-Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada'); 
+Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada');
 
-Route::get('/propuesta-detallada/descargar-pdf/{idPropuesta}/{tipo}','PdfController@crearReportePropuestaDetallada'); 
+Route::get('/propuesta-detallada/descargar-pdf/{idPropuesta}/{tipo}','PdfController@crearReportePropuestaDetallada');
 
-Route::post('/propuesta-dialogo-nacional/descargar-excel','ExcelController@exportarPropuestasDialogoNacional'); 
+Route::post('/propuesta-dialogo-nacional/descargar-excel','ExcelController@exportarPropuestasDialogoNacional');
 
-Route::post('/propuesta-dialogo-nacional/descargar-pdf/{tipo}','PdfController@exportarPropuestasDialogoNacional'); 
+Route::post('/propuesta-dialogo-nacional/descargar-pdf/{tipo}','PdfController@exportarPropuestasDialogoNacional');
 
 
 
-Route::get('/detalle-despliegue-dialogo/{id}','PaginasController@detalledespliegue2'); 
+Route::get('/detalle-despliegue-dialogo/{id}','PaginasController@detalledespliegue2');
 
 
 Route::get('/foro-de-la-produccion-impulso-innovacion', 'PaginasController@foroproduccion');
@@ -146,7 +152,7 @@ Route::post('/consejoconsultivo',[
 
 
 Route::get('/busqueda',[
-     'uses'=>'PaginasController@busquedaGeneral', 
+     'uses'=>'PaginasController@busquedaGeneral',
      'as'=>'nuevaBusqueda'
 ]);
 
@@ -161,7 +167,7 @@ Route::get('storage/{archivo}', function ($archivo) {
      }
      //si no se encuentra lanzamos un error 404.
      abort(404);
-      
+
 })->name('descargarArchivo');
 
 Route::get('/descargar/Mesas', 'ExcelController@exportMesas');
@@ -179,11 +185,11 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
 
      Route::get('/actividad/create/{idSolucion}',['uses'=>'ActividadesController@createDespliegueAdmin','as'=>'actividades.createDespliegue']);
      Route::post('/actividad/save-admin/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@saveActividadAdmin','as'=>'actividades.saveAdminActividad']);
-     
+
      Route::get('/home', 'HomeController@index')->name('home');
-     
+
      Route::resource('sipocs','SipocsController');
-      
+
      Route::resource('instrumentos','InstrumentosController');
 
      Route::resource('thematics','ThematicsController');
@@ -205,11 +211,11 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
      Route::resource('soluciones','SolucionesController');
 
      Route::resource('instituciones','InstitucionController');
-     
+
      Route::resource('institucioness','InstitucionesController');
-     
+
      Route::resource('consejoSectorial','ConsejoSectorialController');
-     
+
      Route::resource('consejoInstitucions','ConsejoInstitucionsController');
 
      //Route::get('soluciones','SolucionesController@create');
@@ -236,14 +242,14 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
           'uses'=>'ConsejoConsultivoController@vistaPreviaCCPT',
           'as'=>'ccpt.vistaPrevia'
      ]);
-     
+
 
 
      Route::resource('vocaciones_productivas','VocacionesProductivasController');  //J. Arcos -- rutas para UsersController
 
      Route::resource('ccpt','ConsejoConsultivoController');  //J. Arcos -- rutas para UsersController
 
-     
+
      Route::get('actor_solucion','InstitucionController@indexActorSolucion');  //admin cruds
 
      Route::get('actor_solucion/create',[
@@ -278,7 +284,7 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
 
      // Route::get('actores/asignar-responsable/{idSolucion}',[
      //      'uses'=>'InstitucionController@createAsignar',
-     //      'as'=>'actorSolucion.create' 
+     //      'as'=>'actorSolucion.create'
      // ]);
 
 
@@ -287,11 +293,11 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
      //      'as'      =>   'mesadialogo.matrizCarga'
      // ]);
 
-     // Route::post('/mesadialogo/vistaPreviaMesas',[ 
+     // Route::post('/mesadialogo/vistaPreviaMesas',[
      //      'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
      //      'as'      =>   'mesadialogo.vistaPreviaMesas'
      // ]);
-     
+
      // Route::resource('mesadialogo','MesaDialogoController');
 
 //Administrar Consejo Sectorial
@@ -305,7 +311,7 @@ Route::get('/editar-institucion/{id}/edit', 'InstitucionesController@edit');
 Route::get('/listar-institucion', 'InstitucionesController@index');
 Route::resource('instituciones', 'InstitucionesController');
 
-//Administrar Instituciones  
+//Administrar Instituciones
 Route::get('/crear-institucion-usuarios', 'InstitucionUsuarioController@create');
 Route::get('/editar-institucion-usuarios/{id}/edit', 'InstitucionUsuarioController@edit');
 Route::get('/delete-institucion-usuarios/{id}/delete', 'InstitucionUsuarioController@destroy');
@@ -360,7 +366,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      Route::get('propuestas-en-conflicto','InstitucionController@conflicto');  //página dashboard para las instituciones
 
      Route::get('propuestas-desestimadas','InstitucionController@desestimadas');  //página dashboard para las instituciones
- 
+
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegue','as'=>'verSolucion.despliegue']);
 
      Route::get('parametros-cumplimiento/create/{idSolucion}',['uses'=>'ActividadesController@vistaParametrosCumplimiento','as'=>'solucion.parametrosCumplimiento']);
@@ -391,11 +397,11 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 
 //VISTA DE LOS REPORTES DEL CSP
-     Route::get('/consejo-sectorial-produccion','CspReportesController@mostrarReportes'); 
+     Route::get('/consejo-sectorial-produccion','CspReportesController@mostrarReportes');
 
-     Route::get('/consejo-sectorial-produccion/reportes-hechos','CspReportesController@homeReportesHechos'); 
+     Route::get('/consejo-sectorial-produccion/reportes-hechos','CspReportesController@homeReportesHechos');
 
-     Route::get('/consejo-sectorial-produccion/reportes-alertas','CspReportesController@homeReportesAlertas'); 
+     Route::get('/consejo-sectorial-produccion/reportes-alertas','CspReportesController@homeReportesAlertas');
 
      //CREAR REPORTE HECHOS CSP
      Route::get('/consejo-sectorial-produccion-createReportesHecho','CspReportesController@vistaCrearReporteHecho');
@@ -431,20 +437,20 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      //EDITAR REPORTES ALERTAS CSP
      Route::get('/editar-reporte-alerta/{id}','CspReportesController@vistaEditarReporteAlerta');
-     Route::post('/modificar-reporte-alerta/{id}',['uses'=>'CspReportesController@editarReporteAlertaCsp','as'=>'modificarReporteAlerta']); 
+     Route::post('/modificar-reporte-alerta/{id}',['uses'=>'CspReportesController@editarReporteAlertaCsp','as'=>'modificarReporteAlerta']);
      Route::post('/modificar-reporte-alerta-estado/{id}',['uses'=>'CspReportesController@editarReporteAlertaEstadoCsp','as'=>'modificarReporteAlertaEstado']);
-     
+
      //EDITAR REPORTES ACCIONES ALERTAS CSP
      Route::get('/editar-acciones-alerta/{id}','CspReportesController@vistaEditaraccionesAlerta');
      Route::post('/modificar-acciones-alerta/{id}',['uses'=>'CspReportesController@editarAccionesAlertaCsp','as'=>'modificarAccionesAlerta']);
-     
+
      //Reportes csp
      Route::get('/lista-reportes-csp','PdfCspReportesController@listaReportesCsp');
      //Generar Reporte
     // Route::get('/crear_reporte_porpais/{tipo}','PdfCspReportesController@crear_reporte_porpais');
      //Route::post('/guardarIdReporteHechoCsp','PdfCspReportesController@obtenerReportesHechos');
      Route::post('/guardarIdReporteHechoCsp/{tipo}',['uses'=>'PdfCspReportesController@crearReporteHechosRelevantes','as'=>'guardarIdReporteHechoCsp']);
-     
+
      Route::get('/reportes-lineas-discursivas-csp','PdfCspReportesController@listaLineasDiscursivasCsp');
      Route::post('/guardarIdReporteHechoLineasDiscursivasCsp/{tipo}',['uses'=>'PdfCspReportesController@crearReporteHechosLineasDiscursivas','as'=>'guardarIdReporteHechoLineasDiscurisvasCsp']);
 
@@ -466,7 +472,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      }
      //si no se encuentra lanzamos un error 404.
      abort(404);
-      
+
      })->name('descargarArchivoHechosCsp');
 
 
@@ -481,7 +487,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      }
      //si no se encuentra lanzamos un error 404.
      abort(404);
-      
+
      })->name('descargarAccionAlertaCsp');
 
      //DESCARGAR ARCHIVO ALERTA CSP
@@ -495,23 +501,23 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      }
      //si no se encuentra lanzamos un error 404.
      abort(404);
-      
+
      })->name('descargarArchivoAlertaCsp');
 
      Route::get('/crear-agenda-territorial', 'CspAgendaTerritorialController@vistaCrearAgenda');
-     
+
      Route::get('/ver-agenda-territorial', 'CspAgendaTerritorialController@mostrarAgendaTerritorial');
-     
+
      Route::post('/guardar-agenda-territorial',['uses'=>'CspAgendaTerritorialController@crearAgenda','as'=>'guardarAgendaTerritorialCsp']);
-     
+
      Route::get('/editar-agenda-territorial/{id}', 'CspAgendaTerritorialController@vistaEditarAgendaTerritorial');
-     
+
      Route::post('/modificar-agenda-territorial/{id}',['uses'=>'CspAgendaTerritorialController@editarReporteAlertaCsp','as'=>'modificarAgendaTerritorial']);
-     
+
      Route::get('/lista-agenda-territorial-csp','CspPdfReportesAgendaController@listaAgendaTerritorialCsp');
-     
+
      Route::post('/guardarIdAgendaTerritorial/{tipo}',['uses'=>'CspPdfReportesAgendaController@crearReporteAgendaTerritorial','as'=>'guardarIdReporteHechoCsp']);
-     
+
      Route::get('/tabla-excel','CspPdfReportesAgendaController@mostrarTabla');
 
      Route::get('/unificar-propuestas','PropuestasUnificadasController@mostrarPropuestas');
@@ -523,9 +529,9 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      Route::post('/seleccion-propuestas-unificadas/create-pajustada-unificar/pajustadas',['uses'=>'PropuestasUnificadasController@definirPajustada','as'=>'definirPajustada']);
 
 
-    Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');  
-    Route::get('/detalle-propuestas-unificadas/{id}','PropuestasUnificadasController@detallePropuestasUnificadas');  
-   // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');      
+    Route::get('/ver-propuestas-unificadas','PropuestasUnificadasController@verPropuestasUnificadas');
+    Route::get('/detalle-propuestas-unificadas/{id}','PropuestasUnificadasController@detallePropuestasUnificadas');
+   // Route::get('/ver-propuestas-unificadas/{idPropuesta}','PropuestasUnificadasController@post')->name('post');
     Route::post('/ver-propuestas-unificadas/{idPropuesta}',['uses'=>'PropuestasUnificadasController@detallePropuestasUnificadas','as'=>'detallePropuestasUnificadas']);
 
 
@@ -536,10 +542,10 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 //REPORTES
  //Route::get('/reportes','ReportesController@listaMinisterio');
- //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio'); 
- //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio'); 
+ //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio');
+ //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio');
  Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
-       
+
  Route::get('/reporte-institucional/descargar-excel/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarExcelReporteMinisterio','as'=>'exportarExcel.ReporteMinisterio']);
  Route::get('/reporte-institucional/descargar-pdf/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteMinisterio','as'=>'exportarPdf.ReporteMinisterio']);
 
@@ -553,16 +559,19 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
           'as'      =>   'mesadialogo.matrizCarga'
      ]);
 
-     Route::post('/mesadialogo/vistaPreviaMesas',[ 
+     Route::post('/mesadialogo/vistaPreviaMesas',[
           'uses'    =>   'MesaDialogoController@vistaPreviaMesas',
           'as'      =>   'mesadialogo.vistaPreviaMesas'
      ]);
-     
+
      Route::resource('mesadialogo','MesaDialogoController');
 
 });
 
- 
+
+
+Route::get('/reporte','ReportePublicoController@listaReportes');
+Route::post('/reporte','ReportePublicoController@listaReportes');
 
 
 // Consejo Sectorial
@@ -583,7 +592,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      //Administrar Usuarios
      //Route::resource('usuario','UsuarioController');
-     
+
      Route::get('/editar-usuario/{id}/edit', 'UsuarioController@editarUsuarioConsejo');
      Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
      Route::post('crear-usuario-institucion',['uses'=>'UsuarioController@guardarUsuarioConsejo','as'=>'guardarUsuarioConsejo']);
@@ -606,17 +615,17 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
   //consejo-sectorial/activar/{idSolucion}
      Route::get('activar/{idSolucion}',['uses'=>'ConsejoSectorialController@activarSolucion','as'=>'consejo.activarSolucion']);
 
-      
+
 
      //REPORTES
 
-     Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']); 
+     Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']);
 
-    //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo'); 
-     //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo'); 
+    //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo');
+     //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo');
       Route::get('/reporte-consejo/descargar-excel/{codInstitucion}/{fechaInicial}/{fechaFinal}/{consulto}',['uses'=>'ReportesController@exportarExcelReporteConsejo','as'=>'exportarExcel.ReporteConsejo']);
-      
-     // Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo'); 
+
+     // Route::post('/reporte-consejo/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteConsejo');
       Route::get('/reporte-consejo/descargar-pdf/{codInstitucion}/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteConsejo','as'=>'exportarPdf.ReporteConsejo']);
 
      //Propuestas finalizadas
@@ -628,11 +637,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
 });
 
- 
+
  //Seleccionar fecha
 Route::post('/test/save', ['as' => 'save-date',
-                           'uses' => 'DateController@showDate', 
+                           'uses' => 'DateController@showDate',
                             function () {
                                 return '';
                             }]);
-
