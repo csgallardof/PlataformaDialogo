@@ -568,14 +568,10 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
 });
 
-<<<<<<< HEAD
- 
 
-=======
 
 Route::get('/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
->>>>>>> fa14c90a7645722dfa28f6d3a4bad321716cbe36
 
 // Consejo Sectorial
 

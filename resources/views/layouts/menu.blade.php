@@ -126,7 +126,8 @@ $( document ).ready(function() {
       <div id='links_top_menu_left'>
 
           <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
-<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+
+         <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
       </div>
 
 
@@ -172,13 +173,9 @@ $( document ).ready(function() {
                 </a>
 
 
-<<<<<<< HEAD
                
                 <a class="barra_menu" href="https://www.politica.gob.ec/noticias/" tabindex=6 >
-=======
 
-                <a class="barra_menu" href="#" tabindex=6 >
->>>>>>> fa14c90a7645722dfa28f6d3a4bad321716cbe36
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
                     onmouseout="this.src='{{ asset($path_noticias) }}'" />
                     NOTICIAS
@@ -247,12 +244,9 @@ function myFunction() {
 <!-- ////// -->
 
 
-<<<<<<< HEAD
-
-=======
 <div id="sidebar" class="sidebar toggled" >
 
 </div>
 <div class="sidebar-bg"></div>
->>>>>>> fa14c90a7645722dfa28f6d3a4bad321716cbe36
+
 <!-- end #sidebar -->
