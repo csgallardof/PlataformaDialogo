@@ -1703,8 +1703,8 @@ legend {
 
 .btn.btn-primary {
     color: #fff;
-    background: #348fe2;
-    border-color: #348fe2;
+    background: #134E86 /*#348fe2*/;
+    border-color: #134E86 /*#348fe2*/;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -6864,7 +6864,7 @@ table.dataTable thead th {
 }
 
 .btn-default {
-  background-color: #3893e6 !important;
+  background-color: #11518D /*#3893e6*/ !important;
 }
 
 select option {

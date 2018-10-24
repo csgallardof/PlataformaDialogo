@@ -11,8 +11,7 @@
                 <div class="panel-heading"> <a href="/consejo-sectorial/listar-usuario" class="btn btn-primary pull-right">Regresar</a>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action=""
-                    >
+                    <form class="form-horizontal" method="POST" action="{{ '/consejo-sectorial/actualizar-usuario/'. $usuario->id.'/update'}}">
                         {{ csrf_field() }}
                         @section('edit_Method')
 
@@ -94,7 +93,8 @@
                    
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                              <a href="{{ '/consejo-sectorial/actualizar-usuario/'. $usuario->id.'/update'}}" class="btn btn-primary"> Actualizar</a> 
+                              <!--<a href="{{ '/consejo-sectorial/actualizar-usuario/'. $usuario->id.'/update'}}" class="btn btn-primary"> Actualizar</a> -->
+                              <input type="submit" name="" class="btn btn-primary"  value="Actualizar" /> 
                             </div>
                         </div>
                     </form>

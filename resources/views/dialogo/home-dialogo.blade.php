@@ -142,8 +142,8 @@
 </section>-->
 
 <section class="section_content">
-   <div style="width: 80%; margin: 0 auto;">
-      <img  src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mapa.png') }}" width="250px" height="250px" alt="Mapa eventos de mesas">
+   <div class="cls_mp_r" >
+      <img id="mapa_r" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mapa.png') }}" width="250px" height="250px" alt="Mapa eventos de mesas">
     </div>
 </section>
 

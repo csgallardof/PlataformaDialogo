@@ -387,8 +387,10 @@ class UsuarioController extends Controller {
         return view('admin.usuario.create-cs')->with(["usuario_consejo" => $usuario_consejo]);
     }
 
-    public function updateUsuarioConsejo( $id) {
-      dd($request);
+
+    public function updateUsuarioConsejo(Request $request,$id) {
+      
+
         $usuario = User::find($id);
        
         $this->validate($request, [
@@ -409,13 +411,15 @@ class UsuarioController extends Controller {
         $usuario->apellidos = $request->apellidos_usuario;
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
-        $usuario->password = $request->password;//falta la encriptacion de la clave
+        //$usuario->password = $request->password;//falta la encriptacion de la clave
         $usuario->telefono = $request->telefono;
         $usuario->celular = $request->celular;
       //  $usuario->institucion_id = 0;//por verificar si debe ser ingresada informacion o no en este campo
 
 
          $usuario->save();
+
+          
 
    $usuarioGuardado = DB::select('SELECT * from users where name ="'.$request->nombre_usuario.'" and cedula = "'.$request->cedula.'"');
    $idTabla = $usuarioGuardado[0] ->id;  
