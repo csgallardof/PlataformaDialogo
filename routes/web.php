@@ -587,6 +587,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::get('/editar-usuario/{id}/edit', 'UsuarioController@editarUsuarioConsejo');
      Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
      Route::post('crear-usuario-institucion',['uses'=>'UsuarioController@guardarUsuarioConsejo','as'=>'guardarUsuarioConsejo']);
+     Route::post('/actualizar-usuario/{id}/update', ['uses'=>'UsuarioController@updateUsuarioConsejo','as'=>'updateUsuarioConsejo']);
 
      Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');

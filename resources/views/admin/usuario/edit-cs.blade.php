@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"> <a href="/listar-usuario" class="btn btn-primary pull-right">Regresar</a>
+                <div class="panel-heading"> <a href="/consejo-sectorial/listar-usuario" class="btn btn-primary pull-right">Regresar</a>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action=""
@@ -19,9 +19,7 @@
                          {{ $usuario->id}}   
                         @show
                         
-                        <input type="hidden" name="usuario_id" value="1">
-
-                        <div class="form-group">
+                             <div class="form-group">
                             <label for="cedula" class="col-md-4 control-label">Institucion</label>
 
                             <div class="col-md-6">
@@ -93,13 +91,10 @@
 
                             </div>
                         </div>
-
                    
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                     Registrar
-                                </button>
+                              <a href="{{ '/consejo-sectorial/actualizar-usuario/'. $usuario->id.'/update'}}" class="btn btn-primary"> Actualizar</a> 
                             </div>
                         </div>
                     </form>
