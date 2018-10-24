@@ -12,7 +12,7 @@
 
 @section('contenido')
 
-<br><br><br><br>
+
 	<!-- begin row -->
 	<div class="row-m-t-3 p-t-40" data-scrollview="true">
 		<div class="container-fluid" data-animation="true" data-animation-type="fadeInDown">
@@ -244,6 +244,7 @@
 								</tbody>
 							</table>
 						</form>
+
 						<form target="_blank" method="POST" action="/propuesta-dialogo-nacional/descargar-pdf/1" enctype="multipart/form-data">
 							{{ csrf_field() }}
 							<div class="form-group">

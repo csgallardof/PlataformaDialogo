@@ -6,6 +6,7 @@
 
 	<head>
 
+
 		<meta charset="utf-8" />
 		<title>Diálogo Nacional - @yield('title')</title>
 		<link rel="shortcut icon" href="{{ asset('imagenes/dialogo_nacional/favicon.ico') }}">
