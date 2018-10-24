@@ -169,6 +169,10 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
    1.0 General reset & setup
 ------------------------------- */
 
+*{
+	border: 1px solid red;
+}
+
 @font-face {
     font-family: dolce_vita_light;
     src: url(../fonts/dolce_vita_light.ttf);
@@ -352,7 +356,7 @@ label {
     font-weight: 375;
     line-height: 20px;
     color: #ffffff;
-    padding: 25px 25px;
+    padding: 25px 15px;
 }
 .header.navbar .navbar-nav > li.active > a,
 .header.navbar .navbar-nav > li > a:hover,
