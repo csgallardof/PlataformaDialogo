@@ -71,10 +71,16 @@ Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePr
 Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@crearReportePropuestasHome'); 
 
 
-Route::post('/reporte',[
-     'uses'=>'SolucionesController@buscar',
-     'as'=>'reporte1.resultado'
-]);
+// Route::post('/reporte',[
+//      'uses'=>'SolucionesController@buscar',
+//      'as'=>'reporte1.resultado'
+// ]);
+
+/* Inicio Reportes graficos */
+Route::get('/reporte','ReportePublicoController@listaReportes');
+
+Route::post('/reporte','ReportePublicoController@listaReportes');
+/* Fin Reportes graficos */
 
 Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada'); 
 
@@ -557,8 +563,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 });
 
  
-Route::get('/reporte','ReportePublicoController@listaReportes');
-Route::post('/reporte','ReportePublicoController@listaReportes');
+
 
 // Consejo Sectorial
 
@@ -581,7 +586,8 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      
      Route::get('/editar-usuario/{id}/edit', 'UsuarioController@editarUsuarioConsejo');
      Route::get('/nuevo-usuario-institucion/', 'UsuarioController@nuevo_usuario_institucion');
-     Route::post('crear-usuario-institucion',['uses'=>'UsuarioController@store','as'=>'guardarUsuarioConsejo']);
+     Route::post('crear-usuario-institucion',['uses'=>'UsuarioController@guardarUsuarioConsejo','as'=>'guardarUsuarioConsejo']);
+     Route::post('/actualizar-usuario/{id}/update', ['uses'=>'UsuarioController@updateUsuarioConsejo','as'=>'updateUsuarioConsejo']);
 
      Route::get('/listar-usuario', 'UsuarioController@usuarios_cs');
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');

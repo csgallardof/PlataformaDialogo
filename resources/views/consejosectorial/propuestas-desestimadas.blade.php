@@ -108,23 +108,14 @@
                                                 
                                             </td>
                                             <td class="text-justify">
-                                               @if($resultados_propuesta->nombre_estado=="Finalizado")
+                                               @if($resultados_propuesta->nombre_estado=="Desestimada")
                                                     <span class="label label-success f-s-12"  style="background-color: #28B463">                
                                                             {{$resultados_propuesta->nombre_estado}}
                                                     </span>
                                                             
                                                 @endif
 
-                                                @if($resultados_propuesta->nombre_estado=="En Desarrollo")
-                                                <span class="label label-default f-s-12" style="background-color: #CA6F1E">{{$resultados_propuesta->nombre_estado}}</span>
-                                                    
-                                                @endif
-
-                                                @if($resultados_propuesta->nombre_estado=="En Análisis")
-                                                <span class="label label-default f-s-12" style="background-color: #A6ACAF">{{$resultados_propuesta->nombre_estado}}</span>
-                                                    
-
-                                                @endif
+                                               
                                             </td>
                                             <td class="text-justify">
                                                
