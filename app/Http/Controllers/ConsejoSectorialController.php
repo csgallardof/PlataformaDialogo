@@ -163,7 +163,7 @@ class ConsejoSectorialController extends Controller {
 
         //dd($resultados_propuestas);
         
-        return view('consejosectorial.propuestas-finalizadas')
+        return view('consejosectorial.propuestas-en-conflicto')
                                 ->with(["resultados_propuestas"=>$resultados_propuestas
                                 ]);
     }

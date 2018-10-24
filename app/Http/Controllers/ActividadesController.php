@@ -877,10 +877,9 @@ class ActividadesController extends Controller
 
     public function verActividadesDespliegueConsejo($tipo_actor, $idSolucion){
 
-       dd('uno');
+       
 
-
-        $solucion = DB::select("SELECT solucions.*, estado_solucion.nombre_estado FROM solucion
+        $solucion = DB::select("SELECT solucions.*, estado_solucion.nombre_estado FROM solucions
                                 INNER JOIN actor_solucion asl ON asl.solucion_id = solucions.id
                                 INNER JOIN estado_solucion on estado_solucion.id = solucions.estado_id
                                 INNER JOIN institucion_usuarios ui ON ui.institucion_id = asl.institucion_id
