@@ -126,7 +126,8 @@ $( document ).ready(function() {
       <div id='links_top_menu_left'>
 
           <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
-<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+
+         <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
       </div>
 
 
@@ -241,8 +242,6 @@ function myFunction() {
 <!-- ////// -->
 <!-- SIDEBAR -->
 <!-- ////// -->
-
-
 
 <div id="sidebar" class="sidebar toggled" >
 
