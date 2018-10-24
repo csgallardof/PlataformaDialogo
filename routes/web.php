@@ -76,11 +76,11 @@ Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@
 //      'as'=>'reporte1.resultado'
 // ]);
 
-/* Inicio Reportes graficos */
-Route::get('/reporte','ReportePublicoController@listaReportes');
+Route::get('/reporte-graficos','ReportePublicoController@listaReportes');
 
-Route::post('/reporte','ReportePublicoController@listaReportes');
-/* Fin Reportes graficos */
+Route::post('/reporte-graficos','ReportePublicoController@listaReportes');
+
+
 
 Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada'); 
 

@@ -148,7 +148,7 @@
 	<div id="about" class="content work" data-scrollview="true">
    <div class="container" data-animation="true" data-animation-type="fadeInDown">
           <div class="toolbar title_ip_breadcrumb fit-m-b-10">  
-                <h3> Reportes Dialogo NacionalSSS
+                <h3> Reportes Dialogo Nacional
                 
                 
                 </h3> 
