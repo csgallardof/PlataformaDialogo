@@ -243,7 +243,6 @@ function myFunction() {
 <!-- SIDEBAR -->
 <!-- ////// -->
 
-
 <div id="sidebar" class="sidebar toggled" >
 
 </div>
