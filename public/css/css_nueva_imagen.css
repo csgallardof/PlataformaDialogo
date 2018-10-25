@@ -653,8 +653,8 @@ height:28px;
 
 
   #mapa_r{
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
 
 
   }
@@ -679,6 +679,17 @@ height:28px;
     left: 0px;
   }
 
+ #footer_logos_2{
+    width:130px; 
+    height:41px;
+ }
+
+ #logo_home{
+    width:130px; 
+    height:130px;
+
+
+ }
 
   .ecuador_footer_img{
    float: left;
@@ -707,4 +718,21 @@ height:28px;
     display: none;
 
   }
+
+
+  .dvheader_busqueda{
+    display: table-row;
+  }
+
+
+  .dvheader_logo{
+    display: table-row;
+  }
+
+  .section_cell{
+   display: table-row; 
+
+  }
+
+
 }

@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-md-3 government_footer_logos">
-            <img class="center-block m-t-110" src="{{ asset('imagenes/dialogo_nacional/footer_logos_2.png') }}" width="260px" height="82px" alt="logo de pie de pagina, arbol">
+            <img id="footer_logos_2" class="center-block m-t-110" src="{{ asset('imagenes/dialogo_nacional/footer_logos_2.png') }}" width="260px" height="82px" alt="logo de pie de pagina, arbol">
         </div>
     </div>
 </div>
