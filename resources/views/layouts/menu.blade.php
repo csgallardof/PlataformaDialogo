@@ -90,7 +90,7 @@ $( document ).ready(function() {
             	x.style.display = "none";
             	var menutop1 = document.getElementById("top_table_menu");
                 menutop1.style.display = "block";
-                
+
 
 
 
@@ -124,6 +124,7 @@ $( document ).ready(function() {
 <div id="top_menu">
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
+
 
           <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
 
@@ -205,6 +206,7 @@ $( document ).ready(function() {
 
 <!--<div id="sidebar" class="sidebar toggled" >
 	HOLA MUNDO
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 </div>
 <div class="sidebar-bg"></div>-->
 <div id="sidebar" class="topnav" >
@@ -242,10 +244,6 @@ function myFunction() {
 <!-- ////// -->
 <!-- SIDEBAR -->
 <!-- ////// -->
-
-<div id="sidebar" class="sidebar toggled" >
-
-</div>
 <div class="sidebar-bg"></div>
 
 <!-- end #sidebar -->
