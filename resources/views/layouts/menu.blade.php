@@ -69,12 +69,17 @@ $( document ).ready(function() {
 
                 div.innerHTML=ht;
 
+<<<<<<< HEAD
+               var menutop1 = document.getElementById("top_table_menu");
+
+=======
 
 
                 document.getElementById('sidebar').appendChild(div);
                  document.getElementById('sidebar').innerHTML=ht;
 
                 var menutop1 = document.getElementById("top_table_menu");
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
                 menutop1.style.display = "none";
                 document.getElementById('sidebar').style.display="inline";
 
@@ -90,7 +95,7 @@ $( document ).ready(function() {
             	x.style.display = "none";
             	var menutop1 = document.getElementById("top_table_menu");
                 menutop1.style.display = "block";
-                
+
 
 
 
@@ -125,9 +130,14 @@ $( document ).ready(function() {
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
 
+<<<<<<< HEAD
+        <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+  <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>-->
+=======
           <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
 
          <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
       </div>
 
 
@@ -202,9 +212,14 @@ $( document ).ready(function() {
 </div>
 
 
+<<<<<<< HEAD
+<div id="sidebar" class="sidebar toggled" >
+
+=======
 
 <!--<div id="sidebar" class="sidebar toggled" >
 	HOLA MUNDO
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 </div>
 <div class="sidebar-bg"></div>-->
 <div id="sidebar" class="topnav" >
@@ -243,9 +258,20 @@ function myFunction() {
 <!-- SIDEBAR -->
 <!-- ////// -->
 
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 <div id="sidebar" class="sidebar toggled" >
 
 </div>
 <div class="sidebar-bg"></div>
+<<<<<<< HEAD
+=======
 
+>>>>>>> c4d5062e1f91ccc1e96012b8eec72553d6a0e18f
+=======
+
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 <!-- end #sidebar -->
