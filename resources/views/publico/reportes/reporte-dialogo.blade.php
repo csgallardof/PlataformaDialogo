@@ -279,6 +279,7 @@
 				@if(isset($resultados))
                    <?php   //dd($resultados); ?>
 				<!-- Inicio tabla paginado -->
+				{{ $resultados->links() }}
 					<table id="" class="table nowrap" width="100%">
 						<thead>
 							<th class="text-left f-s-18">Propuestas Encontradas</th>

@@ -240,7 +240,7 @@ class PaginasController extends Controller
                                 ->join('institucions','institucions.id','=','actor_solucion.institucion_id')
                                 ->join('plan_nacionals','plan_nacionals.id','=','solucions.plan_nacional_id')
                                 ->where('plan_nacional_id','=',$id_eje)
-                                ->paginate(20);
+                                ->paginate(10);
 
 
             $urlResultados = '?selectBusqueda='.$request->selectBusqueda.'&parametro='.$buscar;
