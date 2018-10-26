@@ -169,9 +169,15 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
    1.0 General reset & setup
 ------------------------------- */
 
+<<<<<<< HEAD
 /**{
 	border: 1px solid red;
 }*/
+=======
+*{
+	/*border: 1px solid red;*/
+}
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 
 @font-face {
     font-family: dolce_vita_light;
@@ -1702,8 +1708,8 @@ legend {
 
 .btn.btn-primary {
     color: #fff;
-    background: #348fe2;
-    border-color: #348fe2;
+    background: #134E86 /*#348fe2*/;
+    border-color: #134E86 /*#348fe2*/;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -6863,7 +6869,7 @@ table.dataTable thead th {
 }
 
 .btn-default {
-  background-color: #3893e6 !important;
+  background-color: #11518D /*#3893e6*/ !important;
 }
 
 select option {

@@ -1,7 +1,35 @@
+
+                   <?php
+
+                   	$path_home_img = 'imagenes/dialogo_nacional/nueva_imagen/home.png';
+                   	$path_home_img_hover = 'imagenes/dialogo_nacional/nueva_imagen/home_hover.png';
+
+   	                $path_megafono = 'imagenes/dialogo_nacional/nueva_imagen/megafono.png';
+                   	$path_megafono_hover = 'imagenes/dialogo_nacional/nueva_imagen/megafono_hover.png';
+
+   	                $path_mesas_ico = 'imagenes/dialogo_nacional/nueva_imagen/mesas_ico.png';
+                   	$path_mesas_ico_hover = 'imagenes/dialogo_nacional/nueva_imagen/mesas_ico_hover.png';
+
+   	                $path_noticias = 'imagenes/dialogo_nacional/nueva_imagen/noticias.png';
+                   	$path_noticias_hover = 'imagenes/dialogo_nacional/nueva_imagen/noticias_hover.png';
+
+   	                $path_login = 'imagenes/dialogo_nacional/nueva_imagen/login.png';
+                   	$path_login_hover = 'imagenes/dialogo_nacional/nueva_imagen/login_hover.png';
+
+                   ?>
+
 <!-- begin #header -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="{{asset('js/jquery.min.js')}}"></script>
 
 <script> // script for expand/collapse
+
+
+$( document ).ready(function() {
+    expandCollapse();
+});
+
+
     var expandCollapse = function(){
         if ( $(window).width() < 768 ) {
             $(function(){
@@ -14,24 +42,46 @@
                  var div = document.createElement('div');
 
                  div.className = 'row';
+                  
+                  /*
 
-                 ht = '<div data-scrollbar="true" data-height="100%"><ul class="nav">';
+                 ht = '<div class="dropbtn" data-scrollbar="true" data-height="100%"><ul class="nav">';
                  ht += '<li class="nav-profile">';
 				 ht += '<div class="info">Menú</div></li></ul><ul class="nav"><li class="has-sub"><a href="javascript:;">';
-				 ht += '<b class="caret pull-right"></b><i class="fa fa-laptop"></i><span><h3>Informes</h3></span>';
+				 ht += '<b class="caret pull-right"></b><i class="fa fa-laptop"></i><span><h3>Informaci&oacuten</h3></span>';
 				 ht += '</a><ul class="sub-menu"><li><a href="index.html"><h3>Informe del Diálogo Nacional</h3></a></li>';
 				 ht += '<li><a href="index_v2.html"><h3>Reporte General</h3></a></li>';
 				ht +=  '<li><a href="index_v2.html"><h3>Reporte Productivo</h3></a></li>';
 				ht += '</ul></li><li><a href="index.html"><h2>Próximas Mesas</h2></a></li>';
-			    ht += '<li><a href="index.html"><h3>Noticias</h3></a></li></ul></div>';
+			    ht += '<li><a href="index.html"><h3>Noticias</h3></a></li></ul></div>';*/
+
+                ht=' <div style="background-color:#193b68;display:table-cell; width:80%; height: 100%;"> ';
+                ht+='<a href="/">Inicio</a>';
+                ht+='<a href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf">Informaci&oacuten</a>';
+  				ht+='<a href="/calendario-dialogo-nacional">Mesas</a>';
+  				ht+='<a href="https://www.politica.gob.ec/noticias/">Noticias</a>';
+				ht+='<a href="/login">Ingresar</a>';
+				ht+='</div><div style="display:table-cell;background-color:#193b68;">';
+  				ht+='<a href="javascript:void(0);" id="icon_menu" class="icon" onclick="myFunction()">';
+				ht+='<i class="fa fa-bars"></i>';
+			    ht+='</a></div>';
+
 
                 div.innerHTML=ht;
-                //document.getElementById('sidebar').appendChild(div);
-                document.getElementById('sidebar').innerHTML=ht;
 
+<<<<<<< HEAD
                var menutop1 = document.getElementById("top_table_menu");
 
+=======
+
+
+                document.getElementById('sidebar').appendChild(div);
+                 document.getElementById('sidebar').innerHTML=ht;
+
+                var menutop1 = document.getElementById("top_table_menu");
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
                 menutop1.style.display = "none";
+                document.getElementById('sidebar').style.display="inline";
 
                 // add a class .collapse to a div .showHide
                 //$('.showHide').addClass('collapse');
@@ -80,8 +130,14 @@
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
 
+<<<<<<< HEAD
         <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
   <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>-->
+=======
+          <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
+
+         <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
       </div>
 
 
@@ -89,24 +145,7 @@
 
 
                    <!-- {{ asset('imagenes/dialogo_nacional/nueva_imagen/home_hover.png') }}-->
-                   <?php
 
-                   	$path_home_img = 'imagenes/dialogo_nacional/nueva_imagen/home.png';
-                   	$path_home_img_hover = 'imagenes/dialogo_nacional/nueva_imagen/home_hover.png';
-
-   	                $path_megafono = 'imagenes/dialogo_nacional/nueva_imagen/megafono.png';
-                   	$path_megafono_hover = 'imagenes/dialogo_nacional/nueva_imagen/megafono_hover.png';
-
-   	                $path_mesas_ico = 'imagenes/dialogo_nacional/nueva_imagen/mesas_ico.png';
-                   	$path_mesas_ico_hover = 'imagenes/dialogo_nacional/nueva_imagen/mesas_ico_hover.png';
-
-   	                $path_noticias = 'imagenes/dialogo_nacional/nueva_imagen/noticias.png';
-                   	$path_noticias_hover = 'imagenes/dialogo_nacional/nueva_imagen/noticias_hover.png';
-
-   	                $path_login = 'imagenes/dialogo_nacional/nueva_imagen/login.png';
-                   	$path_login_hover = 'imagenes/dialogo_nacional/nueva_imagen/login_hover.png';
-
-                   ?>
                 <a class="barra_menu" href="/" tabindex=1>
                    <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/home.png') }}" width="20px" height="20px" alt="Logo en forma de megafono" onmouseover="this.src='{{ asset($path_home_img_hover) }}'"
                     onmouseout="this.src='{{ asset($path_home_img) }}'"/>
@@ -144,8 +183,9 @@
                 </a>
 
 
+               
+                <a class="barra_menu" href="https://www.politica.gob.ec/noticias/" tabindex=6 >
 
-                <a class="barra_menu" href="#" tabindex=6 >
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
                     onmouseout="this.src='{{ asset($path_noticias) }}'" />
                     NOTICIAS
@@ -172,12 +212,43 @@
 </div>
 
 
+<<<<<<< HEAD
 <div id="sidebar" class="sidebar toggled" >
 
-</div>
-<div class="sidebar-bg"></div>
+=======
 
+<!--<div id="sidebar" class="sidebar toggled" >
+	HOLA MUNDO
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
+</div>
+<div class="sidebar-bg"></div>-->
+<div id="sidebar" class="topnav" >
+
+ </div> 
 </header>
+
+
+
+<div class="sidebar-bg"></div>
+<script>
+function myFunction() {
+    var x = document.getElementById("sidebar");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+
+    var x = document.getElementById("icon_menu");
+    if (x.className === "icon") {
+        x.className += " responsive_ico";
+    } else {
+        x.className = "icon";
+    }
+
+    
+}
+</script>
 	<!-- end container-fluid -->
 <!--</div>-->
 
@@ -187,13 +258,20 @@
 <!-- SIDEBAR -->
 <!-- ////// -->
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 <div id="sidebar" class="sidebar toggled" >
 
 </div>
 <div class="sidebar-bg"></div>
+<<<<<<< HEAD
 =======
 
 >>>>>>> c4d5062e1f91ccc1e96012b8eec72553d6a0e18f
+=======
+
+>>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
 <!-- end #sidebar -->
