@@ -42,7 +42,7 @@ $( document ).ready(function() {
                  var div = document.createElement('div');
 
                  div.className = 'row';
-                  
+
                   /*
 
                  ht = '<div class="dropbtn" data-scrollbar="true" data-height="100%"><ul class="nav">';
@@ -183,7 +183,7 @@ $( document ).ready(function() {
                 </a>
 
 
-               
+
                 <a class="barra_menu" href="https://www.politica.gob.ec/noticias/" tabindex=6 >
 
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
@@ -224,7 +224,7 @@ $( document ).ready(function() {
 <div class="sidebar-bg"></div>-->
 <div id="sidebar" class="topnav" >
 
- </div> 
+ </div>
 </header>
 
 
@@ -246,7 +246,7 @@ function myFunction() {
         x.className = "icon";
     }
 
-    
+
 }
 </script>
 	<!-- end container-fluid -->
