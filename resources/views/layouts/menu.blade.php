@@ -30,6 +30,7 @@
                 document.getElementById('sidebar').innerHTML=ht;
 
                var menutop1 = document.getElementById("top_table_menu");
+
                 menutop1.style.display = "none";
 
                 // add a class .collapse to a div .showHide
@@ -42,8 +43,12 @@
             $(function(){
             	 var x = document.getElementById("sidebar");
             	x.style.display = "none";
-            	var menutop1 = document.getElementById("top-navbar");
+            	var menutop1 = document.getElementById("top_table_menu");
                 menutop1.style.display = "block";
+
+
+
+
                 // remove a class .collapse from a div .showHide
                 //$('.showHide').removeClass('collapse');
                 // set display: none in css for the toggle button .btn.btn-primary
@@ -70,13 +75,13 @@
 	<!-- begin container-fluid -->
 
 <header>
-<div class="head_table_menu" id="top_table_menu">
+<div class="head_table_menu" id="top_table_menu" name="top_table_menu">
 <div id="top_menu">
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
 
-          <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
-<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+        <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+  <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>-->
       </div>
 
 
@@ -151,7 +156,7 @@
       </div>
       <div  id="dv_ingreso2" >
 
-              <a class="barra_menu" href="login" tabindex=7 >
+              <a class="barra_menu" href="/login" tabindex=7 >
           <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/login.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_login) }}'"   onmouseout="this.src='{{ asset($path_login_hover) }}'" />
                   INGRESO
               </a>
@@ -166,6 +171,12 @@
 
 </div>
 
+
+<div id="sidebar" class="sidebar toggled" >
+
+</div>
+<div class="sidebar-bg"></div>
+
 </header>
 	<!-- end container-fluid -->
 <!--</div>-->
@@ -177,8 +188,12 @@
 <!-- ////// -->
 
 
+<<<<<<< HEAD
 <div id="sidebar" class="sidebar toggled" >
 
 </div>
 <div class="sidebar-bg"></div>
+=======
+
+>>>>>>> c4d5062e1f91ccc1e96012b8eec72553d6a0e18f
 <!-- end #sidebar -->

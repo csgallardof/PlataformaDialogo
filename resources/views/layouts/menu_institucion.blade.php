@@ -13,8 +13,8 @@
 			                    <span class="icon-bar"></span>
 			                    </button>
 			                    <a href="{{ url('/institucion/home') }}" class="navbar-brand">
-									<img src="{{ asset('imagenes/dialogo_nacional/logo_dialogo_nacional.png') }}" class="center-block img-responsive" alt="Cinque Terre" width="130px" height="46px">
-								</a>
+														<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" class="center-block img-responsive" alt="Cinque Terre"  width="70px" height="70px" alt="Logo dialogo nacional">
+												 </a>
 			                </div>
 			                <div id="navbar" class="navbar-collapse collapse">
 			                    <ul class="nav navbar-nav">
@@ -24,7 +24,7 @@
 			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
 			                        <li><a href="/institucion/reportes">Reportes</a></li>
                                 </ul>
-			                    
+
 
 			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
 									<li class="dropdown navbar-user">
@@ -54,6 +54,6 @@
 			        </nav>
 			    </div>
 			</div>
-			
+
 </div>
 <!-- end #header -->

@@ -70,13 +70,34 @@
     <div id="page-container"  class="fade">
            <?php
 
-      if(preg_match('/calendario-dialogo-nacional/',url()->current()) || preg_match('/busquedaAvanzadaDialogoFiltro/',url()->current()) || preg_match('/busqueda-ejes/',url()->current())) {
+function endsWithStr($haystack, $needle)
+{
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
+    }
+
+    return (substr($haystack, -$length) === $needle);
+}
+
+
+      /*if(preg_match('/detalle-despliegue-dialogo/',url()->current()) || preg_match('/calendario-dialogo-nacional/',url()->current()) || preg_match('/busquedaAvanzadaDialogoFiltro/',url()->current()) || preg_match('/busqueda-ejes/',url()->current())) {
           echo '<div id="contenedor2">	';
 
        } else{
   			echo '<div id="contenedor">	';
 
-       }
+       }*/
+
+
+       if(endsWithStr(url()->current(), ':8000')){
+       	    echo '<div id="contenedor">	';
+
+       } else{
+  			echo '<div id="contenedor2">	';
+
+       }	
+
 
      ?>
 			@include ('layouts.menu')

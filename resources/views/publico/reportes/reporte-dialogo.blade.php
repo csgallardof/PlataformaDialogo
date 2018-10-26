@@ -48,7 +48,7 @@
 
                 				<?php $arraySectors[] = array(); ?>
 
-						 		<div >
+						 		<!--<div >
 
 					
 
@@ -67,7 +67,7 @@
 
 								 		@endif	
 								 	</select>
-                				</div>
+                				</div>-->
                 				
 
 
@@ -111,6 +111,8 @@
 
                                        <!--  <input type="text" class="form-control_2" placeholder="Busca todo sobre el diálogo con el sector productivo " name="parametro" value="" required style="font-size: 16px" > -->
                                        <label for="buscar_general" style="display: none;">Ingrese texto de busqueda</label>
+                                       <input type="hidden" name="selectBusqueda" value="si">
+                                       
                                        <input id="buscar_general" type="text" class="form-control input-lg" name="parametro" placeholder="Buscar información sobre propuestas y pedidos del diálogo nacional" required>
                                         <span class="input-group-btn">
                                            	<button id="btn_buscar" class="btn btn-default" type="submit">

@@ -55,10 +55,10 @@ Route::get('/inicio3', function () {
 });
 
 
-// Route::get('/busquedaAvanzada',[
-//      'uses'=>'PaginasController@busquedaAvanzada',
-//      'as'=>'nuevaBusqueda2'
-// ]);
+ /*Route::get('/busquedaAvanzada',[
+      'uses'=>'PaginasController@busquedaAvanzada',
+      'as'=>'nuevaBusqueda2'
+ ]);*/
 
 Route::get('/mail','PaginasController@enviarmail');
 
@@ -77,10 +77,16 @@ Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePr
 Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@crearReportePropuestasHome');
 
 
-Route::post('/reporte',[
-     'uses'=>'SolucionesController@buscar',
-     'as'=>'reporte1.resultado'
-]);
+// Route::post('/reporte',[
+//      'uses'=>'SolucionesController@buscar',
+//      'as'=>'reporte1.resultado'
+// ]);
+
+/* Inicio Reportes graficos */
+Route::get('/reporte','ReportePublicoController@listaReportes');
+
+Route::post('/reporte','ReportePublicoController@listaReportes');
+/* Fin Reportes graficos */
 
 Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada');
 
@@ -563,7 +569,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 });
 
 
-Route::get('/reporte','ReportePublicoController@listaReportes');
+Route::get( '/reporte','ReportePublicoController@listaReportes');
 Route::post('/reporte','ReportePublicoController@listaReportes');
 
 // Consejo Sectorial

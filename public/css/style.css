@@ -169,9 +169,9 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
    1.0 General reset & setup
 ------------------------------- */
 
-*{
+/**{
 	border: 1px solid red;
-}
+}*/
 
 @font-face {
     font-family: dolce_vita_light;
@@ -510,9 +510,8 @@ label {
   /*display: inline-block;
   float: none;
   vertical-align: top;*/
-
   padding-top: 12px;
-
+  background-image: -webkit-radial-gradient(50px 100px, circle farthest-corner, #193b68, #022238 250px);
 }
 
 .navbar .navbar-collapse {
@@ -6405,8 +6404,8 @@ body.flat-black {
 
 .footer_title_gobierno {
     position: absolute;
-    margin-left: 200px;
-    margin-top: 150px;
+    margin-left: 112px;
+    margin-top: 57px;
 }
 
 .ecuador_footer_img {
@@ -6909,3 +6908,16 @@ select option {
 .navbar-nav > li > .dropdown-menu {
     margin-top: -5px;
 }
+
+
+@media screen and (min-width: 1200px) {
+  .navbar .navbar-nav {
+    /*display: inline-block;
+    float: none;
+    vertical-align: top;*/
+    padding-top: 12px;
+
+  }
+
+
+   }
