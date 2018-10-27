@@ -39,9 +39,7 @@ class ConsejoInstitucionsController extends Controller {
      */
     public function institucionesSectoresLista($consejo_id) {
 
-        //$consejosInstitucions = ConsejoInstitucion::where("consejo_id", "=", $consejo_id)->get();
-
-        $consejosInstitucions = DB::table('consejo_institucions')
+            $consejosInstitucions = DB::table('consejo_institucions')
                         ->select('consejo_institucions.id','institucions.nombre_institucion')
                         ->join('institucions', 'institucions.id', '=', 'consejo_institucions.institucion_id')
                         ->join('consejo_sectorials', 'consejo_sectorials.id', '=', 'consejo_institucions.consejo_id')

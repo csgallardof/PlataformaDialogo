@@ -146,6 +146,7 @@ class UsuarioController extends Controller {
     public function guardarUsuarioConsejo(Request $request) { 
          $usuario = new User;
          $institucionusuario = new InstitucionUsuario;
+         $roleUser = new RoleUser;
 
          $this->validate($request, [
             'nombre_usuario' => 'required',
@@ -174,29 +175,51 @@ class UsuarioController extends Controller {
 
         $usuario->telefono = $request->telefono;
         $usuario->celular = $request->celular;
+        $usuario->estado = 1; // 1 estado activo
      
         $usuario->save(); 
 
 
      $usuarioGuardado = DB::select('SELECT * from users where email ="'.$request->email.'" and cedula = "'.$request->cedula.'" limit 1');
  
-       $institucionusuario->institucion_id = $request->institucion_id; 
-       $institucionusuario->usuario_id = $usuarioGuardado[0]->id;
+
+  if (!empty($usuarioGuardado)){
+           $institucionusuario->institucion_id = $request->institucion_id; 
+           $institucionusuario->usuario_id = $usuarioGuardado[0]->id;
+         
+             $institucionUsuariosquery =  DB::select('SELECT * from institucion_usuarios where institucion_id ='.$request->institucion_id.' and usuario_id = '.$usuarioGuardado[0]->id.' limit 1');
      
- 
+              if (empty($institucionUsuariosquery)){//para verificar que no este duplicado
+                    $institucionusuario->save();
+                   // return redirect('consejo-sectorial/listar-usuario');
+                  
+              }else{
+                   Flash::error("El usuario ya se encuentra asignado a una institución");
+                   return redirect('consejo-sectorial/listar-usuario');
+                 
+               }
+
+             $roleUser ->role = 2;//2 rol como institución
+             $roleUser ->user = $usuarioGuardado[0]->id; 
+              $roleUserQuery =  DB::select('SELECT * from role_user where role_id = 2 and user_id = '.$usuarioGuardado[0]->id.' limit 1');
      
-         $institucionUsuariosquery =  DB::select('SELECT * from institucion_usuarios where institucion_id ='.$request->institucion_id.' and usuario_id = '.$usuarioGuardado[0]->id.' limit 1');
- 
-          if (empty($institucionUsuariosquery)){
-                $institucionusuario->save();
-                Flash::success("Usuario uardado exitosamente");
-                return redirect('consejo-sectorial/listar-usuario');
-              
-          }else{
-               Flash::error("El usuario ya se encuentra asignado a una institución");
+              if (!empty($roleUserQuery)){
+                    $roleUser->save();
+                  //  return redirect('consejo-sectorial/listar-usuario');
+                  
+              }else{
+                   Flash::error("El usuario ya se encuentra asignado a una institución");
+                   return redirect('consejo-sectorial/listar-usuario');
+                 
+               }
+         
+
                return redirect('consejo-sectorial/listar-usuario');
-             
-        }
+              }else{ 
+                   Flash::error("El usuario ya se encuentra asignado a una institución");
+                   return redirect('consejo-sectorial/listar-usuario');
+                 
+            }
   
     }
 
@@ -328,7 +351,7 @@ class UsuarioController extends Controller {
     
     }
 
-    public function usuarios_cs() {
+    public function usuarios_cs( ) {
         
         $usuarios= DB::select('SELECT *,users.id as id_usuario, institucions.siglas_institucion        
         from users
