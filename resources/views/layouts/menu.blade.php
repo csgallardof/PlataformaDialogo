@@ -125,10 +125,11 @@ $( document ).ready(function() {
   <div class="head_table" role="menu">
       <div id='links_top_menu_left'>
 
-
+          <!--PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->
           <!--<img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/> -->
 
-         <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="60px" height="60px" alt="Logo dialogo nacional"/>
+         <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/logo_blanco.png') }}" width="45px" height="45px" alt="Logo dialogo nacional"/>
+        <!--PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->
       </div>
 
 
