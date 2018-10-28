@@ -94,13 +94,7 @@ class ConsejoSectorialController extends Controller {
                                 inner join solucions on solucions.id = actor_solucion.solucion_id
                                 inner join estado_solucion on estado_solucion.id = solucions.estado_id
                                 where estado_solucion.id = 5
-                                and consejo_sectorials.id = ( select consejo_sectorials.id
-                                from users
-                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
-                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
-                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
-                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
-                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+                                and consejo_sectorials.id = 4 order by solucions.estado_id desc');
 
         //dd($resultados_propuestas);
         
@@ -121,13 +115,7 @@ class ConsejoSectorialController extends Controller {
                                 inner join solucions on solucions.id = actor_solucion.solucion_id
                                 inner join estado_solucion on estado_solucion.id = solucions.estado_id
                                 where estado_solucion.id = 4
-                                and consejo_sectorials.id = ( select consejo_sectorials.id
-                                from users
-                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
-                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
-                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
-                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
-                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+                                and consejo_sectorials.id =4  order by solucions.estado_id desc');
 
         //dd($resultados_propuestas);
         
@@ -148,13 +136,7 @@ class ConsejoSectorialController extends Controller {
                                 inner join solucions on solucions.id = actor_solucion.solucion_id
                                 inner join estado_solucion on estado_solucion.id = solucions.estado_id
                                 where estado_solucion.id = 6
-                                and consejo_sectorials.id = ( select consejo_sectorials.id
-                                from users
-                                inner join institucion_usuarios on institucion_usuarios.usuario_id = users.id
-                                inner join institucions on institucions.id = institucion_usuarios.institucion_id
-                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
-                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
-                                where users.id ='.Auth::user()->id.') order by solucions.estado_id desc');
+                                and consejo_sectorials.id = 4 order by solucions.estado_id desc');
 
         //dd($resultados_propuestas);
         
