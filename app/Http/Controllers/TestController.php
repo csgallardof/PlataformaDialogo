@@ -26,7 +26,8 @@ class TestController extends Controller
 
   public function test()
   {
-      return 'helllooooooo';
+      /*return 'helllooooooo';*/
+      return view('admin.usuario.create');
   }
 }
 

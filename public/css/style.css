@@ -363,6 +363,7 @@ label {
     line-height: 20px;
     color: #ffffff;
     padding: 25px 15px;
+    font-weight: bold;
 }
 .header.navbar .navbar-nav > li.active > a,
 .header.navbar .navbar-nav > li > a:hover,
@@ -511,19 +512,19 @@ label {
 /* -------------------------------
         M NAVBAR MIPRO
    -------------------------------*/
-
+/*PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
 .navbar .navbar-nav {
   /*display: inline-block;
   float: none;
   vertical-align: top;*/
   padding-top: 12px;
-  background-image: -webkit-radial-gradient(50px 100px, circle farthest-corner, #193b68, #022238 250px);
+
 }
 
 .navbar .navbar-collapse {
   /*text-align: center;*/
 }
-
+/* PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
 /* -------------------------------
    3.0 HR Styles
 ------------------------------- */
@@ -6915,15 +6916,14 @@ select option {
     margin-top: -5px;
 }
 
-
-@media screen and (min-width: 1200px) {
+/*<!--PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->*/
+@media screen and (max-width: 1200px) {
   .navbar .navbar-nav {
     /*display: inline-block;
     float: none;
     vertical-align: top;*/
     padding-top: 12px;
-
-  }
-
-
+    background-image: -webkit-radial-gradient(50px 100px, circle farthest-corner, #193b68, #022238 250px);
+    }
    }
+/*<!--PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->*/
