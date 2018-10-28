@@ -14,17 +14,15 @@
                     <form class="form-horizontal" method="POST" action="{{ '/consejo-sectorial/actualizar-usuario/'. $usuario->id.'/update'}}">
                         {{ csrf_field() }}
                         @section('edit_Method')
-
-                         {{ $usuario->id}}   
+                         {{ $usuario->id}} 
+                            @include('flash::message')
                         @show
-                        
-                             <div class="form-group">
+                         <div class="form-group">
                             <label for="cedula" class="col-md-4 control-label">Institucion</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="institucion_id" id="institucion_id">
-
-                                    @if( isset($usuario_consejo) )
+                                   @if( isset($usuario_consejo) )
                                     @foreach( $usuario_consejo as $usuario_consejo)
                                     <option value="{{ $usuario_consejo->id}}">
                                         {{ $usuario_consejo->siglas_institucion}} /{{ $usuario_consejo->nombre_institucion}}
@@ -90,7 +88,13 @@
 
                             </div>
                         </div>
-                   
+                    <div class="form-group">
+                            <label for="estado" class="col-md-4 control-label">Estado</label>
+                            <div class="col-md-6">
+                               <label class="col-md-4 control-label" for="estado"> <input name="estado" type="radio" id="estado" value="Activo" />&nbsp;&nbsp;&nbsp;Activo</label>'
+                                <label class="col-md-4 control-label" for="estado"><input name="estado" type="radio" id="estado" value="Inactivo" />&nbsp;&nbsp;&nbsp;Inactivo</label>'
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                               <!--<a href="{{ '/consejo-sectorial/actualizar-usuario/'. $usuario->id.'/update'}}" class="btn btn-primary"> Actualizar</a> -->
