@@ -26,32 +26,25 @@
 			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
 			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
 			                        <li><a href="/institucion/reportes">Reportes</a></li>
-                                </ul>
-
-
+                          </ul>
 			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
-									<li class="dropdown navbar-user">
-										<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
-											<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
-										</a>
-										<ul class="dropdown-menu animated fadeInLeft">
-											<li class="arrow"></li>
-											 <li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
-
-											<li>
-												<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+														<li class="dropdown navbar-user">
+														<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
+														<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
+														</a>
+														<ul class="dropdown-menu animated fadeInLeft">
+														<li class="arrow"></li>
+											 			<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
+														<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             		Salir
                                         		</a>
 		                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 		                                            {{ csrf_field() }}
 		                                        </form>
-				                            </li>
-										</ul>
-									</li>
-								</ul>
-
-
-
+				                  </li>
+													</ul>
+													</li>
+													</ul>
 			                </div>
 			            </div>
 			        </nav>
