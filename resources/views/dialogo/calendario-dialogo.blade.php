@@ -54,6 +54,7 @@
 
   <script>
     $(document).ready(function() {
+
       App.init();
       Calendar.init();
     });
