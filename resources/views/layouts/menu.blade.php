@@ -31,7 +31,7 @@ $( document ).ready(function() {
 
 
     var expandCollapse = function(){
-        if ( $(window).width() < 768 ) {
+        if ( $(window).width() < 800 ) {
             $(function(){
 
             	 var x = document.getElementById("sidebar");
@@ -166,22 +166,42 @@ $( document ).ready(function() {
 				  </div>
 				</div>
 
+                
 
-                <a class="barra_menu" href="/calendario-dialogo-nacional"  tabindex=5>
-                   <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mesas_ico.png') }}" width="20px" height="20px" alt="Logo en forma de mundo"   onmouseover="this.src='{{ asset($path_mesas_ico_hover) }}'"
-                    onmouseout="this.src='{{ asset($path_mesas_ico) }}'"/>
-                    MESAS
-                </a>
-
-
+			  
                
+      </div>
+
+
+      <div  id="dv_ingreso2" >
+	                <a class="barra_menu" href="/calendario-dialogo-nacional"  tabindex=5>
+	                   <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mesas_ico.png') }}" width="20px" height="20px" alt="Logo en forma de mundo"   onmouseover="this.src='{{ asset($path_mesas_ico_hover) }}'"
+	                    onmouseout="this.src='{{ asset($path_mesas_ico) }}'"/>
+	                    MESAS
+	                </a>
+
+      </div>
+
+
+
+      <div  id="dv_ingreso2" >
+      	<div class="vl2"></div>
+      </div>
+      
+
+      <div  id="dv_ingreso2" >
+      	
                 <a class="barra_menu" href="https://www.politica.gob.ec/noticias/" tabindex=6 >
 
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
                     onmouseout="this.src='{{ asset($path_noticias) }}'" />
                     NOTICIAS
                 </a>
+
+
       </div>
+
+
       <div  id="dv_ingreso2" >
       	<div class="vl2"></div>
       </div>

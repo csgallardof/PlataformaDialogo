@@ -14,7 +14,7 @@
 
 
 	<!-- begin row -->
-	<div class="row-m-t-3 p-t-40" data-scrollview="true">
+	<div class="row-m-t-3 p-t-40" data-scrollview="true" >
 		<div class="container-fluid" data-animation="true" data-animation-type="fadeInDown">
 
 
