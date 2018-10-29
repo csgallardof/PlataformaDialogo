@@ -169,15 +169,12 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
    1.0 General reset & setup
 ------------------------------- */
 
-<<<<<<< HEAD
-/**{
-	border: 1px solid red;
-}*/
-=======
+/*PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
 *{
-	/*border: 1px solid red;*/
+	border: 1px solid red;
 }
->>>>>>> ee76071994a6d12fc252e1fff36a96c228355ce3
+/*PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
+
 
 @font-face {
     font-family: dolce_vita_light;
@@ -2813,10 +2810,12 @@ a.text-white:focus {
 ------------------------------- */
 
 /*  5.1 Plugins - jQuery Draggable */
-
+/*PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
 .row > [class*="col-"].ui-sortable {
     min-height: 50px;
+    margin-top:23px;
 }
+/*PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
 .theme-panel [class*="col-"].ui-sortable,
 .panel [class*="col-"].ui-sortable {
     min-height: 0px;
