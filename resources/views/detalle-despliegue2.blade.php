@@ -12,7 +12,7 @@
 
 @section('contenido')
 
-<br><br><br><br>
+
 <style>
 	.myButton {
 		-moz-box-shadow:inset 0px 39px 0px -24px #e67a73;
@@ -102,7 +102,7 @@
 
 
 		<!-- begin #about -->
-		<div class="content row-m-t-2" data-scrollview="true">
+		<div class="content row-m-t-2" data-scrollview="true" >
 				<!-- begin container -->
 			<div class="container-fluid" data-animation="true" data-animation-type="fadeInDown">
 

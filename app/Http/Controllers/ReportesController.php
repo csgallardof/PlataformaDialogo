@@ -1655,9 +1655,12 @@ return $propuestasPorAmbito;
 }
 
 public function listaConsejoPorCodigo(Request $request){
+
+
    if($request->consulto == 'no'){
-      $this -> exportarExcelReporteConsejo($request);
-}
+
+   	  $this -> exportarExcelReporteConsejo($request);
+  }
 
  // dd($request->selInstituciones);
 	//dd($request->consulto);
@@ -1861,7 +1864,7 @@ $propuestasPorEstado = $this -> obtenerPropuestasPorEstado($request->selInstituc
  $periodo="Requerido";
 } */
 $consulto=$request->consulto; 
-return view('consejoSectorial.reporteConsejo')->with( ["hoy" => $hoy,
+return view('consejoSectorial.reporteGraficoConsejo')->with( ["hoy" => $hoy,
                           	                           "idBusqueda" => $idBusqueda,
                           	                           //"periodo"=>$periodo,
                           	                           "fechaInicial"=>$fechaInicial,

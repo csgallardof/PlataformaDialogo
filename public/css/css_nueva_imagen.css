@@ -455,6 +455,7 @@ h2{
 }
 
 #searchwrapper {
+
 border-radius: 10px;
 width:310px; /*follow your image's size*/
 height:40px;/*follow your image's size*/
@@ -574,7 +575,7 @@ height:28px;
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
     float: right;
@@ -592,7 +593,7 @@ height:28px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: relative;
