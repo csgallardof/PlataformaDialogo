@@ -82,11 +82,11 @@ Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@
 //      'as'=>'reporte1.resultado'
 // ]);
 
-/* Inicio Reportes graficos */
-Route::get('/reporte','ReportePublicoController@listaReportes');
+Route::get('/reporte-graficos','ReportePublicoController@listaReportes');
 
-Route::post('/reporte','ReportePublicoController@listaReportes');
-/* Fin Reportes graficos */
+Route::post('/reporte-graficos','ReportePublicoController@listaReportes');
+
+
 
 Route::get('/propuesta-detallada/descargar-excel/{idPropuesta}','ExcelController@exportarPropuestaDetallada');
 
@@ -618,6 +618,8 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      //REPORTES
 
      Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']);
+
+     Route::get('/reportes-grafico-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']);
 
     //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo');
      //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo');

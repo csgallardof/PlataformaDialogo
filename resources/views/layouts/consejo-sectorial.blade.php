@@ -25,7 +25,7 @@
             <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/theme/default.css') }}" rel="stylesheet" id="theme" />
             <link href="{{ asset('css/inteligencia.css') }}" rel="stylesheet" />
-            
+
                 @show
         <!-- ================== END BASE JS ================== -->
     <!-- Styles -->
@@ -44,7 +44,10 @@
 
     <div id="page-container" class="fade">
             @include ('layouts.menu_consejo_sectorial')
-            <br><br><br><br><br><br>
+            <!--PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->
+            <!--<br><br><br><br><br><br>-->
+            <br><br><br><br>
+            <!--PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->
             @yield ('content')
             @include ('layouts.common_modals')
             @include ('layouts.footer')
@@ -74,7 +77,7 @@
             <script src="{{ asset('js/apps.js') }}"></script>
             <script src="{{ asset('js/dashboard.js') }}"></script>
             <script src="{{ asset('js/dropdown.js') }}"></script>
-            
+
 
     @show
 
@@ -97,7 +100,7 @@
     <script src="{{ asset('js/form-plugins.demo.min.js') }}"></script>
     <script src="{{ asset('js/apps.min.js') }}"></script>
     <script src="{{ asset('js/Solucion/comboSolucion.js') }}"></script>
-    
+
     <script src="{{ asset('plugins/DataTables/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('plugins/DataTables/js/dataTables.colReorder.js') }}"></script>
     <script src="{{ asset('plugins/gritter/js/jquery.gritter.js') }}"></script>
@@ -110,7 +113,7 @@
     <script src="{{ asset('js/table-manage-responsive.demo.js') }}"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
-    
+
 
     <script>
         $(document).ready(function() {

@@ -20,7 +20,7 @@ class ReportePublicoController extends Controller {
 
     public function listaReportes(Request $request) {
 
-        //variables 
+        //dd($request->consejoSectorial_id);
 
 
         $institucion_id = $request->get('institucion_id');

@@ -15,9 +15,8 @@
                     >
                         {{ csrf_field() }}
                         @section('edit_Method')
-
-
-                        @show
+                        @include('flash::message')
+                       @show
 
                         <input type="hidden" name="crear_usuario_consejo" value="1">
 
@@ -110,6 +109,7 @@
                             @endforeach
                         </div>
                     @endif
+                 
                 </div>
             </div>
         </div>
