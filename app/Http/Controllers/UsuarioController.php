@@ -394,7 +394,7 @@ class UsuarioController extends Controller {
         inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
         inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
         where users.id ='.Auth::user()->id.') order by institucions.id desc');   
-
+//dd($usuarios_consejo);
         $institucion_usuario= DB::select('SELECT institucion_id, usuario_id      
         from institucion_usuarios 
         where usuario_id ='.$usuario ->id.'');
