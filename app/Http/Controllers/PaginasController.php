@@ -1287,7 +1287,7 @@ class PaginasController extends Controller
 
 
                             
-        return view('publico.reportes.reporte-graficos')->with([
+        return view('publico.reportes.reporte-graficos-dialogo')->with([
                                                 "sipoc"=>$sipoc,
                                                 "verbo_solucion" =>$verbo_solucion,
                                                 "propuestas_estado" =>$propuestas_estado,
