@@ -27,6 +27,7 @@
                                     <option value="{{ $usuarios_consejo->id}}" >
                                         {{ $usuarios_consejo->siglas_institucion}} /{{ $usuarios_consejo->nombre_institucion}}
                                     </option>
+                                    
                                     @endforeach
                                     @endif
                                 </select>
