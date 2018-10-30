@@ -9,36 +9,33 @@
 		<!-- begin #content -->
 		<!-- begin #content -->
         <div id="content" class="content" width="10%">
-            <!-- begin row -->
-            <div class="row">
-				<!-- begin col-3 -->
+          <!--PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181029  -->
+            <!--<div class="row">
+
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							
+
 						</div>
 					</div>
 				</div>
-				<!-- end col-3 -->
-				<!-- begin col-3 -->
+
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							
+
 						</div>
 					</div>
 				</div>
-				<!-- end col-3 -->
-				<!-- begin col-3 -->
+
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							
+
 						</div>
 					</div>
 				</div>
-				<!-- end col-3 -->
-				<!-- begin col-3 -->
+
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
@@ -46,15 +43,16 @@
 						</div>
 					</div>
 				</div>
-				<!-- end col-3 -->
-			</div>
+
+			</div>-->
+      <!--PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181029  -->
 
             @include('flash::message')
 
-            
+
             <div class="row">
                 <!-- begin col-8 -->
-                
+
                 <div class="col-md-12">
                     <!-- begin panel -->
                     <div class="panel panel-inverse">
@@ -75,7 +73,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            
+
                                             <th>Soluci&oacute;n</th>
                                             <th>Institucion</th>
                                             <th>Responsabilidad</th>
@@ -90,7 +88,7 @@
                                             <td class="text-justify">
                                                 {{ $resultados_propuesta->id}}
                                             </td>
-                                            
+
                                             <td class="text-justify">
                                                 {{ $resultados_propuesta->propuesta_solucion}}
                                             </td>
@@ -105,29 +103,29 @@
                                                 @endif
                                             </td>
                                             <td class="text-justify">
-                                                
+
                                             </td>
                                             <td class="text-justify">
                                                @if($resultados_propuesta->nombre_estado=="Desestimada")
-                                                    <span class="label label-success f-s-12"  style="background-color: #28B463">                
+                                                    <span class="label label-success f-s-12"  style="background-color: #28B463">
                                                             {{$resultados_propuesta->nombre_estado}}
                                                     </span>
-                                                            
+
                                                 @endif
 
-                                               
+
                                             </td>
                                             <td class="text-justify">
-                                               
+
                                                 <a href="{{ route('verSolucion.despliegueConsejo',[1,$resultados_propuesta->id]) }}" class="btn btn-link f-s-13 f-w-500"><i class="fa fa-2x fa-eye"></i></a>
 
                                             </td>
-                                            
+
 
                                         </tr>
                                         @endforeach
-                                                        
-        
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -137,11 +135,11 @@
                 </div>
                 <!-- end col-10 -->
 
-                
+
             </div>
             <!-- end row -->
         </div>
         <!-- end #content -->
-		
+
 
 		@stop
