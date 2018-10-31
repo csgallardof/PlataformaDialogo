@@ -24,12 +24,15 @@
                         <h2 class="text-center"><strong>Calendario de Diálogo</strong></h2>
                     </div>
                 </div>
-                <div class="panel-body p-0">
-                  <div class="vertical-box">
-                          
-                      <div id="calendar" class="vertical-box-column p-15 calendar"></div>
+
+                <div class="content_cal">
+                  <div class="panel-body p-0">
+                    <div class="vertical-box">
+                            
+                        <div id="calendar" class="vertical-box-column p-15 calendar"></div>
+                    </div>
                   </div>
-                </div>
+              </div>
  
             </div>
         </div>

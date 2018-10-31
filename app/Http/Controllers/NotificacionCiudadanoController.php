@@ -65,6 +65,7 @@ class NotificacionCiudadanoController extends Controller
     }
 
     public function saveCiudadanoEval(Request $request,$solucion_id){
+        setcookie("ciudadano_evalua", 1);
         $ciudadanoEval = new EvaluacionCiudadano();
         $ciudadanoEval->ev_semaforo  = $request-> rd_evaluac;
         $ciudadanoEval->ev_solicitud_id  = $solucion_id;
@@ -82,6 +83,7 @@ class NotificacionCiudadanoController extends Controller
     }
 
     public function enviarCorreoEvCd(Request $request,$solucion_id){
+        setcookie("ciudadano_evalua", 1);
         $title='Percepción de ciudadanos frente a propuesta de mesa de dialogo';
 
         $mensaje_cd= $request->comentario_propuesta_c;

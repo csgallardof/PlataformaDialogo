@@ -142,8 +142,10 @@
 </section>-->
 
 <section class="section_content">
-   <div class="cls_mp_r" >
-      <img id="mapa_r" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mapa.png') }}" width="250px" height="250px" alt="Mapa eventos de mesas">
+   <div class="cls_mp_r2" >
+      <!--<img id="mapa_r" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/mapa.png') }}" width="250px" height="250px" alt="Mapa eventos de mesas">-->
+
+       <div id="container_map" data-highcharts-chart="0"></div>
     </div>
 </section>
 
@@ -151,6 +153,149 @@
 
 </section><!-- End of table section -->
 
+
+<section class="section_row">
+   <script src="{{ asset('js/map/highmaps.js') }}"></script>
+   <script src="{{ asset('js/map/exporting.js') }}"></script>
+   <script src="{{ asset('js/map/ec-all.js') }}"></script>
+  <!--<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+ 
+  
+  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/mapdata/countries/ec/ec-all.js"></script>-->
+
+ 
+
+  <!-- TODO: Missing CoffeeScript 2 -->
+
+  <script type="text/javascript">
+
+
+
+// Prepare demo data
+// Data is joined to map using value of 'hc-key' property by default.
+// See API docs for 'joinBy' for more info on linking data and map.
+
+var data5 = [
+    {name:'ec-gu', code: 'ec-gu', value:1}
+];
+
+var data3= [{
+    value: 6,
+    name: "ec-gu",
+    color: "#00FF00"
+}, {
+    value: 6,
+    name: "ec-es",
+    color: "#FF00FF"
+}];
+
+var data = [
+    ['ec-gu', 0],
+    ['ec-es', 1],
+    ['ec-cr', 2],
+    ['ec-im', 3],
+    ['ec-su', 4],
+    ['ec-se', 5],
+    ['ec-sd', 6],
+    ['ec-az', 7],
+    ['ec-eo', 8],
+    ['ec-lj', 9],
+    ['ec-zc', 10],
+    ['ec-cn', 11],
+    ['ec-bo', 12],
+    ['ec-ct', 13],
+    ['ec-lr', 14],
+    ['ec-mn', 15],
+    ['ec-cb', 16],
+    ['ec-ms', 17],
+    ['ec-pi', 18],
+    ['ec-pa', 19],
+    ['ec-1076', 20],
+    ['ec-na', 21],
+    ['ec-tu', 22],
+    ['ec-ga', 23],
+    ['undefined', 24]
+];
+
+// Create the chart
+Highcharts.mapChart('container_map', {
+    chart: {
+        map: 'countries/ec/ec-all'
+    },
+
+    title: {
+        text: 'Eventos de mesas'
+    },
+
+    subtitle: {
+        text: ''
+    },
+
+    mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 0
+    },
+
+    plotOptions: {
+            series: {
+                events: {
+                    click: function (e) {
+                        var text = '<b>Detalles</b><br>' + this.name +
+                                '<br>Provincia: ' + e.point.name + ' ' + e.point.value + ' mesas'+'<br><a href="/calendario-dialogo-nacional">Ver Calendario</a>';
+                        if (!this.chart.clickLabel) {
+                            this.chart.clickLabel = this.chart.renderer.label(text, 0, 250)
+                                .css({
+                                    width: '180px'
+                                })
+                                .add();
+                        } else {
+                            this.chart.clickLabel.attr({
+                                text: text
+                            });
+                        }
+                    }
+                }
+            }
+        },
+
+    series: [{
+        data: data,
+        name: 'Mesas programadas:',
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        },
+        tooltip: {
+                valueSuffix: ' mesas'
+        },        
+        dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+        }
+    }, {
+        name: 'Separators',
+        type: 'mapline',
+        data: Highcharts.geojson(Highcharts.maps['countries/ec/ec-all'], 'mapline'),
+        color: 'silver',
+        showInLegend: false,
+        enableMouseTracking: false
+    }]
+});
+
+
+
+</script>
+
+
+</section>
 
 
 @endsection

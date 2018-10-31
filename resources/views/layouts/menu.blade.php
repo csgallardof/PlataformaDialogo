@@ -154,17 +154,34 @@ $( document ).ready(function() {
                 </a>
 				  </div>
 				  <div class="dropdown-content">
-				    <a tabindex="3" class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf" >
-																			<h3 class="dropdown-header" >Informe del Diálogo Nacional</h3>
-																			<div class="row">
-																					<div class="col-md-12 col-xs-12">
-																								<img src="{{ asset('imagenes/dialogo_nacional/portada_informe_dialogo.png') }}" class="img-rounded" alt="imagen de portada de informe de dialogo nacional" width="125px" height="125px">
-																					</div>
-																			</div>
-					</a>
-				    <a tabindex="4" href="{{ url('/reporte') }}" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte General</a>
-				    <a tabindex="5" href="http://www.inteligenciaproductiva.gob.ec/dialogo-nacional-estadisticas" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Productivo</a>
+                     <div class="section_table_inf">
+							  <div class="section_cell">	
+							    <a tabindex="3" class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf" >
+																						<h3 class="dropdown-header" >Informe del Diálogo Nacional</h3>
+																						<div class="row">
+																								<div class="col-md-12 col-xs-12">
+																											<img src="{{ asset('imagenes/dialogo_nacional/portada_informe_dialogo.png') }}" class="img-rounded" alt="imagen de portada de informe de dialogo nacional" width="125px" height="125px">
+																								</div>
+
+																						</div>
+								</a>
+							    <a tabindex="4" href="{{ url('/reporte') }}" class="text-ellipsis"><i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte General</a>
+							    <!--<a tabindex="5" href="http://www.inteligenciaproductiva.gob.ec/dialogo-nacional-estadisticas" class="text-ellipsis">-->
+							    	<a tabindex="5" href="{{ url('/reporte-estadistico') }}" class="text-ellipsis">
+							    	<i class="fa fa-angle-right fa-fw fa-lg text-inverse"></i>Reporte Estad&iacutestico</a>
+
+
+			                 </div>
+
+			                  <div class="section_cell">
+			                   	<p> El Di&aacutelogo Nacional permiti&oacute ampliar un abanico de visiones y de retroalimentaci&oacuten de aportes en todos los niveles sociales posibles; generando un &aacutembito propicio para la creaci&oacuten e propuestas incluyentes, integradoras, sostenibles, enfocadas al consenso para lograr y consagrar los grandes objetivos nacionales de una manera participativa y democr&aacutetica.</p>
+			                   </div>
+
+                    </div>     
+
 				  </div>
+
+
 				</div>
 
                 
@@ -194,7 +211,7 @@ $( document ).ready(function() {
       <div  id="dv_ingreso2" >
       	
 
-                <a class="barra_menu" href="https://www.politica.gob.ec/noticias/" tabindex=6 >
+                <a class="barra_menu" href="https://www.politica.gob.ec/noticias/" tabindex=6 target="_blank">
 
                    <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/noticias.png') }}" width="20px" height="20px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_noticias_hover) }}'"
                     onmouseout="this.src='{{ asset($path_noticias) }}'" />
