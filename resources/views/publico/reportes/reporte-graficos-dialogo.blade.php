@@ -79,6 +79,41 @@
     </script>
 
     <script type="text/javascript">
+        google.charts.load('current', {packages:['corechart']});
+        google.charts.setOnLoadCallback(drawStuff);
+
+          function drawStuff() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Cadena SIPOC');
+            data.addColumn('number', 'Propuestas');
+            data.addRows([
+
+              @foreach($propuestas_solucion_institucion as $propuestas_solucion_institucion)
+                  ['{{ $propuestas_solucion_institucion ->siglas_institucion }}',{{ $propuestas_solucion_institucion ->total}}],  
+                @endforeach
+            ]);
+
+           var options = {
+             title: 'Propuestas por Institución',
+             width: 900,
+             height: 300,
+             legend: 'none',
+             bar: {groupWidth: '95%'},
+             vAxis: { gridlines: { count: 4 } }
+           };
+
+           var chart = new google.visualization.ColumnChart(document.getElementById('number_format_chart_solucion_institucion'));
+           chart.draw(data, options);
+
+           document.getElementById('format-select').onchange = function() {
+             options['vAxis']['format'] = this.value;
+             chart.draw(data, options);
+           };
+        };  
+      
+    </script>
+
+    <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -135,17 +170,17 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          @foreach($propuestas_ambito as $propuestas_ambitos)
-      	    ['{{ $propuestas_ambitos ->nombre_ambit }}',{{ $propuestas_ambitos ->total}}],  
+          @foreach($propuestas_provincia as $propuestas_provincia)
+      	    ['{{ $propuestas_provincia ->nombre_provincia }}',{{ $propuestas_provincia ->total}}],  
       	  @endforeach
         ]);
 
         var options = {
-          title: 'NÚMERO DE PROPUESTAS POR AMBITO',
+          title: 'NÚMERO DE PROPUESTAS POR PROVINCIA',
           pieHole: 0.4,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart_ambito'));
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart_provincia'));
         chart.draw(data, options);
       }
     </script>
@@ -177,22 +212,37 @@
 				<div class="col-md-12">
 
 					<div class="row">
-		                <div class="col-md-12">
-		                    <div class="panel panel-inverse" data-sortable-id="chart-js-2">
-                            <div class="panel-heading">
-                              <h4 class="panel-title">ACTIVIDADES REGISTRADAS PROPUESTAS POR INSTITUCIÓN</h4>
+	                <div class="col-md-12">
+	                    <div class="panel panel-inverse" data-sortable-id="chart-js-2">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">ACTIVIDADES REGISTRADAS PROPUESTAS POR INSTITUCIÓN</h4>
+                          </div>
+	                        <div class="panel-body">
+                            <div>
+                            	<div id="number_format_chart_institucion"></div>
                             </div>
-		                        <div class="panel-body">
-	                            <div>
-                              	<div id="number_format_chart_institucion"></div>
-	                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
 
-
-		            <!-- begin row -->
+            <!-- begin row -->
+            <div class="row">
+                  <div class="col-md-12">
+                      <div class="panel panel-inverse" data-sortable-id="chart-js-2">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">PROPUESTAS POR INSTITUCIÓN</h4>
+                          </div>
+                          <div class="panel-body">
+                            <div>
+                              <div id="number_format_chart_solucion_institucion"></div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            <!-- end row -->
+		        <!-- begin row -->
             <div class="row">
                 <!-- begin col-6 -->
                 <div class="col-md-6">
@@ -218,7 +268,7 @@
                         <div class="panel-body">
                             <div>
                                 
-                                <div id="donutchart_ambito"  style="width: 600px; height: 400px;"></div>
+                                <div id="donutchart_provincia"  style="width: 600px; height: 400px;"></div>
                             </div>
                         </div>
                     </div>
@@ -227,40 +277,7 @@
             </div>
             <!-- end row -->
 
-            <!-- begin row -->
-            <div class="row">
-                <!-- begin col-6 -->
-                <div class="col-md-6">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-5">
-                        <div class="panel-heading">
-						  PROPUESTAS POR TEMÁTICA
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                            	<div id="piechart_verbo"  style="width: 600px; height: 400px;"></div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- end col-6 -->
-                <!-- begin col-6 -->
-                <div class="col-md-6">
-                    <div class="panel panel-inverse" data-sortable-id="chart-js-6">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">NÚMERO DE PROPUESTAS POR CADENA PRODUCTIVA</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                                <div id="number_format_chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col-6 -->
-            </div>
-            <!-- end row -->
+            
 				
 				</div>
 				<!-- Final cuadrados -->
