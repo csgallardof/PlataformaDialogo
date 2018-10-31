@@ -589,6 +589,8 @@
 
 				
 					<?php if(!isset($_SESSION['ciudadano_evalua'])){ ?>
+
+						<?php if(!isset($_COOKIE['ciudadano_cont'])){ ?>
 						@if(!Session::has('ciudadano_evalua'))
 						<div class="panel panel-inverse overflow-hidden">
 							<div class="panel-heading header_detail_propuesta">
@@ -677,6 +679,7 @@
 							</div>
 						</div>
 					    @endif
+					    <?php } ?>
 					<?php } ?>
 				
 						<!-- fin de panel de evaluacion de ciudadanos-->
