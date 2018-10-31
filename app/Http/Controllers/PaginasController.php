@@ -641,7 +641,39 @@ class PaginasController extends Controller
 
 
     public function detalledespliegue2(Request $request, $idSolucion){
- 
+
+
+        $solucion = Solucion::where('solucions.id','=',$idSolucion)
+                                ->join('mesa_dialogo','mesa_dialogo.id','=','solucions.mesa_id')
+                                ->select('mesa_dialogo.*','solucions.*')
+                                ->first();
+        //dd($solucion);
+
+        $actoresSoluciones = ActorSolucion::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('tipo_actor','ASC')->get();
+
+       // dd(count($actoresSoluciones));
+
+        $actividades = Actividad::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('created_at','DESC')
+                                            ->get();
+         $actividadUltima = Actividad::where('solucion_id','=',$idSolucion)
+                                            ->orderBy('created_at','DESC')
+                                            ->first();
+
+
+        return view('detalle-despliegue2')->with([
+                                            "solucion"=>$solucion,
+                                            "actoresSoluciones"=>$actoresSoluciones,
+                                            "actividadUltima"=>$actividadUltima,
+                                            "actividades"=>$actividades
+                                        ]);
+    }
+
+
+    public function detallepropuesta(Request $request, $idSolucion){
+
+         
         $solucion = Solucion::where('solucions.id','=',$idSolucion)
                                 ->join('mesa_dialogo','mesa_dialogo.id','=','solucions.mesa_id')
                                 ->select('mesa_dialogo.*','solucions.*')

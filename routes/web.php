@@ -393,6 +393,8 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      Route::post('actividad/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@saveActividad','as'=>'actividades.saveActividad']);
 
+     Route::get('/detalle-propuesta/{id}/{tipo_perfil}','PaginasController@detallepropuesta');
+
 
 
 
