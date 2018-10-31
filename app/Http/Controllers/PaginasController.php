@@ -1264,8 +1264,7 @@ class PaginasController extends Controller
         $propuestas_estado = DB::select("SELECT estado_solucion.nombre_estado, count(solucions.id) AS total
                             FROM solucions
                             INNER JOIN estado_solucion ON solucions.estado_id = estado_solucion.id
-                            WHERE  solucions.sector_id = 7
-                            GROUP BY estado_solucion.nombre_estado");
+                            GROUP BY estado_solucion.nombre_estado;");
                             $propuestas_estado=Collection::make($propuestas_estado);
 
         $propuestas_ambito = DB::select("SELECT ambits.nombre_ambit, count(solucions.id) AS total
@@ -1280,19 +1279,35 @@ class PaginasController extends Controller
                             INNER JOIN actor_solucion ON solucions.id = actor_solucion.solucion_id
                             INNER JOIN actividades ON solucions.id = actividades.solucion_id
                             INNER JOIN users ON actor_solucion.user_id = users.id
-                            WHERE  solucions.sector_id = 7
-                            GROUP BY  solucions.responsable_solucion ORDER BY total DESC");
+                            GROUP BY  solucions.responsable_solucion ORDER BY total desc limit 10;");
                             $propuestas_institucion=Collection::make($propuestas_institucion);
+
+
+        $propuestas_solucion_institucion = DB::select("SELECT institucions.siglas_institucion, count(institucions.id) as total
+                            FROM solucions
+                            inner join actor_solucion on solucions.id = actor_solucion.solucion_id 
+                            inner join institucions on institucions.id = actor_solucion.institucion_id
+                            group by institucions.id order by total desc limit 10;");
+                            $propuestas_solucion_institucion=Collection::make($propuestas_solucion_institucion);
+
+        $propuestas_provincia = DB::select("SELECT provincias.nombre_provincia, count(provincias.id) as total
+                            from solucions
+                            inner join mesa_dialogo on mesa_dialogo.id = solucions.mesa_id 
+                            inner join provincias on provincias.id = mesa_dialogo.provincia_id 
+                            group by provincias.nombre_provincia order by total desc");
+                            $propuestas_provincia=Collection::make($propuestas_provincia);
 
 
 
                             
-        return view('publico.reportes.reporte-graficos')->with([
+        return view('publico.reportes.reporte-graficos-dialogo')->with([
                                                 "sipoc"=>$sipoc,
                                                 "verbo_solucion" =>$verbo_solucion,
                                                 "propuestas_estado" =>$propuestas_estado,
                                                 "propuestas_ambito" =>$propuestas_ambito,
-                                                "propuestas_institucion" => $propuestas_institucion
+                                                "propuestas_institucion" => $propuestas_institucion,
+                                                "propuestas_solucion_institucion" => $propuestas_solucion_institucion,
+                                                "propuestas_provincia" => $propuestas_provincia
                                                 
                                                 ]);
         

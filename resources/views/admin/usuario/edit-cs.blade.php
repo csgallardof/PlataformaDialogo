@@ -22,11 +22,12 @@
 
                             <div class="col-md-6">
                                 <select class="form-control" name="institucion_id" id="institucion_id">
-                                   @if( isset($usuario_consejo) )
-                                    @foreach( $usuario_consejo as $usuario_consejo)
-                                    <option value="{{ $usuario_consejo->id}}">
-                                        {{ $usuario_consejo->siglas_institucion}} /{{ $usuario_consejo->nombre_institucion}}
+                                   @if( isset($usuarios_consejo) )
+                                    @foreach( $usuarios_consejo as $usuarios_consejo)
+                                    <option value="{{ $usuarios_consejo->id}}" >
+                                        {{ $usuarios_consejo->siglas_institucion}} /{{ $usuarios_consejo->nombre_institucion}}
                                     </option>
+                                    
                                     @endforeach
                                     @endif
                                 </select>

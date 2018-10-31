@@ -1811,13 +1811,13 @@ legend {
 /* 3.15 Component - Panel */
 
 .panel {
+    margin-top: 39px;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-
 }
 .panel.panel-no-rounded-corner .panel-heading,
 .panel.panel-no-rounded-corner .panel-body,
@@ -1954,6 +1954,7 @@ legend {
 .panel-primary > .panel-heading,
 .panel-info > .panel-heading {
     color: #fff;
+
 }
 .panel-inverse > .panel-heading { background: #0c3c55; }
 .panel-success > .panel-heading { background: #008a8a; }

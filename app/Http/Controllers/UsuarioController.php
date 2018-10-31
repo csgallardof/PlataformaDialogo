@@ -161,12 +161,12 @@ class UsuarioController extends Controller {
             'email.unique' => 'Ya existe un usuario con ese email'
         ]);
 
-
         $usuario->name = $request->nombre_usuario;
         $usuario->apellidos = $request->apellidos_usuario;
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->institucion_id = $request->institucion_id;
+        $usuario->remember_token = $request->_token;
        
         $password = str_split($request->nombre_usuario,3)[0].
                     str_split($request->email,3)[0].
@@ -209,7 +209,7 @@ class UsuarioController extends Controller {
              $roleUser ->user = $usuarioGuardado[0]->id; 
               $roleUserQuery =  DB::select('SELECT * from role_user where role_id = 2 and user_id = '.$usuarioGuardado[0]->id.' limit 1');
      
-              if (!empty($roleUserQuery)){
+              if (empty($roleUserQuery)){
                     $roleUser->save();
                   //  return redirect('consejo-sectorial/listar-usuario');
                   
@@ -384,9 +384,7 @@ class UsuarioController extends Controller {
 
     public function editarUsuarioConsejo($id) { 
         $usuario = User::find($id);
-       
-        $usuario_consejo= DB::select('SELECT institucions.id , institucions.nombre_institucion, institucions.siglas_institucion        
-        from institucions
+        $usuarios_consejo= DB::select('SELECT institucions.id, institucions.nombre_institucion, institucions.siglas_institucion from institucions
         inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
         inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
         where consejo_sectorials.id=(select consejo_sectorials.id
@@ -395,10 +393,15 @@ class UsuarioController extends Controller {
         inner join institucions on institucions.id = institucion_usuarios.institucion_id
         inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
         inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
-        where users.id ='.Auth::user()->id.') order by institucions.id desc');
+        where users.id ='.Auth::user()->id.') order by institucions.id desc');   
+//dd($usuarios_consejo);
+        $institucion_usuario= DB::select('SELECT institucion_id, usuario_id      
+        from institucion_usuarios 
+        where usuario_id ='.$usuario ->id.'');
 
-        return view('admin.usuario.edit-cs')->with(["usuario_consejo" => $usuario_consejo,
-                                                    "usuario" =>$usuario]);
+  
+        return view('admin.usuario.edit-cs')->with(["usuarios_consejo" => $usuarios_consejo,
+                                                    "usuario" =>$usuario, "institucion_usuario" => $institucion_usuario]);
         
     }
 

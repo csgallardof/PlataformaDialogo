@@ -17,7 +17,7 @@ class InstitucionUsuarioController extends Controller
      public function index() {
         $institucionUsuario =   InstitucionUsuario::all();
         
-        //dd($institucionUsuario);
+       //dd($institucionUsuario);
 
         return view('admin.institucionusuario.home')->with(["institucionUsuarios" => $institucionUsuario]); 
     }
