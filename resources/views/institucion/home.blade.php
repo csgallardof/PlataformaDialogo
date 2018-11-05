@@ -34,26 +34,20 @@
             </div> -->
 			<!-- end page-header -->
 
-			<!-- begin row -->
+			
+<!-- begin row -->
 			<div class="row">
 				<!-- begin col-3 -->
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
 							<h4>TOTAL DE PROPUESTAS</h4>
-							@if (isset($totalDespliegue) )
-								@if(isset($totalConsejo) )
-									<p>{{ $totalDespliegue + $totalConsejo }}</p>
-								@else
-									<p>{{ $totalDespliegue }}</p>
-								@endif
-							@else
-								@if(isset($totalConsejo) )
-									<p>{{ $totalConsejo }}</p>
+								@if(isset($totalPropuestas) )
+									<p>{{ $totalPropuestas }}</p>
 								@else
 									<p>0</p>
 								@endif
-							@endif
+							
 						</div>
 					</div>
 				</div>
@@ -62,11 +56,11 @@
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							<h4>MESAS COMPETITIVAS</h4>
-							@if (isset($totalDespliegue) )
-								<p>{{ $totalDespliegue }} Propuestas</p>
+							<h4><a href="/institucion/ver-propuestas-unificadas">PROPUESTAS AJUSTADAS</a></h4>
+							@if (isset($totalPropuestaAjustada) )
+								<p>{{ $totalPropuestaAjustada }}</p>
 							@else
-								<p>0 Propuestas</p>
+								<p>0</p>
 							@endif
 						</div>
 					</div>
@@ -76,11 +70,11 @@
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							<h4>CONSEJO CONSULTIVO</h4>
-							@if (isset($totalConsejo) )
-								<p>{{ $totalConsejo }} Propuestas</p>
+							<h4><a href="propuestas-en-conflicto">PROPUESTAS EN CONFLICTO</a></h4>
+							@if (isset($totalPropuestaConflicto) )
+								<p>{{ $totalPropuestaConflicto }}</p>
 							@else
-								<p>0 Propuestas</p>
+								<p>0</p>
 							@endif
 						</div>
 					</div>
@@ -90,7 +84,12 @@
 				<div class="col-md-3 col-sm-6">
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
-							<h4>
+							<h4><a href="propuestas-desestimadas">PROPUESTAS DESESTIMADAS</a></h4>
+							@if (isset($totalPropuestaDesestimada) )
+								<p>{{ $totalPropuestaDesestimada }}</p>
+							@else
+								<p>0</p>
+							@endif
 						</div>
 					</div>
 				</div>

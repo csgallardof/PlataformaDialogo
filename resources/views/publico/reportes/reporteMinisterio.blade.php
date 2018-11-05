@@ -74,6 +74,14 @@
                        </a>  
                        @endif
                     </div>
+
+                    <div class="col-md-2">
+                      @if(  $fechaInicial != null && $fechaFinal != null )
+                      <a class="link" href=" {{ route('exportarGrafico.ReporteMinisterio', [ $fechaInicial, $fechaFinal ] ) }} " target="_self">
+                           <button  type="button"  class="btn btn-primary" id="graf" name="graf" >Descargar Gráfico </button>
+                       </a>  
+                       @endif
+                      </div> 
                      <div class="col-md-4"></div>
 
                         <br /><br />

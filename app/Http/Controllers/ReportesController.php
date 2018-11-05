@@ -2589,4 +2589,233 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
     }
 
 
+   public function exportarGraficoReporteMinisterio(Request $request){
+
+
+ 	$vistaurl="publico.reportes.reporteConsejoPdf";
+ 	$idInstitucion = $request->codInstitucion;
+    $idBusqueda = $request->codInstitucion;
+
+    $hoy = date("d/m/Y"); 
+    $periodo = $request->periodo;
+
+	$fechaInicial = $request->fechaInicial;
+
+	$fechaFinal = $request->fechaFinal;
+
+	$institucionUsuario = $this->obtenerInstitucionUsuario($idInstitucion);
+
+	$institucion = new Institucion();
+
+	$institucion = $this-> obtenerInstitucion($idInstitucion);
+
+
+	$nombreinstitucion = $institucion[0]->nombre_institucion;
+
+	$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+			                            ->get();
+	$nombreusuario = $usuario[0]->name;
+	
+	$idInstituciones = $this->obtenerInstitucionesConsejo($idInstitucion);
+
+
+	$consejo = $this -> obtenerConsejo($idInstitucion);
+
+	$nombreConsejo = $consejo[0]->nombre_consejo; 
+
+	$listaMinisterioPorConsejo = $this -> obtenerMinisteriosPorConsejo($idInstitucion);
+
+
+	$idInstituciones =  0;
+	foreach($listaMinisterioPorConsejo as $lista){
+		$idInstituciones1 =  $lista->idInstitucion;
+	    $idInstituciones =  $idInstituciones1.",".$idInstituciones;
+	}
+			    $resultadosreporte = ActorSolucion::select('solucions.*','institucions.id', 'institucions.nombre_institucion', 'politicas.nombre_politica')
+			                      
+			                                 ->join('solucions', 'solucions.id', '=', 'actor_solucion.solucion_id')
+			                                 ->join('institucions', 'institucions.id', '=', 'actor_solucion.institucion_id')
+			                                 ->join('politicas', 'politicas.id', '=', 'solucions.politica_id')
+			                               
+			                                 ; 
+
+
+			 $propuestasRecibidas = $this -> obtenerPropuestasRecibidas($idInstitucion,$fechaInicial,$fechaFinal);
+
+			 
+		
+			if($propuestasRecibidas){
+				$numPropuestasRecibidas = $propuestasRecibidas[0]->propuestasRecibidas;
+			}else{
+				$numPropuestasRecibidas = 0;
+			}
+			
+
+
+			$propuestasDesestimadas = $this -> obtenerPropuestasDesestimadas($idInstitucion,$fechaInicial,$fechaFinal);
+
+			if($propuestasDesestimadas){
+				$numPropuestasDesestimadas = $propuestasDesestimadas[0]->propuestasDesestimadas;
+			}else{
+				$numPropuestasDesestimadas = 0;
+			}
+
+			
+
+			$numPropuestasValidadas = $numPropuestasRecibidas - $numPropuestasDesestimadas;
+
+			
+
+
+			$propuestasAnalisadas = $this -> obtenerPropuestasAnalisadas($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasAnalisadas){
+				$numPropuestasAnalisadas = $propuestasAnalisadas[0]->propuestasAnalisadas;
+			}else{
+				$numPropuestasAnalisadas = 0;
+			}
+
+			
+
+			$propuestasPolitica = $this -> obtenerPropuestasPolitica($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasPolitica){
+				$numPropuestasPolitica = $propuestasPolitica[0]->propuestasPolitica;
+			}else{
+				$numPropuestasPolitica = 0;
+			}
+
+			//dd($numPropuestasPolitica);
+
+			$propuestasLeyes = $this -> obtenerPropuestasLeyes($idInstitucion,$fechaInicial,$fechaFinal);
+
+			if($propuestasLeyes){
+				$numPropuestasLeyes = $propuestasLeyes[0]->propuestasLeyes;
+			}else{
+				$numPropuestasLeyes = 0;
+			}
+
+
+			$propuestasDesarrolladas = $this -> obtenerPropuestasDesarrolladas($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasDesarrolladas){
+				$numPropuestasDesarrolladas = $propuestasDesarrolladas[0]->propuestasDesarrolladas;
+			}else{
+				$numPropuestasDesarrolladas = 0;
+			}
+			//dd($numPropuestasDesarrolladas);
+
+
+			$propuestasFinalisadas = $this -> obtenerPropuestasFinalisadas($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasFinalisadas){
+				$numPropuestasFinalisadas = $propuestasFinalisadas[0]->propuestasFinalisadas;
+			}else{
+				$numPropuestasFinalisadas = 0;
+			}
+			//dd($numPropuestasAnalisadas);
+
+			$propuestasEnConflicto = $this -> obtenerPropuestasEnConflicto($idInstitucion,$fechaInicial,$fechaFinal);
+
+
+			if($propuestasEnConflicto){
+				$numPropuestasConflicto = $propuestasEnConflicto[0]->propuestasEnConflicto;
+			}else{
+				$numPropuestasConflicto = 0;
+			}
+
+			$propuestasPlazoLargo = $this -> obtenerPropuestasPlazoLargo($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasPlazoLargo){
+				$numPropuestasPlazoLargo = $propuestasPlazoLargo[0]->largo;
+			}else{
+				$numPropuestasPlazoLargo = 0;
+			}
+			//dd($numPropuestasPlazoLargo);
+
+
+			$propuestasPlazoMediano = $this -> obtenerPropuestasPlazoMediano($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasPlazoMediano){
+				$numPropuestasPlazoMediano = $propuestasPlazoMediano[0]->mediano;
+			}else{
+				$numPropuestasPlazoMediano = 0;
+			}
+			//dd($numPropuestasPlazoMediano);
+
+
+			$propuestasPlazoCorto = $this -> obtenerPropuestasPlazoCorto($idInstitucion,$fechaInicial,$fechaFinal);
+
+			
+			if($propuestasPlazoCorto){
+				$numPropuestasPlazoCorto = $propuestasPlazoCorto[0]->corto;
+			}else{
+				$numPropuestasPlazoCorto = 0;
+			}
+			//dd($numPropuestasPlazoMediano);
+
+$propuestasPorMesa = $this -> obtenerPropuestasPorMesa($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+//dd($propuestasPorMesa);
+
+$propuestasPorMesaFinalizadas = $this -> obtenerPropuestasPorMesaFinalizadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+$propuestasPlanificadas = $this -> obtenerPropuestasPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+if($propuestasPlanificadas){
+	$numPropuestasPlanificadas = $propuestasPlanificadas[0]->numPlanificadas;
+}else{
+	$numPropuestasPlanificadas = 0;
+}
+
+$propuestasNoPlanificadas = $this -> obtenerPropuestasNoPlanificadas($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+if($propuestasNoPlanificadas){
+	$numPropuestasNoPlanificadas = $propuestasNoPlanificadas[0]->numNoPlanificadas;
+}else{
+	$numPropuestasNoPlanificadas = 0;
+}
+
+$propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsejo,$fechaInicial,$fechaFinal);
+
+
+        $date = date('Y-m-d');
+     
+        $view = \View::make($vistaurl, compact('date'))->with( [ "hoy" => $hoy,"nombreusuario" => $nombreusuario,
+        	                                                     "idBusqueda" => $idBusqueda,
+        	                                                      "fechaInicial" =>$fechaInicial,
+                                                                  "fechaFinal" => $fechaFinal, 
+        	                                                      "nombreinstitucion"=> $nombreinstitucion,
+        	                                                      "nombreConsejo" => $nombreConsejo,
+        	                                                      "numPropuestasRecibidas" => $numPropuestasRecibidas,
+        	                                                      "numPropuestasDesestimadas" => $numPropuestasDesestimadas,
+        	                                                      "numPropuestasValidadas" => $numPropuestasValidadas,
+        	                                                      "numPropuestasAnalisadas" => $numPropuestasAnalisadas,
+        	                                                      "numPropuestasDesarrolladas" => $numPropuestasDesarrolladas,
+        	                                                      "numPropuestasFinalisadas" => $numPropuestasFinalisadas,
+        	                                                      "numPropuestasConflicto" => $numPropuestasConflicto,
+        	                                                      "numPropuestasPolitica" => $numPropuestasPolitica,
+        	                                                      "numPropuestasLeyes" => $numPropuestasLeyes,
+        	                                                      "numPropuestasPlazoLargo" => $numPropuestasPlazoLargo,
+        	                                                      "numPropuestasPlazoMediano" => $numPropuestasPlazoMediano,
+        	                                                      "numPropuestasPlazoCorto" => $numPropuestasPlazoCorto,
+        	                                                      "numPropuestasPlanificadas" => $numPropuestasPlanificadas,
+        	                                                      "numPropuestasNoPlanificadas" => $numPropuestasPlanificadas,
+        	                                                      "propuestasPorMesa" => $propuestasPorMesa,
+        	                                                      "propuestasPorAmbito" => $propuestasPorAmbito  
+        	                                                      ] )->render();
+       
+        $pdf = \App::make('dompdf.wrapper');
+        
+        $pdf->loadHTML($view);
+      
+        return $pdf->download('ReporteConsejo.pdf');
+
+
+   } 
+
+
 }
