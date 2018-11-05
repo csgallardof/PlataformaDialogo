@@ -393,6 +393,8 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      Route::post('actividad/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@saveActividad','as'=>'actividades.saveActividad']);
 
+     Route::get('/detalle-propuesta/{id}',['uses'=>'PaginasController@detallepropuesta', 'as'=>'detallePropuesta']);
+
 
 
 
@@ -610,6 +612,8 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::post('actividad-aperturar-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@AperturarPropuestaSolucion','as'=>'actividadAperturar.saveActividad']);
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+
+     Route::get('/detalle-propuesta/{id}',['uses'=>'PaginasController@detallepropuestaConsejo', 'as'=>'detallePropuesta']);
 
   //consejo-sectorial/activar/{idSolucion}
      Route::get('activar/{idSolucion}',['uses'=>'ConsejoSectorialController@activarSolucion','as'=>'consejo.activarSolucion']);
