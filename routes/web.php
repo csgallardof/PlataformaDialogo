@@ -19,10 +19,39 @@ Route::post('/enviarCorreoNotificacionCiudadano/', ['uses'=>'NotificacionCiudada
 
 Route::post('/enviaCorreoCiudadano/{idSolucion}', ['uses'=>'NotificacionCiudadanoController@enviarCorreoEvCd','as'=>'evaluacion.correoCiudadano']);
 
+/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181104 */
 
 
+/*
+Route::get('usurioss/{id}',function($id){
+  return "Mostrando el detalle del usuario {$id}";
+})->where('id','[0-9]+');
+
+*/
 
 
+Route::get('usurioss/{id}','TestOneController@show')->where('id','[0-9]+');
+
+
+Route::get('usurioss/nuevo',function(){
+  return "Creando usuario nuevo";
+
+});
+
+Route::get('userss','TestOneController@testone');
+
+Route::get('greentings/{name}/{nickname?}',function($name,$nickname=null){
+  if ($nickname) {
+      return "Bienvenido {$name} y tu alias {$nickname}";
+  }
+else {
+  return "Bienvenido {$name} y no tienes alias";
+}
+
+
+});
+
+/*PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181104 */
 Route::post('/registrarCorreoNotificacion/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEmail','as'=>'notificacion.saveCiudadano']);
 
 Route::post('/registrarEvaluacionC/{idSolucion}',['uses'=>'NotificacionCiudadanoController@saveCiudadanoEval','as'=>'ciudadano.saveCiudadanoEval']);
@@ -358,8 +387,7 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
 
 
 
-Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
-
+     Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      Route::get('home','InstitucionController@home');  //página dashboard para las instituciones
 

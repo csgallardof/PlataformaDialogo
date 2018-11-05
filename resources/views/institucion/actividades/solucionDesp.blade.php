@@ -38,9 +38,9 @@
 				<!-- end col-12 -->
 			</div>
 			<!-- end row -->
-			
+
 			<!-- begin row -->
-			
+
 			<div class="row">
 				<!-- begin col-8 -->
 				<div class="col-md-8">
@@ -68,7 +68,7 @@
 											<!-- <a href="#" class="btn	btn-warning pull-right">Finalizar</a> -->
 											<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>&nbsp;&nbsp;
 
-											
+
 											@if($solucion->estado_id==1)
 												<a href="#modal-desestimada" data-toggle="modal" class="btn btn-warning"><i class="fa fa-warning" aria-hidden="true"></i> Desestimada</a>&nbsp;&nbsp;
 											@endif
@@ -80,15 +80,15 @@
 
 												<a href="{{ route('actividades.createDespliegue',$solucion->id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Nueva</a>&nbsp;&nbsp;
 												@if(count($actividades) > 0)
-													
+
 													<a href="{{ route('solucion.parametrosCumplimiento',$solucion->id) }}" class="btn btn-warning "> Definir Parametros de Cumplimiento</a>
-												
+
 													<a href="#modal-alert" class="btn btn-primary" data-toggle="modal">Finalizar Propuesta</a>
 
 												@endif
 											@endif
 									@endif
-									
+
 									<h3>LISTA DE ACTIVIDADES</h3><hr>
 									@if( isset( $actividades ) && count($actividades) > 0)
 										<?php $count=count($actividades) ; ?>
@@ -207,12 +207,12 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						<h4 class="modal-title"><br>ALERTA DE FINALIZAR PROPUESTA</h4>
-					
+
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-info m-b-0">
 							<h4><i class="fa fa-info-circle"></i><strong>Usted esta seguro de  Finalizar Propuesta</strong></h4>
-							<p> <strong> Para Finalizar la Propuesta debe  registrar una última actividad.</strong> <br> <br>Clic en <strong>Continuar</strong> si desea finalizar la Propuesta. <br><br> 
+							<p> <strong> Para Finalizar la Propuesta debe  registrar una última actividad.</strong> <br> <br>Clic en <strong>Continuar</strong> si desea finalizar la Propuesta. <br><br>
 								<strong>Recuerde</strong> una vez finalizada la propuesta no podra registrar mas actividades. <br><br>
 								</p>
 						</div>
@@ -236,12 +236,12 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						<h4 class="modal-title"><br>ALERTA DE PROPUESTA EN CONFLICTO</h4>
-					
+
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-info m-b-0">
 							<h4><i class="fa fa-info-circle"></i><strong>Esta propuesta cambiará de estado en CONFLICTO</strong></h4>
-							<p> <strong> Al momento cambiar de estado, se crea una alerta para el Consejo Sectorial que preside a su institución.</strong> <br> <br>Clic en <strong>Continuar</strong> si desea finalizar la Propuesta. <br><br> 
+							<p> <strong> Al momento cambiar de estado, se crea una alerta para el Consejo Sectorial que preside a su institución.</strong> <br> <br>Clic en <strong>Continuar</strong> si desea finalizar la Propuesta. <br><br>
 								<strong>Recuerde</strong> una vez que cambie de estado la propuesta no podra registrar más actividades. <br><br>
 								</p>
 						</div>
@@ -265,7 +265,7 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						<h4 class="modal-title"><br>ALERTA DE PROPUESTA EN DESESTIMADA</h4>
-					
+
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-info m-b-0">

@@ -33,10 +33,10 @@
 						<div class="stats-link">
 							<br>
 							@if($solucion->nombre_estado =="Finalizado")
-                                <span class="label label-success f-s-12"  style="background-color: #28B463">                
+                                <span class="label label-success f-s-12"  style="background-color: #28B463">
                                         {{$solucion->nombre_estado}}
                                 </span>
-                                        
+
                             @endif
 						</div>
 					</div>
@@ -44,9 +44,9 @@
 				<!-- end col-12 -->
 			</div>
 			<!-- end row -->
-			
+
 			<!-- begin row -->
-			
+
 			<div class="row">
 				<!-- begin col-8 -->
 				<div class="col-md-8">
@@ -69,7 +69,7 @@
 
 								<div class="media-body">
 
-									<?php 
+									<?php
 												//dd($solucion->estado_id);
 												//echo  $actividad = count($actividades) ?>
 
@@ -77,20 +77,20 @@
 
 
 
-											
 
-                                          
-										
+
+
+
 											<!-- <a href="#" class="btn	btn-warning pull-right">Finalizar</a> -->
 											<!--<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>-->
 											<a href="{{ url('consejo-sectorial/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>
-											&nbsp;&nbsp; 
+											&nbsp;&nbsp;
 											@if($solucion->estado_id == 6)
 											   <a href="{{ route('consejo.activarSolucion',$solucion->id) }}" class="btn btn-default pull-left">Activar</a>
 											@endif
 
 											@if($solucion->estado_id == 4 )
-											
+
 											<a href="#modal-alert" class="btn btn-danger" data-toggle="modal">Aperturar Propuesta</a>
 											<!-- #modal-alert -->
 												<div class="modal fade" id="modal-alert">
@@ -99,12 +99,12 @@
 															<div class="modal-header">
 																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 																<h4 class="modal-title"><br>ALERTA APERTURAR PROPUESTA</h4>
-															
+
 															</div>
 															<div class="modal-body">
 																<div class="alert alert-info m-b-0">
 																	<h4><i class="fa fa-info-circle"></i><strong>Usted esta seguro aperturara un propuesta</strong></h4>
-																	<p> <strong> Para aperturar la Propuesta debe  registrar una el motivo actividad.</strong> <br> <br>Click en <strong>Continuar</strong> si desea aperturar la Propuesta. <br><br> 
+																	<p> <strong> Para aperturar la Propuesta debe  registrar una el motivo actividad.</strong> <br> <br>Click en <strong>Continuar</strong> si desea aperturar la Propuesta. <br><br>
 																		<strong>Recuerde</strong> <br>
 																		</p>
 																</div>
@@ -122,7 +122,7 @@
 											@endif
 
 
-										
+
 									@endif
 
 

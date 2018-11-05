@@ -170,11 +170,11 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
 ------------------------------- */
 
 
-/*PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
+/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
 /**{
 	border: 1px solid red;
 }*/
-/*PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
+/*PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
 
 
 @font-face {
@@ -471,10 +471,10 @@ label {
 
 /* 2.7 Navbar Dropdown */
 
-.navbar-nav > li.dropdown:hover > .dropdown-menu,
-.navbar-nav > li.dropdown:focus > .dropdown-menu {
-    display: block;
-}
+
+
+
+
 .navbar-nav .dropdown-menu {
     background: #ffffff;
     -webkit-border-radius: 0;
@@ -510,7 +510,7 @@ label {
 /* -------------------------------
         M NAVBAR MIPRO
    -------------------------------*/
-/*PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
+/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
 .navbar .navbar-nav {
   /*display: inline-block;
   float: none;
@@ -522,7 +522,7 @@ label {
 .navbar .navbar-collapse {
   /*text-align: center;*/
 }
-/* PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
+/* PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
 /* -------------------------------
    3.0 HR Styles
 ------------------------------- */
@@ -2812,12 +2812,12 @@ a.text-white:focus {
 ------------------------------- */
 
 /*  5.1 Plugins - jQuery Draggable */
-/*PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
+/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */
 .row > [class*="col-"].ui-sortable {
     min-height: 50px;
     margin-top:23px;
 }
-/*PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
+/*PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181026 */
 .theme-panel [class*="col-"].ui-sortable,
 .panel [class*="col-"].ui-sortable {
     min-height: 0px;
@@ -6917,7 +6917,7 @@ select option {
     margin-top: -5px;
 }
 
-/*<!--PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->*/
+/*<!--PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->*/
 @media screen and (max-width: 1200px) {
   .navbar .navbar-nav {
     /*display: inline-block;
@@ -6926,5 +6926,18 @@ select option {
     padding-top: 12px;
     background-image: -webkit-radial-gradient(50px 100px, circle farthest-corner, #193b68, #022238 250px);
     }
+
    }
-/*<!--PALTAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->*/
+
+   /* On screens that are 600px wide or less, the background color is olive */
+   @media screen and (min-width: 1200px) {
+      .navbar-nav > li.dropdown:hover > .dropdown-menu,
+      .navbar-nav > li.dropdown:focus > .dropdown-menu {
+       display: block;
+      }
+      #navbaruser {
+          margin-left: 160px;
+        }
+   }
+
+/*<!--PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->*/
