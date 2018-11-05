@@ -12,16 +12,17 @@
 @endsection
 
 @section('contenido')
-  
+          
         <!-- begin #about -->
-        <div id="about" class="content work row-m-t-3 p-t-40" data-scrollview="true">
-
+        <div id="about"  data-scrollview="true" > <!--class="content work row-m-t-3 p-t-40" -- >
             <!-- begin container -->
-            <div class="container p-t-25" data-animation="true" data-animation-type="fadeInDown">
-
-                <div class="col-md-12 p-t-25">
-                    <div class="panel-body">
+            <!--<div class="container p-t-25" data-animation="true" data-animation-type="fadeInDown" >-->
+              <div class="container p-t-25" data-animation="true" data-animation-type="fadeInDown" >
+                <div  ><!--class="col-md-12 p-t-25" -->
+                  <div>
+                    <!--<div class="panel-body">-->
                         <h2 class="text-center"><strong>Calendario de Diálogo</strong></h2>
+                        <p>A continuaci&oacuten se presentan los diferentes eventos relacionados con mesas de dialogo que se tienen planificados:</p>                        
                     </div>
                 </div>
 
