@@ -188,7 +188,7 @@
 							</table>
 							<hr>
 							<center>
-							<a class="btn btn-primary  m-b-30 m-l-30" href="/detalle-despliegue-dialogo/{{ $solucion->id}}">Ver Propuesta</a>
+							<a class="btn btn-primary  m-b-30 m-l-30" href="{{ url('institucion/detalle-propuesta',[$solucion->id]) }}">Ver Propuestas</a>
 							</center>
 						</div>
 					</div>
