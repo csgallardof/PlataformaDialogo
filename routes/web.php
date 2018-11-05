@@ -548,6 +548,7 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
  Route::get('/reporte-institucional/descargar-excel/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarExcelReporteMinisterio','as'=>'exportarExcel.ReporteMinisterio']);
  Route::get('/reporte-institucional/descargar-pdf/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteMinisterio','as'=>'exportarPdf.ReporteMinisterio']);
+ Route::get('/reporte-institucional/descargar-grafico/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarGraficoReporteMinisterio','as'=>'exportarGrafico.ReporteMinisterio']);
 
 
    //Mesas de Dialogo

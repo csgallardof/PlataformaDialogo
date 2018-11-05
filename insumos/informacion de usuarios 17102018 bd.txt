@@ -13,3 +13,6 @@ pass: 022676300
 perfil: institucion
 usuario: csgallardoc12@hotmail.com
 pass: 022676300	
+
+usuario: cguanochanga@mipro.gob.ec
+pass: 022676300	
