@@ -29,7 +29,7 @@
                           </ul>
 			                    <ul id="navbaruser" class="nav navbar-nav " style="">
 														<li class="dropdown navbar-user">
-<<<<<<< HEAD
+
 																		<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
 																			<span class="">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
 																		</a>
@@ -62,7 +62,7 @@
 		                                        </form>
 				                  </li>
 													</ul>
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
+
 													</li>
 													</ul>
 			                </div>

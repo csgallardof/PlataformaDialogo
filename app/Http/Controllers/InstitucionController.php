@@ -176,13 +176,13 @@ class InstitucionController extends Controller
                             inner join users on users.id = institucion_usuarios.usuario_id
                             and users.id ='.$usuario_id.')');
 
-<<<<<<< HEAD
 
-=======
+
+
         $totalPropuestas = count($solucionesDespliegue);
-       
-       
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
+
+
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
@@ -198,16 +198,16 @@ class InstitucionController extends Controller
                                                 "totalResponsable"=>$totalResponsable,
                                                 "totalCorresponsable"=>$totalCorresponsable,
                                                 "notificaciones"=>$notificaciones,
-<<<<<<< HEAD
+
                                                 "tipo_fuente"=>$tipo_fuente
                                                  ]);
 
-=======
+
                                                 "tipo_fuente"=>$tipo_fuente,
                                                 "totalPropuestas"=>$totalPropuestas
-                                                 ]);   
-        
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
+                                                 ]);
+
+
     }
 
     //ASIGNACION DE ACTOR SOLUCION
@@ -383,24 +383,18 @@ class InstitucionController extends Controller
 
     }
 
-    public function homeActoresPorAsignar(Request $request){
-
-
-        $actoresSolucionesPorAsignar = DB::SELECT("SELECT solucions.id, solucions.responsable_solucion, solucions.corresponsable_solucion, estado_solucion.nombre_estado, solucions.propuesta_solucion
-from solucions
-JOIN estado_solucion on estado_solucion.id = solucions.estado_id
-join mesa_dialogo on mesa_dialogo.id = solucions.mesa_id
-where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor_solucion)");
-
+    public function homeActoresPorAsignar(Request $request)
+    {
+      $actoresSolucionesPorAsignar = DB::SELECT("SELECT solucions.id, solucions.responsable_solucion, solucions.corresponsable_solucion, estado_solucion.nombre_estado, solucions.propuesta_solucion
+      from solucions
+      JOIN estado_solucion on estado_solucion.id = solucions.estado_id
+      join mesa_dialogo on mesa_dialogo.id = solucions.mesa_id
+      where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor_solucion)");
         return view('admin.actores.homeActoresPorAsignar')->with(["actoresSolucionesPorAsignar"=>$actoresSolucionesPorAsignar]);
-
     }
 
     public function createAsignar(Request $request, $idSolucion )
     {
-
-
-
         $instituciones = DB::table('institucions')
                         ->select('id','nombre_institucion','siglas_institucion')
                         ->orderBy('nombre_institucion')->get();
@@ -408,9 +402,6 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
         $soluciones =  Solucion::find($idSolucion);
 
         //dd($soluciones);
-
-
-
         return view('admin.actores.createAsignar')->with(["instituciones"=>$instituciones,
                                                            "soluciones" =>$soluciones ]);
     }
@@ -536,7 +527,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
         $totalDespliegue = Solucion::where('tipo_fuente','=',1)->count();
         $totalConsejo = Solucion::where('tipo_fuente','=',2)->count();
-        
+
 
         $totalResponsable = ActorSolucion::where('user_id','=',$usuario_id)
                                          ->where('tipo_actor','=','1')->count();
@@ -556,9 +547,9 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
 
 =======
-                                    and users.id ='.$usuario_id);        
+                                    and users.id ='.$usuario_id);
        $totalPropuestaConflicto = count($solucionesDespliegue);
-       
+
 >>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
@@ -581,9 +572,9 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
 =======
                                                 "tipo_fuente"=>$tipo_fuente,
-                                                "totalPropuestaConflicto"=> $totalPropuestaConflicto   
-                                                 ]);   
-        
+                                                "totalPropuestaConflicto"=> $totalPropuestaConflicto
+                                                 ]);
+
 >>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
     }
 
@@ -619,8 +610,8 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
 =======
          $totalPropuestaDesestimada = count($solucionesDespliegue);
-       
-       
+
+
 >>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
@@ -643,9 +634,9 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
 =======
                                                 "tipo_fuente"=>$tipo_fuente,
-                                                "totalPropuestaDesestimada"=> $totalPropuestaDesestimada     
-                                                 ]);   
-        
+                                                "totalPropuestaDesestimada"=> $totalPropuestaDesestimada
+                                                 ]);
+
 >>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
     }
 
