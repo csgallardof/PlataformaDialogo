@@ -229,6 +229,8 @@ class PropuestasUnificadasController extends Controller
 //$idAjustada = $request['idAjustada'];
 $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.comentario_union, id 
                             from pajustadas ; ");
+
+ $totalPropuestaAjustada = count($unificadas);
 //dd($unificadas);
 //dd($unificadas);
 //$detalle = DB::select("select solucions.id, solucions.pajustada, solucions.propuesta_solucion
@@ -238,14 +240,12 @@ $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.coment
         
   
 return view('institucion.PropuestasUnificadas.verPropuestasUnificadas')->with([
-                                                "unificadas"=>$unificadas
+                                                "unificadas"=>$unificadas,
+                                                "totalPropuestaAjustada"=>$totalPropuestaAjustada
                                                 //,"detalle"=>$detalle
                                                
                                                 ]);
-    }
-
-
-
+}
 
 
 //public function detallePropuestasUnificadas(Request $request){

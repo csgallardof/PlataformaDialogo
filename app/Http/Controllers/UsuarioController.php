@@ -161,12 +161,12 @@ class UsuarioController extends Controller {
             'email.unique' => 'Ya existe un usuario con ese email'
         ]);
 
-
         $usuario->name = $request->nombre_usuario;
         $usuario->apellidos = $request->apellidos_usuario;
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
         $usuario->institucion_id = $request->institucion_id;
+        $usuario->remember_token = $request->_token;
        
         $password = str_split($request->nombre_usuario,3)[0].
                     str_split($request->email,3)[0].
@@ -209,7 +209,7 @@ class UsuarioController extends Controller {
              $roleUser ->user = $usuarioGuardado[0]->id; 
               $roleUserQuery =  DB::select('SELECT * from role_user where role_id = 2 and user_id = '.$usuarioGuardado[0]->id.' limit 1');
      
-              if (!empty($roleUserQuery)){
+              if (empty($roleUserQuery)){
                     $roleUser->save();
                   //  return redirect('consejo-sectorial/listar-usuario');
                   
@@ -384,9 +384,7 @@ class UsuarioController extends Controller {
 
     public function editarUsuarioConsejo($id) { 
         $usuario = User::find($id);
-       
-        $usuario_consejo= DB::select('SELECT institucions.id , institucions.nombre_institucion, institucions.siglas_institucion        
-        from institucions
+        $usuarios_consejo= DB::select('SELECT institucions.id, institucions.nombre_institucion, institucions.siglas_institucion from institucions
         inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
         inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
         where consejo_sectorials.id=(select consejo_sectorials.id
@@ -395,10 +393,15 @@ class UsuarioController extends Controller {
         inner join institucions on institucions.id = institucion_usuarios.institucion_id
         inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
         inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
-        where users.id ='.Auth::user()->id.') order by institucions.id desc');
+        where users.id ='.Auth::user()->id.') order by institucions.id desc');   
+//dd($usuarios_consejo);
+        $institucion_usuario= DB::select('SELECT institucion_id, usuario_id      
+        from institucion_usuarios 
+        where usuario_id ='.$usuario->id.'');
 
-        return view('admin.usuario.edit-cs')->with(["usuario_consejo" => $usuario_consejo,
-                                                    "usuario" =>$usuario]);
+        //dd($institucion_usuario[0]->institucion_id);
+        return view('admin.usuario.edit-cs')->with(["usuarios_consejo" => $usuarios_consejo,
+                                                    "usuario" =>$usuario, "institucion_usuario" => $institucion_usuario]);
         
     }
 
@@ -426,26 +429,57 @@ class UsuarioController extends Controller {
         $institucionUsuario = new InstitucionUsuario;
         $usuario = User::find($id);
         $estado = $_REQUEST['estado'];
-               
+        //dd("institucion: ".$request->institucion_id. " -----  usuario:". $usuario->id);
+
+
+       /*
         $this->validate($request, [
-            'nombre_usuario' => 'required',
-            'apellidos_usuario' => 'required',
-            'cedula' => 'required',
-            'email' => 'required'
-                  ]
-                , [
-            'nombre_usuario.required' => 'Debe ingresar el nombre',
-            'apellidos_usuario.required' => 'Debe ingresar los apellidos',
-            'cedula.required' => 'Debe ingresar la cédula',
-            'email.required' => 'Debe ingresar el email'
-        ]);
+                'nombre_usuario' => 'required',
+                'apellidos_usuario' => 'required',
+                'cedula' => 'required',
+                'email' => 'required'                  ]
+                    , [
+                'nombre_usuario.required' => 'Debe ingresar el nombre',
+                'apellidos_usuario.required' => 'Debe ingresar los apellidos',
+                'cedula.required' => 'Debe ingresar la cédula',
+                'email.required' => 'Debe ingresar el email'
+            ]);
+       */
+
+        $rules = [
+                    'nombre_usuario' => 'required',
+                    'apellidos_usuario' => 'required',
+                    'cedula' => 'required',
+                    'email' => 'required'
+                ];
+
+        $customMessages = [
+                    'nombre_usuario.required' => 'Debe ingresar el nombre',
+                    'apellidos_usuario.required' => 'Debe ingresar los apellidos',
+                    'cedula.required' => 'Debe ingresar la cédula',
+                    'email.required' => 'Debe ingresar el email'
+                ];            
+
+
+        if($request->chk_cambio_pwd){
+            $rules['pass']   =  'required';
+            //array_push($rules, 'pass' => 'required');
+            //array_push($customMessages, array('pass.required' => 'Debe ingresar la nueva clave'));
+            $customMessages['pass.required']   =  'Debe ingresar la nueva clave';
+        }
+
+        $this->validate($request, $rules, $customMessages);
 
 
         $usuario->name = $request->nombre_usuario;
         $usuario->apellidos = $request->apellidos_usuario;
         $usuario->cedula = $request->cedula;
         $usuario->email = $request->email;
-        //$usuario->password = $request->password;//falta la encriptacion de la clave
+
+        if($request->chk_cambio_pwd){
+            $usuario->password = bcrypt($request->pass);//falta la encriptacion de la clave
+        }
+        
         $usuario->telefono = $request->telefono;
         $usuario->celular = $request->celular;
         if($estado=='Inactivo'){           
@@ -462,20 +496,23 @@ class UsuarioController extends Controller {
 
          $usuario->save();
 
- $institucionUsuario =  DB::select('SELECT * from institucion_usuarios where institucion_id ='.$request->institucion_id.' and usuario_id ='.$usuario->id.' limit 1');
- $idUsuario = $institucionUsuario[0]->usuario_id;
- $idInstitucion = $institucionUsuario[0]->institucion_id;
+ $institucionUsuarioDB =  DB::select('SELECT * from institucion_usuarios where institucion_id ='.$request->institucion_id.' and usuario_id ='.$usuario->id.' limit 1');
+ $id_insUsuario= $institucionUsuarioDB[0]->id;
+ $idUsuario = $institucionUsuarioDB[0]->usuario_id;
+ $idInstitucion = $institucionUsuarioDB[0]->institucion_id;
 
-$institucionusuario = new  InstitucionUsuario;
-  
+   $institucionusuario = new  InstitucionUsuario;
+   $institucionusuario = InstitucionUsuario::find($id_insUsuario);
    $institucionusuario->institucion_id = $idInstitucion; 
            $institucionusuario->usuario_id = $idUsuario;
            $institucionusuario->activo = $estadoUsuarioInstitucion;
         //$institucionUsuario[0]->activo =  $estadoUsuarioInstitucion;
        
         $institucionusuario->save();
-
-
+        
+        if($request->chk_cambio_pwd){
+           $this->enviarCorreoCambioClave($request->email,$request->pass);
+        }
    $usuarioGuardado = DB::select('SELECT * from users where name ="'.$request->nombre_usuario.'" and cedula = "'.$request->cedula.'"');
    $idTabla = $usuarioGuardado[0] ->id;  
    $nombreTabla = "users";
@@ -486,5 +523,40 @@ $institucionusuario = new  InstitucionUsuario;
    AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion );
    return redirect('consejo-sectorial/listar-usuario');
       }
+
+
+
+
+   /*funcion para envio de correo al actualizar usuario desde consejo sectorial*/
+
+
+   public function enviarCorreoCambioClave($email_destino,$passw){
+        
+        $title='Notificación de actualización de datos de usuario';
+
+        $mensaje_cd  = 'Se actualizó su clave de acceso, por favor ingrese con los siguientes datos:';
+        $mensaje_cd1 = 'Usuario: '.$email_destino;
+        $mensaje_cd2 = 'Clave: '.$passw;
+        $mail_from  ='inteligencia.contacto@gmail.com';
+        $email_destino=$email_destino;
+
+        $fecha = date("Y-m-d");
+        //$emails = ['cgallardo@mipro.gob.ec', 'alexpatde@gmail.com']; //comentar o borrar en produccion
+        $emails = ['alexpatde@gmail.com','alex.dominguez@secom.gob.ec','cgallardo@mipro.gob.ec']; //comentar o borrar en produccion
+        //$emails = [$email_destino]; //descomentar para produccion
+        
+        Mail::send('emails.correoNotificacionUsuario', ['title' => $title, 'mensaje_cd'=>$mensaje_cd, 'mensaje_cd1'=>$mensaje_cd1,  'mensaje_cd2'=>$mensaje_cd2,'mail_from'=>$mail_from], function ($message) use ($emails,$mail_from)
+        {
+
+            $message->from($mail_from, 'Secretaria de Gestión de la Política');
+            $message->to($emails)->subject('Notificación de actualización de datos de usuario');
+
+        });
+        //Flash::success("Su comentario ha sido enviado exitosamente");
+
+    }
+
+
+
 
 }
