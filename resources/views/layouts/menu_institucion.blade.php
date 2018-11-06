@@ -38,7 +38,7 @@
 																			<!--<li class="arrow"></li>-->
 															 				<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
 																			<li>	<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-				                                            		Salir
+				                                     	       		Salir
 				                                        		</a>
 
 						                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -47,22 +47,6 @@
 								                  		</li>
 																	</ul>
 																	<!--/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */-->
-=======
-														<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
-														<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
-														</a>
-														<ul class="dropdown-menu animated fadeInLeft">
-														<li class="arrow"></li>
-											 			<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</a></li>
-														<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            		Salir
-                                        		</a>
-		                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-		                                            {{ csrf_field() }}
-		                                        </form>
-				                  </li>
-													</ul>
-
 													</li>
 													</ul>
 			                </div>

@@ -203,11 +203,6 @@ class InstitucionController extends Controller
                                                  ]);
 
 
-                                                "tipo_fuente"=>$tipo_fuente,
-                                                "totalPropuestas"=>$totalPropuestas
-                                                 ]);
-
-
     }
 
     //ASIGNACION DE ACTOR SOLUCION
@@ -542,15 +537,11 @@ class InstitucionController extends Controller
                                     inner join users on institucion_usuarios.usuario_id = users.id
                                     INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
                                     where estado_solucion.id = 6
-<<<<<<< HEAD
                                     and users.id ='.$usuario_id);
 
-
-=======
-                                    and users.id ='.$usuario_id);
        $totalPropuestaConflicto = count($solucionesDespliegue);
 
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
@@ -566,16 +557,10 @@ class InstitucionController extends Controller
                                                 "totalResponsable"=>$totalResponsable,
                                                 "totalCorresponsable"=>$totalCorresponsable,
                                                 "notificaciones"=>$notificaciones,
-<<<<<<< HEAD
+
                                                 "tipo_fuente"=>$tipo_fuente
                                                  ]);
 
-=======
-                                                "tipo_fuente"=>$tipo_fuente,
-                                                "totalPropuestaConflicto"=> $totalPropuestaConflicto
-                                                 ]);
-
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
     }
 
 
@@ -606,13 +591,8 @@ class InstitucionController extends Controller
                                     where estado_solucion.id = 5
                                     and users.id ='.$usuario_id);
 
-<<<<<<< HEAD
-
-=======
          $totalPropuestaDesestimada = count($solucionesDespliegue);
 
-
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
@@ -628,16 +608,10 @@ class InstitucionController extends Controller
                                                 "totalResponsable"=>$totalResponsable,
                                                 "totalCorresponsable"=>$totalCorresponsable,
                                                 "notificaciones"=>$notificaciones,
-<<<<<<< HEAD
+
                                                 "tipo_fuente"=>$tipo_fuente
                                                  ]);
 
-=======
-                                                "tipo_fuente"=>$tipo_fuente,
-                                                "totalPropuestaDesestimada"=> $totalPropuestaDesestimada
-                                                 ]);
-
->>>>>>> 6ff1d4288696f17cf45be499a61a0ee67d6f27c9
     }
 
 }
