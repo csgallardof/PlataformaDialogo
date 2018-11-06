@@ -4712,7 +4712,7 @@ tbody.collapse.in {
 }
 
 .navbar-nav {
-	margin: 7px -15px
+	margin: 1px -15px
 }
 
 .navbar-nav>li>a {
@@ -4897,12 +4897,13 @@ tbody.collapse.in {
 .navbar-default .navbar-text {
 	color: #777
 }
-
+/*<!--PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->*/
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-	color: #333;
+	color: #6c86e2;
 	background-color: transparent
 }
+/*<!--PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->*/
 
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,

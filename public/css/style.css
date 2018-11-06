@@ -6933,7 +6933,7 @@ select option {
    @media screen and (min-width: 1200px) {
       .navbar-nav > li.dropdown:hover > .dropdown-menu,
       .navbar-nav > li.dropdown:focus > .dropdown-menu {
-       display: block;
+       /*display: block;*/
       }
       #navbaruser {
           margin-left: 160px;

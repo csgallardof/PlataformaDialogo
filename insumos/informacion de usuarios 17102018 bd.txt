@@ -14,5 +14,15 @@ perfil: institucion
 usuario: csgallardoc12@hotmail.com
 pass: 022676300	
 
-usuario: cguanochanga@mipro.gob.ec
-pass: 022676300	
+
+--------------institucional---------------
+menu->cortado en /institucion/reportes
+ver menu usuario->responsive
+
+--------------consejo sectorial------------
+
+-------------------------------------------------
+php artisan serve --host  192.168.202.63 --port 8000
+-----------------------------------------------
+
+

@@ -28,7 +28,7 @@
 			                        <li><a href="/institucion/reportes">Reportes</a></li>
                           </ul>
 			                    <ul id="navbaruser" class="nav navbar-nav " style="">
-														<li class="dropdown navbar-user">
+														<li class=" navbar-user">
 
 																		<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
 																			<span class="">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
@@ -38,7 +38,7 @@
 																			<!--<li class="arrow"></li>-->
 															 				<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
 																			<li>	<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-				                                     	       		Salir
+				                                            		Salir
 				                                        		</a>
 
 						                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
