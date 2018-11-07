@@ -24,7 +24,7 @@
 			                    		<li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a>
 			                        <li><a href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
 			                        <li><a href="propuestas-en-conflicto">Propuestas en  Conflicto</a></li>
-			                        <li><a href="/institucion/propuestas-desestimadas">Propuestas   Desestimadas</a></li>
+			                        <li><a href="/institucion/propuestas-desestimadas">Propuestas Desestimadas</a></li>
 			                        <li><a href="/institucion/reportes">Reportes</a></li>
                           </ul>
 			                    <ul id="navbaruser" class="nav navbar-nav " style="">

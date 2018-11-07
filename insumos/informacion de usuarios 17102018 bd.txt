@@ -15,6 +15,9 @@ usuario: csgallardoc12@hotmail.com
 pass: 022676300	
 
 
+ cguanochanga@mipro.gob.ec
+ 022676300
+
 --------------institucional---------------
 menu->cortado en /institucion/reportes
 ver menu usuario->responsive
