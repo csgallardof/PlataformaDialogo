@@ -401,6 +401,8 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegue','as'=>'verSolucion.despliegue']);
 
+     Route::get('detalle-propuesta/{idSolucion}',['uses'=>'PaginasController@detallepropuesta','as'=>'detallepropuesta']);
+
      Route::get('parametros-cumplimiento/create/{idSolucion}',['uses'=>'ActividadesController@vistaParametrosCumplimiento','as'=>'solucion.parametrosCumplimiento']);
 
      Route::post('/crear-parametros-cumplimiento/{id}',['uses'=>'ActividadesController@crearParametrosCumplimiento','as'=>'crear.ParametrosCumplimiento']);
@@ -641,6 +643,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::post('actividad-aperturar-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@AperturarPropuestaSolucion','as'=>'actividadAperturar.saveActividad']);
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+
+     Route::get('detalle-propuesta/{idSolucion}',['uses'=>'PaginasController@detallepropuestaConsejo','as'=>'detallepropuestaConsejo']);
+
+
 
   //consejo-sectorial/activar/{idSolucion}
      Route::get('activar/{idSolucion}',['uses'=>'ConsejoSectorialController@activarSolucion','as'=>'consejo.activarSolucion']);
