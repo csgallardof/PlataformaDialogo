@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers; 
+namespace App\Http\Controllers;
 use App\ActorSolucion;
 use App\Solucion;
 use App\User;
 use App\Pajustada;
 use DB;
 use Laracasts\Flash\Flash;
-use Mail; 
+use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,9 +20,9 @@ class InstitucionController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $rol = DB::table('roles')->where('nombre_role', "Institución")->first();  //Obtener id rol de participante
-        
+
         $instituciones = User::where('tipo_fuente','=','3')
                             ->whereHas('roles', function ($q) use ($rol) {
                                     $q->where('roles.id', $rol-> id);
@@ -30,7 +30,7 @@ class InstitucionController extends Controller
         ->orderBy('name','ASC')->paginate(25);
 
         //dd($rol);
-        return view('admin.institucion.home')->with(["instituciones"=>$instituciones]); 
+        return view('admin.institucion.home')->with(["instituciones"=>$instituciones]);
 
     }
 
@@ -65,20 +65,20 @@ class InstitucionController extends Controller
         $institucion->email = $request->email;
         $password = str_split($request->nombre_user,3)[0].
                     str_split($request->email,3)[0].
-                    substr($request->cedula, -4);  
+                    substr($request->cedula, -4);
         $institucion->password = bcrypt($password);
         $institucion->tipo_fuente = 3;
         $institucion->sector_id = 0;
         $institucion->vsector_id = 0;
-        
-        $institucion-> save(); 
+
+        $institucion-> save();
         $rol = DB::table('roles')->where('nombre_role', "Institución")->first();
         $institucion->roles()-> attach($rol-> id);
 
         /*$this->enviarCorreoRegistro($institucion , $password);*/
 
         return redirect('/admin/instituciones');
-        
+
     }
 
     /**
@@ -129,8 +129,8 @@ class InstitucionController extends Controller
         $institucion->tipo_fuente = 3;
         $institucion->sector_id = 0;
         $institucion->vsector_id = 0;
-        $institucion-> save(); 
-       
+        $institucion-> save();
+
         return redirect()->route('instituciones.index');
     }
 
@@ -154,11 +154,7 @@ class InstitucionController extends Controller
     {
         $usuario_id = Auth::user()->id;
         //dd($usuario_id);
-
-
         $tipo_fuente = Auth::user()->tipo_fuente;
-       
-
         $totalDespliegue = Solucion::where('tipo_fuente','=',1)->count();
         $totalConsejo = Solucion::where('tipo_fuente','=',2)->count();
 
@@ -180,7 +176,11 @@ class InstitucionController extends Controller
                             inner join users on users.id = institucion_usuarios.usuario_id
                             and users.id ='.$usuario_id.')');
 
+
+
+
         $totalPropuestas = count($solucionesDespliegue);
+
        
 
         $solucionesDespliegueConflicto= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
@@ -211,10 +211,14 @@ class InstitucionController extends Controller
 
         $totalPropuestaAjustada = count($unificadas);
        
+
+
+
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
-                                                    WHERE actor_solucion.user_id = ".$usuario_id." 
+                                                    WHERE actor_solucion.user_id = ".$usuario_id."
                                                     AND actividades.ejecutor_id = ".$usuario_id."
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
@@ -234,6 +238,8 @@ class InstitucionController extends Controller
 
                                                  ]);   
         
+
+
     }
 
     //ASIGNACION DE ACTOR SOLUCION
@@ -247,7 +253,7 @@ class InstitucionController extends Controller
      */
     public function indexActorSolucion()
     {
-        //dd($request);              
+        //dd($request);
         //$actoresSoluciones = ActorSolucion::all();
 
         $actoresSoluciones = DB::SELECT("SELECT solucions.tipo_fuente,actor_solucion.tipo_actor,users.name, solucions.verbo_solucion,solucions.sujeto_solucion,solucions.complemento_solucion FROM actor_solucion
@@ -256,8 +262,8 @@ class InstitucionController extends Controller
         //dd($actoresSoluciones);
 
 
-       return view('admin.actores.homeActores')->with(["actoresSoluciones"=>$actoresSoluciones]); 
-        
+       return view('admin.actores.homeActores')->with(["actoresSoluciones"=>$actoresSoluciones]);
+
     }
     /**
      * Show the form for creating a new resource.
@@ -278,7 +284,7 @@ class InstitucionController extends Controller
     public function asignarActorSolucionAll(Request $request)
     {
         dd($request);
-        
+
         if( $request->tipo_actor_id == 1){   //Para registrar Responsable a una solucion
             $validacion = ActorSolucion::where('solucion_id','=',$request->solucion_id)
                                     ->where('tipo_actor','=', 1 )->get();
@@ -294,57 +300,57 @@ class InstitucionController extends Controller
                 $actorSolucion->solucion_id = $request->solucion_id;
                 $actorSolucion->tipo_actor = 1;
                 $actorSolucion->tipo_fuente = $request->tipo_fuente_id;
-                $actorSolucion->save();    
+                $actorSolucion->save();
                 Flash::success("Asignación exitosa");
 
                 $user = User::find($request-> institucion);
 
-                
+
                     $solucion = Solucion::find($request-> solucion_id);
                     $solucion-> estado_id = 2; // 2 = Propuesta con responsable asignado
                     $solucion->save();
 
                     /*$this->enviarCorreoAsignacion($user, 'Responsable', $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion );*/
-                
-                               
-                
+
+
+
             }else{
                 if(count($validacion) > 0) {
-                    Flash::error("La solucion ya tiene un responsable"); 
-                    //dd('nose guardo');   
+                    Flash::error("La solucion ya tiene un responsable");
+                    //dd('nose guardo');
                 }
                 if(count($validacion2) > 0) {
                     Flash::error("La institucion ya es actor de la solucion seleccionada");
                     //dd('nose guardo');
                 }
-                
+
             }
 
         }
 
-        if( $request->tipo_actor_id == 2){    
+        if( $request->tipo_actor_id == 2){
 
             $validacion = DB::select("SELECT * FROM actor_solucion WHERE
                                      ( user_id =".$request->institucion." AND solucion_id =".$request->solucion_id." AND tipo_actor = 1 ) OR
                                      ( user_id =".$request->institucion." AND solucion_id =".$request->solucion_id." AND tipo_actor = 2 )
                                      " );
-            
+
             if( count($validacion)== 0 ){
                 $actorSolucion = new ActorSolucion;
                 $actorSolucion->user_id = $request->institucion;
                 $actorSolucion->solucion_id = $request->solucion_id;
                 $actorSolucion->tipo_actor = 2;
                 $actorSolucion->tipo_fuente = $request->tipo_fuente_id;
-                $actorSolucion->save();    
+                $actorSolucion->save();
                 Flash::success("Asignacion exitosa");
 
                 $user = User::find($request-> institucion);
 
-               
+
                     //$solucion = Solucion::find($request-> solucion_id);
                     /*$this->enviarCorreoAsignacion($user, 'Corresponsable', $solucion->verbo_solucion." ".$solucion->sujeto_solucion." ".$solucion->complemento_solucion );*/
-                
-                
+
+
             }else{
                 Flash::error("La institucion ya es actor de la solucion seleccionada");
 
@@ -353,12 +359,12 @@ class InstitucionController extends Controller
 
         }
         //dd("Si llegue");
-        
+
         $actoresSoluciones = DB::SELECT("SELECT solucions.tipo_fuente,actor_solucion.tipo_actor,users.name, solucions.verbo_solucion,solucions.sujeto_solucion,solucions.complemento_solucion FROM actor_solucion
             JOIN users ON users.id=actor_solucion.user_id
             JOIN solucions ON solucions.id=actor_solucion.solucion_id");
-        
-        return view('admin.actores.homeActores')->with(["actoresSoluciones"=>$actoresSoluciones]); 
+
+        return view('admin.actores.homeActores')->with(["actoresSoluciones"=>$actoresSoluciones]);
 
 
     }
@@ -367,8 +373,8 @@ class InstitucionController extends Controller
 
 
     public function obtenerPropuestas(Request $request, $id){
-        
-        
+
+
         return Solucion::propuestas($id);
 
     }
@@ -383,7 +389,7 @@ class InstitucionController extends Controller
             $msj->to( 'js-arcos@hotmail.com');
         });
     }
-    
+
     public function enviarCorreoAsignacion($institucion, $responsabilidad, $txt_solucion){
         $correo= $institucion-> email;
         Mail::send('emails.correoAsignacion',["institucion"=>$institucion, "responsabilidad"=>$responsabilidad, "txt_solucion"=>$txt_solucion], function($msj) use ($correo){
@@ -405,28 +411,22 @@ class InstitucionController extends Controller
         join estado_solucion
         on estado_solucion.id = solucions.estado_id");
         //dd($actoresSoluciones);
-        return view('admin.actores.homeActoresAsignados')->with(["actoresSoluciones"=>$actoresSoluciones]); 
+        return view('admin.actores.homeActoresAsignados')->with(["actoresSoluciones"=>$actoresSoluciones]);
 
     }
 
-    public function homeActoresPorAsignar(Request $request){
-
-
-        $actoresSolucionesPorAsignar = DB::SELECT("SELECT solucions.id, solucions.responsable_solucion, solucions.corresponsable_solucion, estado_solucion.nombre_estado, solucions.propuesta_solucion
-from solucions
-JOIN estado_solucion on estado_solucion.id = solucions.estado_id
-join mesa_dialogo on mesa_dialogo.id = solucions.mesa_id
-where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor_solucion)");
-
-        return view('admin.actores.homeActoresPorAsignar')->with(["actoresSolucionesPorAsignar"=>$actoresSolucionesPorAsignar]); 
-
+    public function homeActoresPorAsignar(Request $request)
+    {
+      $actoresSolucionesPorAsignar = DB::SELECT("SELECT solucions.id, solucions.responsable_solucion, solucions.corresponsable_solucion, estado_solucion.nombre_estado, solucions.propuesta_solucion
+      from solucions
+      JOIN estado_solucion on estado_solucion.id = solucions.estado_id
+      join mesa_dialogo on mesa_dialogo.id = solucions.mesa_id
+      where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor_solucion)");
+        return view('admin.actores.homeActoresPorAsignar')->with(["actoresSolucionesPorAsignar"=>$actoresSolucionesPorAsignar]);
     }
 
     public function createAsignar(Request $request, $idSolucion )
     {
-        
-        
-
         $instituciones = DB::table('institucions')
                         ->select('id','nombre_institucion','siglas_institucion')
                         ->orderBy('nombre_institucion')->get();
@@ -434,9 +434,6 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
         $soluciones =  Solucion::find($idSolucion);
 
         //dd($soluciones);
-
-
-
         return view('admin.actores.createAsignar')->with(["instituciones"=>$instituciones,
                                                            "soluciones" =>$soluciones ]);
     }
@@ -447,7 +444,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
                         ->select('id','nombre_institucion','siglas_institucion')
                         ->orderBy('nombre_institucion')->get();
 
-        
+
 
         $actorSolucion= DB::table('solucions')
                         ->join('actor_solucion','actor_solucion.solucion_id','=','solucions.id')
@@ -466,12 +463,12 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
     public function ActualizarActorSolucion(Request $request,$actorSolucion_id)
     {
-        
+
         $actorSolucion = ActorSolucion::find($actorSolucion_id);
         //dd($actorSolucion);
         $actorSolucion->institucion_id = $request->institucion;
         $actorSolucion->tipo_actor = $request->tipo_actor_id;
-        $actorSolucion->save();    
+        $actorSolucion->save();
         Flash::success("Transferencia de Institucion Responsable exitosa");
         return redirect('/admin/actores/asignados');
     }
@@ -481,7 +478,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
     public function asignarActorSolucion(Request $request)
     {
         //dd($request);
-        
+
         //dd($request->tipo_actor_id);
 
         $actorSolucion = new ActorSolucion;
@@ -491,7 +488,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
         $actorSolucion->tipo_actor = $request->tipo_actor_id;
         $actorSolucion->tipo_fuente = 0;
         //dd($actorSolucion);
-        $actorSolucion->save();    
+        $actorSolucion->save();
         Flash::success("Asignación exitosa");
 
         $solucion = Solucion::find($request-> solucion_id);
@@ -529,7 +526,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
      public function updateClave(Request $request, $id) {
      //    dd("updateClave");
         $usuario = User::find($id);
-       
+
         $this->validate($request, [
             'clave1' => 'required',
             'clave2' => 'required'
@@ -548,7 +545,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
              Flash::success("Clave actualizada correctamente");
              return redirect('institucion/cambiar-clave/'.$id);
         }
-    
+
     }
 
     // Propuestas conflicto
@@ -558,11 +555,11 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
         $usuario_id = Auth::user()->id;
         //dd($usuario_id);
         $tipo_fuente = Auth::user()->tipo_fuente;
-       
+
 
         $totalDespliegue = Solucion::where('tipo_fuente','=',1)->count();
         $totalConsejo = Solucion::where('tipo_fuente','=',2)->count();
-        
+
 
         $totalResponsable = ActorSolucion::where('user_id','=',$usuario_id)
                                          ->where('tipo_actor','=','1')->count();
@@ -577,8 +574,10 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
                                     inner join users on institucion_usuarios.usuario_id = users.id
                                     INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
                                     where estado_solucion.id = 6
-                                    and users.id ='.$usuario_id);        
+                                    and users.id ='.$usuario_id);
+
        $totalPropuestaConflicto = count($solucionesDespliegue);
+
 
 
              $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
@@ -615,15 +614,16 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
 
         $totalPropuestaAjustada = count($unificadas);
        
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
-                                                    WHERE actor_solucion.user_id = ".$usuario_id." 
+                                                    WHERE actor_solucion.user_id = ".$usuario_id."
                                                     AND actividades.ejecutor_id = ".$usuario_id."
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
-        //dd($tipo_fuente);
+     
         return view('institucion.propuestas-conflicto')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
                                                 "totalDespliegue"=>$totalDespliegue,
                                                 "totalConsejo"=>$totalConsejo,
@@ -636,18 +636,19 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
                                                  "totalPropuestaDesestimada"=> $totalPropuestaDesestimada,
                                                  "totalPropuestaAjustada"=> $totalPropuestaAjustada   
                                                  ]);   
-        
+
+
     }
 
 
      public function desestimadas(Request $request)
     {
-        
+
         //dd('uno');
         $usuario_id = Auth::user()->id;
         //dd($usuario_id);
         $tipo_fuente = Auth::user()->tipo_fuente;
-       
+
 
         $totalDespliegue = Solucion::where('tipo_fuente','=',1)->count();
         $totalConsejo = Solucion::where('tipo_fuente','=',2)->count();
@@ -668,6 +669,7 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
                                     and users.id ='.$usuario_id);
 
          $totalPropuestaDesestimada = count($solucionesDespliegue);
+
 
          $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
                             from solucions
@@ -704,15 +706,16 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
         $totalPropuestaAjustada = count($unificadas);
        
        
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
-                                                    WHERE actor_solucion.user_id = ".$usuario_id." 
+                                                    WHERE actor_solucion.user_id = ".$usuario_id."
                                                     AND actividades.ejecutor_id = ".$usuario_id."
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
-        //dd($tipo_fuente);
+
         return view('institucion.propuestas-desestimada')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
                                                 "totalDespliegue"=>$totalDespliegue,
                                                 "totalConsejo"=>$totalConsejo,
@@ -724,9 +727,9 @@ where solucions.id not in (SELECT DISTINCT actor_solucion.solucion_id from actor
                                                 "totalPropuestas"=>$totalPropuestas,
                                                  "totalPropuestaConflicto"=> $totalPropuestaConflicto,
                                                  "totalPropuestaAjustada"=> $totalPropuestaAjustada   
-                                                 ]);   
-        
+                                                 ]);          
+
+
     }
 
 }
-

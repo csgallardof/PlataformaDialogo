@@ -30,7 +30,7 @@
 
 			                        <!--<a href="/institucion/reportes">Reportes Inst</a>-->
 
-			                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+			                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
 
    										 <ul class="dropdown-menu">
 			                        		<li><a href="/institucion/reporteMinisterio">General</a></li>

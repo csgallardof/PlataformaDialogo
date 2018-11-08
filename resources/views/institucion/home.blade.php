@@ -170,7 +170,7 @@
 						</li>
 						<li class=""><a href="#general" data-toggle="tab"><i class="fa fa-newspaper-o m-r-5"></i> <span class="hidden-xs">
 						Todas (
-						
+
 						</span></a></li>
 					</ul>
 					<div class="tab-content" data-sortable-id="index-3">
@@ -189,9 +189,8 @@
 											<th>Acción</th>
 										</tr>
 									</thead>
-                                    <tbody>
+                    <tbody>
 										@if( isset($solucionesDespliegue) )
-
 											@foreach($solucionesDespliegue as $solucionD)
 												@if($solucionD->tipo_actor == 1)
 													<tr>
@@ -199,25 +198,25 @@
 														<td class="text-justify">{{$solucionD->propuesta_solucion}}</td>
 
 														<td>
-															
+
 														</td>
 
 														<td>
 															@if($solucionD->nombre_estado=="Finalizado")
 															<span class="label label-success f-s-12" style="background-color: #28B463">{{$solucionD->nombre_estado}}</span>
-																
-																	
+
+
 															@endif
 
 															@if($solucionD->nombre_estado=="En Desarrollo")
 															<span class="label label-default f-s-12" style="background-color: #CA6F1E">{{$solucionD->nombre_estado}}</span>
-																
-																
+
+
 															@endif
 
 															@if($solucionD->nombre_estado=="En Análisis")
 															<span class="label label-default f-s-12" style="background-color: #A6ACAF">{{$solucionD->nombre_estado}}</span>
-																
+
 															@endif
 														</td>
 														<td>
@@ -229,16 +228,16 @@
 
 										@endif
 
-										
+
 
 									</tbody>
                                 </table>
                             </div>
                         </div>
 
-						
 
-						
+
+
 						<!--SOLUCIONES CORRESPONSABLE-->
 						<div class="tab-pane fade" id="corresponsable">
 							<div class="height-lg" data-scrollbar="true">
@@ -257,7 +256,7 @@
 												@if($solucionD->tipo_actor == 2)
 													<tr>
 														<td class="text-justify">{{$solucionD-> propuesta_solucion}}</td>
-														
+
 														<td>
 															<a href="{{ route('verSolucion.despliegue',[2,$solucionD->id]) }}" class="btn btn-link f-s-13 f-w-500">Ver detalle..</a>
 														</td>
@@ -277,7 +276,7 @@
 						<!--FIN SOLUCIONES CORRESPONSABLE-->
 
 						<!--SOLUCIONES EN GENERAL-->
-						
+
 						<!--FIN SOLUCIONES EN GENERAL-->
 
 
@@ -305,8 +304,8 @@
 											{!! substr($notificacion-> comentario,0,65).'..' !!} <br>
 											{{ substr($notificacion-> fecha_inicio,0,10) }}
 												<a href="{{ route('verSolucion.despliegue',[2,$notificacion-> solucion_id]) }}" class="pull-right f-s-13 f-w-500">Ver m&aacute;s</a><br><br>
-											
-											
+
+
 
 										</li>
 									@endforeach

@@ -1236,6 +1236,7 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->id,$fech
 public function obtenerInstitucionUsuario(){
   $institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
 			WHERE usuario_id=".Auth::user()->id." ;");
+  dd ($institucionUsuario);
 return $institucionUsuario;
 }
 
@@ -1245,7 +1246,10 @@ public function obtenerInstitucionId($idInstitucion){
   return $institucionUsuario;
 }
 
-public  function obtenerInstitucion($idInstitucion){		// dd($institucionUsuario[0]->id);
+public  function obtenerInstitucion($idInstitucion){		
+     //dd ($idInstitucion);
+     // dd($institucionUsuario[0]->id);
+
 	if($idInstitucion == 'Todos'){
        $institucionUsuario = $this->obtenerInstitucionUsuario();
        $institucion1 = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
