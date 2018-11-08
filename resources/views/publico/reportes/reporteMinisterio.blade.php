@@ -11,6 +11,8 @@
 
 
 
+<div class="container" width="10%" style="background-color: #f3f3f3;">
+
 <div class="row">
     <div class="col-md-12">
         <!-- begin panel -->
@@ -25,8 +27,6 @@
     </div>
 </div> 
 
-
-<div class="container">
   <div class="col-md-12 ">
             <div class="panel panel-default">
             <br/><br/>

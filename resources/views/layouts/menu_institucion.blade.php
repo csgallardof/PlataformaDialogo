@@ -25,7 +25,21 @@
 			                        <li><a href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
 			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
 			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
-			                        <li><a href="/institucion/reportes">Reportes</a></li>
+
+			                        <li class="down">
+
+			                        <!--<a href="/institucion/reportes">Reportes Inst</a>-->
+
+			                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+
+   										 <ul class="dropdown-menu">
+			                        		<li><a href="/institucion/reporteMinisterio">General</a></li>
+			                            	<li>
+			                   <a class="dropdown-item" href="/institucion/reporteMinisterioEstadistico">Estadistico</a>
+			                        		</li>
+			                        	</ul>
+
+			                        </li>
                           </ul>
 			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
 														<li class="dropdown navbar-user">

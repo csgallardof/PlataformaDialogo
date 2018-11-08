@@ -2818,4 +2818,130 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
    } 
 
 
+
+   public function reporteEstadisticoInstitucion(Request $request){
+
+
+   	$hoy = date("d/m/Y"); 
+
+   	$fechaInicial = $request->fechaInicial;
+
+   	$fechaFinal = $request->fechaFinal;
+   	$consulto=$request->consulto; 
+
+   	$institucionUsuario = DB::select("SELECT * FROM institucion_usuarios 
+   		WHERE usuario_id=".Auth::user()->id." ;");
+
+
+   	$usuario = User::where('id','=',$institucionUsuario[0]->usuario_id)
+   	->get();
+   	$nombreusuario = $usuario[0]->name;
+
+
+   	$institucion = Institucion::where('id','=',$institucionUsuario[0]->institucion_id)
+   	->get();
+
+
+   	$nombreinstitucion = $institucion[0]->nombre_institucion;
+
+
+   	$consejo = DB::select("SELECT consejo_sectorials.nombre_consejo,institucions.id FROM consejo_sectorials 
+   		JOIN consejo_institucions 
+   		ON consejo_sectorials.id = consejo_institucions.consejo_id
+   		JOIN institucions
+   		ON consejo_institucions.institucion_id = institucions.id
+   		WHERE institucions.id = ".$institucion[0]->id.";");
+
+
+   	$nombreConsejo = $consejo[0]->nombre_consejo; 
+
+
+
+
+
+   	$tipoPropuestaInst = DB::select("SELECT estado_solucion.nombre_estado, count(estado_solucion.nombre_estado) as total
+   		from actor_solucion
+   		join institucions
+   		on actor_solucion.institucion_id = institucions.id
+   		join solucions
+   		on actor_solucion.solucion_id = solucions.id
+   		join estado_solucion
+   		on solucions.estado_id = estado_solucion.id
+   		where institucions.id=".$institucion[0]->id."
+   		group by estado_solucion.nombre_estado ");
+   	$tipoPropuestaInst=Collection::make($tipoPropuestaInst);
+
+
+
+   	$propuestas_estado = DB::select("SELECT e.nombre_estado
+   		,count(e.nombre_estado) as totalEstado
+   		from actor_solucion acs
+   		join institucions i
+   		on acs.institucion_id = i.id
+   		join solucions s
+   		on acs.solucion_id = s.id
+   		join estado_solucion e
+   		on s.estado_id = e.id
+   		where i.id = ".$institucion[0]->id."
+   		group by e.nombre_estado");
+
+   	$propuestas_estado=Collection::make($propuestas_estado);
+
+   	$formaCumplimiento = DB::select("SELECT 'No. Propuestas Politicas' as nombre_propuesta,count(politica_id) as propuesta
+   		from solucions
+   		join politicas on solucions.politica_id = politicas.id
+   		join actor_solucion on  solucions.id = actor_solucion.solucion_id
+   		join institucions on actor_solucion.institucion_id  = institucions.id
+   		where institucions.id =  ".$institucion[0]->id." UNION 
+   		SELECT 'No. Propuestas Leyes' as nombre_propuesta ,count(instrumento_id) as propuesta
+   		from solucions
+   		join instrumentos on solucions.instrumento_id = instrumentos.id
+   		join actor_solucion on  solucions.id = actor_solucion.solucion_id
+   		join institucions on actor_solucion.institucion_id  = institucions.id
+   		where institucions.id =".$institucion[0]->id."  ");
+   	$formaCumplimiento=Collection::make($formaCumplimiento);
+
+
+   	$propuestasPlazo = DB::select("SELECT  s.plazo_cumplimiento ,count(s.plazo_cumplimiento) as total
+   		from actor_solucion acs
+   		join institucions i
+   		on acs.institucion_id = i.id
+   		join solucions s
+   		on acs.solucion_id = s.id
+   		join politicas p
+   		on s.politica_id = p.id
+   		where i.id = ".$institucion[0]->id." 
+   		group by s.plazo_cumplimiento");
+
+   	$propuestasPlazo=Collection::make($propuestasPlazo);
+
+
+   	$propuestas_ambito = DB::select("SELECT ambits.nombre_ambit, count(solucions.id) AS total
+   		FROM solucions
+   		INNER JOIN ambits ON solucions.ambit_id = ambits.id
+   		WHERE  solucions.sector_id = 7
+   		GROUP BY ambits.nombre_ambit ORDER BY total DESC");
+   	$propuestas_ambito=Collection::make($propuestas_ambito);
+
+
+   	return view('publico.reportes.reporteGraficoMinisterio')->with([
+   		"hoy" =>$hoy,
+   		"nombreusuario" =>$nombreusuario,
+   		"nombreinstitucion" =>$nombreinstitucion,
+   		"nombreConsejo" =>$nombreConsejo,
+   		"propuestas_estado" =>$propuestas_estado,
+   		"tipoPropuestaInst" =>$tipoPropuestaInst,
+   		"formaCumplimiento" =>$formaCumplimiento, 
+   		"propuestasPlazo" =>$propuestasPlazo,          
+   		"propuestas_ambito" =>$propuestas_ambito,
+   		"fechaInicial"=>$fechaInicial,
+   		"fechaFinal"=>$fechaFinal,
+   		"consulto"=>$consulto
+
+   		]);
+
+
+    }
+
+
 }
