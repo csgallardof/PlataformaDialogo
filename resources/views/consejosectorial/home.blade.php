@@ -8,7 +8,70 @@
 <!-- NOTAS ESTA ES LA PANTALLA PARA CONSEJO SECTORIAL  / SEBE PROBAR Y MODIFICAR LAS COSAS PARA MEJORAR +++ NOTA +++++  -->
 		<!-- begin #content -->
 		<!-- begin #content -->
-        <div id="content" class="content" width="10%">
+        <div id="content" class="content" width="10%" style="background-color: #f3f3f3;">
+        <br/>
+
+        <!-- begin row -->
+            <div class="row">
+                <!-- begin col-3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget widget-stats" style="background-color:#214974; color:white;">
+                        <div class="stats-info">
+                            <h4>TOTAL DE PROPUESTAS</h4>
+                                @if(isset($totalPropuestas) )
+                                    <p>{{ $totalPropuestas }}</p>
+                                @else
+                                    <p>0</p>
+                                @endif
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- end col-3 -->
+                <!-- begin col-3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget widget-stats" style="background-color:#214974; color:white;">
+                        <div class="stats-info">
+                            <h4><a href="/consejo-sectorial/propuestas-finalizadas">PROPUESTAS FINALIZADAS</a></h4>
+                            @if (isset($totalPropuestaFinalizada) )
+                                <p>{{ $totalPropuestaFinalizada }}</p>
+                            @else
+                                <p>0</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <!-- end col-3 -->
+                <!-- begin col-3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget widget-stats" style="background-color:#214974; color:white;">
+                        <div class="stats-info">
+                            <h4><a href="/consejo-sectorial/propuestas-desestimadas">PROPUESTAS DESESTIMADAS</a></h4>
+                            @if (isset($totalPropuestaDesestimada) )
+                                <p>{{ $totalPropuestaDesestimada }}</p>
+                            @else
+                                <p>0</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <!-- end col-3 -->
+                <!-- begin col-3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget widget-stats" style="background-color:#214974; color:white;">
+                        <div class="stats-info">
+                            <h4><a href="/consejo-sectorial/propuestas-en-conflicto">PROPUESTAS EN CONFLICTO</a></h4>
+                            @if (isset($totalPropuestaConflicto) )
+                                <p>{{ $totalPropuestaConflicto }}</p>
+                            @else
+                                <p>0</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <!-- end col-3 -->
+            </div>
+            <!-- end row -->
 
 <!--PALTAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->
             <!-- begin row -->

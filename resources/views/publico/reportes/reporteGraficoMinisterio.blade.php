@@ -1,7 +1,5 @@
 @extends('layouts.institucion')
-
 @section('title', 'Reporte Institucion')
-
 @section('start_css')
   @parent
   	<link href="{{ asset('plugins/DataTablesv2/datatables.css') }}" rel="stylesheet" />
@@ -130,7 +128,7 @@
         <!-- begin panel -->
         <div class="panel panel-inverse"  data-sortable-id="chart-js-2">
             <div class="panel-heading">                
-                 <h3 class="panel-title">Reporte de Institucional de la Plataforma de Di&aacute;logo Nacional</h3>
+                 <h3 class="panel-title">Reporte Institucional de la Plataforma de Di&aacute;logo Nacional</h3>
             </div>
         </div>
     </div>

@@ -77,9 +77,51 @@ class ConsejoSectorialController extends Controller {
                                 where consejo_sectorials.id = 4 order by solucions.estado_id desc');
 
         //dd($resultados_propuestas);
-        
-        return view('consejosectorial.home')->with(["resultados_propuestas"=>$resultados_propuestas
 
+         $totalPropuestas = count($resultados_propuestas);
+
+                $resultadosPropuestaFinalizada= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where estado_solucion.id = 4
+                                and consejo_sectorials.id =4  order by solucions.estado_id desc');
+
+        //dd($resultados_propuestas);
+
+        $totalPropuestaFinalizada = count($resultadosPropuestaFinalizada);
+
+        $resultadosPropuestaDesestimada= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where estado_solucion.id = 5
+                                and consejo_sectorials.id = 4 order by solucions.estado_id desc');
+         $totalPropuestaDesestimada = count($resultadosPropuestaDesestimada);
+
+        $resultadosPropuestaConflicto= DB::select('SELECT solucions.cod_solucions, solucions.propuesta_solucion, institucions.siglas_institucion, actor_solucion.tipo_actor, solucions.estado_id, estado_solucion.nombre_estado, estado_solucion.id, actor_solucion.tipo_actor,solucions.id 
+                                from institucions
+                                inner join consejo_institucions on consejo_institucions.institucion_id = institucions.id
+                                inner join consejo_sectorials on consejo_institucions.consejo_id = consejo_sectorials.id
+                                inner join actor_solucion  on actor_solucion.institucion_id = institucions.id
+                                inner join solucions on solucions.id = actor_solucion.solucion_id
+                                inner join estado_solucion on estado_solucion.id = solucions.estado_id
+                                where estado_solucion.id = 6
+                                and consejo_sectorials.id = 4 order by solucions.estado_id desc');
+         $totalPropuestaConflicto = count($resultadosPropuestaConflicto);
+
+        
+        return view('consejosectorial.home')->with(["resultados_propuestas"=>$resultados_propuestas,
+                                                    "totalPropuestas"=>$totalPropuestas,
+                                                    "totalPropuestaFinalizada"=>$totalPropuestaFinalizada,
+                                                    "totalPropuestaDesestimada"=>$totalPropuestaDesestimada,
+                                                    "totalPropuestaConflicto"=>$totalPropuestaConflicto
                                             ]);
     }
 
@@ -95,11 +137,13 @@ class ConsejoSectorialController extends Controller {
                                 inner join estado_solucion on estado_solucion.id = solucions.estado_id
                                 where estado_solucion.id = 5
                                 and consejo_sectorials.id = 4 order by solucions.estado_id desc');
+         $totalPropuestaDesestimada = count($resultados_propuestas);
 
         //dd($resultados_propuestas);
         
         return view('consejosectorial.propuestas-desestimadas')
-                                ->with(["resultados_propuestas"=>$resultados_propuestas
+                                ->with(["resultados_propuestas"=>$resultados_propuestas,
+                                        "totalPropuestaDesestimada"=>$totalPropuestaDesestimada
                                 ]);
     }
 
@@ -118,9 +162,12 @@ class ConsejoSectorialController extends Controller {
                                 and consejo_sectorials.id =4  order by solucions.estado_id desc');
 
         //dd($resultados_propuestas);
+
+        $totalPropuestaFinalizada = count($resultados_propuestas);
         
         return view('consejosectorial.propuestas-finalizadas')
-                                ->with(["resultados_propuestas"=>$resultados_propuestas
+                                ->with(["resultados_propuestas"=>$resultados_propuestas,
+                                    "totalPropuestaFinalizada"=>$totalPropuestaFinalizada
                                 ]);
     }
 
@@ -137,11 +184,13 @@ class ConsejoSectorialController extends Controller {
                                 inner join estado_solucion on estado_solucion.id = solucions.estado_id
                                 where estado_solucion.id = 6
                                 and consejo_sectorials.id = 4 order by solucions.estado_id desc');
+         $totalPropuestaConflicto = count($resultados_propuestas);
 
         //dd($resultados_propuestas);
         
         return view('consejosectorial.propuestas-en-conflicto')
-                                ->with(["resultados_propuestas"=>$resultados_propuestas
+                                ->with(["resultados_propuestas"=>$resultados_propuestas,
+                                    "totalPropuestaConflicto"=>$totalPropuestaConflicto
                                 ]);
     }
 
