@@ -24,7 +24,7 @@ class NotificacionQuincenalController extends Controller
     public function enviarCorreo(Request $request)
     {
 
-        $notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
+        /*$notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
         $notfUsed =  $notificacionesq[0];
         $title = 'Plataforma de Dialogo Nacional, Correo de Notificacion';
         $title_reporte = 'Report Quincenal de Propuestas Pendientes';
@@ -114,7 +114,7 @@ class NotificacionQuincenalController extends Controller
         });
 
 
-        $notificacionPropuesta = DB::table('notificacion_quincenal')->where('estado', 0)->update(['estado' => 1]);
+        $notificacionPropuesta = DB::table('notificacion_quincenal')->where('estado', 0)->update(['estado' => 1]);*/
         return response()->json(['message' => 'Request completed']);
     }
 
@@ -122,10 +122,10 @@ class NotificacionQuincenalController extends Controller
     public function enviarCorreo2(Request $request)
     {
 
-        $notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
+        /*$notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
         $notfUsed =  $notificacionesq[0];
         $title = 'Propuestas Pendientes';
-        $content = $notfUsed->problema_solucion;
+        $content = $notfUsed->problema_solucion;*/
         return view('emails.correoNotificacion')->with(['title' => $title,  'notificacionesq'=> $notificacionesq]);
     }
 
