@@ -76,9 +76,14 @@ class ConsejoSectorialController extends Controller {
                                 inner join estado_solucion on estado_solucion.id = solucions.estado_id
                                 where consejo_sectorials.id = 4 order by solucions.estado_id desc');
 
+        $evaluaciones = DB::select("SELECT count(1) as total, ev_semaforo, ev_solicitud_id 
+                                      FROM `evaluacion_ciudadano` 
+                                      GROUP BY ev_semaforo, ev_solicitud_id order by ev_solicitud_id; ");        
+
         //dd($resultados_propuestas);
         
-        return view('consejosectorial.home')->with(["resultados_propuestas"=>$resultados_propuestas
+        return view('consejosectorial.home')->with(["resultados_propuestas"=>$resultados_propuestas,
+                                                    "evaluaciones"=>$evaluaciones
 
                                             ]);
     }

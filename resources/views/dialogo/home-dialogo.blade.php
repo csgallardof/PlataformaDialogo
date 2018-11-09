@@ -170,6 +170,20 @@
 
   <script type="text/javascript">
 
+<?php
+ if(isset($eventos)){
+     echo "data_f=[";
+    foreach ($eventos as $ev) {
+        echo "['".$ev[0]."', ".$ev[1]."]";
+
+        echo ",";
+
+    }
+    echo "];";
+
+ }
+
+ ?>
 
 
 // Prepare demo data
@@ -225,7 +239,7 @@ Highcharts.mapChart('container_map', {
     },
 
     title: {
-        text: 'Eventos de mesas'
+        text: 'Total de eventos por Provincia'
     },
 
     subtitle: {
@@ -248,7 +262,7 @@ Highcharts.mapChart('container_map', {
                 events: {
                     click: function (e) {
                         var text = '<b>Detalles</b><br>' + this.name +
-                                '<br>Provincia: ' + e.point.name + ' ' + e.point.value + ' mesas'+'<br><a href="/calendario-dialogo-nacional">Ver Calendario</a>';
+                                '<br>Provincia: ' + e.point.name + ' ' + e.point.value + ' eventos '+'<br><a href="/calendario-dialogo-nacional">Ver Calendario</a>';
                         if (!this.chart.clickLabel) {
                             this.chart.clickLabel = this.chart.renderer.label(text, 0, 250)
                                 .css({
@@ -266,15 +280,15 @@ Highcharts.mapChart('container_map', {
         },
 
     series: [{
-        data: data,
-        name: 'Mesas programadas:',
+        data: data_f,
+        name: 'Eventos programados:',
         states: {
             hover: {
                 color: '#BADA55'
             }
         },
         tooltip: {
-                valueSuffix: ' mesas'
+                valueSuffix: ' eventos'
         },        
         dataLabels: {
             enabled: true,

@@ -587,10 +587,38 @@
                         <?php session_start();
                         //unset($_SESSION['ciudadano_evalua']);?>
 
-				
-					<?php if(!isset($_SESSION['ciudadano_evalua'])){ ?>
 
-						<?php if(!isset($_COOKIE['ciudadano_cont'])){ ?>
+
+                       <?php      
+                                $fl=true;//variadd($_COOKIE);
+
+		                        if(Cookie::get('sol_ev_arr') !== null){
+		                        	
+						            $sol_ev= unserialize(Cookie::get('sol_ev_arr'));
+						            
+
+						            foreach ($sol_ev as $val) {
+						            	if($solucion->id==$val){
+						            		$fl=false;
+						            	}
+						            }//fin de foreach
+
+						            //dd($fl);
+						        }
+
+						       // dd($fl);
+
+                        ?> 
+
+					<?php if(!isset($_SESSION['ciudadano_evalua'])  ||  $fl==true){ 
+						  //if(Cookie::get('ciudadano_evalua') !== null  ||  $fl==true){ 
+
+						?>
+  
+						<?php  //if(!isset($_COOKIE['ciudadano_cont']) ||  $fl==true){ 
+							if(Cookie::get('ciudadano_evalua_cont') !== null  ||  $fl==true){ 
+
+							?>
 						@if(!Session::has('ciudadano_evalua'))
 						<div class="panel panel-inverse overflow-hidden">
 							<div class="panel-heading header_detail_propuesta">
