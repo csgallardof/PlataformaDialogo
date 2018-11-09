@@ -19,6 +19,39 @@ Route::post('/enviarCorreoNotificacionCiudadano/', ['uses'=>'NotificacionCiudada
 
 Route::post('/enviaCorreoCiudadano/{idSolucion}', ['uses'=>'NotificacionCiudadanoController@enviarCorreoEvCd','as'=>'evaluacion.correoCiudadano']);
 
+/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181104 */
+
+
+/*
+Route::get('usurioss/{id}',function($id){
+  return "Mostrando el detalle del usuario {$id}";
+})->where('id','[0-9]+');
+
+*/
+
+
+Route::get('usurioss/{id}','TestOneController@show')->where('id','[0-9]+');
+
+
+Route::get('usurioss/nuevo',function(){
+  return "Creando usuario nuevo";
+
+});
+
+Route::get('userss','TestOneController@testone');
+
+Route::get('greentings/{name}/{nickname?}',function($name,$nickname=null){
+  if ($nickname) {
+      return "Bienvenido {$name} y tu alias {$nickname}";
+  }
+else {
+  return "Bienvenido {$name} y no tienes alias";
+}
+
+
+});
+
+/*PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181104 */
 
 
 
@@ -137,7 +170,7 @@ Route::get('/invertir_en_el_ecuador', 'PaginasController@invertir_en_el_ecuador'
 
 Route::get('/estructura-promedio-costos-gastos-empresas', 'PaginasController@estructuraCostosGastos');
 
-Route::get('/reporte-estadistico','PaginasController@ReporteDialogoGrafico');
+Route::get('/dialogo-nacional-estadisticas','PaginasController@ReporteDialogoGrafico');
 
 
 Route::get('/usuarios','PaginasController@usuarios');
@@ -369,8 +402,7 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
 
 
 
-Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
-
+     Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
 
      Route::get('home','InstitucionController@home');  //página dashboard para las instituciones
 
@@ -379,6 +411,8 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      Route::get('propuestas-desestimadas','InstitucionController@desestimadas');  //página dashboard para las instituciones
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegue','as'=>'verSolucion.despliegue']);
+
+     Route::get('detalle-propuesta/{idSolucion}',['uses'=>'PaginasController@detallepropuesta','as'=>'detallepropuesta']);
 
      Route::get('parametros-cumplimiento/create/{idSolucion}',['uses'=>'ActividadesController@vistaParametrosCumplimiento','as'=>'solucion.parametrosCumplimiento']);
 
@@ -403,8 +437,6 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
      Route::get('consejo/actividad/create/{idSolucion}',['uses'=>'ActividadesController@createConsejo','as'=>'actividades.createConsejo']);
 
      Route::post('actividad/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@saveActividad','as'=>'actividades.saveActividad']);
-
-     Route::get('/detalle-propuesta/{id}',['uses'=>'PaginasController@detallepropuesta', 'as'=>'detallePropuesta']);
 
 
 
@@ -558,10 +590,12 @@ Route::group(['prefix' => 'institucion','middleware'=>['auth'] ], function(){
  //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio');
  //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio');
  Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+ Route::get('/reporteMinisterio/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+ Route::get('/reporteMinisterioEstadistico',['uses'=>'ReportesController@reporteEstadisticoInstitucion','as'=>'reporteGraficoInstitucion.institucion']);  
+
 
  Route::get('/reporte-institucional/descargar-excel/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarExcelReporteMinisterio','as'=>'exportarExcel.ReporteMinisterio']);
  Route::get('/reporte-institucional/descargar-pdf/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteMinisterio','as'=>'exportarPdf.ReporteMinisterio']);
- Route::get('/reporte-institucional/descargar-grafico/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarGraficoReporteMinisterio','as'=>'exportarGrafico.ReporteMinisterio']);
 
 
    //Mesas de Dialogo
@@ -624,7 +658,9 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
-     Route::get('/detalle-propuesta/{id}',['uses'=>'PaginasController@detallepropuestaConsejo', 'as'=>'detallePropuesta']);
+     Route::get('detalle-propuesta/{idSolucion}',['uses'=>'PaginasController@detallepropuestaConsejo','as'=>'detallepropuestaConsejo']);
+
+
 
   //consejo-sectorial/activar/{idSolucion}
      Route::get('activar/{idSolucion}',['uses'=>'ConsejoSectorialController@activarSolucion','as'=>'consejo.activarSolucion']);
