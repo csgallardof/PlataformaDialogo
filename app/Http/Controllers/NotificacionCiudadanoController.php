@@ -19,6 +19,7 @@ use App\Ambit;
 use App\EstadoSolucion;
 use App\TipoDialogo;
 use Mail;
+use Cookie;
 
 use DB;
 use File;
@@ -65,7 +66,26 @@ class NotificacionCiudadanoController extends Controller
     }
 
     public function saveCiudadanoEval(Request $request,$solucion_id){
-        setcookie("ciudadano_evalua", 1);
+        $cookie_ciudadano = Cookie::forget('ciudadano_evalua_cont', 1);
+        $cookie_ciudadano = Cookie::make('ciudadano_evalua_cont', 1);
+
+        //setcookie("ciudadano_evalua", 1);
+        //if(isset($_COOKIE['sol_ev_arr'])){
+        if(Cookie::get('sol_ev_arr') !== null){
+            $sol_ev= unserialize(Cookie::get('sol_ev_arr'));
+            array_push($sol_ev,$solucion_id);
+
+        }else{
+            
+            $sol_ev= array($solucion_id);
+        }    
+
+        //unset($_COOKIE['sol_ev_arr']);
+        //setcookie('sol_ev_arr',serialize($sol_ev));
+        $sol_ev_arr = Cookie::forget('sol_ev_arr');
+        $sol_ev_arr= Cookie::make('sol_ev_arr', serialize($sol_ev));
+        
+
         $ciudadanoEval = new EvaluacionCiudadano();
         $ciudadanoEval->ev_semaforo  = $request-> rd_evaluac;
         $ciudadanoEval->ev_solicitud_id  = $solucion_id;
@@ -79,11 +99,34 @@ class NotificacionCiudadanoController extends Controller
         //return view('detalle-despliegue2')->with(["solucion"=>$Solucion,"solucion_id"=>$solucion_id,"mensaje_cd"=>$mensaje_cd]);
         //return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
         //return redirect()->route('/detalle-despliegue-dialogo/',[$solucion_id]);
-        return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
+        return redirect('/detalle-despliegue-dialogo/'.$solucion_id)->withCookie($cookie_ciudadano)->withCookie($sol_ev_arr);
+        //return view('admin.usuario.create-cs')->with(["usuario_consejo" => $usuario_consejo]);
     }
 
     public function enviarCorreoEvCd(Request $request,$solucion_id){
-        setcookie("ciudadano_evalua", 1);
+
+
+        $cookie_ciudadano = Cookie::forget('ciudadano_evalua_cont', 1);
+        $cookie_ciudadano = Cookie::make('ciudadano_evalua_cont', 1);
+
+        //setcookie("ciudadano_evalua", 1);
+        //if(isset($_COOKIE['sol_ev_arr'])){
+        if(Cookie::get('sol_ev_arr') !== null){
+            $sol_ev= unserialize(Cookie::get('sol_ev_arr'));
+            array_push($sol_ev,$solucion_id);
+
+        }else{
+            
+            $sol_ev= array($solucion_id);
+        }    
+
+        //unset($_COOKIE['sol_ev_arr']);
+        //setcookie('sol_ev_arr',serialize($sol_ev));
+        $sol_ev_arr = Cookie::forget('sol_ev_arr');
+        $sol_ev_arr= Cookie::make('sol_ev_arr', serialize($sol_ev));
+        
+
+
         $title='Percepción de ciudadanos frente a propuesta de mesa de dialogo';
 
         $mensaje_cd= $request->comentario_propuesta_c;
@@ -97,7 +140,7 @@ class NotificacionCiudadanoController extends Controller
             Flash::error($mensaje_cd);
             //return view('detalle-despliegue2')->with(["solucion"=>$Solucion,"solucion_id"=>$solucion_id,"mensaje_cd"=>$mensaje_cd]);
             //return $this->detalleSolucion($solucion_id,$mensaje_cd);
-            return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
+            return redirect('/detalle-despliegue-dialogo/'.$solucion_id)->withCookie($cookie_ciudadano)->withCookie($sol_ev_arr);
         }
 
         //
@@ -116,9 +159,9 @@ class NotificacionCiudadanoController extends Controller
         $email_ciudadano_comentario->save();
 
         $notificacion_ciud = DB::select("select u.email, u.name, u.apellidos, s.* 
-                                         FROM solucions s, actor_solucion asl, user_institucions ui, users u 
+                                         FROM solucions s, actor_solucion asl, institucion_usuarios ui, users u 
                                          where s.id=asl.solucion_id and ui.institucion_id = asl.institucion_id 
-                                         and u.id= ui.user_id and asl.tipo_actor=1 and s.id=".$solucion_id);
+                                         and u.id= ui.usuario_id and asl.tipo_actor=1 and s.id=".$solucion_id);
 
 
         /*
@@ -141,8 +184,8 @@ class NotificacionCiudadanoController extends Controller
         $fecha = date("Y-m-d");
 
         //$emails = ['cgallardo@mipro.gob.ec', 'xceli@senplades.gob.ec',$email_destino];
-        $emails = [$email_destino];
-
+        //$emails = [$email_destino];
+        $emails = ['alex.dominguez@secom.gob.ec'];
         //$mail_from='inteligencia.contacto@gmail.com';
         Mail::send('emails.correoComentarioCd', ['title' => $title,  'mensaje_cd'=>$mensaje_cd, 'nombre_completo'=>$nombre_completo, 'fecha'=>$fecha, 'propuesta_solucion'=>$propuesta_solucion, 'mail_from'=>$mail_from], function ($message) use ($emails,$mail_from)
         {
@@ -158,7 +201,7 @@ class NotificacionCiudadanoController extends Controller
         $_SESSION["ciudadano_evalua"] = true;
 
         //return view('detalle-despliegue2')->with(["solucion"=>$Solucion,"solucion_id"=>$solucion_id,"mensaje_cd"=>$mensaje_cd]);
-        return redirect('/detalle-despliegue-dialogo/'.$solucion_id);
+        return redirect('/detalle-despliegue-dialogo/'.$solucion_id)->withCookie($cookie_ciudadano)->withCookie($sol_ev_arr);
 
     }
 

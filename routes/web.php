@@ -110,6 +110,17 @@ Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePr
 Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@crearReportePropuestasHome');
 
 
+Route::get('/listar-eventos/',['uses'=>'EventosController@recuperarEventos','as'=>'recuperarEventos']);
+Route::get('/nuevo-evento/',['uses'=>'EventosController@nuevoEvento','as'=>'nuevoEvento']);
+Route::get('/eliminar-evento/{id}',['uses'=>'EventosController@eliminarEvento','as'=>'eliminarEvento']);
+Route::get('/editar-evento/{id}',['uses'=>'EventosController@edit','as'=>'editarEvento']);
+Route::post('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
+Route::post('/delete-evento/',['uses'=>'EventosController@destroy','as'=>'eventos.delete']);
+
+
+
+
+
 // Route::post('/reporte',[
 //      'uses'=>'SolucionesController@buscar',
 //      'as'=>'reporte1.resultado'

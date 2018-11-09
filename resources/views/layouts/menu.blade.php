@@ -147,13 +147,13 @@ $( document ).ready(function() {
                 <div class="dropdown">
 				  <div class="dropbtn">
 
-				  	<a class="barra_menu" href="#" tabindex=2>
+				  	<a class="barra_menu" href="#" tabindex=2 onclick="myFunction2()">
                    <img src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/megafono.png') }}" width="20px" height="20px" alt="Logo en forma de megafono" onmouseover="this.src='{{ asset($path_megafono_hover) }}'"
                     onmouseout="this.src='{{ asset($path_megafono) }}'"/>
                     INFORMACI&OacuteN
                 </a>
 				  </div>
-				  <div class="dropdown-content">
+				  <div class="dropdown-content" id="dropdown-content">
                      <div class="section_table_inf">
 							  <div class="section_cell">	
 							    <a tabindex="3" class="text-left" href="http://www.planificacion.gob.ec/wp-content/uploads/downloads/2018/03/Informe-sobre-el-Dialogo-Nacional.pdf" >
@@ -274,6 +274,16 @@ function myFunction() {
     }
 
 
+}
+
+
+function myFunction2() {
+    var x = document.getElementById("dropdown-content");
+    if (x.className === "dropdown-content") {
+        x.className = " dropdown-content2";
+    } else {
+        x.className = "dropdown-content";
+    }
 }
 </script>
 	<!-- end container-fluid -->

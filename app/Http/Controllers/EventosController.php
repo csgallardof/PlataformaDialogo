@@ -4,7 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Evento;
+use App\Provincia;
 
+use App\User;
+use App\Role;
+
+use DB;
+use Illuminate\Support\Collection as Collection;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
+    
+use App\Auth\Login;
 class EventosController extends Controller
 {
     /**
@@ -40,15 +50,36 @@ class EventosController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request->nombre_evento);
         $eventos = new Evento;
         $this ->validate($request,[
             'nombre_evento' =>'required|unique:eventos'
         ]);
         
-        $eventos->nombre_evento = $request->nombre_eventos;
+        $eventos->nombre_evento = $request->nombre_evento;
+        $eventos->created_at   = $request->calendar;
+        $eventos->provincia_id   = $request->provincia_id;
         $eventos->save();
-        return redirect('EventosController');
+        return redirect('/listar-eventos/');
     }
+
+
+    public function recuperarEventos(){
+
+        $eventos = Evento::all();
+        $provincias = Provincia::all();
+        return view('admin.eventos.listareventos')->with(["eventos"=>$eventos, "provincias"=>$provincias]);
+
+    }
+
+  public function nuevoEvento(){
+
+    $provincias = Provincia::all();
+
+     return view('admin.eventos.create')->with(["provincias"=>$provincias]);
+
+  }
+    
 
     /**
      * Display the specified resource.
@@ -72,7 +103,9 @@ class EventosController extends Controller
         //
         $item = evento::find($id);
 
-        return view('admin.eventos.edit', compact('item'));
+        $provincias = Provincia::all();
+    
+        return view('admin.eventos.edit', compact('item'))->with(["provincias"=>$provincias]);
     }
 
     /**
@@ -85,13 +118,16 @@ class EventosController extends Controller
     public function update(Request $request, $id)
     {
         //
-        // $evento = Evento::find($id);
-        // $this ->validate($request,[
-        //     'nombre_evento' =>'required|unique:eventos'
-        // ]);
-        // $evento-> nombre_evento = $request-> nombre_evento;
-        // $evento->save();
-        // return redirect('eventos');
+         $evento = Evento::find($id);
+         $this ->validate($request,[
+             'nombre_evento' =>'required|unique:eventos'
+         ]);
+        $eventos->nombre_evento = $request->nombre_eventos;
+        $eventos->created_at   = $request->calendar;
+        $eventos->provincia_id   = $request->provincia_id;
+        $eventos->save();
+        Flash::success("Se ha actualizado el evento exitosamente");
+        return redirect('recuperarEventos');         
     }
 
     /**
@@ -103,5 +139,9 @@ class EventosController extends Controller
     public function destroy($id)
     {
         //
+        $evento = Evento::find($id);
+        $evento->delete();
+        Flash::success("Se ha eliminado el evento exitosamente");
+        return redirect('recuperarEventos');   
     }
 }

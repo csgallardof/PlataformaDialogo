@@ -223,6 +223,13 @@ class InstitucionController extends Controller
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
+        $evaluaciones = DB::select("SELECT count(1) as total, ev_semaforo, ev_solicitud_id 
+                                      FROM `evaluacion_ciudadano` 
+                                      GROUP BY ev_semaforo, ev_solicitud_id order by ev_solicitud_id; ");
+
+
+        
+
         //dd($tipo_fuente);
         return view('institucion.home')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
                                                 "totalDespliegue"=>$totalDespliegue,
@@ -232,6 +239,8 @@ class InstitucionController extends Controller
                                                 "notificaciones"=>$notificaciones,
                                                 "tipo_fuente"=>$tipo_fuente,
                                                 "totalPropuestas"=>$totalPropuestas,
+
+                                                "evaluaciones"=>$evaluaciones,
                                                  "totalPropuestaConflicto"=> $totalPropuestaConflicto,
                                                  "totalPropuestaDesestimada"=> $totalPropuestaDesestimada,
                                                  "totalPropuestaAjustada"=> $totalPropuestaAjustada
