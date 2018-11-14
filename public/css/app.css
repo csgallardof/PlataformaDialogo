@@ -4655,7 +4655,8 @@ tbody.collapse.in {
 
 .navbar-fixed-top {
 	top: 0;
-	border-width: 0 0 1px
+	border-width: 0 0 1px;
+	height: 80px
 }
 
 .navbar-fixed-bottom {
