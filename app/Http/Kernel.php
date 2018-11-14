@@ -21,11 +21,11 @@ class Kernel extends HttpKernel
                  ->hourly();*/
 
         //$schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('00 00 15 * *'); //descomentar para salida oficial
-        $schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('00 00 15 * *'); //descomentar para salida oficial
+        $schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('0 45 16 14 * ?'); //descomentar para salida oficial
          //$schedule->call('App\Http\Controllers\NotificacionCiudadanoController@enviarCorreo')->dailyAt('00:00'); //descomentar para salida oficial
          $schedule->call('App\Http\Controllers\NotificacionCiudadanoController@enviarCorreo')->everyFiveMinutes(); //comentar para salida oficial
         
-        $schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('*/10 * * * * *')->withoutOverlapping();//comentar para salida oficial
+        //$schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('*/10 * * * * *')->withoutOverlapping();//comentar para salida oficial
         //$schedule->call('App\Http\Controllers\NotificacionQuincenalController@enviarCorreo')->cron('*/10 * * * * *')->withoutOverlapping();//comentar para salida oficial
          
 

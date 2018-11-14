@@ -5,7 +5,7 @@ Author: Sean Ngu
 Website: http://www.seantheme.com/color-admin-v1.7/admin/
 */
 
-var handleCalendarDemo = function () {
+var handleCalendarDemo = function (data) {
 	"use strict";
 	var buttonSetting = {left: 'today prev,next ', center: 'title', right: 'month,agendaWeek,agendaDay'};
 	var date = new Date();
@@ -62,85 +62,7 @@ var handleCalendarDemo = function () {
             element.find(".fc-event-title").append('<small>'+ description +'</small>');
         },
 		editable: true,
-		events: [
-		
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 11,),
-				end: new Date(y, 5 , 11),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- MAG <br> -MIPRO <br>, -DGAC.'
-			},
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 12,),
-				end: new Date(y, 5 , 13),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- MTOP <br> -SRI <br>, -MDT.'
-			},
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 13,),
-				end: new Date(y, 5 , 13),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- PROECUADOR <br> -MEER <br>, -SENAE.'
-			},
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 14,),
-				end: new Date(y, 5 , 14),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- INEN <br> -MINTUR <br>, -MAP.'
-			},
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 15,),
-				end: new Date(y, 5 , 15),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- BANECUADOR <br> -AGROCALIDAD <br>, -SERCOP.'
-			},
-
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 18,),
-				end: new Date(y, 5 , 18),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- MIENTE <br> -INMOBILIAR <br>, -ARCSA.'
-			},
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 19,),
-				end: new Date(y, 5 , 19),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- IEPS <br> -MEF <br>, -CFN.'
-			},
-			{
-				title: 'Articulación Institucional',
-				start: new Date(y,5 , 20,),
-				end: new Date(y, 5 , 20),
-				allDay: false,
-				className: 'bg-blue',
-				media: '<i class="fa fa-users"></i>',
-				description: '- MCEI'
-			},
-			
-
-			
-		]
+		events: data
 	});
 	
 	/* initialize the external events
@@ -168,8 +90,8 @@ var Calendar = function () {
 	"use strict";
     return {
         //main function
-        init: function () {
-            handleCalendarDemo();
+        init: function (data) {
+            handleCalendarDemo(data);
         }
     };
 }();

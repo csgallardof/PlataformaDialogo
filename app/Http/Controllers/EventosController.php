@@ -8,11 +8,13 @@ use App\Provincia;
 
 use App\User;
 use App\Role;
-
+use Laracasts\Flash\Flash;
 use DB;
 use Illuminate\Support\Collection as Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
+
+
     
 use App\Auth\Login;
 class EventosController extends Controller
@@ -66,7 +68,13 @@ class EventosController extends Controller
 
     public function recuperarEventos(){
 
-        $eventos = Evento::all();
+        //$eventos = Evento::all()->sortByDesc("created_at")->paginate(20);
+        $eventos = Evento::where('id','>',0)->orderBy('created_at', 'DESC')->paginate(20);
+        
+        //$eventos = Evento::where('created_at', '<', 'now()')->orderBy('created_at', 'DESC')->paginate(20);
+        //$eventos=DB::SELECT("SELECT * from eventos where created_at < now() order by created_at DESC")->paginate(20);
+
+        
         $provincias = Provincia::all();
         return view('admin.eventos.listareventos')->with(["eventos"=>$eventos, "provincias"=>$provincias]);
 
@@ -104,8 +112,9 @@ class EventosController extends Controller
         $item = evento::find($id);
 
         $provincias = Provincia::all();
-    
-        return view('admin.eventos.edit', compact('item'))->with(["provincias"=>$provincias]);
+        //dd(\Carbon\Carbon::parse($item->from_date)->format('m-d-Y'));
+        $fecha = \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
+        return view('admin.eventos.edit', compact('item'))->with(["provincias"=>$provincias,"fecha"=>$fecha]);
     }
 
     /**
@@ -118,16 +127,17 @@ class EventosController extends Controller
     public function update(Request $request, $id)
     {
         //
+
          $evento = Evento::find($id);
          $this ->validate($request,[
-             'nombre_evento' =>'required|unique:eventos'
+             'nombre_evento' =>'required'
          ]);
-        $eventos->nombre_evento = $request->nombre_eventos;
-        $eventos->created_at   = $request->calendar;
-        $eventos->provincia_id   = $request->provincia_id;
-        $eventos->save();
+        $evento->nombre_evento = $request->nombre_evento;
+        $evento->created_at   = $request->calendar;
+        $evento->provincia_id   = $request->provincia_id;
+        $evento->save();
         Flash::success("Se ha actualizado el evento exitosamente");
-        return redirect('recuperarEventos');         
+        return redirect('/listar-eventos/');         
     }
 
     /**
@@ -142,6 +152,6 @@ class EventosController extends Controller
         $evento = Evento::find($id);
         $evento->delete();
         Flash::success("Se ha eliminado el evento exitosamente");
-        return redirect('recuperarEventos');   
+        return redirect('/listar-eventos/');   
     }
 }
