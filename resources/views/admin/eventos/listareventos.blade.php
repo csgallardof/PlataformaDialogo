@@ -28,7 +28,7 @@
                             </div>
                             <h3 align="left" class="panel-title">Eventos Programados</h3>
                         </div>
-
+                        {{ $eventos->links() }}
                         <div class="panel-body">
 
                             <div class="table-responsive">
@@ -72,7 +72,7 @@
 
                                             </td>
                                             <td class="text-justify">
-                                                   <a href="{{ url('/eliminar-evento/'.$evento->id) }}" class="btn btn-link f-s-13 f-w-500">
+                                                   <a href="{{ url('/eliminar-evento/'.$evento->id) }}" class="btn btn-link f-s-13 f-w-500" onclick="return confirm('Esta seguro de eliminar el evento?')">
                                                        Eliminar
                                                    </a> 
 

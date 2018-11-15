@@ -68,7 +68,7 @@
                    ?>
 
       <div >
-          <a class="nav_button" href="/busqueda-ejes/1">
+          <a class="nav_button myButtonEje" href="/busqueda-ejes/1">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/ico_derechos.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_derechos_img) }}'"
               onmouseout="this.src='{{ asset($path_derechos_img_hover) }}'" />
@@ -78,7 +78,7 @@
           </a>
 
 
-          <a class="nav_button2" href="/busqueda-ejes/2">
+          <a class="nav_button2 myButtonEje2" href="/busqueda-ejes/2">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/economico.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_economico) }}'"
               onmouseout="this.src='{{ asset($path_economico_hover) }}'" />
@@ -87,7 +87,7 @@
             
           </a>
 
-          <a class="nav_button3" href="/busqueda-ejes/3">
+          <a class="nav_button3 myButtonEje3" href="/busqueda-ejes/3">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/transparencia.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_transparencia) }}'"
               onmouseout="this.src='{{ asset($path_transparencia_hover) }}'" />
@@ -282,6 +282,8 @@ Highcharts.mapChart('container_map', {
     series: [{
         data: data_f,
         name: 'Eventos programados:',
+        borderColor: 'black',
+        borderWidth: 0.2,
         states: {
             hover: {
                 color: '#BADA55'

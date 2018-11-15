@@ -1400,7 +1400,7 @@ class PaginasController extends Controller
 
         $eventos = DB::select('SELECT count(1) as total, nombre_provincia,
                                   case  
-                                   when nombre_provincia LIKE "%Guayaquil%" then "ec-gu" 
+                                   when nombre_provincia LIKE "%Guayas%" then "ec-gu" 
                                    when nombre_provincia LIKE "%Esmeraldas%" then "ec-es" 
                                    when nombre_provincia LIKE "%Carchi%" then "ec-cr" 
                                    when nombre_provincia LIKE "%Imbabura%" then "ec-im" 
@@ -1432,6 +1432,7 @@ class PaginasController extends Controller
                                   end as prov_code 
                                 FROM eventos e, provincias p 
                                 where e.provincia_id = p.id 
+                                and e.created_at<now()
                                 and nombre_provincia!="Nacional"
                                 GROUP by nombre_provincia');
 
@@ -1459,9 +1460,12 @@ class PaginasController extends Controller
 
     public function calendarioDialogo(){
 
-        
+        //$eventos = Evento::all()->sortByDesc("created_at");
+        $eventos =  DB::select("select e.*, p.nombre_provincia 
+from eventos e, provincias p 
+where e.provincia_id = p.id");        
 
-        return view('dialogo.calendario-dialogo');        
+        return view('dialogo.calendario-dialogo')->with(["eventos"=>$eventos]);        
         
     }
 

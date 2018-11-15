@@ -65,7 +65,7 @@
 	</head>
 
 	<body style="background-color: grey;">
-     <h1 style="text-indent:-9999px; float: left; color:white; ">Plataforma de Dialogo Nacional</h1>
+     <h1 style="text-indent:-9999px; float: left; color:white;size: 0px;font-size: 0px; ">Plataforma de Dialogo Nacional</h1>
      <!-- class="fade"-->
 
     <div id="page-container"  class="fade">

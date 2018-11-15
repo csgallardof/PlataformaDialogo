@@ -112,10 +112,11 @@ Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@
 
 Route::get('/listar-eventos/',['uses'=>'EventosController@recuperarEventos','as'=>'recuperarEventos']);
 Route::get('/nuevo-evento/',['uses'=>'EventosController@nuevoEvento','as'=>'nuevoEvento']);
-Route::get('/eliminar-evento/{id}',['uses'=>'EventosController@eliminarEvento','as'=>'eliminarEvento']);
+Route::get('/eliminar-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eliminarEvento']);
 Route::get('/editar-evento/{id}',['uses'=>'EventosController@edit','as'=>'editarEvento']);
+Route::post('/actualiza-evento/{id}',['uses'=>'EventosController@update','as'=>'updateEvento']);
 Route::post('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
-Route::post('/delete-evento/',['uses'=>'EventosController@destroy','as'=>'eventos.delete']);
+Route::post('/delete-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eventos.delete']);
 
 
 

@@ -10,11 +10,13 @@
 @section('edit_Method')
     {{ method_field('PUT') }}
 @endsection
+
+
 -->
 
 
-@extends('layouts.main')
 
+<!--@extends('layouts.main') -->
 @section('title', 'Editar Evento')
 @section('contenido')
         
@@ -28,12 +30,9 @@
                 </div>
            
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{'/editar-evento/'}}" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="POST" action="{{'/actualiza-evento/'.$item->id}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        @section('edit_Method')
-                        @include('flash::message')
-                        @show
-                            
+ 					@include('flash::message')                            
                         <div class="form-group">
                             <label for="nombre_evento" class="col-md-4 control-label">Nombre</label>
 
@@ -67,9 +66,12 @@
                             <label for="calendar" class="col-md-4 control-label">Fecha Evento</label>
 
                             <div class="col-md-6">
-                                {{$item->created_at}}
+                            	
+                              <!--  <input id="calendar" type="date"  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" name="calendar" value="{{$item->created_at}}">-->
 
-                                <input id="calendar" type="date"  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" name="calendar" value="{{$item->created_at}}">
+                              <!-- pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" -->
+						<input id="calendar" type="date"  required name="calendar" value="{{$fecha}}">
+                              
 
                             </div>
                         </div>

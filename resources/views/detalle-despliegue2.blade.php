@@ -118,21 +118,25 @@
         </div>
 
 				<!-- begin row -->
-				<div class="row">
+				<div class="row" >
 					<!-- begin col-5 -->
-					<div class="col-md-3">
+					<div class="col-md-3" >
 
 						<div class="panel panel-inverse" data-sortable-id="index-6" style="border: #D7DBDD 1px solid; padding: 1%">
 							<dl class="dl-horizontal">
-										
+										<div class="section_row">
 								<a href="/propuesta-detallada/descargar-excel/{{$solucion->id}}" class="btn btn-success"><i class="fa fa-file-excel-o"></i>&nbsp;Descargar Excel</a>
+								          </div>
+								          <br>
+								          <div class="section_row">
 								<a target="_blank" href="/propuesta-detallada/descargar-pdf/{{$solucion->id}}/1" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i>&nbsp;Descargar PDF</a>
+								       </div>
 
 								
 								
 							</dl>
 
-							<form  method='POST' action="{{ url('/registrarCorreoNotificacion',[$solucion->id]) }}" id="frmEmailCiudadano">
+							<form style="background-color: #f3f3f3; margin-bottom: 10px;"  method='POST' action="{{ url('/registrarCorreoNotificacion',[$solucion->id]) }}" id="frmEmailCiudadano">
 								{{ csrf_field() }}
 
 								@if(isset($mensaje_cd))
