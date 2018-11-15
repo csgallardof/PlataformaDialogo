@@ -648,7 +648,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
      Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
 
-     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliaegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
      Route::get('parametros-cumplimiento/edit/{idSolucion}',['uses'=>'ActividadesController@vistaEditParametrosCumplimiento','as'=>'solucion.EditparametrosCumplimiento']);
 

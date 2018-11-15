@@ -4,6 +4,40 @@
 @parent
     <link href="{{ asset('plugins/DataTablesv2/datatables.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style-after.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   
+
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'Finalizado','En Desarrollo','En Análisis','Desestimado','En Conflicto'],
+          @foreach($propuestasPorEstado as $propuestasPorEstados)
+            ['{{ $propuestasPorEstados->inst }}', {{ $propuestasPorEstados->finalizado}}, {{ $propuestasPorEstados->desarrollo}}, 
+            {{ $propuestasPorEstados->analisis}}, {{$propuestasPorEstados->desestimadas}}, {{$propuestasPorEstados->conflicto}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion'            
+          }
+           
+
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('barChart_estadoPropuesta'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));        
+      }
+    </script>    
 @endsection  
 
 @section('content')
@@ -11,6 +45,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
 
 <div class="container" width="10%" style="background-color: #f3f3f3;">
  <div class="col-md-12 ">
@@ -67,6 +102,25 @@
     </table>
 
     </div>
+
+
+            <div class="row">
+               
+                 
+                   <div class="col-md-12">
+                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">ESTADO PROPUESTA</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                              <div id="barChart_estadoPropuesta" style="width: 1000px; height: 500px;"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+              </div>
 
   <br/><br/>
 
