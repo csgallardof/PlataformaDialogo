@@ -13,7 +13,7 @@
 <div id="backg">
    <div class="head_table">
        <div class="dvheader_logo"> 
-         <img id="logo_home" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="290px" height="290px" alt="Logo Dialogo Nacional">
+         <img id="logo_home" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="190px" height="190px" alt="Logo Dialogo Nacional">
        </div>
         <!--  <div id="inp_busqueda_banner">
           </div>

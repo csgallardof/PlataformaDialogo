@@ -181,7 +181,7 @@ header{
   width: 100%;
    
    display: table-row;
-   background-image: url('../imagenes/dialogo_nacional/nueva_imagen/bg_header.jpg');
+   background-image: url('../imagenes/dialogo_nacional/nueva_imagen/im_1.jpg');
    background-repeat: no-repeat;
    background-size: 100% 100%;
 
@@ -466,7 +466,7 @@ h2{
 #searchwrapper {
 
 border-radius: 10px;
-width:310px; /*follow your image's size*/
+width:210px; /*follow your image's size*/
 height:40px;/*follow your image's size*/
 /*background-image:url('nueva_imagen/lupa.png');
 background-repeat:no-repeat; *//*important*/
@@ -486,7 +486,7 @@ background-color:transparent; /*important*/
 position:absolute; /*important*/
 top:4px;
 left:9px;
-width:256px;
+width:200px;
 height:28px;
 }
  
@@ -495,7 +495,7 @@ border:0px; /*important*/
 background-color:transparent; /*important*/
 position:absolute; /*important*/
 top:4px;
-left:265px;
+left:165px;
 width:32px;
 height:28px;
 }
@@ -726,7 +726,7 @@ height:28px;
  #logo_home{
     width:130px; 
     height:130px;
-
+   display: none;
 
  }
 
@@ -777,6 +777,52 @@ height:28px;
    display: table-row; 
 
   }
+
+#backg{
+
+  background-image: none;
+}
+
+  #searchwrapper {
+
+border-radius: 10px;
+border:solid 1px #193b68;
+width:100%; /*follow your image's size*/
+height:40px;/*follow your image's size*/
+/*background-image:url('nueva_imagen/lupa.png');
+background-repeat:no-repeat; *//*important*/
+background-color: white;
+padding:0px;
+
+margin:0px;
+position:relative; /*important*/
+float: right;
+}
+
+
+.searchbox {
+border:0px; /*important*/
+background-color:transparent; /*important*/
+position:absolute; /*important*/
+top:4px;
+left:9px;
+width:260px;
+height:28px;
+}
+
+
+.searchbox_submit {
+border:0px; /*important*/
+background-color:transparent; /*important*/
+position:absolute; /*important*/
+top:4px;
+left:265px;
+width:32px;
+height:28px;
+}
+
+
+
 
 }
 
