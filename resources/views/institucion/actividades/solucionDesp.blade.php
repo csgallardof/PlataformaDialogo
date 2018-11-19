@@ -150,7 +150,7 @@
 				<!-- end col-8 -->
 				<!-- begin col-4 -->
 				<div class="col-md-4" >
-					<div class="panel panel-inverse" data-sortable-id="index-6">
+					<div class="panel panel-inverse" data-sortable-id="index-1">
 						<div class="panel-heading">
 							
 							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actores</h4>

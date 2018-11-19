@@ -5,6 +5,7 @@
 
 <!-- begin #content -->
 <div id="content" class="content">
+
 	<!-- begin breadcrumb -->
 	<ol class="breadcrumb pull-right">
 		<li><a href="{{ url('institucion/home') }}">Inicio</a></li>
@@ -17,7 +18,7 @@
 
 	<!-- end page-header -->
 
-	<!-- begin row -->
+	<!-- begin row 1-->
 	<div class="row">
 		<!-- begin col-12 -->
 		<div class="col-md-12 col-sm-12">
@@ -46,15 +47,15 @@
 	</div>
 	<!-- end row -->
 
-	<!-- begin row -->
+	<!-- begin row 2-->
 
-	<div class="row">
+	<div class="row" >
 		<!-- begin col-8 -->
 		<div class="col-md-8">
 
 			<!---->
 
-			<div class="panel panel-inverse" data-sortable-id="index-5">
+			<div class="panel panel-inverse" data-sortable-id="index-1">
 				<div class="panel-heading">
 					<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actividades</h4>
 				</div>
@@ -194,7 +195,7 @@
 					
 					<!-- begin col-4 -->
 					<div class="col-md-4" >
-						<div class="panel panel-inverse" data-sortable-id="index-6">
+						<div class="panel panel-inverse" data-sortable-id="index-1">
 							<div class="panel-heading">							
 								<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actores</h4>
 							</div>
@@ -238,3 +239,4 @@
 			<!-- end #content -->
 
 	
+@stop

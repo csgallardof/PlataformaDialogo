@@ -176,6 +176,7 @@
 
        <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
+      //google.charts.load("current", {packages:["imagepiechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -192,6 +193,9 @@
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart_mesasProvincia'));
         chart.draw(data, options);
+
+        //var chart = new google.visualization.ImagePieChart(document.getElementById('donutchart_mesasProvincia'));
+        //chart.draw(data, options);
       }
     </script>
 
@@ -226,7 +230,7 @@
 
 
 <div class="container" style="background-color: #f3f3f3;">
- <div class="col-md-12 ">
+ <!--<div class="col-md-12 ">-->
   <div class="panel panel-default">
     <div class="row">
       
@@ -375,13 +379,13 @@
              </table>              
               </div>
                 <!-- begin col-6 -->
-                <div class="col-md-4">
+                <div class="col-md-6">
 
                     <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
                         
                         <div class="panel-body">
                             <div>
-                              <div id="donutchart_mesasProvincia" style="width: 400px; height: 300px;"></div>
+                              <div id="donutchart_mesasProvincia" style="width: 500px; height: 400px;"></div>
                                 
                             </div>
                         </div>
@@ -389,12 +393,12 @@
                 </div>
                 <!-- end col-6 -->
                 <!-- begin col-6 -->
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
                         
                         <div class="panel-body">
                             <div>
-                               <div id="donutchart_propuestasAmbito" style="width: 500px; height: 300px;"></div>
+                               <div id="donutchart_propuestasAmbito" style="width: 500px; height: 400px;"></div>
                                
                             </div>
                         </div>
@@ -411,6 +415,9 @@
 
   </div>
     </div>
+
+
+</div>
 		
 @endsection
 
