@@ -32,8 +32,8 @@ use App\Http\Controllers\AuditoriaController;
 
 use File;
 use DB;
-use PHPExcel; 
-use PHPExcel_IOFactory; 
+use PHPExcel;
+use PHPExcel_IOFactory;
 use PHPExcel_Shared_Date;
 
 use Mail;
@@ -42,7 +42,7 @@ class MesaDialogoController extends Controller
 {
 
     /**
-     * Display a listing of the resource. 
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,7 +61,7 @@ class MesaDialogoController extends Controller
         $mesas_dialogo = MesaDialogo::where('organizador_id',$institucion_usuario->institucion_id)
                                     ->orderBy('id','DESC')->paginate(15);
         //dd($request->parametro);
-        return view('admin.mesadialogo.home')->with(["mesasdialogo"=>$mesas_dialogo]);  
+        return view('admin.mesadialogo.home')->with(["mesasdialogo"=>$mesas_dialogo]);
     }
 
     /**
@@ -83,7 +83,7 @@ class MesaDialogoController extends Controller
                                                     "consejosSectoriales"=>$consejosSectoriales,
                                                     "sectores"=>$sectores,
                                                     "zonas"=>$zonas
-                                                    ]); 
+                                                    ]);
     }
 
 
@@ -108,18 +108,18 @@ class MesaDialogoController extends Controller
     {
         $item = MesaDialogo::find($id);
         //Obtenemos las listas que se desplegarán en los combos del formulario
-        $tiposDialogo= TipoDialogo::all();
-        $instituciones= Institucion::all();
-        $consejosSectoriales= ConsejoSectorial::all();
+        $tiposDialogo         = TipoDialogo::all();
+        $instituciones        = Institucion::all();
+        $consejosSectoriales  = ConsejoSectorial::all();
         $zonas= Zona::all();
         if(!is_null($item->zona_id)){
             $provincias= Provincia::provincias($item->zona_id);
         }
         if(!is_null($item->provincia_id)){
-            $cantones= Canton::cantones($item->provincia_id);                
+            $cantones= Canton::cantones($item->provincia_id);
         }
         if(!is_null($item->canton_id)){
-            $parroquias= Parroquia::parroquias($item->canton_id);                
+            $parroquias= Parroquia::parroquias($item->canton_id);
         }
         $sectores= Sector::all();
         //Enviamos a la vista todos los valores requeridos para la edición
@@ -132,7 +132,7 @@ class MesaDialogoController extends Controller
                                                                     "provincias"=>$provincias,
                                                                     "cantones"=>$cantones,
                                                                     "parroquias"=>$parroquias
-                                                                    ]); 
+                                                                    ]);
     }
 
     /**
@@ -147,8 +147,7 @@ class MesaDialogoController extends Controller
         try{
 
             $mesa_dialogo = MesaDialogo::find($id);
-            
-            $mesa_dialogo->nombre = $request->nombre;        
+            $mesa_dialogo->nombre = $request->nombre;
             $mesa_dialogo->tipo_dialogo_id = $request->tipo_dialogo_id;
             $mesa_dialogo->organizador_id = $request->organizador_id;
             $mesa_dialogo->consejo_sectorial_id = $request->consejo_sectorial_id;
@@ -164,7 +163,6 @@ class MesaDialogoController extends Controller
             $mesa_dialogo->fecha = $request->fecha;
             $mesa_dialogo->sector_id = $request->sector_id;
             $mesa_dialogo->descripcion = $request->descripcion;
-          
             $mesa_dialogo->save();
 
             Flash::success("La información de la mesa de dialogo ha sido guardada exitosamente.");
@@ -200,10 +198,10 @@ class MesaDialogoController extends Controller
         //Obtenemos el usuario autenticado
         $user = Auth::user();
         //Guarda la información de la nueva mesa de dialogo
-        if($request->nuevo == true ){ 
-            
-            $mesa_dialogo = new MesaDialogo;            
-            $mesa_dialogo->nombre = $request->nombre;        
+        if($request->nuevo == true ){
+
+            $mesa_dialogo = new MesaDialogo;
+            $mesa_dialogo->nombre = $request->nombre;
             $mesa_dialogo->tipo_dialogo_id = $request->tipo_dialogo_id;
             $mesa_dialogo->organizador_id = $request->organizador_id;
             $mesa_dialogo->consejo_sectorial_id = $request->consejo_sectorial_id;
@@ -220,11 +218,11 @@ class MesaDialogoController extends Controller
             $mesa_dialogo->sector_id = $request->sector_id;
             $mesa_dialogo->descripcion = $request->descripcion;
             $mesa_dialogo->user_id = $user->id;
-          
+
             $mesa_dialogo->save();
-             
-  $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$request->nombre.'" and descripcion = "'.$request->descripcion.'"');
-   $idTabla = $mesaDialogoGuardado[0] ->id;  
+
+   $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$request->nombre.'" and descripcion = "'.$request->descripcion.'"');
+   $idTabla = $mesaDialogoGuardado[0] ->id;
    $nombreTabla = "mesa_dialogo";
    $proceso = "insert";
    $usuario = Auth::user()->name;
@@ -245,10 +243,10 @@ class MesaDialogoController extends Controller
                 $aux = json_decode($request->mesa_dialogo, true);
 
                // dd($aux);
-                
-                //Toma el objeto de la mesa validado y guarda en la bdd    
+
+                //Toma el objeto de la mesa validado y guarda en la bdd
                 $mesa_dialogo = new MesaDialogo;
-                $mesa_dialogo->nombre = $aux['nombre'];        
+                $mesa_dialogo->nombre = $aux['nombre'];
                 $mesa_dialogo->tipo_dialogo_id = $aux['tipo_dialogo_id'];
                 $mesa_dialogo->organizador_id = $aux['organizador_id'];
                 if(isset($aux['consejo_sectorial_id'])){
@@ -287,20 +285,20 @@ class MesaDialogoController extends Controller
                     $mesa_dialogo->descripcion = $aux['descripcion'];
                 }
                 $mesa_dialogo->user_id = $user->id;
-                
+
                 $mesa_dialogo->save();
-  
+
    $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$mesa_dialogo->nombre.'" and user_id = "'.$mesa_dialogo->user_id.'"');
-   $idTabla = $mesaDialogoGuardado[0] ->id;  
+   $idTabla = $mesaDialogoGuardado[0] ->id;
    $nombreTabla = "mesa_dialogo";
    $proceso = "insert";
    $usuario = Auth::user()->name;
    $cedula = Auth::user()->cedula;
    $observacion = "Insertado desde carga masiva";
    AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
-           
-                
-                //Toma la lista de objetos de participates y guarda en la bdd 
+
+
+                //Toma la lista de objetos de participates y guarda en la bdd
                 $datos_participante = $request->datos_participante;
                 if(isset($datos_participante)){
                     $datos_participante = Collection::make(json_decode($datos_participante, true));
@@ -334,19 +332,19 @@ class MesaDialogoController extends Controller
                         $participante->save();
 
                          $participanteGuardado = DB::select('SELECT * from participante where mesa_dialogo_id ='.$participante->mesa_dialogo_id.' and nombres = "'.$participante->nombres.'"');
-   $idTabla = $mesaDialogoGuardado[0] ->id;  
+   $idTabla = $mesaDialogoGuardado[0] ->id;
    $nombreTabla = "participante";
    $proceso = "insert";
    $usuario = Auth::user()->name;
    $cedula = Auth::user()->cedula;
    $observacion = "Insertado desde carga masiva";
    AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
-           
+
 
                     }
                 }
 
-                //Toma la lista de objetos de propuestas (soluciones) y guarda en la bdd 
+                //Toma la lista de objetos de propuestas (soluciones) y guarda en la bdd
                 $datos_solucion = $request->datos_solucion;
                 if(isset($datos_solucion)){
                     $datos_solucion = Collection::make(json_decode($datos_solucion, true));
@@ -359,7 +357,7 @@ class MesaDialogoController extends Controller
                         if(isset($solucionAux['sipoc_id'])){
                             $solucion->sipoc_id = $solucionAux['sipoc_id'];
                         }
-                        
+
                         $solucion->instrumento_id = $solucionAux['instrumento_id'];
 
                         $solucion->tipo_empresa_id = $solucionAux['tipo_empresa_id'];
@@ -371,9 +369,9 @@ class MesaDialogoController extends Controller
                         if(isset($solucionAux['fecha_cumplimiento'])){
                             $solucion->fecha_cumplimiento = $solucionAux['fecha_cumplimiento'];
                         }
-                        $solucion->problema_solucion= $solucionAux['problema_solucion'];
-                        $solucion->verbo_solucion = $solucionAux['verbo_solucion'];
-                        $solucion->sujeto_solucion = $solucionAux['sujeto_solucion'];
+                        $solucion->problema_solucion    = $solucionAux['problema_solucion'];
+                        $solucion->verbo_solucion       = $solucionAux['verbo_solucion'];
+                        $solucion->sujeto_solucion      = $solucionAux['sujeto_solucion'];
                         $solucion->complemento_solucion = $solucionAux['complemento_solucion'];
                         if(isset($solucionAux['plazo_cumplimiento'])){
                             $solucion->plazo_cumplimiento = $solucionAux['plazo_cumplimiento'];
@@ -387,21 +385,21 @@ class MesaDialogoController extends Controller
                         $solucion->pajustada = $solucionAux['pajustada'];
                         $solucion->palabras_clave = $solucionAux['palabras_clave'];
 
-                        $solucion->evento_id =  $solucionAux['evento_id'];
-                        $solucion->lider_mesa_solucion = $solucionAux['lider_mesa_solucion'];
-                        $solucion->sistematizador_solucion = $solucionAux['sistematizador_solucion'];
-                        $solucion->provincia_id = $solucionAux['provincia_id'];
+                        $solucion->evento_id                  = $solucionAux['evento_id'];
+                        $solucion->lider_mesa_solucion        = $solucionAux['lider_mesa_solucion'];
+                        $solucion->sistematizador_solucion    = $solucionAux['sistematizador_solucion'];
+                        $solucion->provincia_id               = $solucionAux['provincia_id'];
                         $solucion->coordinador_zonal_solucion = $solucionAux['coordinador_zonal_solucion'];
-                        $solucion->tipo_fuente = $solucionAux['tipo_fuente'];
-                        $solucion->pajustada_id= $solucionAux['pajustada_id'];
-                        $solucion->thematic_id= $solucionAux['thematic_id'];
-                        $solucion->vsector_id = $solucionAux['vsector_id'];
-                        $solucion->solucion_ccpt = $solucionAux['solucion_ccpt'];
-                        $solucion->estado_id = $solucionAux['estado_id'];
-                        $solucion->ponderacion = $solucionAux['ponderacion'];
-                        $solucion->propuesta_solucion = $solucionAux['propuesta_solucion'];
-                        $solucion->zona_id = $solucionAux['zona_id'];
-                        $solucion->lugar_solucion = $solucionAux['lugar_solucion'];
+                        $solucion->tipo_fuente                = $solucionAux['tipo_fuente'];
+                        $solucion->pajustada_id               = $solucionAux['pajustada_id'];
+                        $solucion->thematic_id                = $solucionAux['thematic_id'];
+                        $solucion->vsector_id                 = $solucionAux['vsector_id'];
+                        $solucion->solucion_ccpt              = $solucionAux['solucion_ccpt'];
+                        $solucion->estado_id                  = $solucionAux['estado_id'];
+                        $solucion->ponderacion                = $solucionAux['ponderacion'];
+                        $solucion->propuesta_solucion         = $solucionAux['propuesta_solucion'];
+                        $solucion->zona_id                    = $solucionAux['zona_id'];
+                        $solucion->lugar_solucion             = $solucionAux['lugar_solucion'];
                         if(isset($solucionAux['fecha_solucion'])){
                             $solucion->fecha_solucion = $solucionAux['fecha_solucion'];
                         }
@@ -411,14 +409,14 @@ class MesaDialogoController extends Controller
                         $solucion->planificado = $solucionAux['planificado'];
                         $solucion->planificado_instrumento = $solucionAux['planificado_instrumento'];
                         //dd($aux['organizador_id']);
-                        
+
                         $InstitucionResponsableSiglas = DB::table('institucions')
                                                       ->where('siglas_institucion', $solucionAux['responsable_solucion'])
                                                       ->select('id', 'siglas_institucion')
                                                       ->first();
                         //echo date_format($date, 'Y-m-d H:i:s');
 
-                        
+
                         $codigo_solucions = $InstitucionResponsableSiglas->siglas_institucion."-".$solucion->fecha_solucion.'-'.date('H'.'i'.'s');
 
                         //dd($codigo_solucions);
@@ -428,7 +426,7 @@ class MesaDialogoController extends Controller
                         $solucion->save();
 
                           $solucionGuardada = DB::select('SELECT * from solucions where mesa_id ='.$solucion->mesa_id.' and instrumento_id = '. $solucion->instrumento_id.'');
-   $idTabla = $solucionGuardada[$cont] ->id;  
+   $idTabla = $solucionGuardada[$cont] ->id;
    $nombreTabla = "solucions";
    $proceso = "insert";
    $usuario = Auth::user()->name;
@@ -438,14 +436,14 @@ class MesaDialogoController extends Controller
     $cont++;
 
                         //dd($codigo_solucions);
-                        
+
                         /*RESPONSABLE*/
                         $InstitucionResponsableID = DB::table('institucions')
                                                       ->where('siglas_institucion', $solucionAux['responsable_solucion'])
                                                       ->select('id')
                                                       ->first();
                                                       //var_dump($InstitucionCoResponsableID->id);
-                                    
+
                                     $institucionSolucion= new ActorSolucion;
                                     $institucionSolucion-> user_id = 0;
                                     $institucionSolucion-> institucion_id = $InstitucionResponsableID->id;
@@ -455,7 +453,7 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> save();
 
                     $actorSolucionGuardada = DB::select('SELECT * from actor_solucion where institucion_id ='.$InstitucionResponsableID->id.' and solucion_id = '. $solucion->id.'');
-   $idTabla = $actorSolucionGuardada[0] ->id;  
+   $idTabla = $actorSolucionGuardada[0] ->id;
    $nombreTabla = "actor_solucion";
    $proceso = "insert";
    $usuario = Auth::user()->name;
@@ -467,16 +465,16 @@ class MesaDialogoController extends Controller
                          $cadena = $solucionAux['corresponsable_solucion'];
 
                                 $array = explode(","." ", $cadena);
-                                
+
                                 foreach ($array as $array) {
                                     //var_dump($array);
-                                    
+
                                     $InstitucionCoResponsableID = DB::table('institucions')
                                                       ->where('siglas_institucion', $array)
                                                       ->select('id')
                                                       ->first();
                                                       //var_dump($InstitucionCoResponsableID->id);
-                                    
+
                                     $institucionSolucion= new ActorSolucion;
                                     $institucionSolucion-> user_id = 0;
                                     $institucionSolucion-> institucion_id = $InstitucionCoResponsableID->id;
@@ -486,7 +484,7 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> save();
 
                                            $actorSolucionGuardada = DB::select('SELECT * from actor_solucion where institucion_id ='.$InstitucionResponsableID->id.' and solucion_id = '. $solucion->id.'');
-   $idTabla = $actorSolucionGuardada[0] ->id;  
+   $idTabla = $actorSolucionGuardada[0] ->id;
    $nombreTabla = "actor_solucion";
    $proceso = "insert";
    $usuario = Auth::user()->name;
@@ -499,10 +497,10 @@ class MesaDialogoController extends Controller
                         /*PALABRAS CLAVES*/
                         $cadenaPalabras = $solucionAux["palabras_clave"];
                             $arrayPalabras = explode(","." ", $cadenaPalabras);
-                            
+
                             foreach ($arrayPalabras as $arrayPalabras) {
-                               
-                                
+
+
                                 $solucionPalabraClave= new PalabrasClave;
                                 $solucionPalabraClave-> nombre = $arrayPalabras;
                                 $solucionPalabraClave-> solucion_id = $solucion->id;
@@ -513,9 +511,9 @@ class MesaDialogoController extends Controller
 
 
                     }
-                  
 
-                    
+
+
 
                 }
 
@@ -545,9 +543,14 @@ class MesaDialogoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function matrizCarga()
-    {      
+    {
         return view('admin.mesadialogo.matrizCarga');
     }
+
+
+
+    /*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181112 */
+
     /**
     * Valida el archivo de la matriz de mesa de dialogo
     * El formato de la matriz Excel a validar tiene tres hojas válidas para procesar:
@@ -563,37 +566,37 @@ class MesaDialogoController extends Controller
     public function vistaPreviaMesas(Request $request)
     {
         try{
-            $errores[] = array();
-            $errores_participante[] = array();
-            $errores_solucion[] = array();
+            $errores[]                  = array();
+            $errores_participante[]     = array();
+            $errores_solucion[]         = array();
 
-            $file = $request->file('archivo_mesa');   //obtenemos el campo file definido en el formulario
-            $nombreArchivo = $file->getClientOriginalName();   //obtenemos el nombre del archivo
-            $nombreArchivo = strtotime("now")."-".$nombreArchivo;     // agregamos la fecha actual unix al inicio del nombre del archivo
-            \Storage::disk('local')->put($nombreArchivo,  \File::get($file));   //indicamos que queremos guardar un nuevo archivo en el disco local
-            
-            $objPHPExcel = PHPExcel_IOFactory::load( storage_path('app').'/storage/'.$nombreArchivo ); 
-            
+            $file = $request->file('archivo_mesa');                                                                 //obtenemos el campo file definido en el formulario
+            $nombreArchivo = $file->getClientOriginalName();                                                        //obtenemos el nombre del archivo
+            $nombreArchivo = strtotime("now")."-".$nombreArchivo;                                                   //agregamos la fecha actual unix al inicio del nombre del archivo
+            \Storage::disk('local')->put($nombreArchivo,  \File::get($file));                                       //indicamos que queremos guardar un nuevo archivo en el disco local
+
+            $objPHPExcel = PHPExcel_IOFactory::load( storage_path('app').'/storage/'.$nombreArchivo );
+
             //Obtenemos la Hoja 1 - Datos de la Mesa
             $objPHPExcel->setActiveSheetIndexByName('Datos de la Mesa');
-            $objWorksheet = $objPHPExcel->getActiveSheet();        
+            $objWorksheet = $objPHPExcel->getActiveSheet();
             //Obtenemos todos los campos que requieren validación posterior
-            $nombre_mesa = trim($objWorksheet->getCell("B1")->getCalculatedValue());
-            $tipo_dialogo = trim($objWorksheet->getCell("B2")->getCalculatedValue());
-            $organizador = trim($objWorksheet->getCell("B3")->getCalculatedValue());
-            $consejo_sectorial = trim($objWorksheet->getCell("B4")->getCalculatedValue());
-            $lider = trim($objWorksheet->getCell("B5")->getCalculatedValue());
-            $coordinador = trim($objWorksheet->getCell("B6")->getCalculatedValue());
-            $sistematizador = trim($objWorksheet->getCell("B7")->getCalculatedValue());       
-            $zona = trim($objWorksheet->getCell("B8")->getCalculatedValue());
-            $provincia = trim($objWorksheet->getCell("B9")->getCalculatedValue());
-            $canton = trim($objWorksheet->getCell("B10")->getCalculatedValue());
-            $parroquia = trim($objWorksheet->getCell("B11")->getCalculatedValue());
-            $lugar = trim($objWorksheet->getCell("B12")->getCalculatedValue());
-            $organizacion = trim($objWorksheet->getCell("B13")->getCalculatedValue());
-            $fecha = trim($objWorksheet->getCell("B14")->getCalculatedValue());
-            $sector = trim($objWorksheet->getCell("B15")->getCalculatedValue());
-            $descripcion = trim($objWorksheet->getCell("B16")->getCalculatedValue());
+            $nombre_mesa        = trim($objWorksheet->getCell("B1")->getCalculatedValue());
+            $tipo_dialogo       = trim($objWorksheet->getCell("B2")->getCalculatedValue());
+            $organizador        = trim($objWorksheet->getCell("B3")->getCalculatedValue());
+            $consejo_sectorial  = trim($objWorksheet->getCell("B4")->getCalculatedValue());
+            $lider              = trim($objWorksheet->getCell("B5")->getCalculatedValue());
+            $coordinador        = trim($objWorksheet->getCell("B6")->getCalculatedValue());
+            $sistematizador     = trim($objWorksheet->getCell("B7")->getCalculatedValue());
+            $zona               = trim($objWorksheet->getCell("B8")->getCalculatedValue());
+            $provincia          = trim($objWorksheet->getCell("B9")->getCalculatedValue());
+            $canton             = trim($objWorksheet->getCell("B10")->getCalculatedValue());
+            $parroquia          = trim($objWorksheet->getCell("B11")->getCalculatedValue());
+            $lugar              = trim($objWorksheet->getCell("B12")->getCalculatedValue());
+            $organizacion       = trim($objWorksheet->getCell("B13")->getCalculatedValue());
+            $fecha              = trim($objWorksheet->getCell("B14")->getCalculatedValue());
+            $sector             = trim($objWorksheet->getCell("B15")->getCalculatedValue());
+            $descripcion        = trim($objWorksheet->getCell("B16")->getCalculatedValue());
 
             $valido = true;
             $mesa_dialogo = new MesaDialogo;
@@ -604,9 +607,11 @@ class MesaDialogoController extends Controller
                 array_push($errores, $error);
                 $valido = false;
             }
-            $mesa_dialogo->lider = $lider; 
-            $mesa_dialogo->coordinador = $coordinador;
-            $mesa_dialogo->sistematizador = $sistematizador;        
+
+            $mesa_dialogo->lider          = $lider;
+            $mesa_dialogo->coordinador    = $coordinador;
+            $mesa_dialogo->sistematizador = $sistematizador;
+
             if($lugar == null || $lugar == ""){
                 $error = "El lugar es obligatorio.";
                 array_push($errores, $error);
@@ -617,7 +622,7 @@ class MesaDialogoController extends Controller
             $mesa_dialogo->organizacion = $organizacion;
             $mesa_dialogo->descripcion = $descripcion;
 
-            if(PHPExcel_Shared_Date::isDateTime($objWorksheet->getCell("B14"))) {    
+            if(PHPExcel_Shared_Date::isDateTime($objWorksheet->getCell("B14"))) {
                 $fecha = date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha));
                 $mesa_dialogo->fecha = $fecha;
             }else{
@@ -643,7 +648,7 @@ class MesaDialogoController extends Controller
                 $mesa_dialogo->organizador_id=$organizador->id;
             }
 
-            if(!is_null($consejo_sectorial)){ 
+            if(!is_null($consejo_sectorial)){
                 $consejo_sectorial = DB::table('consejo_sectorials')->where('nombre_consejo', $consejo_sectorial)->first();
                 if( $consejo_sectorial == null){
                     $error = "El consejo sectorial no es v&aacute;lido.";
@@ -652,14 +657,14 @@ class MesaDialogoController extends Controller
                 }else{
                     $mesa_dialogo->consejo_sectorial_id=$consejo_sectorial->id;
                 }
-            }        
-            
+            }
+
             if(!is_null($zona)){
                 $zona = DB::table('zona')->where('id', $zona)->first();
                 if( $zona == null){
                     $error = "La zona no es v&aacute;lida.";
                     array_push($errores, $error);
-                    $valido = false; 
+                    $valido = false;
                 }else{
                     $mesa_dialogo->zona_id=$zona->id;
                 }
@@ -717,54 +722,56 @@ class MesaDialogoController extends Controller
                 }
             }
 
-            //******** PARTICIPANTES
+            //******** PARTICIPANTES **********//
             //Obtenemos la Hoja 2 - Participantes
-            $objPHPExcel->setActiveSheetIndexByName('Participantes');  
-            $objWorksheet = $objPHPExcel->getActiveSheet();   
+            $objPHPExcel->setActiveSheetIndexByName('Participantes');
+            $objWorksheet = $objPHPExcel->getActiveSheet();
             //obtenemos el número total de filas
             $highestRow = $objWorksheet->getHighestRow();
 
 
             $participantes[] = array();
             //Obtiene la información de los participantes (descarta la cabecera)
-            if($highestRow > 1){
+            if($highestRow > 1)
+            {
                 //Recorremos todas los registros, empiezan desde la fila 2
-                for ($i = 2; $i <= $highestRow; $i++) {
+                for ($i = 2; $i <= $highestRow; $i++)
+                {
                     //en una variable recogemos los registro agrupandolos dentro de un array
-                    $informacion_participantes[] = array(                     
-                        'numFila' => $i,
-                        'nombres' => trim($objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue()),
-                        'apellidos' => trim($objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue()),
-                        'email' => trim( $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue()),
-                        'celular' => trim($objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue()),
-                        'telefono_ext' => trim($objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue()),
-                        'sector' => trim($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue()),
-                        'tipo' => trim($objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue()),
-                        'empresa' => trim($objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue()),
-                        'cargo' => trim($objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue()),
-                        'sector_empresa' => trim($objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue()),
+                    $informacion_participantes[] = array(
+                        'numFila'         => $i,
+                        'nombres'         => trim($objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue()),
+                        'apellidos'       => trim($objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue()),
+                        'email'           => trim($objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue()),
+                        'celular'         => trim($objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue()),
+                        'telefono_ext'    => trim($objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue()),
+                        'sector'          => trim($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue()),
+                        'tipo'            => trim($objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue()),
+                        'empresa'         => trim($objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue()),
+                        'cargo'           => trim($objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue()),
+                        'sector_empresa'  => trim($objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue()),
                     );
                 }
 
                 //recorremos todos los registros recogidos de participantes
-                foreach ($informacion_participantes as $fila) { 
-                   if( $fila["nombres"] != "" && $fila["apellidos"] != "" && $fila["email"] ){ 
-                        $valido = true;
+                foreach ($informacion_participantes as $fila) {
+                   if( $fila["nombres"] != "" && $fila["apellidos"] != "" && $fila["email"] ){
+                        $valido       = true;
                         $participante = new Participante;
 
                         if(!is_null($fila["sector"])){
                             $sector = DB::table('sectors')->where('nombre_sector', $fila["sector"])->first();
                             if( $sector == null){
-                                $error = "Celda F". $fila['numFila'].": No se encontró el sector.";
+                                $error  = "Celda F". $fila['numFila'].": No se encontró el sector.";
                                 array_push($errores_participante, $error);
                                 $valido = false;
                             }else{
                                 $participante->sector_id = $sector->id;
                             }
                         }
-                        
+
                         if(!is_null($fila["tipo"])){
-                            $tipo_participante = DB::table('tipo_participante')->where('nombre', $fila["tipo"])->first();
+                            $tipo_participante  = DB::table('tipo_participante')->where('nombre', $fila["tipo"])->first();
                             if( $tipo_participante == null){
                                 $error = "Celda G". $fila['numFila'].": No se encontró el tipo de participante.";
                                 array_push($errores_participante, $error);
@@ -784,74 +791,77 @@ class MesaDialogoController extends Controller
                                 $participante->sector_empresa_id = $sector_empresa->id;
                             }
                         }
-                        
-                        if($valido === true){  
-                            $participante->nombres = $fila["nombres"];
-                            $participante->apellidos = $fila["apellidos"];
-                            $participante->email = $fila["email"];
-                            $participante->celular = $fila["celular"];
+
+                        if($valido === true){
+                            $participante->nombres      = $fila["nombres"];
+                            $participante->apellidos    = $fila["apellidos"];
+                            $participante->email        = $fila["email"];
+                            $participante->celular      = $fila["celular"];
                             $participante->telefono_ext = $fila["telefono_ext"];
-                            $participante->empresa = $fila["empresa"];
-                            $participante->cargo = $fila["cargo"];
+                            $participante->empresa      = $fila["empresa"];
+                            $participante->cargo        = $fila["cargo"];
 
                             array_push($participantes, $participante);
                         }
                     }else{
                         $error = "Fila ". $fila['numFila'].": Se encontraron campos obligatorios vacios.";
-                        array_push($errores_participante, $error); 
+                        array_push($errores_participante, $error);
                     }
                 }//fin foreach
             }//fin if
 
-            //PROPUESTAS
+            //*********PROPUESTAS*********//
             //Obtenemos la Hoja 3 - Propuestas
-            $objPHPExcel->setActiveSheetIndexByName('Propuestas');  
-            $objWorksheet = $objPHPExcel->getActiveSheet();   
-            $highestRow = $objWorksheet->getHighestRow();
-            
+            $objPHPExcel->setActiveSheetIndexByName('Propuestas');
+            $objWorksheet   = $objPHPExcel->getActiveSheet();
+            $highestRow     = $objWorksheet->getHighestRow();
+
 
             $soluciones[] = array();
             if($highestRow > 2){
                 //recorremos todas los registros, empiezan desde la fila 3 (se descarta la cabecera)
-                for ($i = 3; $i <= $highestRow; $i++) {
-                    //en una variable recogemos los registro agrupandolos dentro de un array     
-                    $informacion_propuestas[] = array(                     
-                        'numFila' => $i,
-                        'eslabonCP' => trim($objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue()),
-                        'problema_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue()),
-                        'propuesta_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue()),
-                        'pajustada' => trim($objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue()),
-                        'palabras_clave' => trim($objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue()),
-                        'ambito' => trim($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue()),
-                        'instumentos' => trim($objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue()),
-                        'responsable' => trim($objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue()),
-                        'coresponsables' => trim($objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue()),
-                        'fecha' => trim($objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue()),
-                        'plazo' => trim($objPHPExcel->getActiveSheet()->getCell('K'.$i)->getCalculatedValue()),
-                        'riesgos' => trim($objPHPExcel->getActiveSheet()->getCell('L'.$i)->getCalculatedValue()),
-                        'supuestos' => trim($objPHPExcel->getActiveSheet()->getCell('M'.$i)->getCalculatedValue()),
-                        'ponderacion' => trim($objPHPExcel->getActiveSheet()->getCell('N'.$i)->getCalculatedValue()),
-                        'zona' => trim($objPHPExcel->getActiveSheet()->getCell('O'.$i)->getCalculatedValue()),
-                        'lugar_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('P'.$i)->getCalculatedValue()),
-                        'fecha_solucion' => trim($objPHPExcel->getActiveSheet()->getCell('Q'.$i)->getCalculatedValue()),
-                        'indice_competitividad' => trim($objPHPExcel->getActiveSheet()->getCell('R'.$i)->getCalculatedValue()),
-                        'politica' => trim($objPHPExcel->getActiveSheet()->getCell('S'.$i)->getCalculatedValue()),
-                        'plan_nacional' => trim($objPHPExcel->getActiveSheet()->getCell('T'.$i)->getCalculatedValue()),
-                        'planificado' => trim($objPHPExcel->getActiveSheet()->getCell('U'.$i)->getCalculatedValue()),
+                for ($i = 3; $i <= $highestRow; $i++)
+                {
+                    //en una variable recogemos los registro agrupandolos dentro de un array
+                    $informacion_propuestas[] = array(
+                        'numFila'                 => $i,
+                        'eslabonCP'               => trim($objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue()),
+                        'problema_solucion'       => trim($objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue()),
+                        'propuesta_solucion'      => trim($objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue()),
+                        'pajustada'               => trim($objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue()),
+                        'palabras_clave'          => trim($objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue()),
+                        'ambito'                  => trim($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue()),
+                        'instumentos'             => trim($objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue()),
+                        'responsable'             => trim($objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue()),
+                        'coresponsables'          => trim($objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue()),
+                        'fecha'                   => trim($objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue()),
+                        'plazo'                   => trim($objPHPExcel->getActiveSheet()->getCell('K'.$i)->getCalculatedValue()),
+                        'riesgos'                 => trim($objPHPExcel->getActiveSheet()->getCell('L'.$i)->getCalculatedValue()),
+                        'supuestos'               => trim($objPHPExcel->getActiveSheet()->getCell('M'.$i)->getCalculatedValue()),
+                        'ponderacion'             => trim($objPHPExcel->getActiveSheet()->getCell('N'.$i)->getCalculatedValue()),
+                        'zona'                    => trim($objPHPExcel->getActiveSheet()->getCell('O'.$i)->getCalculatedValue()),
+                        'lugar_solucion'          => trim($objPHPExcel->getActiveSheet()->getCell('P'.$i)->getCalculatedValue()),
+                        'fecha_solucion'          => trim($objPHPExcel->getActiveSheet()->getCell('Q'.$i)->getCalculatedValue()),
+                        'indice_competitividad'   => trim($objPHPExcel->getActiveSheet()->getCell('R'.$i)->getCalculatedValue()),
+                        'politica'                => trim($objPHPExcel->getActiveSheet()->getCell('S'.$i)->getCalculatedValue()),
+                        'plan_nacional'           => trim($objPHPExcel->getActiveSheet()->getCell('T'.$i)->getCalculatedValue()),
+                        'planificado'             => trim($objPHPExcel->getActiveSheet()->getCell('U'.$i)->getCalculatedValue()),
                         'planificado_instrumento' => trim($objPHPExcel->getActiveSheet()->getCell('V'.$i)->getCalculatedValue()),
                     );
                     //dd($informacion_propuestas);
-                }        
-     
+                }
+
                 //recorremos todos los registros recogidos de propuestas (soluciones)
-                foreach ($informacion_propuestas as $fila) {   
-                    if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["indice_competitividad"] != "" && $fila["politica"] != "" && $fila["plan_nacional"] != "" && $fila["planificado_instrumento"]) 
-                    {    //validamos que todos los campos de cada registro no se encuentren vacios
-                        $valido = true;
+                foreach ($informacion_propuestas as $fila)
+                {
+                    if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["indice_competitividad"] != "" && $fila["politica"] != "" && $fila["plan_nacional"] != "" && $fila["planificado_instrumento"])
+                    {   //validamos que todos los campos de cada registro no se encuentren vacios
+                        $valido   = true;
                         $solucion = new Solucion;
 
                         //Validacion SIPOC (Eslabón de la cadena Productiva)
-                        if( !is_null($fila["eslabonCP"]) ){
+                        if( !is_null($fila["eslabonCP"]) )
+                        {
                             $sipoc = DB::table('sipocs')->where('nombre_sipoc', $fila["eslabonCP"] )->first();
                             //dd($sipoc);
                             if( !is_null($sipoc) ){
@@ -866,9 +876,12 @@ class MesaDialogoController extends Controller
 
                         //Validacion AMBITO
                         $ambito = DB::table('ambits')->where('nombre_ambit', $fila["ambito"] )->first();
-                        if( !is_null($ambito) ){
+                        if( !is_null($ambito) )
+                        {
                             $solucion->ambit_id = $ambito-> id;
-                        }else{
+                        }
+                        else
+                        {
                             $error = "Celda F". $fila['numFila'].": No se encontró el &aacute;mbito.";
                             array_push($errores_solucion, $error);
                             $solucion->ambit_id = 0;
@@ -876,9 +889,9 @@ class MesaDialogoController extends Controller
                         }
 
                         //Validacion INSTRUMENTO
+                        if(!is_null($fila["instumentos"]) && !empty($fila["instumentos"]))
+                        {
 
-                        if(!is_null($fila["instumentos"]) && !empty($fila["instumentos"])){
-                            
                             $instrumento = DB::table('instrumentos')->where('nombre_instrumento', $fila["instumentos"] )->first();
                             if( !is_null($instrumento) ){
                             $solucion->instrumento_id = $instrumento-> id;
@@ -889,16 +902,19 @@ class MesaDialogoController extends Controller
                                 $valido = false;
 
                             }
-                            
+
                         }else{
                             $solucion->instrumento_id = 0;
                         }
-                            
+
                         //Validacion RESPONSABLE
                         $responsable = DB::table('institucions')->where('siglas_institucion', $fila["responsable"])->first();
-                        if( !is_null($responsable) ){
+                        if( !is_null($responsable) )
+                        {
                             $solucion->responsable_solucion = $fila["responsable"];
-                        }else{
+                        }
+                        else
+                        {
                             $error = "Celda H". $fila['numFila'].": No se encontró el responsable -> ".$fila["responsable"];
                             array_push($errores_solucion, $error);
                             $solucion->responsable_solucion = $fila["responsable"];
@@ -906,7 +922,8 @@ class MesaDialogoController extends Controller
                         }
 
                         //Validacion CORESPONSABLE
-                        if(!is_null($fila["coresponsables"]) && !empty($fila["coresponsables"])){
+                        if(!is_null($fila["coresponsables"]) && !empty($fila["coresponsables"]))
+                        {
                             $arrayCoresponsables = explode(",", $fila["coresponsables"]);
                             foreach ($arrayCoresponsables as $coresponsableAux) {
                                 $coresponsable = DB::table('institucions')->where('siglas_institucion', trim($coresponsableAux))->first();
@@ -921,21 +938,22 @@ class MesaDialogoController extends Controller
                             }
                         }
                         //FECHA DE CUMPLIMIENTO
-                        if(!is_null($fila['fecha']) && !empty($fila['fecha'])){    
+                        if(!is_null($fila['fecha']) && !empty($fila['fecha']))
+                        {
                             $fecha = date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fila["fecha"]));
                             $solucion->fecha_cumplimiento = $fecha;
                         }
 
                         //FECHA DE solucion
-                        if(!is_null($fila['fecha_solucion']) && !empty($fila['fecha_solucion'])){    
+                        if(!is_null($fila['fecha_solucion']) && !empty($fila['fecha_solucion']))
+                        {
                             $fecha_solucion = date("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fila["fecha_solucion"]));
                             $solucion->fecha_solucion = $fecha_solucion;
                         }
 
                         //Validacion INSTRUMENTO
-
-                        if(!is_null($fila["zona"]) && !empty($fila["zona"])){
-                            
+                        if(!is_null($fila["zona"]) && !empty($fila["zona"]))
+                        {
                             $zona = DB::table('zona')->where('id', $fila["zona"] )->first();
                             if( !is_null($zona) ){
                             $solucion->zona_id = $zona-> id;
@@ -946,17 +964,20 @@ class MesaDialogoController extends Controller
                                 $valido = false;
 
                             }
-                            
-                        }else{
+
+                        }
+                        else
+                        {
                             $solucion->zona_id = 0;
                         }
 
                         //Validacion INDICE COMPETITIVIDAD
 
-                        if( !is_null($fila["indice_competitividad"]) ){
-                            
+                        if( !is_null($fila["indice_competitividad"]) )
+                        {
+
                             $indice_competitividad = DB::table('indice_competitividads')->where('nombre_indice_competitividad', $fila["indice_competitividad"] )->first();
-                            
+
                             if( !is_null($sipoc) ){
                                 $solucion->indice_competitividad_id = $indice_competitividad-> id;
                             }else{
@@ -966,15 +987,16 @@ class MesaDialogoController extends Controller
                                 $valido = false;
                             }
                         }
-                        
+
 
                         //Validacion POLITICA
 
-                        if( !is_null($fila["politica"]) ){
-                            
+                        if( !is_null($fila["politica"]) )
+                        {
+
                             $politica = DB::table('politicas')->where('nombre_politica', $fila["politica"] )->first();
                             //dd($politica);
-                            
+
                             if( !is_null($politica) ){
                                 $solucion->politica_id = $politica -> id;
                             }else{
@@ -987,11 +1009,10 @@ class MesaDialogoController extends Controller
 
 
                         //Validacion PLAN NACIONAL
-
                         if( !is_null($fila["plan_nacional"]) ){
-                            
+
                             $plan_nacional = DB::table('plan_nacionals')->where('nombre_plan_nacional', $fila["plan_nacional"] )->first();
-                            
+
                             if( !is_null($plan_nacional) ){
                                 $solucion->plan_nacional_id = $plan_nacional -> id;
                             }else{
@@ -1037,29 +1058,40 @@ class MesaDialogoController extends Controller
                         }
 
 
-                        
 
                         if($valido === true){
-                                      
-                            $solucion->verbo_solucion = ''; 
-                            $solucion->sujeto_solucion = ''; 
-                            $solucion->complemento_solucion = ''; 
+                          $problema_solucion = DB::table('solucions')->where('problema_solucion', $fila["problema_solucion"] )->first();
 
-                            $solucion->plazo_cumplimiento = $fila["plazo"];
-                            $solucion->riesgos_cumplimiento = $fila["riesgos"];
-                            $solucion->supuestos_cumplimientos = $fila["supuestos"];
-                            $solucion->problema_solucion = $fila["problema_solucion"];
+                            if( $problema_solucion != null){
+                               $error = "Hay Propuestas Repetidas o Similares ";
+                                array_push($errores, $error);
+                            }
+                        }
 
-                            $solucion->pajustada = $fila["pajustada"];
-                            $solucion->propuesta_solucion = $fila["propuesta_solucion"];
-                            $solucion->palabras_clave = $fila["palabras_clave"];
+
+
+
+
+
+                        if($valido === true){
+
+                            $solucion->verbo_solucion           = '';
+                            $solucion->sujeto_solucion          = '';
+                            $solucion->complemento_solucion     = '';
+                            $solucion->plazo_cumplimiento       = $fila["plazo"];
+                            $solucion->riesgos_cumplimiento     = $fila["riesgos"];
+                            $solucion->supuestos_cumplimientos  = $fila["supuestos"];
+                            $solucion->problema_solucion        = $fila["problema_solucion"];
+                            $solucion->pajustada                = $fila["pajustada"];
+                            $solucion->propuesta_solucion       = $fila["propuesta_solucion"];
+                            $solucion->palabras_clave           = $fila["palabras_clave"];
                             $pajustada_aux = DB::table('pajustadas')->where('nombre_pajustada', $fila["pajustada"])->first();
                             if( !is_null($pajustada_aux) ){
                                 $solucion->pajustada_id = $pajustada_aux->id;
                             }else{
                                 $solucion->pajustada_id= 0;
                             }
-                            
+
 
                             $solucion->evento_id =  0;
                             $solucion->lider_mesa_solucion = $lider;
@@ -1070,8 +1102,8 @@ class MesaDialogoController extends Controller
                             $solucion->coordinador_zonal_solucion= $coordinador;
                             // Corresponde al tipo de dialogo de la mesa.
                             $solucion->tipo_fuente= $mesa_dialogo->tipo_dialogo_id;
-                              
-                            $solucion->thematic_id= 0;     // 0 porque esta columna es para consejo consultivo 
+
+                            $solucion->thematic_id= 0;     // 0 porque esta columna es para consejo consultivo
                             $solucion->vsector_id = 0;     // sin utilizar por el momento
                             $solucion->solucion_ccpt = "";
                             $solucion->mesa_id = 0;
@@ -1079,26 +1111,26 @@ class MesaDialogoController extends Controller
                             $solucion->lugar_solucion = $fila["lugar_solucion"];
                             $solucion->tipo_empresa_id = 0;
                             if( !is_null($fila["ponderacion"])  && !empty($fila["ponderacion"])){
-                            $solucion->ponderacion = $fila["ponderacion"]; 
+                            $solucion->ponderacion = $fila["ponderacion"];
                             }else{
                             $solucion->ponderacion = 0;
                             }
-                            
 
 
 
-                            array_push($soluciones, $solucion);                        
-                        }    
+
+                            array_push($soluciones, $solucion);
+                        }
 
                     }else{
                         $error = "Fila ". $fila['numFila'].": Se encontraron campos vacios.";
-                        array_push($errores_solucion, $error); 
-                    }      
+                        array_push($errores_solucion, $error);
+                    }
                 }//Fin del foreach
             }// fin if
-            
-            
-            unset($soluciones[0]);            
+
+
+            unset($soluciones[0]);
             unset($participantes[0]);
             unset($errores[0]);
             unset($errores_participante[0]);
@@ -1128,13 +1160,15 @@ class MesaDialogoController extends Controller
             $errores_solucion = Collection::make($errores_solucion);
 
             //dd($datos_solucion);
-            
+
             return view('admin.mesadialogo.vistaPreviaMesas')->with(["mesa_dialogo"=> $mesa_dialogo, "datos_participante"=>$datos_participante, "datos_solucion"=>$datos_solucion, "errores"=>$errores, "errores_participante"=>$errores_participante, "errores_solucion"=>$errores_solucion, "nombreArchivo"=>$nombreArchivo]);
 
         } catch(\Exception $e){
             DB::rollBack();
             return $e->getMessage().". Por favor valide que el formato de la matriz de mesa de dialogo, participantes y propuestas sean correctos.";
         }
-        
+
     }
+
+    /*PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181112 */
 }

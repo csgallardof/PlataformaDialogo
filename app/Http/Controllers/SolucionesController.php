@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use PHPExcel; 
-use PHPExcel_IOFactory; 
+use PHPExcel;
+use PHPExcel_IOFactory;
 use PHPExcel_Shared_Date;
 use App\Solucion;
 use App\Evento;
@@ -31,7 +31,7 @@ class SolucionesController extends Controller
         $soluciones = Solucion::search($request-> parametro)->where('tipo_fuente','=','1')
         ->orderBy('id','DESC')->paginate(15);
 
-        return view('admin.soluciones.home')->with(["soluciones"=>$soluciones]);    
+        return view('admin.soluciones.home')->with(["soluciones"=>$soluciones]);
     }
 
     /**
@@ -41,7 +41,7 @@ class SolucionesController extends Controller
      */
     public function create()
     {
-        
+
         return view('admin.soluciones.create');
     }
 
@@ -53,7 +53,7 @@ class SolucionesController extends Controller
      */
     // public function store(Request $request)
     public function store($nombreArchivo, $flash1)
-    {        
+    {
         //
     }
 
@@ -111,7 +111,7 @@ class SolucionesController extends Controller
     public function destroy($id)
     {
         $solucion = solucion::find($id)->delete();
-        
+
         //$categoria= DB::table('categoria')->where('path','LIKE','%/'.$id.'%')->delete();
 
         //Flash::error("La categor&iacute;a '".$nombreCategoria."' ha sido borrada de forma exitosa!");
@@ -128,13 +128,13 @@ class SolucionesController extends Controller
         $nombreArchivo = $file->getClientOriginalName();   //obtenemos el nombre del archivo
         $nombreArchivo = strtotime("now")."-".$nombreArchivo;     // agregamos la fecha actual unix al inicio del nombre del archivo
         \Storage::disk('local')->put($nombreArchivo,  \File::get($file));   //indicamos que queremos guardar un nuevo archivo en el disco local
-        
-        $objPHPExcel = PHPExcel_IOFactory::load( storage_path('app').'/storage/'.$nombreArchivo ); 
-        
+
+        $objPHPExcel = PHPExcel_IOFactory::load( storage_path('app').'/storage/'.$nombreArchivo );
+
         $objPHPExcel->setActiveSheetIndex(0);   //indicamos que vamos a trabajar en la hoja 0 que es la de registro
         $objWorksheet = $objPHPExcel->getActiveSheet();  //
-        
-        $coordinador= $objWorksheet->getCell("B2")->getValue();     //obtenemos el coordinador    
+
+        $coordinador= $objWorksheet->getCell("B2")->getValue();     //obtenemos el coordinador
 
         $objPHPExcel->setActiveSheetIndex(1);   //indicamos que vamos a trabajar en la hoja 0 que es la de mesas
         $objWorksheet = $objPHPExcel->getActiveSheet();  //
@@ -143,50 +143,50 @@ class SolucionesController extends Controller
         $provincia = DB::table('provincias')->where('nombre_provincia', $provincia)->first();
         if( $provincia == null){
             $error = "Ingrese una provincia v&aacute;lida";
-            array_push($errores, $error); 
+            array_push($errores, $error);
         }
-        
-        $nombreEvento= $objWorksheet->getCell("B1")."-".$provincia-> nombre_provincia;   
+
+        $nombreEvento= $objWorksheet->getCell("B1")."-".$provincia-> nombre_provincia;
 
         $liderMesa= $objWorksheet->getCell("B2")->getValue();     //obtenemos al lider de mesa
-        
+
         $sistematizador= $objWorksheet->getCell("B3")->getValue();     //obtenemos al lider de mesa
-        
+
         /*$InvDate= $objWorksheet->getCell("B5")->getValue();   //obtenemos el valor de la fecha, pero esta en entero, que es el resultado de restar la fecha actual menos la fecha 01/01/1990
         $timestamp = PHPExcel_Shared_Date::ExcelToPHP($InvDate);  //transformamos el valor obtenido a timestamp
-        $fecha_php = date("Y-d-m",$timestamp);                    //formateamos el timestamp a solo Y-d-m  
+        $fecha_php = date("Y-d-m",$timestamp);                    //formateamos el timestamp a solo Y-d-m
         */
-        $sector= $objWorksheet->getCell("B6");   //obtenemos el grupo 
+        $sector= $objWorksheet->getCell("B6");   //obtenemos el grupo
         $sector = DB::table('sectors')->where('nombre_sector', $sector)->first();
 
         $highestRow = $objWorksheet->getHighestRow();   //obtenemos el número total de filas
-        
-        
+
+
         for ($i = 9; $i <= $highestRow; $i++) {         //recorremos todas los registros, empiezan desde la fila 7 hasta el número total de filas
             $informacion2[] = array(                     //en una variable recogemos los registro agrupandolos dentro de un array
-                'numFila' => $i,
-                'eslabonCP' => $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue(),
-                'problematica' => $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue(),
-                'problematicaValidacion' => str_replace(" ", "", strtoupper( $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue() )),
-                'pverbo' => $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue(),
-                'psujeto' => $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue(),
-                'pcomplemento' => $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue(),
-                'instrumentos' => $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue(),
-                'clasificacionEmpresa' => $objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue(),
-                'ambito' => $objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue(),
-                'responsable' => $objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue(),
-                'coresponsables' => $objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue(),
+                'numFila'                 => $i,
+                'eslabonCP'               => $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue(),
+                'problematica'            => $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue(),
+                'problematicaValidacion'  => str_replace(" ", "", strtoupper( $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue() )),
+                'pverbo'                  => $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue(),
+                'psujeto'                 => $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue(),
+                'pcomplemento'            => $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue(),
+                'instrumentos'            => $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue(),
+                'clasificacionEmpresa'    => $objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue(),
+                'ambito'                  => $objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue(),
+                'responsable'             => $objPHPExcel->getActiveSheet()->getCell('I'.$i)->getCalculatedValue(),
+                'coresponsables'          => $objPHPExcel->getActiveSheet()->getCell('J'.$i)->getCalculatedValue(),
             );
         }
 
-        
-        $soluciones[] = array(); 
-        $arrayProblemas[] = array(); 
-        $arrayValProblemas[] = array(); 
+
+        $soluciones[] = array();
+        $arrayProblemas[] = array();
+        $arrayValProblemas[] = array();
 
 
         foreach ($informacion2 as $fila) {   //recorremos todos los registros recogidos
-            if( $fila["eslabonCP"] != "" && $fila["problematica"] != "" && $fila["pverbo"] != "" && $fila["psujeto"] != "" && $fila["pcomplemento"] != "" && $fila["instrumentos"] != "" && $fila["clasificacionEmpresa"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["coresponsables"] != "") 
+            if( $fila["eslabonCP"] != "" && $fila["problematica"] != "" && $fila["pverbo"] != "" && $fila["psujeto"] != "" && $fila["pcomplemento"] != "" && $fila["instrumentos"] != "" && $fila["clasificacionEmpresa"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["coresponsables"] != "")
             {    //validamos que todos los campos de cada registro no se encuentren vacios
                 $valido = true;
                 $solucion = new Solucion;
@@ -202,7 +202,7 @@ class SolucionesController extends Controller
                     $solucion-> sipoc_id = 0;   // Id Eslabón de la cadena Productiva
                     $valido = false;
                 }
-                
+
                 //Validacion INSTRUMENTO
                 $instrumento = DB::table('instrumentos')->where('nombre_instrumento', $fila["instrumentos"] )->first();
                 if( !is_null($instrumento) ){
@@ -239,11 +239,11 @@ class SolucionesController extends Controller
 
                 if($valido === true){
 
-                
+
                     $solucion-> verbo_solucion = $fila["pverbo"];
                     $solucion-> sujeto_solucion = $fila["psujeto"];
                     $solucion-> complemento_solucion = $fila["pcomplemento"];
-                    
+
                     $solucion-> responsable_solucion = $fila["responsable"];
                     $solucion-> corresponsable_solucion = $fila["coresponsables"];
 
@@ -251,21 +251,21 @@ class SolucionesController extends Controller
                     $solucion-> lider_mesa_solucion = $liderMesa;
                     $solucion-> sistematizador_solucion = $sistematizador;
                     $solucion-> provincia_id= $provincia-> id;
-                    //$solucion-> sector_id= $sector-> id;   
-                    
+                    //$solucion-> sector_id= $sector-> id;
+
                     //Hoja -- registros
                     $solucion-> coordinador_zonal_solucion= $coordinador;
-                    
+
                     //quemados
                     $solucion-> tipo_fuente= 1;     // 1 = despliegue territorial
-                    $solucion-> pajustada_id= 0;    // 0 porque esta columna es para consejo consultivo   
-                    $solucion-> thematic_id= 0;     // 0 porque esta columna es para consejo consultivo 
+                    $solucion-> pajustada_id= 0;    // 0 porque esta columna es para consejo consultivo
+                    $solucion-> thematic_id= 0;     // 0 porque esta columna es para consejo consultivo
                     $solucion-> vsector_id = 0;     // sin utilizar por el momento
                     $solucion-> solucion_ccpt = "";
                     $solucion-> mesa_id = 0;
                     $solucion-> estado_id = 0;
 
-                    $solucion-> problema_validar_solucion = $fila["problematicaValidacion"]; 
+                    $solucion-> problema_validar_solucion = $fila["problematicaValidacion"];
                     if (!in_array( $fila["problematicaValidacion"] , $arrayValProblemas)) {
                         $solucion-> problema_solucion= $fila["problematica"];
                         array_push($arrayProblemas, $fila["problematica"] );
@@ -274,23 +274,23 @@ class SolucionesController extends Controller
                     else{
                         $posicion = array_search($fila["problematicaValidacion"], $arrayValProblemas);
                         $solucion-> problema_solucion= $arrayProblemas[$posicion];
-                    }   
-                    
-                    $solucionAuxiliar = DB::table('solucions')->where('problema_validar_solucion', $fila["problematicaValidacion"] )->first();
-                   if( $solucionAuxiliar != null){                        
-                        $error = "Celda B". $fila['numFila'].": La problem&aacute;tica: \"".$fila['problematica']."\"  ya se encuentra registrada.";
-                        array_push($errores, $error);   
-                    }else{
-                        array_push($soluciones, $solucion); 
                     }
-                }    
+
+                    $solucionAuxiliar = DB::table('solucions')->where('problema_validar_solucion', $fila["problematicaValidacion"] )->first();
+                   if( $solucionAuxiliar != null){
+                        $error = "Celda B". $fila['numFila'].": La problem&aacute;tica: \"".$fila['problematica']."\"  ya se encuentra registrada.";
+                        array_push($errores, $error);
+                    }else{
+                        array_push($soluciones, $solucion);
+                    }
+                }
 
             }else{
                 $error = "Fila ". $fila['numFila'].": Se encontraron campos vacios.";
-                array_push($errores, $error); 
-            }      
+                array_push($errores, $error);
+            }
         }//FIN del foreach
-        
+
         unset($soluciones[0]);
         unset($errores[0]);
         if(count($errores) > 0){
@@ -303,9 +303,9 @@ class SolucionesController extends Controller
         $datos = Collection::make($soluciones);
         $errores = Collection::make($errores);
 
-        return view('admin.soluciones.vistaPreviaMesas')->with(["datos"=>$datos, "errores"=>$errores, "nombreArchivo"=>$nombreArchivo, "nombreEvento"=>$nombreEvento, "sector"=>$sector]); 
-        
-    } 
+        return view('admin.soluciones.vistaPreviaMesas')->with(["datos"=>$datos, "errores"=>$errores, "nombreArchivo"=>$nombreArchivo, "nombreEvento"=>$nombreEvento, "sector"=>$sector]);
+
+    }
 
     public function getSolucionesByTipoFuente(Request $request, $tipo_fuente){
         if($request->ajax() ){
@@ -323,14 +323,14 @@ class SolucionesController extends Controller
                                 ->where('solucions.tipo_fuente','=',2)
                                 ->orderBy('nombre_pajustada')->get();
             }
-            
+
             return response()->json($soluciones);
         }
     }
 
     public function reporte1(){
-    
-        
+
+
         $soluciones = Solucion::where('tipo_fuente','=',1)->get();
 
         $ambits = Ambit::all();
@@ -342,7 +342,7 @@ class SolucionesController extends Controller
 
     public function buscar(Request $request){
 
-        $ambits = Ambit::all(); 
+        $ambits = Ambit::all();
 
         $sipocs= Sipoc::all();
 
@@ -352,9 +352,9 @@ class SolucionesController extends Controller
 
         $paramFuente = $request-> tipo_fuente;
 
-        
-        if($request-> tipo_fuente == 1){ 
-            
+
+        if($request-> tipo_fuente == 1){
+
             if( $request->ambito > 0 && $request->sipoc > 0){
                 $soluciones = Solucion::where('ambit_id','=',$request->ambito)
                                     ->where('sipoc_id','=',$request->sipoc)
@@ -372,8 +372,8 @@ class SolucionesController extends Controller
             }
         }
 
-        if($request-> tipo_fuente == 2){ 
-            
+        if($request-> tipo_fuente == 2){
+
             if( $request->ambito > 0 && $request->sipoc > 0){
                 $soluciones = Solucion::where('tipo_fuente','=',$request->tipo_fuente)
                         ->where('sipoc_id','=',$request->sipoc)
@@ -385,13 +385,13 @@ class SolucionesController extends Controller
                 }else{
                     if($request->sipoc > 0 ){
                     $soluciones = Solucion::where('tipo_fuente','=',$request->tipo_fuente)
-                        ->where('sipoc_id','=',$request->sipoc)->get(); 
+                        ->where('sipoc_id','=',$request->sipoc)->get();
                     }
                 }
             }
         }
-    
-            
+
+
         return view('publico.reportes.reporte1')->with([
                                                     "ambits"=>$ambits,
                                                     "sipocs"=>$sipocs,
