@@ -13,7 +13,7 @@
                 </div>
            
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{'/insert-evento/'}}" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="post" action="{{'/insert-evento/'}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                        <!-- @section('edit_Method')-->
                         @include('flash::message')

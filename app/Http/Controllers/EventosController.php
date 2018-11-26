@@ -52,7 +52,7 @@ class EventosController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->nombre_evento);
+        //dd($request->nombre_evento);
         $eventos = new Evento;
         $this ->validate($request,[
             'nombre_evento' =>'required|unique:eventos'
