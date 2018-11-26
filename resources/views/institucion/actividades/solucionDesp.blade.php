@@ -186,6 +186,61 @@
 							</center>
 						</div>
 					</div>
+					<div class="panel panel-inverse" data-sortable-id="index-6">
+						<div class="panel-heading">
+							<?php 
+							   $total=0;
+							   $total_buenas=0;
+							   $total_malas=0;
+                               foreach ($percepcion as $perc) {
+                               	          $total=$total+1;
+                               	          if($perc->ev_semaforo=="BUENA") {
+												$total_buenas=$total_buenas+1;
+                               	          }else{
+												$total_malas=$total_malas+1;
+
+                               	          }
+                               }
+                               $porcent_b= 0;
+                               $porcent_m= 0;
+                               
+                               if($total>0){
+
+                                  $porcent_b= round(($total_buenas*100)/$total,0);	
+                                  $porcent_m= round(($total_malas*100)/$total,0);	
+                               }
+                               
+                               //$porcent_b=100;
+                               //$porcent_m=0;
+
+							?>
+							
+							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Percepci&oacuten Ciudadana</h4>
+						</div>
+						<div class="panel-body p-t-0">
+							<table  class="table table-valign-middle m-b-0" width="100%">
+								<tr><th>Total ingresadas:
+								    </th>
+								    <td><?php echo $total; ?></td>
+								</tr>
+							</table>
+
+							<table  class="table table-valign-middle m-b-0" width="100%">
+								<tr><th style="width:20%;">Total Buenas:
+								    </th>
+								    <td style="width:20%;"><?php echo $total_buenas; ?></td>
+								    <td style="background-color:#575757;"><div style="width:<?php echo $porcent_b; ?>%;height:100%; background-image: linear-gradient(to right, #008000 , #004D00); background-color:#006600;  border-top-right-radius: 25px; padding:10px;color:white;font-weight:bold;"><?php echo $porcent_b; ?>%</div></td>
+								</tr>
+								<tr><th>Total Malas:
+								    </th>
+								    <td><?php echo $total_malas; ?></td>
+								    <td style="background-color:#575757;"><div style="width:<?php echo $porcent_m; ?>%;height:100%;background-image: linear-gradient(to right, #E00000 , #700000);background-color:#AD0000; border-top-right-radius: 25px;padding:10px;color:white;font-weight:bold;"><?php echo $porcent_m; ?>%</div></td>
+								</tr>
+
+							</table>
+
+						</div>
+					</div>
 
 				</div>
 				<!-- end col-4 -->
