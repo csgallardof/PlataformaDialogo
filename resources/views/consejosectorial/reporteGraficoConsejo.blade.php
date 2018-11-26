@@ -7,7 +7,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-   <script type="text/javascript">
+  <!-- <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawStuff);
      
@@ -28,21 +28,10 @@
         var options = {
           chart: {
             title: 'Propuestas por consejo sectorial',
-            subtitle: 'Estado propuestas por institucion',
-            vAxis: {
-              minValue: 0,
-              maxValue: 7,
-              direction: 1,
-              gridlines: {count: 8}
-            }, 
-            hAxis: {
-            slantedTextAngle: 70,
-            maxTextLines: 100,
-            textStyle: {
+            subtitle: 'Estado propuestas por institucion'
 
-              fontSize: 6,
-              } // or the number you want}
-          },    
+
+
           }
            
 
@@ -61,9 +50,90 @@
         chart.draw(data, google.charts.Bar.convertOptions(options));        
 
       }
-    </script>
+    </script>-->
 
-   <script type="text/javascript">
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart','bar']});
+      google.charts.setOnLoadCallback(drawAxisTickColors);
+     
+  
+      function drawAxisTickColors() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'N° de Propuestas Recibidas','N° de Propuestas Desestimadas','N° de Propuestas Validadas'],
+          @foreach($propuestasPorTipo as $propuestasPorTipos)
+            ['{{ $propuestasPorTipos->inst }}', {{ $propuestasPorTipos->recibidas}}, {{ $propuestasPorTipos->desestimadas}}, 
+            {{ $propuestasPorTipos->validadas}}],  
+          @endforeach
+          
+        ]);
+
+
+     var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2,{ calc: "stringify",
+                         sourceColumn: 2,
+                         type: "string",
+                         role: "annotation" }, 3,
+                         { calc: "stringify",
+                         sourceColumn: 3,
+                         type: "string",
+                         role: "annotation" }]);
+
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion',
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+
+            hAxis: {
+              title: 'Total Population',
+              minValue: 0,
+              textStyle: {
+                bold: true,
+                fontSize: 4,
+                color: '#4d4d4d'
+              },
+              titleTextStyle: {
+                bold: true,
+                fontSize: 8,
+                color: '#4d4d4d'
+              }
+          },
+
+          vAxis: {
+          title: 'City',
+          textStyle: {
+            fontSize: 4,
+            bold: true,
+            color: '#848484'
+          },
+          titleTextStyle: {
+            fontSize: 8,
+            bold: true,
+            color: '#848484'
+          }
+
+          }
+           
+              }
+        };
+        
+        var chart = new google.visualization.BarChart(document.getElementById('barChart_tipoPropuesta'));
+        chart.draw(view,options);        
+
+      }
+    </script>    
+
+   <!--<script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawStuff);
 
@@ -93,7 +163,75 @@
         
         chart.draw(data, google.charts.Bar.convertOptions(options));        
       }
-    </script>    
+    </script>-->    
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart','bar']});
+      google.charts.setOnLoadCallback(drawAxisTickColors);
+     
+  
+      function drawAxisTickColors() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'Finalizado','En Desarrollo','En Análisis','Desestimado','En Conflicto'],
+          @foreach($propuestasPorEstado as $propuestasPorEstados)
+            ['{{ $propuestasPorEstados->inst }}', {{ $propuestasPorEstados->finalizado}}, {{ $propuestasPorEstados->desarrollo}}, 
+            {{ $propuestasPorEstados->analisis}}, {{$propuestasPorEstados->desestimadas}}, {{$propuestasPorEstados->conflicto}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion',
+            chartArea: {width: '50%'},
+
+            hAxis: {
+              title: 'Total Population',
+              minValue: 0,
+              textStyle: {
+                bold: true,
+                fontSize: 4,
+                color: '#4d4d4d'
+              },
+              titleTextStyle: {
+                bold: true,
+                fontSize: 8,
+                color: '#4d4d4d'
+              }
+          },
+
+          vAxis: {
+          title: 'City',
+          textStyle: {
+            fontSize: 4,
+            bold: true,
+            color: '#848484'
+          },
+          titleTextStyle: {
+            fontSize: 8,
+            bold: true,
+            color: '#848484'
+          }
+
+          }
+           
+              }
+        };
+        
+        var chart = new google.visualization.BarChart(document.getElementById('barChart_estadoPropuesta'));
+        chart.draw(data,options);        
+
+      }
+    </script>   
+
+
+
+
+
 
   <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -176,6 +314,7 @@
 
        <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
+      //google.charts.load("current", {packages:["imagepiechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -192,6 +331,9 @@
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart_mesasProvincia'));
         chart.draw(data, options);
+
+        //var chart = new google.visualization.ImagePieChart(document.getElementById('donutchart_mesasProvincia'));
+        //chart.draw(data, options);
       }
     </script>
 
@@ -225,192 +367,182 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 
-<div class="container" style="background-color: #f3f3f3;">
- <div class="col-md-12 ">
-  <div class="panel panel-default">
-    <div class="row">
-      
-      <div class="col-md-12">
-
-      <!-- inicio cuadrados -->
+<div class="container">
+ <!--<div class="col-md-12 ">-->
+ <div class="panel panel-default">
+ <div class="panel-body">
+    <!-- inicio cuadrados -->
     
-        <div class="col-md-12">
+   
 
-  <div class="row">
-    <div class="col-md-12">
-        <!-- begin panel -->
-        <div class="panel panel-inverse"  data-sortable-id="chart-js-2">
+      <div class="row">
+        <div class="col-md-12" style="margin-top:-40px;">
+          <!-- begin panel -->
+          <div class="panel panel-inverse">
             <div class="panel-heading">                
-                 <h3 class="panel-title">Reporte Consejo Sectorial de la Plataforma de Di&aacute;logo Nacional</h3>
-            </div>
-        </div>
-    </div>
-</div> 
+             <h3 class="panel-title" style="text-align: center;">Reporte Consejo Sectorial de la Plataforma de Di&aacute;logo Nacional</h3>
+           </div>
+         </div>
+       </div>
+     </div> 
 
- <div class="row">
-  <table class="table table-hover">
-                       
-                        <tbody>                     
-                       <tr>
-                           <th colspan="3" ><div align="center">Datos Informativos</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">Fecha</div></th>
-                            <td colspan="1" ><div align="left">{{$hoy}}</div></td>
-                        </tr>
-                         <tr>
-                           <th colspan="2" ><div align="left">Responsable</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
-                        </tr>
-
-                         <tr>
-                           <th colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
-                        </tr>
-
-                          <tr>
-                           <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
-                        </tr>                        
-
-                        </tbody>
-    </table>
-
-    </div>
      <div class="row">
-       
-      <div id="my_div" class="col-md-12">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">PROPUESTA POR TIPO</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                              <div id="barChart_tipoPropuesta" style="width: 900px; height: 300px;"></div>                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
+       <div class="col-md-12">
+        <table class="table table-hover">
+
+          <tbody>                     
+           <tr>
+             <th colspan="3" ><div align="center">Datos Informativos</div></th>
+           </tr>
+
+           <tr>
+             <th colspan="2" ><div align="left">Fecha</div></th>
+             <td colspan="1" ><div align="left">{{$hoy}}</div></td>
+           </tr>
+           <tr>
+             <th colspan="2" ><div align="left">Responsable</div></th>
+             <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
+           </tr>
+
+           <tr>
+             <th colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></th>
+             <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
+           </tr>
+
+           <tr>
+             <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
+             <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
+           </tr>                        
+
+         </tbody>
+       </table>
      </div>
-            <div class="row">
-                   <div class="col-md-12">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">ESTADO PROPUESTA</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                              <div id="barChart_estadoPropuesta" style="width: 900px; height: 300px;"></div>                                
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                <div class="col-md-12">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">PROPUESTA TIEMPO</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                              <div id="barChart_tiempoPropuesta" style="width: 800px; height: 200px;"></div>                                
-                            </div>
-                        </div>
-                    </div>
-                </div>                               
-              </div>
+   </div>
+   <div class="row">
 
-        <!-- begin row -->
-            <div class="row">
-             <div class="panel panel-inverse"  data-sortable-id="chart-js-2">
-            <div class="panel-heading">
-                            <h4 class="panel-title">FORMA DE CUMPLIMIENTO</h4>
-              </div>
-              </div>
-                <!-- begin col-6 -->
-                <div class="col-md-6">
+    <div class="col-md-12" style="margin-bottom: -120px;" >
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <h4 class="panel-title">PROPUESTA POR TIPO</h4>
+        </div>                      
 
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        
-                        <div class="panel-body">
-                            <div>
-                              <div id="piechart_politicaPublica" style="width: 500px; height: 300px;"></div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col-6 -->
-                <!-- begin col-6 -->
-                <div class="col-md-6">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        
-                        <div class="panel-body">
-                            <div>
-                               <div id="piechart_leyes" style="width: 500px; height: 300px;"></div>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col-6 -->
-            </div>        
-
-          <div class="row">
-             <div class="panel panel-inverse"  data-sortable-id="chart-js-2">
-            <div class="panel-heading">
-                            <h4 class="panel-title">MESA DE DIALOGO</h4>
-              </div>
-              <table class="table table-hover">
-                <tbody>                     
-                 <tr>
-                   <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
-                   <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->nombre_consejo}}</div></td>
-                   <th colspan="2" ><div align="left">Propuestas en proceso</div></th>
-                   <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->proceso}}</div></td>
-                   <th colspan="2" ><div align="left">Propuestas finalizadas</div></th>
-                   <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->finalizado}}</div></td>
-                 </tr>
-               </tbody>
-             </table>              
-              </div>
-                <!-- begin col-6 -->
-                <div class="col-md-4">
-
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        
-                        <div class="panel-body">
-                            <div>
-                              <div id="donutchart_mesasProvincia" style="width: 400px; height: 300px;"></div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col-6 -->
-                <!-- begin col-6 -->
-                <div class="col-md-8">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        
-                        <div class="panel-body">
-                            <div>
-                               <div id="donutchart_propuestasAmbito" style="width: 500px; height: 300px;"></div>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col-6 -->
-            </div>   
-
-  <br/>
-
-        </div>
-
+        <div id="barChart_tipoPropuesta" style="width: 80% !important; height: 600px;"></div> 
+      </div>
     </div>
 
   </div>
+  <div class="row">
+   <div class="col-md-12" style="margin-bottom: -120px;">
+    <div class="panel panel-inverse">
+      <div class="panel-heading">
+        <h4 class="panel-title">PROPUESTA POR ESTADO</h4>
+      </div>
+      <div id="barChart_estadoPropuesta" style="width: 80% !important; height: 500px;"></div>                                
+
     </div>
+  </div>
+</div>  
+
+<div class="row">   
+  <div class="col-md-12" style="margin-bottom: -50px;">
+    <div class="panel panel-inverse">
+      <div class="panel-heading">
+        <h4 class="panel-title">PROPUESTA TIEMPO</h4>
+      </div>
+
+      <div id="barChart_tiempoPropuesta" style="width: 800px; height: 200px;"></div>                                
+
+    </div>
+  </div>
+</div>                               
+
+
+
+<!-- begin row -->
+<div class="row">
+<div class="col-md-12" style="margin-bottom: -50px;">
+ <div class="panel panel-inverse">
+  <div class="panel-heading">
+    <h4 class="panel-title">FORMA DE CUMPLIMIENTO</h4>
+  </div>
+</div>
+<!-- begin col-6 -->
+<div class="col-md-6">
+
+  <div class="panel panel-inverse">
+   <div id="piechart_politicaPublica" style="width: 500px; height: 300px;"></div>     
+  </div>
+</div>
+<!-- end col-6 -->
+<!-- begin col-6 -->
+<div class="col-md-6">
+  <div class="panel panel-inverse">
+       <div id="piechart_leyes" style="width: 500px; height: 300px;"></div>
+ </div>
+</div>
+<!-- end col-6 -->
+</div>
+</div>        
+
+<div class="row">
+ <div class="panel panel-inverse">
+  <div class="panel-heading">
+    <h4 class="panel-title">MESA DE DIALOGO</h4>
+  </div>
+  <table class="table table-hover">
+    <tbody>                     
+     <tr>
+       <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
+       <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->nombre_consejo}}</div></td>
+       <th colspan="2" ><div align="left">Propuestas en proceso</div></th>
+       <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->proceso}}</div></td>
+       <th colspan="2" ><div align="left">Propuestas finalizadas</div></th>
+       <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->finalizado}}</div></td>
+     </tr>
+   </tbody>
+ </table>              
+</div>
+<!-- begin col-6 -->
+<div class="col-md-6" style="margin-bottom: -70px; margin-top: -60px;">
+
+  <div class="panel panel-inverse">
+
+    <div class="panel-body">
+      <div>
+        <div id="donutchart_mesasProvincia" style="width: 500px; height: 400px;"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end col-6 -->
+<!-- begin col-6 -->
+<div class="col-md-6" style="margin-bottom: -70px;  margin-top: -60px;">
+  <div class="panel panel-inverse">
+
+    <div class="panel-body">
+      <div>
+       <div id="donutchart_propuestasAmbito" style="width: 500px; height: 400px;"></div>
+
+     </div>
+   </div>
+ </div>
+</div>
+<!-- end col-6 -->
+</div>   
+
+<br/>
+
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
 		
 @endsection
 

@@ -103,6 +103,53 @@
         chart.draw(data, options);
       }
     </script>
+ <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+     
+  
+      function drawStuff() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'N° de Propuestas Recibidas','N° de Propuestas Desestimadas','N° de Propuestas Validadas'],
+          @foreach($propuestasPorTipo as $propuestasPorTipos)
+            ['{{ $propuestasPorTipos->inst }}', {{ $propuestasPorTipos->recibidas}}, {{ $propuestasPorTipos->desestimadas}}, 
+            {{ $propuestasPorTipos->validadas}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Tipo de propuesta',
+            subtitle: 'Estado propuestas por institucion',
+            vAxis: {
+              minValue: 0,
+              maxValue: 7,
+              direction: 1,
+              gridlines: {count: 8}
+            }, 
+            hAxis: {
+            slantedTextAngle: 70,
+            maxTextLines: 100,
+            textStyle: {
+
+              fontSize: 6,
+              } // or the number you want}
+          },    
+          }
+           
+
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('barChart_tipoPropuesta'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));        
+
+      }
+    </script>    
 
 
 @endsection
@@ -112,7 +159,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
-<div class="container" width="10%" style="background-color: #f3f3f3;">
+<div class="container" width="100%">
  <div class="col-md-12 ">
   <div class="panel panel-default">
 		<div class="row">
@@ -200,68 +247,59 @@
                    </script> 
                </form>-->
 					<div class="row">
+         
+                  <div class="col-md-6">
+                      <div class="panel panel-inverse" data-sortable-id="chart-js-2">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">TIPO DE PROPUESTA</h4>
+                          </div>
+                          <div class="panel-body">
+                            <div>
+                              <div id="barChart_tipoPropuesta" style="width: 400px; height: 400px;"></div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+            
+              
 	             
                    <div class="col-md-6">
                     <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
                         <div class="panel-heading">
-                            <h4 class="panel-title">TIPO DE PROPUESTA</h4>
+                            <h4 class="panel-title">ESTADO DE LA PROPUESTA</h4>
                         </div>
                         <div class="panel-body">
                             <div>
-                              <div id="piechart_tipoPropuestaInst" style="width: 600px; height: 400px;"></div>
+                              <div id="piechart_tipoPropuestaInst" style="width: 500px; height: 400px;"></div>
                                 
                             </div>
                         </div>
                     </div>
                 </div>
-                   <div class="col-md-6">
+                               
+	            </div>
+
+   
+		        <!-- begin row -->
+            <div class="row">
+ 
+
+            <div class="col-md-6">
                     <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
                         <div class="panel-heading">
                             <h4 class="panel-title">FORMA DE CUMPLIMIENTO</h4>
                         </div>
                         <div class="panel-body">
                             <div>
-                              <div id="piechart_formaCumplimiento" style="width: 600px; height: 400px;"></div>
+                              <div id="piechart_formaCumplimiento" style="width: 500px; height: 400px;"></div>
                                 
                             </div>
                         </div>
                     </div>
-                </div>                
-	            </div>
+                </div>    
 
-            <!-- begin row -->
-            <div class="row">
-                  <div class="col-md-12">
-                      <div class="panel panel-inverse" data-sortable-id="chart-js-2">
-                          <div class="panel-heading">
-                            <h4 class="panel-title">PROPUESTAS POR INSTITUCIÓN</h4>
-                          </div>
-                          <div class="panel-body">
-                            <div>
-                             
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            <!-- end row -->
-		        <!-- begin row -->
-            <div class="row">
-                <!-- begin col-6 -->
-                <div class="col-md-6">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">NÚMERO DE LAS PROPUESTAS POR ESTADO</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                            	<div id="piechart_estado" style="width: 600px; height: 400px;"></div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col-6 -->
+
+
                 <!-- begin col-6 -->
                 <div class="col-md-6">
                     <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
@@ -271,7 +309,7 @@
                         <div class="panel-body">
                             <div>
                                 
-                                <div id="donutchart_plazo"  style="width: 600px; height: 400px;"></div>
+                                <div id="donutchart_plazo"  style="width: 500px; height: 400px;"></div>
                             </div>
                         </div>
                     </div>

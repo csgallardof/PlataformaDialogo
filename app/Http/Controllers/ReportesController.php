@@ -2877,9 +2877,6 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
    	$nombreConsejo = $consejo[0]->nombre_consejo; 
 
 
-
-
-
    	$tipoPropuestaInst = DB::select("SELECT estado_solucion.nombre_estado, count(estado_solucion.nombre_estado) as total
    		from actor_solucion
    		join institucions
@@ -2945,6 +2942,24 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
    	$propuestas_ambito=Collection::make($propuestas_ambito);
 
 
+   	$propuestasPorTipo =  DB::select("SELECT  distinct i.nombre_institucion as inst, COUNT(*) as recibidas, COUNT(CASE 
+      									WHEN nombre_estado = 'Desestimadas' THEN s.id
+     									ELSE NULL END) AS desestimadas ,
+     									(COUNT(*) - COUNT(CASE 
+     									WHEN nombre_estado = 'Desestimadas' THEN s.id
+     									ELSE NULL END) ) as validadas    									
+										
+										from actor_solucion acs
+										join institucions i
+										on acs.institucion_id = i.id
+										join solucions s
+										on acs.solucion_id = s.id
+										join estado_solucion e
+										on s.estado_id = e.id
+										where i.id = ".$institucion[0]->id."  group by i.nombre_institucion");
+	$propuestasPorTipo=Collection::make($propuestasPorTipo); 
+
+
    	return view('publico.reportes.reporteGraficoMinisterio')->with([
    		"hoy" =>$hoy,
    		"nombreusuario" =>$nombreusuario,
@@ -2955,6 +2970,7 @@ $propuestasPorAmbito = $this -> obtenerPropuestasPorAmbito($consejo[0]->idConsej
    		"formaCumplimiento" =>$formaCumplimiento, 
    		"propuestasPlazo" =>$propuestasPlazo,          
    		"propuestas_ambito" =>$propuestas_ambito,
+   		"propuestasPorTipo" =>$propuestasPorTipo,
    		"fechaInicial"=>$fechaInicial,
    		"fechaFinal"=>$fechaFinal,
    		"consulto"=>$consulto
