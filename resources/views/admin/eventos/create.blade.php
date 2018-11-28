@@ -13,11 +13,11 @@
                 </div>
            
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{'/insert-evento/'}}" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="get" action="{{'/insert-evento/'}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        @section('edit_Method')
+                       <!-- @section('edit_Method')-->
                         @include('flash::message')
-                        @show
+                        <!--@show-->
                             
                         <div class="form-group">
                             <label for="nombre_evento" class="col-md-4 control-label">Nombre</label>

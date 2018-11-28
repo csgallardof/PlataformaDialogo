@@ -115,7 +115,7 @@ Route::get('/nuevo-evento/',['uses'=>'EventosController@nuevoEvento','as'=>'nuev
 Route::get('/eliminar-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eliminarEvento']);
 Route::get('/editar-evento/{id}',['uses'=>'EventosController@edit','as'=>'editarEvento']);
 Route::post('/actualiza-evento/{id}',['uses'=>'EventosController@update','as'=>'updateEvento']);
-Route::post('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
+Route::get('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
 Route::post('/delete-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eventos.delete']);
 
 
