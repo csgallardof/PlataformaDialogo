@@ -181,48 +181,7 @@
 
                         <tr>
                            <th colspan="3" ><br /><br /></th>
-                        </tr>
-
-                         <tr>
-                           <th colspan="3" ><div align="center">Estadística de Propuestas por Mesa</div></th>
-                        </tr>
-                        <tr>
-                             <th colspan="1" ><div align="left">Nombre de la mesa</div></th>
-                             <th colspan="1" ><div align="left">Propuestas en proceso</div></th>
-                             <th colspan="1" ><div align="left">Propuestas finalizadas</div></th>
-                         </tr>       
-                            @foreach($propuestasPorMesa as $propuestasPorMesa)
-                              <tr>
-                                 <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->nombreMesa }}</div></td>
-                                  <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->porTerminar}}</div></td>
-                                  @if(!empty($propuestasPorMesaFinalizadas))
-                                   @if($propuestasPorMesaFinalizadas ->idMesa ==  $propuestasPorMesa ->idMesa)
-                                   @foreach($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas)
-                                         <td colspan="1" ><div align="left"> {{ $propuestasPorMesaFinalizadas -> porTerminar}}</div></td>
-                                   @endforeach
-                                   @endif
-                                   @else
-                               <td colspan="1" ><div align="left">0</div></td>
-                                   
-                                    @endif
-
-                           </tr>
-                           @endforeach
-
-                           <tr>
-                           <th colspan="3" ><br /><br /></th>
-                        </tr>
-
-                         <tr>
-                           <th colspan="3" ><div align="center">Estadística de Propuestas por Temática o Ámbito</div></th>
-                        </tr>
-                        <tr>
-                             @foreach($propuestasPorAmbito as $propuestasPorAmbito)
-                             <td colspan="1" ><div align="left">{{$propuestasPorAmbito ->ambito}}</div></td>
-                               <td colspan="1" ><div align="right">{{$propuestasPorAmbito->numPorAmbito}}</div></td>
-                              @endforeach
-                         </tr>
-
+                        </tr>                      
                      </table>
                    
                 </div>

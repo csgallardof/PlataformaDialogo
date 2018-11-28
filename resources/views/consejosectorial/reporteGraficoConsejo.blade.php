@@ -371,9 +371,66 @@
  <!--<div class="col-md-12 ">-->
  <div class="panel panel-default">
  <div class="panel-body">
-    <!-- inicio cuadrados -->
-    
-   
+    <!-- inicio cuadrados -->  
+                 <form target="_self" method="GET" action="{{ route('reporteGraficoConsejo.institucion') }}">
+                       <?php $consulto='no';?>
+                       <div class="row">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-1">
+                           Instituci&oacute;n
+                         </div>
+                         <div class="col-md-4">
+                           <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" 
+                           onchange="">
+                           <option value="">Seleccione</option>
+                           @if( isset($listaMinisterioPorConsejo) )
+                           @foreach($listaMinisterioPorConsejo as $lista)
+                           <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected" ' : '' }} > {{$lista->nombre_institucion}}</option>
+                           @endforeach
+                           @endif
+                           <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected" '  : '' }}>Todos</option>
+                         </select>
+                       </div>
+                     </div>
+                     <br />
+
+
+                     <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-1">
+                       Fecha Inicial
+                     </div>
+                     <div class="col-md-2" style="z-index: 9999">
+
+                       <input id="fechaInicial" name="fechaInicial" class="date form-control" type="text" value="{{$fechaInicial}}" required="" >
+                     </div>
+                     <div class="col-md-1"></div>
+                     <div class="col-md-1">
+                       Fecha Final
+                     </div>
+                     <div class="col-md-2"  style="z-index: 9999">
+                       <input id="fechaFinal" name="fechaFinal" class="date form-control" type="text" value="{{$fechaFinal}}" required="" >
+                     </div>
+                     <div class="col-md-3" style="z-index: 9999">
+                      <button type="submit"   class="btn btn-primary" name="consulto" value="{{$consulto='si'}}">Consultar</button>
+                    </div>
+
+
+                    <script type="text/javascript">
+
+                      $('.date').datepicker({  
+
+                       format: 'yyyy-mm-dd',
+
+                     });  
+
+                   </script>  
+
+                 </div>
+
+           
+           </form>
+
 
       <div class="row">
         <div class="col-md-12" style="margin-top:-40px;">
@@ -418,6 +475,8 @@
        </table>
      </div>
    </div>
+
+
    <div class="row">
 
     <div class="col-md-12" style="margin-bottom: -120px;" >

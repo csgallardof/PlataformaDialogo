@@ -32,7 +32,7 @@
 			                        	<ul class="dropdown-menu">
 			                        		<li><a href="/consejo-sectorial/reportes-consejo?selInstituciones=Todos">General</a></li>
 			                        		<li>
-			                        			<a class="dropdown-item" href="/consejo-sectorial/reportes-grafico-consejo">Estadistico</a>
+			                        			<a class="dropdown-item" href="/consejo-sectorial/reportes-grafico-consejo?selInstituciones=Todos">Estadistico</a>
 			                        		</li>
 			                        	</ul>
 
