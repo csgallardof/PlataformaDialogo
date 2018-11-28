@@ -5,11 +5,11 @@
 <!-- begin #content -->
 		<div id="content" class="content" width="10%">
 			<!-- begin breadcrumb -->
-			<ol class="breadcrumb pull-right">
+			<!--<ol class="breadcrumb pull-right">
 				<li><a href="{{ url('institucion/home') }}">Inicio</a></li>
 				<li><a href="javascript:window.history.back()">Propuesta</a></li>
 				<li class="active">Nueva Actividad</li>
-			</ol>
+			</ol>-->
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<!-- <div class="brand">
@@ -150,7 +150,8 @@
 							<h4 class="panel-title"> <i class="fa fa-file-text-o" aria-hidden="true"></i> Actividades</h4>
 						</div>
 						<div class="panel-body">
-							<div class="height-lg" >
+
+						
 
 								<div class="media-body">
 
@@ -181,7 +182,6 @@
 								</div>
 
 
-							</div>
 						</div>
 					</div>
 				</div>

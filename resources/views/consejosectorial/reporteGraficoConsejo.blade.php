@@ -368,6 +368,18 @@
 
 
 <div class="container">
+
+
+      <div class="row">
+        <div class="col-md-12" style="margin-top:-10px;">
+          <!-- begin panel -->
+          <div class="panel panel-inverse">
+            <div class="panel-heading">                
+             <h3 class="panel-title" style="text-align: center;">Reporte Consejo Sectorial de la Plataforma de Di&aacute;logo Nacional</h3>
+           </div>
+         </div>
+       </div>
+     </div> 
  <!--<div class="col-md-12 ">-->
  <div class="panel panel-default">
  <div class="panel-body">
@@ -430,22 +442,18 @@
 
            
            </form>
+           <br/>
 
-
-      <div class="row">
-        <div class="col-md-12" style="margin-top:-40px;">
-          <!-- begin panel -->
-          <div class="panel panel-inverse">
-            <div class="panel-heading">                
-             <h3 class="panel-title" style="text-align: center;">Reporte Consejo Sectorial de la Plataforma de Di&aacute;logo Nacional</h3>
-           </div>
-         </div>
-       </div>
-     </div> 
 
      <div class="row">
        <div class="col-md-12">
         <table class="table table-hover">
+         <thead>
+                        <tr>
+                           <th colspan="3" ><div align="center">  REPORTE CONSEJO SECTORIAL DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
+                        </tr>
+                       
+                      </thead>
 
           <tbody>                     
            <tr>
