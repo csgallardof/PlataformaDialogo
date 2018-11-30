@@ -1,4 +1,4 @@
-@extends('layouts.institucion')
+@extends('layouts.consejo-sectorial')
 @section('edit_titulo')Registrar @endsection
 @section('content')
 <div class="container">
