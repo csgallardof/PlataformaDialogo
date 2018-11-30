@@ -160,64 +160,63 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 <div class="container" width="100%">
- <div class="col-md-12 ">
   <div class="panel panel-default">
-		<div class="row">
-			
-			<div class="col-md-12">
+   <div class="panel-body">
+
+	
 
 			<!-- inicio cuadrados -->
 		
 				<div class="col-md-12">
 
-  <div class="row">
-    <div class="col-md-12">
-        <!-- begin panel -->
-        <div class="panel panel-inverse"  data-sortable-id="chart-js-2">
-            <div class="panel-heading">                
-                 <h3 class="panel-title">Reporte Institucional de la Plataforma de Di&aacute;logo Nacional</h3>
-            </div>
-        </div>
-    </div>
-</div> 
+          <div class="row">
+            <div class="col-md-12">
+              <!-- begin panel -->
+              <div class="panel panel-inverse">
+                <div class="panel-heading">                
+                <h3 class="panel-title" style="text-align: center;">Reporte Institucional de la Plataforma de Di&aacute;logo Nacional</h3>
+               </div>
+             </div>
+           </div>
+         </div> 
 
- <div class="row">
-  <table class="table table-hover">
-                       
-                        <tbody>
+         <div class="row">
+          <table class="table table-hover">
 
-                     
-                       <tr>
-                           <th colspan="3" ><div align="center">Datos Informativos</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">Fecha</div></th>
-                            <td colspan="1" ><div align="left">{{$hoy}}</div></td>
-                        </tr>
-                         <tr>
-                           <th colspan="2" ><div align="left">Responsable</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
-                        </tr>
+            <tbody>
 
-                         <tr>
-                           <th colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
-                        </tr>
 
-                          <tr>
-                           <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
-                        </tr>                        
+             <tr>
+               <th colspan="3" ><div align="center">Datos Informativos</div></th>
+             </tr>
 
-                        </tbody>
-    </table>
+             <tr>
+               <th colspan="2" ><div align="left">Fecha</div></th>
+               <td colspan="1" ><div align="left">{{$hoy}}</div></td>
+             </tr>
+             <tr>
+               <th colspan="2" ><div align="left">Responsable</div></th>
+               <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
+             </tr>
 
-    </div>
+             <tr>
+               <th colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></th>
+               <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
+             </tr>
 
-  <br/><br/>
+             <tr>
+               <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
+               <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
+             </tr>                        
 
-              <!--<form target="_self" method="GET" action="{{ route('reporteGraficoInstitucion.institucion') }}">
+           </tbody>
+         </table>
+
+       </div>
+
+        <br/>
+
+              <form target="_self" method="GET" action="{{ route('reporteGraficoInstitucion.institucion') }}">
                    <div class="col-md-2">
                              Fecha Inicial
                    </div>
@@ -237,26 +236,25 @@
                    </div>
 
                    <script type="text/javascript">
-                      $('.date').datepicker({  
-                         isRTL: false,
-                         format: 'dd-mm-yyyy',
-                          autoclose:true,
-                          language: 'es'
+                      $('.date').datepicker({ 
+                         format: 'yyyy-mm-dd'
                        });  
 
                    </script> 
-               </form>-->
+               </form>
+
+
 					<div class="row">
          
                   <div class="col-md-6">
-                      <div class="panel panel-inverse" data-sortable-id="chart-js-2">
+                      <div class="panel panel-inverse">
                           <div class="panel-heading">
                             <h4 class="panel-title">TIPO DE PROPUESTA</h4>
                           </div>
                           <div class="panel-body">
-                            <div>
-                              <div id="barChart_tipoPropuesta" style="width: 400px; height: 400px;"></div>
-                            </div>
+                            
+                              <div id="barChart_tipoPropuesta" style="width: 500px; height: 400px;"></div>
+                            
                           </div>
                       </div>
                   </div>
@@ -264,15 +262,15 @@
               
 	             
                    <div class="col-md-6">
-                    <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
+                    <div class="panel panel-inverse">
                         <div class="panel-heading">
                             <h4 class="panel-title">ESTADO DE LA PROPUESTA</h4>
                         </div>
                         <div class="panel-body">
-                            <div>
+                           
                               <div id="piechart_tipoPropuestaInst" style="width: 500px; height: 400px;"></div>
                                 
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -290,10 +288,10 @@
                             <h4 class="panel-title">FORMA DE CUMPLIMIENTO</h4>
                         </div>
                         <div class="panel-body">
-                            <div>
+                            
                               <div id="piechart_formaCumplimiento" style="width: 500px; height: 400px;"></div>
                                 
-                            </div>
+                            
                         </div>
                     </div>
                 </div>    
@@ -304,13 +302,13 @@
                 <div class="col-md-6">
                     <div class="panel panel-inverse" data-sortable-id="flot-chart-3">
                         <div class="panel-heading">
-                            <h4 class="panel-title">NÚMERO DE PROPUESTAS POR PLAZO</h4>
+                            <h4 class="panel-title">PROPUESTAS POR PLAZO</h4>
                         </div>
                         <div class="panel-body">
-                            <div>
+                            
                                 
                                 <div id="donutchart_plazo"  style="width: 500px; height: 400px;"></div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -319,19 +317,12 @@
             <!-- end row -->
 
             
+
 				
-				</div>
-				<!-- Final cuadrados -->
+			<!-- Final cuadrados -->
 
-			<!-- Inicio col-8 tabla -->
-				
-			</div>
+      <!-- Inicio col-8 tabla -->
 
-        </div>
-
-		</div>
-
-	</div>
     </div>
     </div>
   </div>

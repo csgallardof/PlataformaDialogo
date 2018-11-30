@@ -5,19 +5,16 @@
 <!-- begin #content -->
 		<div id="content" class="content" width="10%">
 			<!-- begin breadcrumb -->
-			<ol class="breadcrumb pull-right">
+			<!--<ol class="breadcrumb pull-right">
 				<li><a href="{{ url('institucion/home') }}">Inicio</a></li>
 				<li class="active">Propuesta</li>
-			</ol>
+			</ol>-->
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-
-<br />
-
 			<!-- end page-header -->
 
 			<!-- begin row -->
-			<div class="row">
+			<div class="row" style="margin-top:-3%;">
 				<!-- begin col-12 -->
 				<div class="col-md-12 col-sm-12">
 					<div class="widget widget-stats bg-green-darker">
@@ -30,9 +27,9 @@
 								@endif
 							</p>
 						</div>
-						<div class="stats-link">
+						<!--<div class="stats-link">
 							<a href="javascript:;">&nbsp;</a>
-						</div>
+						</div>-->
 					</div>
 				</div>
 				<!-- end col-12 -->
@@ -42,20 +39,124 @@
 			<!-- begin row -->
 
 			<div class="row">
-				<!-- begin col-8 -->
-				<div class="col-md-8">
 
-					<div class="panel panel-inverse" data-sortable-id="index-5">
+
+				<!-- begin col-4 -->
+				<div class="col-md-12">
+
+				<div class="col-md-8" >
+
+					<div class="panel panel-inverse">
+						<div class="panel-heading">
+							
+							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actores</h4>
+						</div>
+						<div class="panel-body p-t-0">
+							<table class="table table-valign-middle m-b-0">
+								<thead>
+									<tr>
+										<th>Institución</th>
+										<th>Responsabilidad</th>
+									</tr>
+								</thead>
+								<tbody>
+									@if( isset($actoresSoluciones) )
+										@foreach( $actoresSoluciones as $actorSolucion )
+											<tr>
+												<td>{{ $actorSolucion->institucion->nombre_institucion}}</td>
+												<td>
+													@if($actorSolucion->tipo_actor == 1)
+														<em>{{ "Responsable" }}</em>
+													@else
+														<em>{{ "Corresponsable" }}</em>
+													@endif
+												</td>
+											</tr>
+										@endforeach
+									@endif
+								</tbody>
+							</table>
+							<hr>
+							<center>
+							<a class="btn btn-primary  m-b-30 m-l-30" href="{{ url('institucion/detalle-propuesta',[$solucion->id]) }}">Ver Propuestas</a>
+							</center>
+						</div>
+					</div>
+                 </div>
+                   
+                 	<div  class="col-md-4">
+					<div class="panel panel-inverse">
+						<div class="panel-heading">
+							<?php 
+							   $total=0;
+							   $total_buenas=0;
+							   $total_malas=0;
+                               foreach ($percepcion as $perc) {
+                               	          $total=$total+1;
+                               	          if($perc->ev_semaforo=="BUENA") {
+												$total_buenas=$total_buenas+1;
+                               	          }else{
+												$total_malas=$total_malas+1;
+
+                               	          }
+                               }
+                               $porcent_b= 0;
+                               $porcent_m= 0;
+                               
+                               if($total>0){
+
+                                  $porcent_b= round(($total_buenas*100)/$total,0);	
+                                  $porcent_m= round(($total_malas*100)/$total,0);	
+                               }
+                               
+                               //$porcent_b=100;
+                               //$porcent_m=0;
+
+							?>
+							
+							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Percepci&oacuten Ciudadana</h4>
+						</div>
+						<div class="panel-body p-t-0">
+							<table  class="table table-valign-middle m-b-0" width="100%">
+								<tr><th>Total ingresadas:
+								    </th>
+								    <td><?php echo $total; ?></td>
+								</tr>
+							</table>
+
+							<table  class="table table-valign-middle m-b-0" width="100%">
+								<tr><th style="width:20%;">Total Buenas:
+								    </th>
+								    <td style="width:20%;"><?php echo $total_buenas; ?></td>
+								    <td style="background-color:#575757;"><div style="width:<?php echo $porcent_b; ?>%;height:100%; background-image: linear-gradient(to right, #008000 , #004D00); background-color:#006600;  border-top-right-radius: 25px; padding:10px;color:white;font-weight:bold;"><?php echo $porcent_b; ?>%</div></td>
+								</tr>
+								<tr><th>Total Malas:
+								    </th>
+								    <td><?php echo $total_malas; ?></td>
+								    <td style="background-color:#575757;"><div style="width:<?php echo $porcent_m; ?>%;height:100%;background-image: linear-gradient(to right, #E00000 , #700000);background-color:#AD0000; border-top-right-radius: 25px;padding:10px;color:white;font-weight:bold;"><?php echo $porcent_m; ?>%</div></td>
+								</tr>
+
+							</table>
+
+						</div>
+					</div>
+					</div>
+
+				</div>
+				<!-- end col-4 -->
+				<!-- begin col-8 -->
+				<div class="col-md-12" style="margin-top: -4%;">
+
+					<div class="panel panel-inverse">
 						<div class="panel-heading">
 		
 							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actividades</h4>
 						</div>
 						<div class="panel-body">
-							<div class="height-lg" >
+							
 
 								@include('flash::message')
-
-								<div class="media-body">
+                                   <div class="table-responsive">
 
 									@if (isset($solucion) && isset($tipo_actor) )
 									@if($tipo_actor == 1)
@@ -140,110 +241,13 @@
 												@endif
 											</div>
 										</div>
-									</div>	
-								</div>
+									</div>
 							</div>
 						</div>
 
 					</div>
 				</div>
 				<!-- end col-8 -->
-				<!-- begin col-4 -->
-				<div class="col-md-4" >
-					<div class="panel panel-inverse" data-sortable-id="index-1">
-						<div class="panel-heading">
-							
-							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actores</h4>
-						</div>
-						<div class="panel-body p-t-0">
-							<table class="table table-valign-middle m-b-0">
-								<thead>
-									<tr>
-										<th>Institución</th>
-										<th>Responsabilidad</th>
-									</tr>
-								</thead>
-								<tbody>
-									@if( isset($actoresSoluciones) )
-										@foreach( $actoresSoluciones as $actorSolucion )
-											<tr>
-												<td>{{ $actorSolucion->institucion->nombre_institucion}}</td>
-												<td>
-													@if($actorSolucion->tipo_actor == 1)
-														<em>{{ "Responsable" }}</em>
-													@else
-														<em>{{ "Corresponsable" }}</em>
-													@endif
-												</td>
-											</tr>
-										@endforeach
-									@endif
-								</tbody>
-							</table>
-							<hr>
-							<center>
-							<a class="btn btn-primary  m-b-30 m-l-30" href="{{ url('institucion/detalle-propuesta',[$solucion->id]) }}">Ver Propuestas</a>
-							</center>
-						</div>
-					</div>
-					<div class="panel panel-inverse" data-sortable-id="index-6">
-						<div class="panel-heading">
-							<?php 
-							   $total=0;
-							   $total_buenas=0;
-							   $total_malas=0;
-                               foreach ($percepcion as $perc) {
-                               	          $total=$total+1;
-                               	          if($perc->ev_semaforo=="BUENA") {
-												$total_buenas=$total_buenas+1;
-                               	          }else{
-												$total_malas=$total_malas+1;
-
-                               	          }
-                               }
-                               $porcent_b= 0;
-                               $porcent_m= 0;
-                               
-                               if($total>0){
-
-                                  $porcent_b= round(($total_buenas*100)/$total,0);	
-                                  $porcent_m= round(($total_malas*100)/$total,0);	
-                               }
-                               
-                               //$porcent_b=100;
-                               //$porcent_m=0;
-
-							?>
-							
-							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Percepci&oacuten Ciudadana</h4>
-						</div>
-						<div class="panel-body p-t-0">
-							<table  class="table table-valign-middle m-b-0" width="100%">
-								<tr><th>Total ingresadas:
-								    </th>
-								    <td><?php echo $total; ?></td>
-								</tr>
-							</table>
-
-							<table  class="table table-valign-middle m-b-0" width="100%">
-								<tr><th style="width:20%;">Total Buenas:
-								    </th>
-								    <td style="width:20%;"><?php echo $total_buenas; ?></td>
-								    <td style="background-color:#575757;"><div style="width:<?php echo $porcent_b; ?>%;height:100%; background-image: linear-gradient(to right, #008000 , #004D00); background-color:#006600;  border-top-right-radius: 25px; padding:10px;color:white;font-weight:bold;"><?php echo $porcent_b; ?>%</div></td>
-								</tr>
-								<tr><th>Total Malas:
-								    </th>
-								    <td><?php echo $total_malas; ?></td>
-								    <td style="background-color:#575757;"><div style="width:<?php echo $porcent_m; ?>%;height:100%;background-image: linear-gradient(to right, #E00000 , #700000);background-color:#AD0000; border-top-right-radius: 25px;padding:10px;color:white;font-weight:bold;"><?php echo $porcent_m; ?>%</div></td>
-								</tr>
-
-							</table>
-
-						</div>
-					</div>
-
-				</div>
-				<!-- end col-4 -->
 			</div>
 			<!-- end row -->
 		</div>

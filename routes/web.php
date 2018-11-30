@@ -590,7 +590,7 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
  //Route::get('/reportes','ReportesController@listaMinisterio');
  //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio');
  //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio');
- Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+ //Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
  Route::get('/reporteMinisterio/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
  Route::get('/reporteMinisterioEstadistico',['uses'=>'ReportesController@reporteEstadisticoInstitucion','as'=>'reporteGraficoInstitucion.institucion']);  
 
