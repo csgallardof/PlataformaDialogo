@@ -10,13 +10,12 @@
 
                    
 <form class="form-horizontal" method="POST" action="/institucion/cambiar-clave/{{$usuario->id}}"   >
-                           {{ csrf_field() }}
+                        {{ csrf_field() }}
                         @section('edit_Method')
                         @show
                         @include('flash::message')
                          <div class="form-group">
                          <label for="usuario_id" class="col-md-4 control-label">Usuario</label>
-
                             <div class="col-md-6">
                                 
                                  {{$usuario->name}} {{$usuario->apellidos}}
