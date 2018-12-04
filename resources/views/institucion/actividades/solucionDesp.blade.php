@@ -47,13 +47,7 @@
 
 					<div class="panel panel-inverse" data-sortable-id="index-5">
 						<div class="panel-heading">
-							<div class="panel-heading-btn">
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a> -->
-
-							</div>
-
+		
 							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actividades</h4>
 						</div>
 						<div class="panel-body">
@@ -64,101 +58,101 @@
 								<div class="media-body">
 
 									@if (isset($solucion) && isset($tipo_actor) )
-										@if($tipo_actor == 1)
-											<!-- <a href="#" class="btn	btn-warning pull-right">Finalizar</a> -->
-											<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>&nbsp;&nbsp;
+									@if($tipo_actor == 1)
+									<!-- <a href="#" class="btn	btn-warning pull-right">Finalizar</a> -->
+									<a href="{{ url('institucion/home') }}" class="btn btn-default pull-left">&laquo; Regresar</a>&nbsp;&nbsp;
 
 
-											@if($solucion->estado_id==1)
-												<a href="#modal-desestimada" data-toggle="modal" class="btn btn-warning"><i class="fa fa-warning" aria-hidden="true"></i> Desestimada</a>&nbsp;&nbsp;
-											@endif
-											@if($solucion->estado_id==1)
-												<a href="#modal-conflicto" data-toggle="modal" class="btn btn-warning"><i class="fa fa-legal" aria-hidden="true"></i> En Conflicto</a>&nbsp;&nbsp;
-											@endif
-										@endif
-										@if($solucion->estado_id<=3)
+									@if($solucion->estado_id==1)
+									<a href="#modal-desestimada" data-toggle="modal" class="btn btn-warning"><i class="fa fa-warning" aria-hidden="true"></i> Desestimada</a>&nbsp;&nbsp;
+									@endif
+									@if($solucion->estado_id==1)
+									<a href="#modal-conflicto" data-toggle="modal" class="btn btn-warning"><i class="fa fa-legal" aria-hidden="true"></i> En Conflicto</a>&nbsp;&nbsp;
+									@endif
+									@endif
+									@if($solucion->estado_id<=3)
 
-												<a href="{{ route('actividades.createDespliegue',$solucion->id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Nueva</a>&nbsp;&nbsp;
-												@if(count($actividades) > 0)
+									<a href="{{ route('actividades.createDespliegue',$solucion->id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Nueva</a>&nbsp;&nbsp;
+									@if(count($actividades) > 0)
 
-													<a href="{{ route('solucion.parametrosCumplimiento',$solucion->id) }}" class="btn btn-warning "> Definir Parametros de Cumplimiento</a>
+									<a href="{{ route('solucion.parametrosCumplimiento',$solucion->id) }}" class="btn btn-warning "> Definir Parametros de Cumplimiento</a>
 
-													<a href="#modal-alert" class="btn btn-primary" data-toggle="modal">Finalizar Propuesta</a>
+									<a href="#modal-alert" class="btn btn-primary" data-toggle="modal">Finalizar Propuesta</a>
 
-												@endif
-											@endif
+									@endif
+									@endif
 									@endif
 
-									<h3>LISTA DE ACTIVIDADES</h3><hr>
-									@if( isset( $actividades ) && count($actividades) > 0)
-										<?php $count=count($actividades) ; ?>
-										@foreach( $actividades as $actividad)
-											<h4>
-												<label class="label label-danger label-lg"><i class="fa fa-file-text-o" aria-hidden="true"></i>
- 												 Actividad {{ $count }}</label><br><br>
-											</h4>
-											<p class="text-justify">
-												{!! $actividad-> comentario !!}
-											</p>
-												<br>
 
-												<b> Fecha de Inicio: </b> {{ substr($actividad->fecha_inicio,0,10) }}<br>
-												@if( $actividad-> ejecutor_id > 0 )
-													<b> Ejecutor: </b> {{ $actividad-> institucion-> nombre_institucion }}<br><br>
-												@endif
+									<div id="collapseFive" class="panel-collapse collapse in">
+										<div class="panel-body">
+											<div class="media-body">
+												<h3 align="left" class="panel-title">LISTA DE ACTIVIDADES</h3>	
+												@if( isset( $actividades ) && count($actividades) > 0)
 
-													<!--ARCHIVOS-->
-														@if( count( $actividad-> archivo) > 0)
-														<b> Archivos: </b> <br>
-															<ul>
-																@foreach($actividad-> archivo as $file)
-																<li>
-																	<!-- <a target="_blank" href="'../../../../../../storage/{{ $file-> nombre_archivo }} "> -->
-																	<a target="_blank" href="{{ route('descargarArchivo',$file-> nombre_archivo) }} ">
-																		<?php
+												<hr>
+												<table id="data-table" class="table table-striped table-bordered" width="100%">
+													<thead>
+														<th class="text-center">Actividades</th>
+													</thead>
+
+													<tbody>
+
+														@foreach( $actividades as $actividad)
+														<tr>
+															<td>
+																<b class="text-justify"Comentario></b>{!! $actividad-> comentario !!}<br/>
+																<b> Fecha de Inicio: </b> {{ substr($actividad->fecha_inicio,0,10) }}<br/>
+																<b> Ejecutor: </b> {{ $actividad-> institucion-> nombre_institucion }}<br/>
+																<!--ARCHIVOS-->
+																@if( count( $actividad-> archivo) > 0)
+																<hr>
+																<b> Archivos: </b><br/>
+																<ul>
+																	@foreach($actividad-> archivo as $file)
+																	<li>
+																		<!-- <a target="_blank" href="'../../../../../../storage/{{ $file-> nombre_archivo }} "> -->
+																		<a target="_blank" href="{{ route('descargarArchivo',$file-> nombre_archivo) }} ">
+																			<?php
 																			$pos = strpos($file-> nombre_archivo, "_-_");
 																			$nombre_archivo = substr($file-> nombre_archivo, $pos+3, strlen($file-> nombre_archivo)); // devuelve "d"
-																		?>
+																			?>
 
-																		{{$nombre_archivo}}
-																	</a>
-																</li>
-																@endforeach
-															</ul>
-														@endif
+																			{{$nombre_archivo}}
+																		</a>
+																	</li>
+																	@endforeach
+																</ul>
+																@endif
 
-													<!--FIN ARCHIVOS-->
+																<!--FIN ARCHIVOS-->
 
+															</td>
+														</tr>
 
-
-											<hr>
-											<?php $count--; ?>
-										@endforeach
-									@else
-										@if( count($actividades) == 0)
-											{{ "No hay actividades registradas"}}
-										@endif
-									@endif
-
+														@endforeach
+													</tbody>
+												</table>
+												@else
+												@if( count($actividades) == 0)
+												{{ "No hay actividades registradas"}}
+												@endif
+												@endif
+											</div>
+										</div>
+									</div>	
 								</div>
-
-
 							</div>
 						</div>
-					</div>
 
+					</div>
 				</div>
 				<!-- end col-8 -->
 				<!-- begin col-4 -->
 				<div class="col-md-4" >
-					<div class="panel panel-inverse" data-sortable-id="index-6">
+					<div class="panel panel-inverse" data-sortable-id="index-1">
 						<div class="panel-heading">
-							<div class="panel-heading-btn">
-								<!-- <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a> -->
-
-							</div>
+							
 							<h4 class="panel-title"><i class="fa fa-list-ol" aria-hidden="true"></i> Actores</h4>
 						</div>
 						<div class="panel-body p-t-0">

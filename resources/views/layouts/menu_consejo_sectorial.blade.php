@@ -22,7 +22,21 @@
 			                        <li><a href="propuestas-finalizadas">Propuestas Finalizadas</a></li>
 			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
 			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
-			                        <li><a href="/consejo-sectorial/reportes-consejo?selInstituciones=Todos">Reportes</a></li>
+			                        <!--<li><a href="/consejo-sectorial/reportes-grafico-consejo">Reportes</a></li>-->
+			                        <li class="down">
+
+			                        	<!--<a href="/institucion/reportes">Reportes Inst</a>-->
+
+			                        	<a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+
+			                        	<ul class="dropdown-menu">
+			                        		<li><a href="/consejo-sectorial/reportes-consejo?selInstituciones=Todos">General</a></li>
+			                        		<li>
+			                        			<a class="dropdown-item" href="/consejo-sectorial/reportes-grafico-consejo">Estadistico</a>
+			                        		</li>
+			                        	</ul>
+
+			                        </li>			                        
 			                    </ul>
 
 

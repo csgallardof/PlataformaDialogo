@@ -1,323 +1,570 @@
 @extends('layouts.consejo-sectorial')
+@section('title','Reporte Consejo Sectorial')
+@section('start_css')
+@parent
+    <link href="{{ asset('plugins/DataTablesv2/datatables.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/style-after.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-@section('title','Propuestas-Consejo Sectorial')
+  <!-- <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+     
+  
+      function drawStuff() {
 
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'N° de Propuestas Recibidas','N° de Propuestas Desestimadas','N° de Propuestas Validadas'],
+          @foreach($propuestasPorTipo as $propuestasPorTipos)
+            ['{{ $propuestasPorTipos->inst }}', {{ $propuestasPorTipos->recibidas}}, {{ $propuestasPorTipos->desestimadas}}, 
+            {{ $propuestasPorTipos->validadas}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion'
+
+
+
+          }
+           
+
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('barChart_tipoPropuesta'));
+
+        //var my_div = document.getElementById('barChart_tipoPropuesta');
+        //var my_chart = new google.visualization.ChartType(barChart_tipoPropuesta);
+
+        // google.visualization.events.addListener(my_chart, 'ready', function () {
+         //my_div.innerHTML = '<img src="' + my_chart.getImageURI() + '">';
+        //});
+
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));        
+
+      }
+    </script>-->
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart','bar']});
+      google.charts.setOnLoadCallback(drawAxisTickColors);
+     
+  
+      function drawAxisTickColors() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'N° de Propuestas Recibidas','N° de Propuestas Desestimadas','N° de Propuestas Validadas'],
+          @foreach($propuestasPorTipo as $propuestasPorTipos)
+            ['{{ $propuestasPorTipos->inst }}', {{ $propuestasPorTipos->recibidas}}, {{ $propuestasPorTipos->desestimadas}}, 
+            {{ $propuestasPorTipos->validadas}}],  
+          @endforeach
+          
+        ]);
+
+
+     var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2,{ calc: "stringify",
+                         sourceColumn: 2,
+                         type: "string",
+                         role: "annotation" }, 3,
+                         { calc: "stringify",
+                         sourceColumn: 3,
+                         type: "string",
+                         role: "annotation" }]);
+
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion',
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+
+            hAxis: {
+              title: 'Total Population',
+              minValue: 0,
+              textStyle: {
+                bold: true,
+                fontSize: 4,
+                color: '#4d4d4d'
+              },
+              titleTextStyle: {
+                bold: true,
+                fontSize: 8,
+                color: '#4d4d4d'
+              }
+          },
+
+          vAxis: {
+          title: 'City',
+          textStyle: {
+            fontSize: 4,
+            bold: true,
+            color: '#848484'
+          },
+          titleTextStyle: {
+            fontSize: 8,
+            bold: true,
+            color: '#848484'
+          }
+
+          }
+           
+              }
+        };
+        
+        var chart = new google.visualization.BarChart(document.getElementById('barChart_tipoPropuesta'));
+        chart.draw(view,options);        
+
+      }
+    </script>    
+
+   <!--<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'Finalizado','En Desarrollo','En Análisis','Desestimado','En Conflicto'],
+          @foreach($propuestasPorEstado as $propuestasPorEstados)
+            ['{{ $propuestasPorEstados->inst }}', {{ $propuestasPorEstados->finalizado}}, {{ $propuestasPorEstados->desarrollo}}, 
+            {{ $propuestasPorEstados->analisis}}, {{$propuestasPorEstados->desestimadas}}, {{$propuestasPorEstados->conflicto}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion'            
+          }
+           
+
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('barChart_estadoPropuesta'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));        
+      }
+    </script>-->    
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart','bar']});
+      google.charts.setOnLoadCallback(drawAxisTickColors);
+     
+  
+      function drawAxisTickColors() {
+
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'Finalizado','En Desarrollo','En Análisis','Desestimado','En Conflicto'],
+          @foreach($propuestasPorEstado as $propuestasPorEstados)
+            ['{{ $propuestasPorEstados->inst }}', {{ $propuestasPorEstados->finalizado}}, {{ $propuestasPorEstados->desarrollo}}, 
+            {{ $propuestasPorEstados->analisis}}, {{$propuestasPorEstados->desestimadas}}, {{$propuestasPorEstados->conflicto}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por institucion',
+            chartArea: {width: '50%'},
+
+            hAxis: {
+              title: 'Total Population',
+              minValue: 0,
+              textStyle: {
+                bold: true,
+                fontSize: 4,
+                color: '#4d4d4d'
+              },
+              titleTextStyle: {
+                bold: true,
+                fontSize: 8,
+                color: '#4d4d4d'
+              }
+          },
+
+          vAxis: {
+          title: 'City',
+          textStyle: {
+            fontSize: 4,
+            bold: true,
+            color: '#848484'
+          },
+          titleTextStyle: {
+            fontSize: 8,
+            bold: true,
+            color: '#848484'
+          }
+
+          }
+           
+              }
+        };
+        
+        var chart = new google.visualization.BarChart(document.getElementById('barChart_estadoPropuesta'));
+        chart.draw(data,options);        
+
+      }
+    </script>   
+
+
+
+
+
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawBarTiempo);
+
+      function drawBarTiempo() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion','Largo', 'Mediano','Corto'],
+          @foreach($propuestasPorTiempo as $propuestasPorTiempos)
+            ['{{ $propuestasPorTiempos->inst }}', {{ $propuestasPorTiempos->largo}}, {{ $propuestasPorTiempos->mediano}}, 
+            {{$propuestasPorTiempos->corto}}],  
+          @endforeach
+          
+        ]);
+
+        
+        var options = {
+          chart: {
+            title: 'Propuestas por consejo sectorial',
+            subtitle: 'Estado propuestas por tiempo'            
+          }
+           
+
+        };
+        
+        var chart = new google.charts.Bar(document.getElementById('barChart_tiempoPropuesta'));
+        
+        chart.draw(data, google.charts.Bar.convertOptions(options));        
+      }
+    </script>    
+
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'Politica Pública'],
+          @foreach($propuestasPoliticaPublica as $propuestasPoliticaPublicas)
+            ['{{ $propuestasPoliticaPublicas ->nombre_institucion }}',{{ $propuestasPoliticaPublicas ->politica}}],  
+          @endforeach
+          
+        ]);
+
+        var options = {
+          title: 'PROPUESTAS POR POLITICA PUBLICA'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_politicaPublica'));
+
+        chart.draw(data, options);
+      }
+    </script>    
+
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Institucion', 'Leyes'],
+          @foreach($propuestasLey as $propuestasLeyes)
+            ['{{ $propuestasLeyes ->nombre_institucion }}',{{ $propuestasLeyes ->leyes}}],  
+          @endforeach
+          
+        ]);
+
+        var options = {
+          title: 'PROPUESTAS POR LEYES'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_leyes'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+       <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      //google.charts.load("current", {packages:["imagepiechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Provincia', 'N° de mesas'],
+          @foreach($mesasProvinciaConsejo as $mesasProvinciaConsejos)
+            ['{{ $mesasProvinciaConsejos ->nombre_provincia }}',{{ $mesasProvinciaConsejos ->mesas}}],  
+          @endforeach
+        ]);
+
+        var options = {
+          title: 'NÚMERO DE MESAS POR PROVINCIA',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart_mesasProvincia'));
+        chart.draw(data, options);
+
+        //var chart = new google.visualization.ImagePieChart(document.getElementById('donutchart_mesasProvincia'));
+        //chart.draw(data, options);
+      }
+    </script>
+
+       <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Ambito', 'total'],
+          @foreach($propuestaPorAmbito as $propuestaPorAmbitos)
+            ['{{ $propuestaPorAmbitos ->ambito }}',{{ $propuestaPorAmbitos ->numPorAmbito}}],  
+          @endforeach
+        ]);
+
+        var options = {
+          title: 'NÚMERO DE PROPUESTAS POR AMBITO',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart_propuestasAmbito'));
+        chart.draw(data, options);
+      }
+    </script>    
+
+@endsection  
 
 @section('content')
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 
-            @include('flash::message')
+<div class="container">
+ <!--<div class="col-md-12 ">-->
+ <div class="panel panel-default">
+ <div class="panel-body">
+    <!-- inicio cuadrados -->
+    
+   
 
-            <div class="row">
-                <!-- begin col-8 -->
-                
-                <div class="col-md-12">
-                    <!-- begin panel -->
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <div class="panel-heading-btn">
-                              
-                            </div>
-                            <h3 align="left" class="panel-title">Reporte del Consejo de la Plataforma del Di&aacute;logo Nacional</h3>
-                        </div>
+      <div class="row">
+        <div class="col-md-12" style="margin-top:-40px;">
+          <!-- begin panel -->
+          <div class="panel panel-inverse">
+            <div class="panel-heading">                
+             <h3 class="panel-title" style="text-align: center;">Reporte Consejo Sectorial de la Plataforma de Di&aacute;logo Nacional</h3>
+           </div>
+         </div>
+       </div>
+     </div> 
 
-                    <div class="panel-body">
-                     <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
-                     <?php $consulto='no';?>
-                       <div class="row">
-                       <div class="col-md-3"></div>
-                       <div class="col-md-1">
-                                 Instituci&oacute;n
-                       </div>
-                            <div class="col-md-4">
-                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" 
-                                 onchange="">
-                                   <option value="">Seleccione</option>
-                                    @if( isset($listaMinisterioPorConsejo) )
-                                    @foreach($listaMinisterioPorConsejo as $lista)
-                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected" ' : '' }} > {{$lista->nombre_institucion}}</option>
-                                    @endforeach
-                                    @endif
-                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected" '  : '' }}>Todos</option>
-                                </select>
-                            </div>
-                               </div>
-                        <br />
-                      
-                        <br />
-     
+     <div class="row">
+       <div class="col-md-12">
+        <table class="table table-hover">
 
-                       <div class="row">
-                                  <div class="col-md-3"></div>
-                                   <div class="col-md-1">
-                                             Fecha Inicial
-                                   </div>
-                                   <div class="col-md-1">
-                                       
-                                       <input id="fechaInicial" name="fechaInicial" class="date form-control" type="text" value="{{$fechaInicial}}" required="" >
-                                   </div>
-                                   <div class="col-md-1">
-                                             Fecha Final
-                                   </div>
-                                   <div class="col-md-1">
-                                       
-                                       <input id="fechaFinal" name="fechaFinal" class="date form-control" type="text" value="{{$fechaFinal}}" required="" >
-                                   </div>
-                                   <div class="col-md-4">
-                                        
-                             <button type="submit"   class="btn btn-primary" name="consulto" value="{{$consulto='si'}}">Consultar</button>
-                         
-                                   </div>
+          <tbody>                     
+           <tr>
+             <th colspan="3" ><div align="center">Datos Informativos</div></th>
+           </tr>
 
+           <tr>
+             <th colspan="2" ><div align="left">Fecha</div></th>
+             <td colspan="1" ><div align="left">{{$hoy}}</div></td>
+           </tr>
+           <tr>
+             <th colspan="2" ><div align="left">Responsable</div></th>
+             <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
+           </tr>
 
+           <tr>
+             <th colspan="2" ><div align="left">Nombre de la Instituci&oacute;n</div></th>
+             <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
+           </tr>
 
-<script type="text/javascript">
+           <tr>
+             <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
+             <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
+           </tr>                        
 
-    $('.date').datepicker({  
+         </tbody>
+       </table>
+     </div>
+   </div>
+   <div class="row">
 
-       format: 'dd-mm-yyyy'
+    <div class="col-md-12" style="margin-bottom: -120px;" >
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <h4 class="panel-title">PROPUESTA POR TIPO</h4>
+        </div>                      
 
-     });  
-
-</script>  </div>
-<br/>
-<div class="col-md-5"></div>
- <div class="col-md-1">
-    @if( $idBusqueda != null &&  $fechaInicial != null && $fechaFinal != null )
-    <a class="link" href=" {{ route('exportarPdf.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal] ) }} " target="_self">
-         <button  type="button"  class="btn btn-primary" id="pdf" name="pdf" >Descargar PDF </button>
-     </a>  
-     @endif
-    </div>    
-        
-   <div class="col-md-1">
-    @if($idBusqueda != null && $fechaInicial != null && $fechaFinal != null && $consulto=='si')
-    <a class="link" href=" {{ route('exportarExcel.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal, $consulto] ) }} " target="_self">
-         <button  type="button"  class="btn btn-primary" id="consulto" name="consulto" value="{{$consulto='no'}}">Descargar Excel </button>
-     </a>  
-     @endif
+        <div id="barChart_tipoPropuesta" style="width: 80% !important; height: 600px;"></div> 
+      </div>
     </div>
 
-</form>
+  </div>
+  <div class="row">
+   <div class="col-md-12" style="margin-bottom: -120px;">
+    <div class="panel panel-inverse">
+      <div class="panel-heading">
+        <h4 class="panel-title">PROPUESTA POR ESTADO</h4>
+      </div>
+      <div id="barChart_estadoPropuesta" style="width: 80% !important; height: 500px;"></div>                                
 
-       
+    </div>
+  </div>
+</div>  
 
-<br />
+<div class="row">   
+  <div class="col-md-12" style="margin-bottom: -50px;">
+    <div class="panel panel-inverse">
+      <div class="panel-heading">
+        <h4 class="panel-title">PROPUESTA TIEMPO</h4>
+      </div>
 
-<div class="row"> 
-<div class="col-md-4"></div>   
+      <div id="barChart_tiempoPropuesta" style="width: 800px; height: 200px;"></div>                                
 
-        </div>
-                    <br />
-
-                    <div  class="col-md-9 col-md-offset-2">
-                         <table class="table table-hover">
-                        <thead>
-                        <tr>
-                           <th colspan="3" ><div align="center">  REPORTE DE MINISTERIO DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
-                        </tr>
-                       
-                      </thead>
-                        <tbody>
-
-                                       
-
-                       <tr>
-                           <th colspan="3" ><div align="center">Datos Informativos</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">Fecha</div></th>
-                            <td colspan="1" ><div align="left">{{$hoy}}</div></td>
-                        </tr>
-
-                        <tr>
-                           <th colspan="2" ><div align="left">Responsable</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreusuario}}</div></td>
-                        </tr>
-
-                         <tr>
-                           <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreConsejo}}</div></td>
-                        </tr>
-
-                      @if($idBusqueda!="Todos")
-                         <tr>
-                           <th colspan="2" ><div align="left">Institución</div></th>
-                            <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
-                        </tr>
-                      @endif
-                       
-                     
-
-                          <tr>
-                           <th colspan="2" ><div align="left">Fecha Desde</div>
-                            <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
-                           </tr>
-                            <tr>
-                             <th colspan="2" ><div align="left">Fecha Hasta</div></th>
-                            <td colspan="1" ><div align="left">{{$fechaFinal}}</div></td>
-                        </tr>
-
-                       <tr>
-                           <th colspan="3" ><div align="center">Tipo Propuesta</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Recibidas</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasRecibidas}}</div></td>
-                        </tr>
-
-                        <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Desestimadas</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasDesestimadas}}</div></td>
-                        </tr>
-
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Validadas</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasValidadas}}</div></td>
-                        </tr>
-
-
-                        <tr>
-                           <th colspan="3" ><div align="center">Estado de Propuesta</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Cumplidas o Finalizadas</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasFinalisadas}}</div></td>
-                        </tr>
-
-                        <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en Desarrollo</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasDesarrolladas}}</div></td>
-                        </tr>
-
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en An&aacute;lisis</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasAnalisadas}}</div></td>
-                        </tr>
-
-                      
-                       <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Desestimadas</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasDesestimadas}}</div></td>
-                        </tr>
-
-                        <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en Conflicto</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasConflicto}}</div></td>
-                        </tr>
-
-                       <tr>
-                           <th colspan="3" ><div align="center">Forma de Cumplimiento</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas en PP</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasPolitica}}</div></td>
-                        </tr>
-
-                        <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas leyes</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasLeyes}}</div></td>
-                        </tr>
-
-               
-                        <tr>
-                           <th colspan="3" ><div align="center">Propuestas Tiempo por Consejo Sectorial</div></th>
-                        </tr>
-                       
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas a Corto</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasPlazoCorto}}</div></td>
-                        </tr>
-
-                        <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Mediano</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasPlazoMediano}}</div></td>
-                        </tr>
-
-                         <tr>
-                           <th colspan="2" ><div align="left">N° de Propuestas Largo Plazo</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasPlazoLargo}}</div></td>
-                        </tr>
-                        
-
-
-                        <tr>
-                           <th colspan="3" ><div align="center">Propuestas Planificadas por Consejo Sectorial</div></th>
-                        </tr>
-                        <tr>
-                             <th colspan="2" ><div align="left">N° de Propuestas Planificadas</div></th>
-                             <td colspan="1" ><div align="left">{{$numPropuestasPlanificadas}}</div></td>
-                         </tr>
-                        <tr>
-                             <th colspan="2" ><div align="left">N° de Propuestas No planificadas</div></th>
-                            <td colspan="1" ><div align="left">{{$numPropuestasNoPlanificadas}}</div></td>
-                          </tr>  
+    </div>
+  </div>
+</div>                               
 
 
 
-                         <tr>
-                           <th colspan="3" ><div align="center">Estadística de Propuestas por Mesa</div></th>
-                        </tr>
-                        <tr>
-                             <th colspan="1" ><div align="left">Nombre de la mesa</div></th>
-                             <th colspan="1" ><div align="left">Propuestas en proceso</div></th>
-                             <th colspan="1" ><div align="left">Propuestas finalizadas</div></th>
-                         </tr>       
-                            @foreach($propuestasPorMesa as $propuestasPorMesa)
-                              <tr>
-                                 <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->nombreMesa }}</div></td>
-                                  <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->porTerminar}}</div></td>
-                                  @if(!empty($propuestasPorMesaFinalizadas))
-                                   @if($propuestasPorMesaFinalizadas ->idMesa ==  $propuestasPorMesa ->idMesa)
-                                   @foreach($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas)
-                                         <td colspan="1" ><div align="left"> {{ $propuestasPorMesaFinalizadas -> porTerminar}}</div></td>
-                                   @endforeach
-                                   @endif
-                                   @else
-                               <td colspan="1" ><div align="left">0</div></td>
-                                   
-                                    @endif
+<!-- begin row -->
+<div class="row">
+<div class="col-md-12" style="margin-bottom: -50px;">
+ <div class="panel panel-inverse">
+  <div class="panel-heading">
+    <h4 class="panel-title">FORMA DE CUMPLIMIENTO</h4>
+  </div>
+</div>
+<!-- begin col-6 -->
+<div class="col-md-6">
 
-                           </tr>
-                           @endforeach
-            
-                         <tr>
-                           <th colspan="3" ><div align="center">Estadística de Propuestas por Temática o Ámbito</div></th>
-                        </tr>
-                        <tr>
-                             @foreach($propuestasPorAmbito as $propuestasPorAmbito)
-                             <td colspan="1" ><div align="left">{{$propuestasPorAmbito ->ambito}}</div></td>
-                               <td colspan="1" ><div align="left">{{$propuestasPorAmbito->numPorAmbito}}</div></td>
-                              @endforeach
-                         </tr>
+  <div class="panel panel-inverse">
+   <div id="piechart_politicaPublica" style="width: 500px; height: 300px;"></div>     
+  </div>
+</div>
+<!-- end col-6 -->
+<!-- begin col-6 -->
+<div class="col-md-6">
+  <div class="panel panel-inverse">
+       <div id="piechart_leyes" style="width: 500px; height: 300px;"></div>
+ </div>
+</div>
+<!-- end col-6 -->
+</div>
+</div>        
 
-                        </tbody>
-                    </table>
-                    </div>
+<div class="row">
+ <div class="panel panel-inverse">
+  <div class="panel-heading">
+    <h4 class="panel-title">MESA DE DIALOGO</h4>
+  </div>
+  <table class="table table-hover">
+    <tbody>                     
+     <tr>
+       <th colspan="2" ><div align="left">Consejo Sectorial</div></th>
+       <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->nombre_consejo}}</div></td>
+       <th colspan="2" ><div align="left">Propuestas en proceso</div></th>
+       <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->proceso}}</div></td>
+       <th colspan="2" ><div align="left">Propuestas finalizadas</div></th>
+       <td colspan="1" ><div align="left">{{$mesasPorConsejo[0]->finalizado}}</div></td>
+     </tr>
+   </tbody>
+ </table>              
+</div>
+<!-- begin col-6 -->
+<div class="col-md-6" style="margin-bottom: -70px; margin-top: -60px;">
 
-                        </div>
-                    </div>
-                    <!-- end panel -->
-                </div>
-                <!-- end col-10 -->
+  <div class="panel panel-inverse">
 
-                
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end #content -->
+    <div class="panel-body">
+      <div>
+        <div id="donutchart_mesasProvincia" style="width: 500px; height: 400px;"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end col-6 -->
+<!-- begin col-6 -->
+<div class="col-md-6" style="margin-bottom: -70px;  margin-top: -60px;">
+  <div class="panel panel-inverse">
+
+    <div class="panel-body">
+      <div>
+       <div id="donutchart_propuestasAmbito" style="width: 500px; height: 400px;"></div>
+
+     </div>
+   </div>
+ </div>
+</div>
+<!-- end col-6 -->
+</div>   
+
+<br/>
+
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
 		
+@endsection
 
-		@stop
+@section('end_js')
+  @parent
+
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="{{ asset('plugins/DataTablesv2/datatables.js') }}"></script>
+  <script src="{{ asset('js/table-manage-responsive.demo.js') }}"></script>
+  <script src="{{ asset('plugins/scrollMonitor/scrollMonitor.js') }}"></script>
+  <script src="{{ asset('js/apps.js') }}"></script>
+  <script src="{{ asset('js/dashboard.js') }}"></script>
+
+  <!-- ================== END PAGE LEVEL JS ================== -->  
+  <script>
+
+    $(document).ready(function() {
+      App.init();
+      TablaCCPTHome.init();
+    });
+
+  </script>  
+
+@endsection
                                                                                                                                                                                

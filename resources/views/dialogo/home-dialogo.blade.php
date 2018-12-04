@@ -13,7 +13,7 @@
 <div id="backg">
    <div class="head_table">
        <div class="dvheader_logo"> 
-         <img id="logo_home" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="290px" height="290px" alt="Logo Dialogo Nacional">
+         <img id="logo_home" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/dialogo_nacional.png') }}" width="190px" height="190px" alt="Logo Dialogo Nacional">
        </div>
         <!--  <div id="inp_busqueda_banner">
           </div>
@@ -68,7 +68,7 @@
                    ?>
 
       <div >
-          <a class="nav_button" href="/busqueda-ejes/1">
+          <a class="nav_button myButtonEje" href="/busqueda-ejes/1">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/ico_derechos.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_derechos_img) }}'"
               onmouseout="this.src='{{ asset($path_derechos_img_hover) }}'" />
@@ -78,7 +78,7 @@
           </a>
 
 
-          <a class="nav_button2" href="/busqueda-ejes/2">
+          <a class="nav_button2 myButtonEje2" href="/busqueda-ejes/2">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/economico.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_economico) }}'"
               onmouseout="this.src='{{ asset($path_economico_hover) }}'" />
@@ -87,7 +87,7 @@
             
           </a>
 
-          <a class="nav_button3" href="/busqueda-ejes/3">
+          <a class="nav_button3 myButtonEje3" href="/busqueda-ejes/3">
             
              <img id="menu_ico_not" src="{{ asset('imagenes/dialogo_nacional/nueva_imagen/transparencia.png') }}" width="30px" height="30px" alt="Logo en forma de mundo" onmouseover="this.src='{{ asset($path_transparencia) }}'"
               onmouseout="this.src='{{ asset($path_transparencia_hover) }}'" />
@@ -170,6 +170,20 @@
 
   <script type="text/javascript">
 
+<?php
+ if(isset($eventos)){
+     echo "data_f=[";
+    foreach ($eventos as $ev) {
+        echo "['".$ev[0]."', ".$ev[1]."]";
+
+        echo ",";
+
+    }
+    echo "];";
+
+ }
+
+ ?>
 
 
 // Prepare demo data
@@ -225,7 +239,7 @@ Highcharts.mapChart('container_map', {
     },
 
     title: {
-        text: 'Eventos de mesas'
+        text: 'Total de eventos por Provincia'
     },
 
     subtitle: {
@@ -248,7 +262,7 @@ Highcharts.mapChart('container_map', {
                 events: {
                     click: function (e) {
                         var text = '<b>Detalles</b><br>' + this.name +
-                                '<br>Provincia: ' + e.point.name + ' ' + e.point.value + ' mesas'+'<br><a href="/calendario-dialogo-nacional">Ver Calendario</a>';
+                                '<br>Provincia: ' + e.point.name + ' ' + e.point.value + ' eventos '+'<br><a href="/calendario-dialogo-nacional">Ver Calendario</a>';
                         if (!this.chart.clickLabel) {
                             this.chart.clickLabel = this.chart.renderer.label(text, 0, 250)
                                 .css({
@@ -266,15 +280,17 @@ Highcharts.mapChart('container_map', {
         },
 
     series: [{
-        data: data,
-        name: 'Mesas programadas:',
+        data: data_f,
+        name: 'Eventos programados:',
+        borderColor: 'black',
+        borderWidth: 0.2,
         states: {
             hover: {
                 color: '#BADA55'
             }
         },
         tooltip: {
-                valueSuffix: ' mesas'
+                valueSuffix: ' eventos'
         },        
         dataLabels: {
             enabled: true,

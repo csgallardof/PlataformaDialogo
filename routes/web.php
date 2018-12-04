@@ -110,6 +110,18 @@ Route::post('/lista-propuesta/{tipo}',['uses'=>'PaginasController@crearReportePr
 Route::get('/reporte-home/lista-propuesta/{idEstado}/{tipo}','PaginasController@crearReportePropuestasHome');
 
 
+Route::get('/listar-eventos/',['uses'=>'EventosController@recuperarEventos','as'=>'recuperarEventos']);
+Route::get('/nuevo-evento/',['uses'=>'EventosController@nuevoEvento','as'=>'nuevoEvento']);
+Route::get('/eliminar-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eliminarEvento']);
+Route::get('/editar-evento/{id}',['uses'=>'EventosController@edit','as'=>'editarEvento']);
+Route::post('/actualiza-evento/{id}',['uses'=>'EventosController@update','as'=>'updateEvento']);
+Route::post('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
+Route::post('/delete-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eventos.delete']);
+
+
+
+
+
 // Route::post('/reporte',[
 //      'uses'=>'SolucionesController@buscar',
 //      'as'=>'reporte1.resultado'
@@ -401,6 +413,8 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegue','as'=>'verSolucion.despliegue']);
 
+     Route::get('detalle-propuesta/{idSolucion}',['uses'=>'PaginasController@detallepropuesta','as'=>'detallepropuesta']);
+
      Route::get('parametros-cumplimiento/create/{idSolucion}',['uses'=>'ActividadesController@vistaParametrosCumplimiento','as'=>'solucion.parametrosCumplimiento']);
 
      Route::post('/crear-parametros-cumplimiento/{id}',['uses'=>'ActividadesController@crearParametrosCumplimiento','as'=>'crear.ParametrosCumplimiento']);
@@ -577,6 +591,9 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
  //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio');
  //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio');
  Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+ Route::get('/reporteMinisterio/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+ Route::get('/reporteMinisterioEstadistico',['uses'=>'ReportesController@reporteEstadisticoInstitucion','as'=>'reporteGraficoInstitucion.institucion']);  
+
 
  Route::get('/reporte-institucional/descargar-excel/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarExcelReporteMinisterio','as'=>'exportarExcel.ReporteMinisterio']);
  Route::get('/reporte-institucional/descargar-pdf/{fechaInicial}/{fechaFinal}',['uses'=>'ReportesController@exportarPdfReporteMinisterio','as'=>'exportarPdf.ReporteMinisterio']);
@@ -632,7 +649,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::get('/cambiar-clave/{id}', 'UsuarioController@cambiarClave');
      Route::post('/cambiar-clave/{id}', 'UsuarioController@updateClave');
 
-     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliaegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+     Route::get('verSolucion/despliegue-consejo/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
 
      Route::get('parametros-cumplimiento/edit/{idSolucion}',['uses'=>'ActividadesController@vistaEditParametrosCumplimiento','as'=>'solucion.EditparametrosCumplimiento']);
 
@@ -641,6 +658,10 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      Route::post('actividad-aperturar-propuesta/save/{tipo_fuente}/{idSolucion}',['uses'=>'ActividadesController@AperturarPropuestaSolucion','as'=>'actividadAperturar.saveActividad']);
 
      Route::get('verSolucion/despliegue/{tipo_actor}/{idSolucion}',['uses'=>'ActividadesController@verActividadesDespliegueConsejo','as'=>'verSolucion.despliegueConsejo']);
+
+     Route::get('detalle-propuesta/{idSolucion}',['uses'=>'PaginasController@detallepropuestaConsejo','as'=>'detallepropuestaConsejo']);
+
+
 
   //consejo-sectorial/activar/{idSolucion}
      Route::get('activar/{idSolucion}',['uses'=>'ConsejoSectorialController@activarSolucion','as'=>'consejo.activarSolucion']);
@@ -651,7 +672,7 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
 
      Route::get('/reportes-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']);
 
-     Route::get('/reportes-grafico-consejo/',['uses'=>'ReportesController@listaConsejoPorCodigo','as'=>'reporteConsejo.institucion']);
+    Route::get('/reportes-grafico-consejo/',['uses'=>'ReportesController@reporteEstadisticoConsejoSectorial','as'=>'reporteGraficoConsejo.institucion']);
 
     //Route::post('/reporte-consejo/descargar-excel/{selInstituciones}','ReportesController@exportarExcelReporteConsejo');
      //Route::post('/reporte-consejo/descargar-excel/','ReportesController@exportarExcelReporteConsejo');

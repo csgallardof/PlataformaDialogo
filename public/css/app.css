@@ -4655,7 +4655,8 @@ tbody.collapse.in {
 
 .navbar-fixed-top {
 	top: 0;
-	border-width: 0 0 1px
+	border-width: 0 0 1px;
+	height: 80px
 }
 
 .navbar-fixed-bottom {
@@ -4900,7 +4901,8 @@ tbody.collapse.in {
 /*<!--PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 -->*/
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-	color: #6c86e2;
+	/*color: #6c86e2;*/
+	color:#F5B819;/*#B9CFEE;*/
 	background-color: transparent
 }
 /*<!--PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181026 -->*/

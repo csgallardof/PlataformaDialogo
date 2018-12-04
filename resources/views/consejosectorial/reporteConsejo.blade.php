@@ -2,65 +2,18 @@
 
 @section('title','Propuestas-Consejo Sectorial')
 
-
 @section('content')
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 
-
-<!-- NOTAS ESTA ES LA PANTALLA PARA CONSEJO SECTORIAL  / SEBE PROBAR Y MODIFICAR LAS COSAS PARA MEJORAR +++ NOTA +++++  -->
 		<!-- begin #content -->
 		<!-- begin #content -->
         <div id="content" class="content" width="10%">
-            <!-- begin row -->
-            <div class="row">
-				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
-					<div class="widget widget-stats" style="background-color:#214974; color:white;">
-						<div class="stats-info">
-							
-						</div>
-					</div>
-				</div>
-				<!-- end col-3 -->
-				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
-					<div class="widget widget-stats" style="background-color:#214974; color:white;">
-						<div class="stats-info">
-							
-						</div>
-					</div>
-				</div>
-				<!-- end col-3 -->
-				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
-					<div class="widget widget-stats" style="background-color:#214974; color:white;">
-						<div class="stats-info">
-							
-						</div>
-					</div>
-				</div>
-				<!-- end col-3 -->
-				<!-- begin col-3 -->
-				<div class="col-md-3 col-sm-6">
-					<div class="widget widget-stats" style="background-color:#214974; color:white;">
-						<div class="stats-info">
-							<h4>
-						</div>
-					</div>
-				</div>
-				<!-- end col-3 -->
-			</div>
-
-            @include('flash::message')
-
-            <div class="row">
+   
+             <div class="row">
                 <!-- begin col-8 -->
                 
                 <div class="col-md-12">
@@ -70,7 +23,7 @@
                             <div class="panel-heading-btn">
                               
                             </div>
-                            <h3 align="left" class="panel-title">Reporte del Consejo de la Plataforma del Di&aacute;logo Nacional</h3>
+                            <h3 align="left" class="panel-title">Reporte Consejo Sectorial de la Plataforma del Di&aacute;logo Nacional</h3>
                         </div>
 
                     <div class="panel-body">
@@ -166,13 +119,11 @@
                          <table class="table table-hover">
                         <thead>
                         <tr>
-                           <th colspan="3" ><div align="center">  REPORTE DE MINISTERIO DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
+                           <th colspan="3" ><div align="center">  REPORTE CONSEJO SECTORIAL DE LA PLATAFORMA DE DIALOGO NACIONAL </div></th>
                         </tr>
                        
                       </thead>
-                        <tbody>
-
-                                       
+                        <tbody>                                      
 
                        <tr>
                            <th colspan="3" ><div align="center">Datos Informativos</div></th>
@@ -198,10 +149,8 @@
                            <th colspan="2" ><div align="left">Institución</div></th>
                             <td colspan="1" ><div align="left">{{$nombreinstitucion}}</div></td>
                         </tr>
-                      @endif
-                       
+                      @endif                    
                      
-
                           <tr>
                            <th colspan="2" ><div align="left">Fecha Desde</div>
                             <td colspan="1" ><div align="left">{{$fechaInicial}}</div></td>
@@ -319,32 +268,12 @@
                              <th colspan="1" ><div align="left">Propuestas en proceso</div></th>
                              <th colspan="1" ><div align="left">Propuestas finalizadas</div></th>
                          </tr>       
-                            @foreach($propuestasPorMesa as $propuestasPorMesa)
-                              <tr>
-                                 <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->nombreMesa }}</div></td>
-                                  <td colspan="1" ><div align="left"> {{ $propuestasPorMesa ->porTerminar}}</div></td>
-                                  @if(!empty($propuestasPorMesaFinalizadas))
-                                   @if($propuestasPorMesaFinalizadas ->idMesa ==  $propuestasPorMesa ->idMesa)
-                                   @foreach($propuestasPorMesaFinalizadas as $propuestasPorMesaFinalizadas)
-                                         <td colspan="1" ><div align="left"> {{ $propuestasPorMesaFinalizadas -> porTerminar}}</div></td>
-                                   @endforeach
-                                   @endif
-                                   @else
-                               <td colspan="1" ><div align="left">0</div></td>
-                                   
-                                    @endif
-
-                           </tr>
-                           @endforeach
+                            
             
                          <tr>
                            <th colspan="3" ><div align="center">Estadística de Propuestas por Temática o Ámbito</div></th>
                         </tr>
                         <tr>
-                             @foreach($propuestasPorAmbito as $propuestasPorAmbito)
-                             <td colspan="1" ><div align="left">{{$propuestasPorAmbito ->ambito}}</div></td>
-                               <td colspan="1" ><div align="left">{{$propuestasPorAmbito->numPorAmbito}}</div></td>
-                              @endforeach
                          </tr>
 
                         </tbody>

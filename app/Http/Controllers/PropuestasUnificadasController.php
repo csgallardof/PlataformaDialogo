@@ -215,6 +215,10 @@ class PropuestasUnificadasController extends Controller
 
 
  public function verPropuestasUnificadas(){
+
+      $usuario_id = Auth::user()->id;
+        //dd($usuario_id);
+        $tipo_fuente = Auth::user()->tipo_fuente;
       //  $varPrueba = 12;
       //  dd($varPrueba);//para ver los valores
 //dd('HOLA');
@@ -231,6 +235,45 @@ $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.coment
                             from pajustadas ; ");
 
  $totalPropuestaAjustada = count($unificadas);
+
+  $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                            from solucions
+                            inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                            inner join institucions on institucions.id = actor_solucion.institucion_id
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on institucion_usuarios.usuario_id = users.id
+                            INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                            where estado_solucion.id < 5
+                            and institucions.id = ( SELECT institucions.id from institucions
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on users.id = institucion_usuarios.usuario_id
+                            and users.id ='.$usuario_id.')');
+
+        $totalPropuestas = count($solucionesDespliegue);
+       
+
+        $solucionesDespliegueConflicto= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 6
+                                    and users.id ='.$usuario_id);        
+       $totalPropuestaConflicto = count($solucionesDespliegueConflicto);
+
+       $solucionesDespliegueDesestimada= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 5
+                                    and users.id ='.$usuario_id);
+
+         $totalPropuestaDesestimada = count($solucionesDespliegueDesestimada);
 //dd($unificadas);
 //dd($unificadas);
 //$detalle = DB::select("select solucions.id, solucions.pajustada, solucions.propuesta_solucion
@@ -241,9 +284,10 @@ $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.coment
   
 return view('institucion.PropuestasUnificadas.verPropuestasUnificadas')->with([
                                                 "unificadas"=>$unificadas,
-                                                "totalPropuestaAjustada"=>$totalPropuestaAjustada
-                                                //,"detalle"=>$detalle
-                                               
+                                                "totalPropuestaAjustada"=>$totalPropuestaAjustada,
+                                                  "totalPropuestas"=>$totalPropuestas,
+                                                 "totalPropuestaConflicto"=> $totalPropuestaConflicto,
+                                                 "totalPropuestaDesestimada"=> $totalPropuestaDesestimada
                                                 ]);
 }
 

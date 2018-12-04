@@ -69,8 +69,8 @@
 					<div class="widget widget-stats" style="background-color:#214974; color:white;">
 						<div class="stats-info">
 							<h4><a href="propuestas-desestimadas">PROPUESTAS DESESTIMADAS</a></h4>
-							@if (isset($totalConsejo) )
-								<p>{{ $totalConsejo }}</p>
+							@if (isset($totalPropuestaDesestimada) )
+								<p>{{ $totalPropuestaDesestimada }}</p>
 							@else
 								<p>0</p>
 							@endif

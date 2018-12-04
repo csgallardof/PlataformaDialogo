@@ -122,10 +122,10 @@ class NotificacionQuincenalController extends Controller
     public function enviarCorreo2(Request $request)
     {
 
-        $notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
+        /*$notificacionesq = DB::select('CALL pr_notificaciones_quincenales()');
         $notfUsed =  $notificacionesq[0];
         $title = 'Propuestas Pendientes';
-        $content = $notfUsed->problema_solucion;
+        $content = $notfUsed->problema_solucion;*/
         return view('emails.correoNotificacion')->with(['title' => $title,  'notificacionesq'=> $notificacionesq]);
     }
 

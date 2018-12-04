@@ -660,8 +660,8 @@ class PaginasController extends Controller
          $actividadUltima = Actividad::where('solucion_id','=',$idSolucion)
                                             ->orderBy('created_at','DESC')
                                             ->first();
-
-
+         //Cookie::get('sol_ev_arr') 
+          //->withCookie($cookie_ciudadano)->withCookie($sol_ev_arr)
         return view('detalle-despliegue2')->with([
                                             "solucion"=>$solucion,
                                             "actoresSoluciones"=>$actoresSoluciones,
@@ -1398,12 +1398,60 @@ class PaginasController extends Controller
                             GROUP BY  solucions.responsable_solucion ORDER BY total DESC");
                             $propuestas_institucion=Collection::make($propuestas_institucion);
 
+        $eventos = DB::select('SELECT count(1) as total, nombre_provincia,
+                                  case  
+                                   when nombre_provincia LIKE "%Guayas%" then "ec-gu" 
+                                   when nombre_provincia LIKE "%Esmeraldas%" then "ec-es" 
+                                   when nombre_provincia LIKE "%Carchi%" then "ec-cr" 
+                                   when nombre_provincia LIKE "%Imbabura%" then "ec-im" 
+                                   when nombre_provincia LIKE "%Sucumbios%" then "ec-su" 
+                                   when nombre_provincia LIKE "%Santa Elena%" then "ec-se" 
+                                   when nombre_provincia LIKE "%Santo Domingo De Los Tsachilas%" then "ec-sd" 
+                                   when nombre_provincia LIKE "%Azuay%" then "ec-az" 
+                                   when nombre_provincia LIKE "%El Oro%" then "ec-eo" 
+                                   
+                                   when nombre_provincia LIKE "%Loja%" then "ec-lj" 
+                                   when nombre_provincia LIKE "%Zamora Chinchipe%" then "ec-zc" 
+                                   when nombre_provincia LIKE "%Cañar%" then "ec-cn" 
+                                   when nombre_provincia LIKE "%Bolivar%" then "ec-bo" 
+                                   when nombre_provincia LIKE "%Cotopaxi%" then "ec-ct" 
+                                   when nombre_provincia LIKE "%Los Rios%" then "ec-lr" 
+                                   
+                                   when nombre_provincia LIKE "%Manabi%" then "ec-mn" 
+                                   when nombre_provincia LIKE "%Chimborazo%" then "ec-cb" 
+                                   when nombre_provincia LIKE "%Morona Santiago%" then "ec-ms" 
+                                   when nombre_provincia LIKE "%Pichincha%" then "ec-pi" 
+                                   when nombre_provincia LIKE "%Pastaza%" then "ec-pa" 
+                                   when nombre_provincia LIKE "%Tungurahua%" then "ec-1076" 
+                                   when nombre_provincia LIKE "%Orellana%" then "ec-na" 
+                                   when nombre_provincia LIKE "%Napo%" then "ec-tu" 
+                                   
+                                   
+                                   when nombre_provincia LIKE "%Galapagos%" then "ec-ga" 
+                                   
+                                  end as prov_code 
+                                FROM eventos e, provincias p 
+                                where e.provincia_id = p.id 
+                                and e.created_at<now()
+                                and nombre_provincia!="Nacional"
+                                GROUP by nombre_provincia');
+
+
+
+        $arr_eventos[0] =array('undefined', 0);
+        foreach ($eventos as $ev) {
+
+            array_push($arr_eventos,array($ev->prov_code, $ev->total));
+        }
+
+              
 
 
         //dd($propuestas_institucion);                            
         return view('dialogo.home-dialogo')->with([
                                                 "propuestas_institucion" => $propuestas_institucion,
                                                 "tipo_dialogo"=>$tipo_dialogo,
+                                                "eventos"=>$arr_eventos
                                                 ]);
 
         return view('dialogo.home-dialogo')->with(["propuestas_institucion"=>$propuestas_institucion]);        
@@ -1412,9 +1460,12 @@ class PaginasController extends Controller
 
     public function calendarioDialogo(){
 
-        
+        //$eventos = Evento::all()->sortByDesc("created_at");
+        $eventos =  DB::select("select e.*, p.nombre_provincia 
+from eventos e, provincias p 
+where e.provincia_id = p.id");        
 
-        return view('dialogo.calendario-dialogo');        
+        return view('dialogo.calendario-dialogo')->with(["eventos"=>$eventos]);        
         
     }
 

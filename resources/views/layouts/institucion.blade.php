@@ -22,9 +22,18 @@
             <link href="{{ asset('plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
             <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
             <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/css_nueva_imagen.css') }}" rel="stylesheet" />
+            
             <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
             <link href="{{ asset('css/theme/default.css') }}" rel="stylesheet" id="theme" />
             <link href="{{ asset('css/inteligencia.css') }}" rel="stylesheet" />
+
+            <!--add para graficos-->
+
+          <link href="{{asset('plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" />
+          <link href="{{asset('css/animate.min.css')}}" rel="stylesheet" />
+          <link href="{{ asset('css/style-after.css') }}" rel="stylesheet" />
+
 
                 @show
         <!-- ================== END BASE JS ================== -->

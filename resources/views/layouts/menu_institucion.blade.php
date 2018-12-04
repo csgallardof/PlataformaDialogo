@@ -21,32 +21,42 @@
 			                </div>
 			                <div id="navbar" class="navbar-collapse collapse">
 			                    <ul class="nav navbar-nav">
-			                    		<li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a>
-			                        <li><a href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
-			                        <li><a href="propuestas-en-conflicto">Propuestas en  Conflicto</a></li>
-			                        <li><a href="/institucion/propuestas-desestimadas">Propuestas Desestimadas</a></li>
-			                        <li><a href="/institucion/reportes">Reportes</a></li>
+			                    	<li><a class="barra_menu" href="{{ route('mesadialogo.index') }}">Mesas Dialogos</a>
+			                        <li><a class="barra_menu" href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
+			                        <li><a class="barra_menu" href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
+			                        <li><a class="barra_menu" href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
+
+			                        <li class="down">
+
+			                        <!--<a href="/institucion/reportes">Reportes Inst</a>-->
+
+			                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+
+   										 <ul class="dropdown-menu">
+			                        		<li><a href="/institucion/reporteMinisterio">General</a></li>
+			                            	<li>
+			                   <a class="dropdown-item" href="/institucion/reporteMinisterioEstadistico">Estadistico</a>
+			                        		</li>
+			                        	</ul>
+
+			                        </li>
                           </ul>
-			                    <ul id="navbaruser" class="nav navbar-nav " style="">
-														<li class=" navbar-user">
-
-																		<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
-																			<span class="">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
-																		</a>
-																		<!--/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */-->
-																		<ul class="dropdown-menu animated fadeInLeft">
-																			<!--<li class="arrow"></li>-->
-															 				<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
-																			<li>	<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-				                                            		Salir
-				                                        		</a>
-
-						                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-						                                            {{ csrf_field() }}
-						                                        </form>
-								                  		</li>
-																	</ul>
-																	<!--/*PLATAFORMA DIALOGO NACIONAL BEGIN IPIALESO 20181026 */-->
+			                    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
+														<li class="dropdown navbar-user">
+														<a href="javascript:;" class="dropdown-toggle" style="color: #fff" data-toggle="dropdown">
+														<span class="hidden-xs">@auth {{ Auth::user()->name }} @endauth</span> <b class="caret"></b>
+														</a>
+														<ul class="dropdown-menu animated fadeInLeft">
+														<li class="arrow"></li>
+											 			<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</a></li>
+														<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            		Salir
+                                        		</a>
+		                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+		                                            {{ csrf_field() }}
+		                                        </form>
+				                  </li>
+													</ul>
 													</li>
 													</ul>
 			                </div>

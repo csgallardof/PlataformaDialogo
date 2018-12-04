@@ -221,14 +221,14 @@ class MesaDialogoController extends Controller
 
             $mesa_dialogo->save();
 
-   $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$request->nombre.'" and descripcion = "'.$request->descripcion.'"');
-   $idTabla = $mesaDialogoGuardado[0] ->id;
-   $nombreTabla = "mesa_dialogo";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Ninguna";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+           $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$request->nombre.'" and descripcion = "'.$request->descripcion.'"');
+           $idTabla = $mesaDialogoGuardado[0] ->id;
+           $nombreTabla = "mesa_dialogo";
+           $proceso = "insert";
+           $usuario = Auth::user()->name;
+           $cedula = Auth::user()->cedula;
+           $observacion = "Ninguna";
+           AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
 
 
 
@@ -288,14 +288,14 @@ class MesaDialogoController extends Controller
 
                 $mesa_dialogo->save();
 
-   $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$mesa_dialogo->nombre.'" and user_id = "'.$mesa_dialogo->user_id.'"');
-   $idTabla = $mesaDialogoGuardado[0] ->id;
-   $nombreTabla = "mesa_dialogo";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Insertado desde carga masiva";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+               $mesaDialogoGuardado = DB::select('SELECT * from mesa_dialogo where nombre ="'.$mesa_dialogo->nombre.'" and user_id = "'.$mesa_dialogo->user_id.'"');
+               $idTabla = $mesaDialogoGuardado[0] ->id;
+               $nombreTabla = "mesa_dialogo";
+               $proceso = "insert";
+               $usuario = Auth::user()->name;
+               $cedula = Auth::user()->cedula;
+               $observacion = "Insertado desde carga masiva";
+               AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
 
 
                 //Toma la lista de objetos de participates y guarda en la bdd
@@ -332,13 +332,13 @@ class MesaDialogoController extends Controller
                         $participante->save();
 
                          $participanteGuardado = DB::select('SELECT * from participante where mesa_dialogo_id ='.$participante->mesa_dialogo_id.' and nombres = "'.$participante->nombres.'"');
-   $idTabla = $mesaDialogoGuardado[0] ->id;
-   $nombreTabla = "participante";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Insertado desde carga masiva";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+                       $idTabla = $mesaDialogoGuardado[0] ->id;
+                       $nombreTabla = "participante";
+                       $proceso = "insert";
+                       $usuario = Auth::user()->name;
+                       $cedula = Auth::user()->cedula;
+                       $observacion = "Insertado desde carga masiva";
+                       AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
 
 
                     }
@@ -426,14 +426,14 @@ class MesaDialogoController extends Controller
                         $solucion->save();
 
                           $solucionGuardada = DB::select('SELECT * from solucions where mesa_id ='.$solucion->mesa_id.' and instrumento_id = '. $solucion->instrumento_id.'');
-   $idTabla = $solucionGuardada[$cont] ->id;
-   $nombreTabla = "solucions";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Insertado desde carga masiva";
-   AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
-    $cont++;
+                         $idTabla = $solucionGuardada[$cont] ->id;
+                         $nombreTabla = "solucions";
+                         $proceso = "insert";
+                         $usuario = Auth::user()->name;
+                         $cedula = Auth::user()->cedula;
+                         $observacion = "Insertado desde carga masiva";
+                         AuditoriaController::guardarAuditoria( $idTabla, $nombreTabla,$proceso, $usuario, $cedula, $observacion);
+                          $cont++;
 
                         //dd($codigo_solucions);
 
@@ -453,12 +453,12 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> save();
 
                     $actorSolucionGuardada = DB::select('SELECT * from actor_solucion where institucion_id ='.$InstitucionResponsableID->id.' and solucion_id = '. $solucion->id.'');
-   $idTabla = $actorSolucionGuardada[0] ->id;
-   $nombreTabla = "actor_solucion";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Insertado desde carga masiva";
+                     $idTabla = $actorSolucionGuardada[0] ->id;
+                     $nombreTabla = "actor_solucion";
+                     $proceso = "insert";
+                     $usuario = Auth::user()->name;
+                     $cedula = Auth::user()->cedula;
+                     $observacion = "Insertado desde carga masiva";
 
                         /*CORRESPONSABLES*/
                         if(isset($solucionAux['corresponsable_solucion'])){
@@ -484,12 +484,12 @@ class MesaDialogoController extends Controller
                                     $institucionSolucion-> save();
 
                                            $actorSolucionGuardada = DB::select('SELECT * from actor_solucion where institucion_id ='.$InstitucionResponsableID->id.' and solucion_id = '. $solucion->id.'');
-   $idTabla = $actorSolucionGuardada[0] ->id;
-   $nombreTabla = "actor_solucion";
-   $proceso = "insert";
-   $usuario = Auth::user()->name;
-   $cedula = Auth::user()->cedula;
-   $observacion = "Insertado desde carga masiva";
+                                   $idTabla = $actorSolucionGuardada[0] ->id;
+                                   $nombreTabla = "actor_solucion";
+                                   $proceso = "insert";
+                                   $usuario = Auth::user()->name;
+                                   $cedula = Auth::user()->cedula;
+                                   $observacion = "Insertado desde carga masiva";
 
                                 }
                             }
@@ -531,6 +531,7 @@ class MesaDialogoController extends Controller
             }
         }//fin del else
     }
+
     public function obtenerProvincias(Request $request, $id){
         return Provincia::provincias($id);
     }
@@ -770,7 +771,8 @@ class MesaDialogoController extends Controller
                             }
                         }
 
-                        if(!is_null($fila["tipo"])){
+                        if(!is_null($fila["
+                        tipo"])){
                             $tipo_participante  = DB::table('tipo_participante')->where('nombre', $fila["tipo"])->first();
                             if( $tipo_participante == null){
                                 $error = "Celda G". $fila['numFila'].": No se encontró el tipo de participante.";
@@ -850,10 +852,13 @@ class MesaDialogoController extends Controller
                     );
                     //dd($informacion_propuestas);
                 }
-
+                /*Loading from Database for matching  */
+                $select_propuesta_problema = Solucion::all();
                 //recorremos todos los registros recogidos de propuestas (soluciones)
                 foreach ($informacion_propuestas as $fila)
                 {
+
+
                     if( $fila["propuesta_solucion"] != "" && $fila["pajustada"] != "" && $fila["palabras_clave"] != "" && $fila["ambito"] != "" && $fila["responsable"] != "" && $fila["indice_competitividad"] != "" && $fila["politica"] != "" && $fila["plan_nacional"] != "" && $fila["planificado_instrumento"])
                     {   //validamos que todos los campos de cada registro no se encuentren vacios
                         $valido   = true;
@@ -1045,7 +1050,6 @@ class MesaDialogoController extends Controller
                             //dd($fila["planificado"]);
 
                             if($fila["planificado_instrumento"]!=''){
-
                                 $solucion->planificado_instrumento = $fila["planificado_instrumento"];
                             }else{
 
@@ -1057,20 +1061,36 @@ class MesaDialogoController extends Controller
                             }
                         }
 
+                        if($valido === true)
+                        {
+                          /*foreach ($select_propuesta_problema as $fila){
 
-
-                        if($valido === true){
-                          $problema_solucion = DB::table('solucions')->where('problema_solucion', $fila["problema_solucion"] )->first();
+                              dd($fila->propuesta_solucion);
+                          }*/
+                        /*  $problema_solucion = DB::table('solucions')->where('propuesta_solucion', $fila["propuesta_solucion"] )->first();
 
                             if( $problema_solucion != null){
-                               $error = "Hay Propuestas Repetidas o Similares ";
+                               $error = "Hay Propuestas Repetidas o Similares ".$fila["propuesta_solucion"];
                                 array_push($errores, $error);
-                            }
+                            }*/
+
+
+                            foreach ($select_propuesta_problema as $key => $value) {
+                                    //echo "value: ".$value->propuesta_solucion;
+                                    similar_text($value->propuesta_solucion, $fila["propuesta_solucion"], $percent);
+                                    if ($percent>80) {
+                                       //echo "porcentaje: " . $percent. " resultado excel: ". $fila["propuesta_solucion"] ." -> y valor propuesta:".$value->propuesta_solucion;
+                                       $error = "<strong>Propuesta Repetida o Similar: </strong>".$fila["propuesta_solucion"];
+                                        array_push($errores, $error);
+                                    }
+
+                                      /*if ($value->propuesta_solucion==$fila["propuesta_solucion"]) {
+                                        $error = "Hay Propuestas Repetidas o Similares ".$fila["propuesta_solucion"];
+                                      }*/
+
+                                }
+
                         }
-
-
-
-
 
 
                         if($valido === true){
@@ -1085,6 +1105,7 @@ class MesaDialogoController extends Controller
                             $solucion->pajustada                = $fila["pajustada"];
                             $solucion->propuesta_solucion       = $fila["propuesta_solucion"];
                             $solucion->palabras_clave           = $fila["palabras_clave"];
+
                             $pajustada_aux = DB::table('pajustadas')->where('nombre_pajustada', $fila["pajustada"])->first();
                             if( !is_null($pajustada_aux) ){
                                 $solucion->pajustada_id = $pajustada_aux->id;
@@ -1169,6 +1190,9 @@ class MesaDialogoController extends Controller
         }
 
     }
+
+
+
 
     /*PLATAFORMA DIALOGO NACIONAL END IPIALESO 20181112 */
 }

@@ -181,6 +181,38 @@ class InstitucionController extends Controller
 
         $totalPropuestas = count($solucionesDespliegue);
 
+       
+
+        $solucionesDespliegueConflicto= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 6
+                                    and users.id ='.$usuario_id);        
+       $totalPropuestaConflicto = count($solucionesDespliegueConflicto);
+
+       $solucionesDespliegueDesestimada= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 5
+                                    and users.id ='.$usuario_id);
+
+         $totalPropuestaDesestimada = count($solucionesDespliegueDesestimada);
+
+         $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.comentario_union, id 
+                            from pajustadas ; ");
+
+        $totalPropuestaAjustada = count($unificadas);
+       
+
+
 
 
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
@@ -191,6 +223,13 @@ class InstitucionController extends Controller
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
+        $evaluaciones = DB::select("SELECT count(1) as total, ev_semaforo, ev_solicitud_id 
+                                      FROM `evaluacion_ciudadano` 
+                                      GROUP BY ev_semaforo, ev_solicitud_id order by ev_solicitud_id; ");
+
+
+        
+
         //dd($tipo_fuente);
         return view('institucion.home')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
                                                 "totalDespliegue"=>$totalDespliegue,
@@ -198,9 +237,16 @@ class InstitucionController extends Controller
                                                 "totalResponsable"=>$totalResponsable,
                                                 "totalCorresponsable"=>$totalCorresponsable,
                                                 "notificaciones"=>$notificaciones,
+                                                "tipo_fuente"=>$tipo_fuente,
+                                                "totalPropuestas"=>$totalPropuestas,
 
-                                                "tipo_fuente"=>$tipo_fuente
-                                                 ]);
+                                                "evaluaciones"=>$evaluaciones,
+                                                 "totalPropuestaConflicto"=> $totalPropuestaConflicto,
+                                                 "totalPropuestaDesestimada"=> $totalPropuestaDesestimada,
+                                                 "totalPropuestaAjustada"=> $totalPropuestaAjustada
+
+                                                 ]);   
+        
 
 
     }
@@ -542,6 +588,42 @@ class InstitucionController extends Controller
        $totalPropuestaConflicto = count($solucionesDespliegue);
 
 
+
+             $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                            from solucions
+                            inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                            inner join institucions on institucions.id = actor_solucion.institucion_id
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on institucion_usuarios.usuario_id = users.id
+                            INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                            where estado_solucion.id < 5
+                            and institucions.id = ( SELECT institucions.id from institucions
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on users.id = institucion_usuarios.usuario_id
+                            and users.id ='.$usuario_id.')');
+
+        $totalPropuestas = count($solucionesDespliegue);
+       
+
+       
+       $solucionesDespliegueDesestimada= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 5
+                                    and users.id ='.$usuario_id);
+
+         $totalPropuestaDesestimada = count($solucionesDespliegueDesestimada);
+
+         $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.comentario_union, id 
+                            from pajustadas ; ");
+
+        $totalPropuestaAjustada = count($unificadas);
+       
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
@@ -550,16 +632,20 @@ class InstitucionController extends Controller
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
-        //dd($tipo_fuente);
+     
         return view('institucion.propuestas-conflicto')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
                                                 "totalDespliegue"=>$totalDespliegue,
                                                 "totalConsejo"=>$totalConsejo,
                                                 "totalResponsable"=>$totalResponsable,
                                                 "totalCorresponsable"=>$totalCorresponsable,
                                                 "notificaciones"=>$notificaciones,
+                                                "tipo_fuente"=>$tipo_fuente,
+                                                "totalPropuestaConflicto"=> $totalPropuestaConflicto,
+                                                "totalPropuestas"=>$totalPropuestas,
+                                                 "totalPropuestaDesestimada"=> $totalPropuestaDesestimada,
+                                                 "totalPropuestaAjustada"=> $totalPropuestaAjustada   
+                                                 ]);   
 
-                                                "tipo_fuente"=>$tipo_fuente
-                                                 ]);
 
     }
 
@@ -593,6 +679,43 @@ class InstitucionController extends Controller
 
          $totalPropuestaDesestimada = count($solucionesDespliegue);
 
+
+         $solucionesDespliegue= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                            from solucions
+                            inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                            inner join institucions on institucions.id = actor_solucion.institucion_id
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on institucion_usuarios.usuario_id = users.id
+                            INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                            where estado_solucion.id < 5
+                            and institucions.id = ( SELECT institucions.id from institucions
+                            inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                            inner join users on users.id = institucion_usuarios.usuario_id
+                            and users.id ='.$usuario_id.')');
+
+        $totalPropuestas = count($solucionesDespliegue);
+       
+
+        $solucionesDespliegueConflicto= DB::select('SELECT solucions.id, solucions.propuesta_solucion, actor_solucion.tipo_actor, estado_solucion.nombre_estado
+                                    from solucions
+                                    inner join actor_solucion on actor_solucion.solucion_id = solucions.id
+                                    inner join institucions on institucions.id = actor_solucion.institucion_id
+                                    inner join institucion_usuarios on institucion_usuarios.institucion_id = institucions.id
+                                    inner join users on institucion_usuarios.usuario_id = users.id
+                                    INNER JOIN estado_solucion ON estado_solucion.id = solucions.estado_id
+                                    where estado_solucion.id = 6
+                                    and users.id ='.$usuario_id);        
+       $totalPropuestaConflicto = count($solucionesDespliegueConflicto);
+
+ 
+
+         $unificadas = DB::select("select  pajustadas.nombre_pajustada, pajustadas.comentario_union, id 
+                            from pajustadas ; ");
+
+        $totalPropuestaAjustada = count($unificadas);
+       
+       
+
         $notificaciones = DB::select("SELECT actividades.* FROM actividades
                                                     INNER JOIN solucions ON solucions.id = actividades.solucion_id
                                                     INNER JOIN actor_solucion ON actor_solucion.solucion_id = solucions.id
@@ -601,16 +724,20 @@ class InstitucionController extends Controller
                                                     AND actividades.fecha_inicio >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
                                                     ORDER BY actividades.fecha_inicio DESC; ");
 
-        //dd($tipo_fuente);
+
         return view('institucion.propuestas-desestimada')->with([ "solucionesDespliegue"=>$solucionesDespliegue,
                                                 "totalDespliegue"=>$totalDespliegue,
                                                 "totalConsejo"=>$totalConsejo,
                                                 "totalResponsable"=>$totalResponsable,
                                                 "totalCorresponsable"=>$totalCorresponsable,
                                                 "notificaciones"=>$notificaciones,
+                                                "tipo_fuente"=>$tipo_fuente,
+                                                "totalPropuestaDesestimada"=> $totalPropuestaDesestimada,
+                                                "totalPropuestas"=>$totalPropuestas,
+                                                 "totalPropuestaConflicto"=> $totalPropuestaConflicto,
+                                                 "totalPropuestaAjustada"=> $totalPropuestaAjustada   
+                                                 ]);          
 
-                                                "tipo_fuente"=>$tipo_fuente
-                                                 ]);
 
     }
 
