@@ -115,7 +115,7 @@ Route::get('/nuevo-evento/',['uses'=>'EventosController@nuevoEvento','as'=>'nuev
 Route::get('/eliminar-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eliminarEvento']);
 Route::get('/editar-evento/{id}',['uses'=>'EventosController@edit','as'=>'editarEvento']);
 Route::post('/actualiza-evento/{id}',['uses'=>'EventosController@update','as'=>'updateEvento']);
-Route::post('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
+Route::get('/insert-evento/',['uses'=>'EventosController@store','as'=>'eventos.store']);
 Route::post('/delete-evento/{id}',['uses'=>'EventosController@destroy','as'=>'eventos.delete']);
 
 
@@ -590,7 +590,7 @@ Route::get('consejoInstitucionesListar/{sector_id}','ConsejoInstitucionsControll
  //Route::get('/reportes','ReportesController@listaMinisterio');
  //Route::post('/reporte-institucional/descargar-excel','ReportesController@exportarExcelReporteMinisterio');
  //Route::post('/reporte-institucional/descargar-pdf/{tipo}','ReportesController@exportarPdfReporteMinisterio');
- Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
+ //Route::get('/reportes/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
  Route::get('/reporteMinisterio/',['uses'=>'ReportesController@listaMinisterio','as'=>'reporteInstitucion.institucion']);
  Route::get('/reporteMinisterioEstadistico',['uses'=>'ReportesController@reporteEstadisticoInstitucion','as'=>'reporteGraficoInstitucion.institucion']);  
 
@@ -684,7 +684,9 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      //Propuestas finalizadas
 
 
-
+   //Cambio de contraseña
+   Route::get('/cambiar-clave/{id}', 'ConsejoSectorialController@cambiarClave');
+   Route::post('/cambiar-clave/{id}', 'ConsejoSectorialController@updateClave');
 
 
 

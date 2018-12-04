@@ -19,91 +19,91 @@
                 <div class="col-md-12">
                     <!-- begin panel -->
                     <div class="panel panel-inverse">
-                        <div class="panel-heading">
-                            <div class="panel-heading-btn">
-                              
-                            </div>
-                            <h3 align="left" class="panel-title">Reporte Consejo Sectorial de la Plataforma del Di&aacute;logo Nacional</h3>
+                        <div class="panel-heading" style="text-align: center;">
+                            <h3 class="panel-title">Reporte Consejo Sectorial de la Plataforma del Di&aacute;logo Nacional</h3>
                         </div>
 
                     <div class="panel-body">
+
+
                      <form target="_self" method="GET" action="{{ route('reporteConsejo.institucion') }}">
-                     <?php $consulto='no';?>
+                       <?php $consulto='no';?>
                        <div class="row">
-                       <div class="col-md-3"></div>
-                       <div class="col-md-1">
-                                 Instituci&oacute;n
+                         <div class="col-md-3"></div>
+                         <div class="col-md-1">
+                           Instituci&oacute;n
+                         </div>
+                         <div class="col-md-4">
+                           <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" 
+                           onchange="">
+                           <option value="">Seleccione</option>
+                           @if( isset($listaMinisterioPorConsejo) )
+                           @foreach($listaMinisterioPorConsejo as $lista)
+                           <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected" ' : '' }} > {{$lista->nombre_institucion}}</option>
+                           @endforeach
+                           @endif
+                           <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected" '  : '' }}>Todos</option>
+                         </select>
                        </div>
-                            <div class="col-md-4">
-                                 <select name="selInstituciones" class="form-control"  id="selInstituciones" required="" 
-                                 onchange="">
-                                   <option value="">Seleccione</option>
-                                    @if( isset($listaMinisterioPorConsejo) )
-                                    @foreach($listaMinisterioPorConsejo as $lista)
-                                    <option value="{{$lista->idInstitucion}}" {{ $idBusqueda == $lista->idInstitucion ? 'selected="selected" ' : '' }} > {{$lista->nombre_institucion}}</option>
-                                    @endforeach
-                                    @endif
-                                     <option value="Todos" {{ $idBusqueda == 'Todos' ? 'selected="selected" '  : '' }}>Todos</option>
-                                </select>
-                            </div>
-                               </div>
-                        <br />
-                      
-                        <br />
-     
-
-                       <div class="row">
-                                  <div class="col-md-3"></div>
-                                   <div class="col-md-1">
-                                             Fecha Inicial
-                                   </div>
-                                   <div class="col-md-1">
-                                       
-                                       <input id="fechaInicial" name="fechaInicial" class="date form-control" type="text" value="{{$fechaInicial}}" required="" >
-                                   </div>
-                                   <div class="col-md-1">
-                                             Fecha Final
-                                   </div>
-                                   <div class="col-md-1">
-                                       
-                                       <input id="fechaFinal" name="fechaFinal" class="date form-control" type="text" value="{{$fechaFinal}}" required="" >
-                                   </div>
-                                   <div class="col-md-4">
-                                        
-                             <button type="submit"   class="btn btn-primary" name="consulto" value="{{$consulto='si'}}">Consultar</button>
-                         
-                                   </div>
+                     </div>
+                     <br />
 
 
+                     <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-1">
+                       Fecha Inicial
+                     </div>
+                     <div class="col-md-2" style="z-index: 9999">
 
-<script type="text/javascript">
+                       <input id="fechaInicial" name="fechaInicial" class="date form-control" type="text" value="{{$fechaInicial}}" required="" >
+                     </div>
+                     <div class="col-md-1"></div>
+                     <div class="col-md-1">
+                       Fecha Final
+                     </div>
+                     <div class="col-md-2"  style="z-index: 9999">
 
-    $('.date').datepicker({  
+                       <input id="fechaFinal" name="fechaFinal" class="date form-control" type="text" value="{{$fechaFinal}}" required="" >
+                     </div>
+                     <div class="col-md-3">
 
-       format: 'dd-mm-yyyy'
+                      <button type="submit"   class="btn btn-primary" name="consulto" value="{{$consulto='si'}}">Consultar</button>
 
-     });  
+                    </div>
 
-</script>  </div>
-<br/>
-<div class="col-md-5"></div>
- <div class="col-md-1">
-    @if( $idBusqueda != null &&  $fechaInicial != null && $fechaFinal != null )
-    <a class="link" href=" {{ route('exportarPdf.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal] ) }} " target="_self">
-         <button  type="button"  class="btn btn-primary" id="pdf" name="pdf" >Descargar PDF </button>
-     </a>  
-     @endif
-    </div>    
-        
-   <div class="col-md-1">
-    @if($idBusqueda != null && $fechaInicial != null && $fechaFinal != null && $consulto=='si')
-    <a class="link" href=" {{ route('exportarExcel.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal, $consulto] ) }} " target="_self">
-         <button  type="button"  class="btn btn-primary" id="consulto" name="consulto" value="{{$consulto='no'}}">Descargar Excel </button>
-     </a>  
-     @endif
-    </div>
 
-</form>
+                    <script type="text/javascript">
+
+                      $('.date').datepicker({  
+
+                       format: 'yyyy-mm-dd',
+
+                     });  
+
+                   </script>  
+
+                 </div>
+
+                 <br/>
+                 <div class="col-md-4"></div>
+                 <div class="col-md-2">
+                  @if( $idBusqueda != null &&  $fechaInicial != null && $fechaFinal != null )
+                  <a class="link" href=" {{ route('exportarPdf.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal] ) }} " target="_self">
+                   <button  type="button"  class="btn btn-primary" id="pdf" name="pdf" >Descargar PDF </button>
+                 </a>  
+                 @endif
+               </div>    
+
+               <div class="col-md-2">
+                @if($idBusqueda != null && $fechaInicial != null && $fechaFinal != null && $consulto=='si')
+                <a class="link" href=" {{ route('exportarExcel.ReporteConsejo', [ $idBusqueda , $fechaInicial, $fechaFinal, $consulto] ) }} " target="_self">
+                 <button  type="button"  class="btn btn-primary" id="consulto" name="consulto" value="{{$consulto='no'}}">Descargar Excel </button>
+               </a>  
+               @endif
+             </div>
+             <div class="col-md-4"></div>
+           </form>
 
        
 

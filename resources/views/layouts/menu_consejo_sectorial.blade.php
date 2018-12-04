@@ -32,7 +32,7 @@
 			                        	<ul class="dropdown-menu">
 			                        		<li><a href="/consejo-sectorial/reportes-consejo?selInstituciones=Todos">General</a></li>
 			                        		<li>
-			                        			<a class="dropdown-item" href="/consejo-sectorial/reportes-grafico-consejo">Estadistico</a>
+			                        			<a class="dropdown-item" href="/consejo-sectorial/reportes-grafico-consejo?selInstituciones=Todos">Estadistico</a>
 			                        		</li>
 			                        	</ul>
 
@@ -47,7 +47,7 @@
 										</a>
 										<ul class="dropdown-menu animated fadeInLeft">
 											<li class="arrow"></li>
-											 <li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
+											 <li><a href="{{ '/consejo-sectorial/cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</li>
 
 											<li>
 												<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

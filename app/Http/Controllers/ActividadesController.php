@@ -67,11 +67,17 @@ class ActividadesController extends Controller
 
         $tipo_fuente = Auth::user()->tipo_fuente; 
 
+
+        $percepcion = DB::select("SELECT * FROM evaluacion_ciudadano WHERE ev_solicitud_id  = ".$idSolucion." ;");
+
+
+
         return view('institucion.actividades.solucionDesp')->with(["actoresSoluciones"=>$actoresSoluciones,
                                                             "solucion"=>$solucion[0],
                                                             "actividades"=>$actividades,
                                                             "tipo_actor"=>$tipo_actor,
-                                                            "tipo_fuente"=>$tipo_fuente
+                                                            "tipo_fuente"=>$tipo_fuente,
+                                                            "percepcion"=>$percepcion
                                                         ]);
     }
 
@@ -901,11 +907,14 @@ class ActividadesController extends Controller
 
         $tipo_fuente = Auth::user()->tipo_fuente; 
 
+        $percepcion = DB::select("SELECT * FROM evaluacion_ciudadano WHERE ev_solicitud_id  = ".$idSolucion." ;");
+
         return view('institucion.actividades.solucionConsejo')->with(["actoresSoluciones"=>$actoresSoluciones,
                                                             "solucion"=>$solucion[0],
                                                             "actividades"=>$actividades,
                                                             "tipo_actor"=>$tipo_actor,
-                                                            "tipo_fuente"=>$tipo_fuente
+                                                            "tipo_fuente"=>$tipo_fuente,
+                                                            "percepcion"=>$percepcion
                                                         ]);
     }
 

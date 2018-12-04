@@ -21,6 +21,7 @@ use App\EstadoSolucion;
 use App\Institucion;
 use App\Solucion;
 use App\ActorSolucion;
+use App\User;
 
 class ConsejoSectorialController extends Controller {
 
@@ -359,6 +360,43 @@ class ConsejoSectorialController extends Controller {
 
         Flash::success("Propuesta actualizada correctamente");
         return redirect('consejo-sectorial/home');
+    }
+
+
+
+
+
+public function cambiarClave($id) {
+   // dd("cambiarClave");
+        $usuario = User::find($id);
+        $usuario->save();
+        return view('consejosectorial.clave', compact('usuario'));
+     }
+
+
+     public function updateClave(Request $request, $id) {
+     //    dd("updateClave");
+        $usuario = User::find($id);
+
+        $this->validate($request, [
+            'clave1' => 'required',
+            'clave2' => 'required'
+                  ]
+                , [
+            'clave1.required' => 'Debe ingresar la clave',
+            'clave2.required' => 'Debe ingresar la clave'
+        ]);
+
+         if( $request->clave1 !=  $request->clave2){
+              Flash::error("Debe ingresar la misma clave");
+              return redirect('institucion/cambiar-clave/'.$id);
+        }else{
+             $usuario->password = bcrypt($request->clave1);
+             $usuario->save();
+             Flash::success("Clave actualizada correctamente");
+             return redirect('institucion/cambiar-clave/'.$id);
+        }
+
     }
 
 
