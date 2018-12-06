@@ -23,8 +23,8 @@
 			                    <ul class="nav navbar-nav">
 			                    	<li><a class="barra_menu" href="{{ route('mesadialogo.index') }}">Mesas Dialogos</a>
 			                        <li><a class="barra_menu" href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
-			                        <li><a class="barra_menu" href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
-			                        <li><a class="barra_menu" href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
+			                        <li><a class="barra_menu" href="/institucion/propuestas-en-conflicto">Propuestas en Conflicto</a></li>
+			                        <li><a class="barra_menu" href="/institucion/propuestas-desestimadas">Propuestas Desestimadas</a></li>
 
 			                        <li class="down">
 

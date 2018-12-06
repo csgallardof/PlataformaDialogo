@@ -19,9 +19,9 @@
 			                <div id="navbar" class="navbar-collapse collapse">
 			                    <ul class="nav navbar-nav">
 			                        <li><a href="/consejo-sectorial/listar-usuario" >Usuarios</a></li>
-			                        <li><a href="propuestas-finalizadas">Propuestas Finalizadas</a></li>
-			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
-			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
+			                        <li><a href="/consejo-sectorial/propuestas-finalizadas">Propuestas Finalizadas</a></li>
+			                        <li><a href="/consejo-sectorial/propuestas-desestimadas">Propuestas Desestimadas</a></li>
+			                        <li><a href="/consejo-sectorial/propuestas-en-conflicto">Propuestas en Conflicto</a></li>
 			                        <!--<li><a href="/consejo-sectorial/reportes-grafico-consejo">Reportes</a></li>-->
 			                        <li class="down">
 
