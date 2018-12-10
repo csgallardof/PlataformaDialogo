@@ -686,7 +686,9 @@ Route::group(['prefix' => 'consejo-sectorial','middleware'=>['auth'] ], function
      //Propuestas finalizadas
 
 
-
+   //Cambio de contraseña
+   Route::get('/cambiar-clave/{id}', 'ConsejoSectorialController@cambiarClave');
+   Route::post('/cambiar-clave/{id}', 'ConsejoSectorialController@updateClave');
 
 
 

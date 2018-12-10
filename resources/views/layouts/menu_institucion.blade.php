@@ -21,10 +21,10 @@
 			                </div>
 			                <div id="navbar" class="navbar-collapse collapse">
 			                    <ul class="nav navbar-nav">
-			                    	<li><a class="dropdown-item" href="{{ route('mesadialogo.index') }}">Mesas Dialogo</a>
-			                        <li><a href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
-			                        <li><a href="propuestas-en-conflicto">Propuestas en Conflicto</a></li>
-			                        <li><a href="propuestas-desestimadas">Propuestas Desestimadas</a></li>
+			                    	<li><a class="barra_menu" href="{{ route('mesadialogo.index') }}">Mesas Dialogos</a>
+			                        <li><a class="barra_menu" href="/institucion/ver-propuestas-unificadas">Propuestas Ajustadas</a></li>
+			                        <li><a class="barra_menu" href="/institucion/propuestas-en-conflicto">Propuestas en Conflicto</a></li>
+			                        <li><a class="barra_menu" href="/institucion/propuestas-desestimadas">Propuestas Desestimadas</a></li>
 
 			                        <li class="down">
 
@@ -48,7 +48,7 @@
 														</a>
 														<ul class="dropdown-menu animated fadeInLeft">
 														<li class="arrow"></li>
-											 			<li><a href="{{ 'cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</a></li>
+											 			<li><a href="{{ '/institucion/cambiar-clave/'. Auth::user()->id  }}" class="arrow">Cambiar Contrase&ntilde;a</a></li>
 														<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             		Salir
                                         		</a>
