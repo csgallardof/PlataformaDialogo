@@ -17,23 +17,46 @@ class RolController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index() {
 
-        $roles = Role::all();
-        //dd($roles);
-        return view('admin.rol.home')->with( ["roles" => $roles] );
+        $roles = role::all();
+        return view('admin.rol.home', compact('roles'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function home(Request $request) {
+
+    public function create(){
+        return view('admin.rol.create');
+    }    
+
+    public function store(Request $request)
+    {      
         
-        return view('admin.rol.home');
+        $rol = new Role;
+        $this ->validate($request,[
+            'nombre_role' =>'required|unique:roles'
+        ]);
+        $rol->nombre_role = $request->nombre_role;
+        $rol->save();
+        return redirect('admin/roles');
     }
 
-   
+    public function edit($id)
+    {
+        //
+        $item = role::find($id);
+
+        return view('admin.rol.edit', compact('item'));
+    }
+
+    
+    public function update(Request $request, $id)
+    {
+        $item = role::find($id);
+        $item->nombre_role= $request->nombre_role;
+        $item->save();
+
+        return redirect()->route('roles.index');
+    }
+
   
 }

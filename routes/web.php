@@ -263,6 +263,8 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','admin'] ], function(){
 
      Route::resource('consejoInstitucions','ConsejoInstitucionsController');
 
+     Route::resource('roles','RolController');
+
      //Route::get('soluciones','SolucionesController@create');
      //Route::post('soluciones/guardar','SolucionesController@store');
 
